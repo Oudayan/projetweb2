@@ -19,6 +19,8 @@
     $now = date("Y-m-d H:i");
 
     // Redirection au bon controleur
-	Routeur::route();
+    Routeur::route();
+    
+    //Ceci est un test
 
 ?>
