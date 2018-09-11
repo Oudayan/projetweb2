@@ -34,9 +34,9 @@
 	define("HEBERGEUR", "localhost");
 	define("TYPEBD", "mysql");
     define("RACINE", $_SERVER["DOCUMENT_ROOT"] . "/projetweb2/");
-    define("NOMBD", "projetwebII");
+    define("NOMBD", "projet");
     define("NOMUSAGER", "root");
-    define("MOTDEPASSE", "1234");
+    define("MOTDEPASSE", "123456");
 
 
 ?>
