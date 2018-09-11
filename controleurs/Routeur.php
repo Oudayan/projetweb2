@@ -34,7 +34,7 @@
 
 			// Si aucun controleur n'a été spécifié, mettre un controleur par défaut
 			if ($controleur == "") {
-				$controleur = "Recherche";
+				$controleur = "Inscription";
             }
 			// Chercher la classe avec le nom du controleur
 			$class = "Controleur" . $controleur ;
