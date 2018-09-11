@@ -38,4 +38,5 @@
     define("NOMUSAGER", "root");
     define("MOTDEPASSE", "1234");
 
+
 ?>
