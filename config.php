@@ -33,6 +33,7 @@
 
 	define("HEBERGEUR", "localhost");
 	define("TYPEBD", "mysql");
+
     define("RACINE", $_SERVER["DOCUMENT_ROOT"] . "/projetweb2/");
     define("NOMBD", "projet");
     define("NOMUSAGER", "root");
