@@ -3,7 +3,7 @@
  * @file     BaseDao.php
  * @author   
  * @version  1.0
- * @date     9 février 2018
+ * @date     
  * @brief    Modèle parent 
  * @details  Fonctions "CRUD" commumnes à toutes les classes et modèles
  */

@@ -1,9 +1,9 @@
 <?php
 /**
  * @file    ManufactureBD.php
- * @author  Oudayan Dutta, Zoraida Ortiz, Denise Ratté, Jorge Subirats 
+ * @author   
  * @version 1.0
- * @date    9 février 2018
+ * @date    
  * @brief   Manufacture de base de données
  *
  * @details Définit les parmètres requis pour des connexions à différents types de serveurs
