@@ -1,12 +1,12 @@
 <?php
 /**
  * @file     ModeleLocation.php
- * @author   Oudayan Dutta, Zoraida Ortiz, Denise Ratté, Jorge Subirats
+ * @author   
  * @version  1.0
- * @date     11 février 2018
+ * @date     
  * @brief    Modèle Location 
  *
- * @details  Fonctions "CRUD" pour la table al_type_logement 
+ * @details  Fonctions "CRUD" pour la table  
  */
 
 	class ModeleLocation extends BaseDAO {
