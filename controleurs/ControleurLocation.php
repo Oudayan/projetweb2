@@ -1,9 +1,9 @@
 <?php
 /** 
  * @file        ControleurLocation.php
- * @author      Oudayan Dutta, Zoraida Ortiz, Denise Ratté, Jorge Subirats 
- * @version     3.0
- * @date        25 février 2018
+ * @author      
+ * @version     1.0
+ * @date        
  * @brief       Controleur pour la location de logements
  *
  * @details 	Ce controleur définit les différentes activités concernant les activités de location d'un logement.

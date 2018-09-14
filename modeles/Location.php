@@ -1,9 +1,9 @@
 <?php
 /**
  * @file    Location.php
- * @author  Oudayan Dutta, Denise Ratté, Zoraida Ortiz, Jorge Subirats 
+ * @author   
  * @version 1.0
- * @date    20 février 2018
+ * @date    
  * @brief   Définit la classe Location.
  *
  * @details Cette classe définit les attributs privés d'une location avec toutes les méthodes publiques "getters" et "setters" pour écrire et lire les attributs
