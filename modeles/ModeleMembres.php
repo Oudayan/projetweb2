@@ -13,8 +13,8 @@
     class ModeleMembres extends BaseDAO
     {
         /**
-         * @brief   Fonction pour aller chercher le nom d'une table
-         * @details Cette fonction va chercher le nom de d'une table dans la BD
+         * @brief   Méthode pour aller chercher le nom d'une table
+         * @details Cette méthode va chercher le nom de d'une table dans la BD
          * @return  [string]
          */
 
@@ -24,8 +24,24 @@
         }
 
         /**
-         * @brief   Fonction pour aller chercher un membre
-         * @details Fonction que permets aller chercher l'information de un membre en utilisant son courriel
+         *  @brief   Méthode pour aller chercher un membre
+         * @details Méthode que permets aller chercher l'information de un membre en utilisant son id
+         * @param   [numeric] $membre_id
+         * @return  [array]
+         */
+
+        public function obtenirParId($membre_id)
+        {
+            $resultat = $this->lire($membre_id); 
+            $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Membres');
+            $unMembre = $resultat->fetch();
+            return $unMembre;
+        }
+
+
+        /**
+         * @brief   Méthode pour aller chercher un membre
+         * @details Méthode que permets aller chercher l'information de un membre en utilisant son courriel
          * @param   [string] $courriel
          * @return  [array] 
          */
@@ -39,8 +55,8 @@
         }
 
         /**
-         * @brief   Fonction pour obtenir tous les memebres dans la BD
-         * @details Fonction qui obtiens tous les informations enregistrées dans la BD de tous les membres
+         * @brief   Méthode pour obtenir tous les memebres dans la BD
+         * @details Méthode qui obtiens tous les informations enregistrées dans la BD de tous les membres
          * @return  [array]
          */
 
@@ -53,8 +69,38 @@
 
 
         /**
-         * @brief   Fonction pour enregistrer un nouveau membre dans la bd
+         * @brief   Méthode pour enregistrer un nouveau membre dans la bd
          * @details Recueillir les informations insérées et les enregistrer dans la BD
-         * @
+         * @param   [numeric] $membre_id
+         * @param   [numeric] $type_utilisateur_id
+         * @param   [string] $nom
+         * @param   [string] $prenom
+         * @param   [string] $mot_de_passe
+         * @param   [string] $adresse
+         * @param   [string] $telephone
+         * @param   [string] $courriel 
+         * @return  [aucun]
          */
+
+        public function sauvegarde(Membres $unMembre)
+        {
+            $sql = "INSERT INTO" . $this->lireNomTable() . "(membre_id, type_utilisateur_id, nom, prenom, mot_de_passe, adresse, telephone, courriel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $donnees = array($unMembre->lireMembreId(), $unMembre->lireTypeUtilisateur(), $unMembre->lireNom(), $unMembre->lirePrenom(), $unMembre->lireMotDePasse(),
+            $unMembre->lireAdresse(), $unMembre->lireTelephone(), $unMembre->lireCourriel());
+            return $this->requete($sql, $donnees);
+        }
+
+        /**
+         * @brief   Méthode pour valider un membre inscrit dans la bd
+         * @details Méthode modifie la valeur par défaut dans la bd de chaque nouveau membre
+         * @param   [string] $courriel
+         * @return  [aucun]
+         */
+
+        public function validerMembre(Membres $membre){
+            $sql = "UPDATE " . $this->lireNomTable() . " SET membre_valide = 1  WHERE courriel = ?";
+            $donnees = array($membre->lireCourriel());
+            return $this->requete($sql, $donnees);
+        }
+
     }
