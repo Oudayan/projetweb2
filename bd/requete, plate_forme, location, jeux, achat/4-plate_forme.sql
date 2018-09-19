@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.5.4.1
 -- http://www.phpmyadmin.net
 --
@@ -36,14 +36,14 @@ CREATE TABLE `plate_forme` (
 --
 
 INSERT INTO `plate_forme` (`plate_forme_id`, `plate_forme`) VALUES
-(1, 'Play Station 4'),
+(1, 'Playstation 4'),
 (2, 'Xbox One'),
 (3, 'Nintendo Wii U'),
 (4, 'Windows'),
-(5, 'Play Station 3'),
+(5, 'Playstation 3'),
 (6, 'Xbox 360'),
 (7, 'Nintendo Switch'),
-(8, 'Play Sation Vita');
+(8, 'Playstation Vita');
 
 --
 -- Index pour les tables exportées

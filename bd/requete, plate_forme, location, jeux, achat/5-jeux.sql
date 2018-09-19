@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.5.4.1
 -- http://www.phpmyadmin.net
 --
@@ -44,16 +44,16 @@ CREATE TABLE `jeux` (
 --
 
 INSERT INTO `jeux` (`jeux_id`, `plate_forme_id`, `membre_id`, `location_id`, `achat_id`, `nom`, `prix`, `date_ajout`, `concepteur`, `location`) VALUES
-(1, 1, 1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-16 04:13:54', 'Nintendo', 0),
-(2, 2, 2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 1),
-(3, 3, 3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-14 11:24:30', 'SEGA', 0),
-(4, 4, 4, 4, 4, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0),
-(5, 3, 5, 5, 5, 'Mario Kart Double Dash', 31, '2018-09-10 12:44:33', 'Nintendo', 0),
-(6, 7, 6, 6, 6, 'Donkey Kong Country', 24, '2018-09-15 10:02:50', 'Nintendo', 0),
-(7, 4, 3, 7, 7, 'Shift 2 Unleashed', 32.99, '2018-09-10 06:24:30', 'EA', 0),
-(8, 6, 4, 8, 8, 'Halo Reach', 44.5, '2018-09-11 07:12:20', 'Bungie', 0),
-(9, 8, 5, 9, 9, 'The Secret of Monkey Island', 16, '2018-09-12 08:44:33', 'SEGA', 1),
-(10, 2, 6, 10, 10, 'Assassins Creed BrotherHood', 35, '2018-09-13 09:02:50', 'UBISOFT', 0);
+(1, 1, 1, null, null, 'Super Mario U 2', 7.5, '2018-09-16 04:13:54', 'Nintendo', 0),
+(2, 2, 2, null, null, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 1),
+(3, 3, 3, null, null, 'Sonic The Hedgehog', 39.99, '2018-09-14 11:24:30', 'SEGA', 0),
+(4, 4, 4, null, null, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0),
+(5, 3, 5, null, null, 'Mario Kart Double Dash', 31, '2018-09-10 12:44:33', 'Nintendo', 0),
+(6, 7, 6, null, null, 'Donkey Kong Country', 24, '2018-09-15 10:02:50', 'Nintendo', 0),
+(7, 4, 3, null, null, 'Shift 2 Unleashed', 32.99, '2018-09-10 06:24:30', 'EA', 0),
+(8, 6, 4, null, null, 'Halo Reach', 44.5, '2018-09-11 07:12:20', 'Bungie', 0),
+(9, 8, 5, null, null, 'The Secret of Monkey Island', 16, '2018-09-12 08:44:33', 'SEGA', 1),
+(10, 2, 6, null, null, 'Assassins Creed BrotherHood', 35, '2018-09-13 09:02:50', 'UBISOFT', 0);
 
 --
 -- Index pour les tables exportées
