@@ -1,20 +1,18 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/9/15 12:52:10                           */
+/* Created on:     2018/9/18 19:54:54                           */
 /*==============================================================*/
 
 
-drop table if exists Appartenir;
-
-drop table if exists Associer;
-
 drop table if exists achat;
 
-drop table if exists "assigner destinaitaire";
+drop table if exists appartenir;
+
+drop table if exists assigner_destinaitaire;
 
 drop table if exists categorie_jeux;
 
-drop table if exists commentraire_jeux;
+drop table if exists commentaire_jeux;
 
 drop table if exists jeux;
 
@@ -33,9 +31,21 @@ drop table if exists type_paiement;
 drop table if exists type_utilisateur;
 
 /*==============================================================*/
-/* Table: Appartenir                                            */
+/* Table: achat                                                 */
 /*==============================================================*/
-create table Appartenir
+create table achat
+(
+   achat_id             int not null auto_increment,
+   type_paiement_id     int not null,
+   membre_id            int not null,
+   date_achat           datetime not null,
+   primary key (achat_id)
+);
+
+/*==============================================================*/
+/* Table: appartenir                                            */
+/*==============================================================*/
+create table appartenir
 (
    jeux_id              int not null,
    categorie_jeux_id    int not null,
@@ -43,30 +53,9 @@ create table Appartenir
 );
 
 /*==============================================================*/
-/* Table: Associer                                              */
+/* Table: assigner_destinaitaire                                */
 /*==============================================================*/
-create table Associer
-(
-   membre_id            int not null,
-   type_paiement_id     int not null,
-   primary key (membre_id, type_paiement_id)
-);
-
-/*==============================================================*/
-/* Table: achat                                                 */
-/*==============================================================*/
-create table achat
-(
-   achat_id             int not null auto_increment,
-   membre_id            int not null,
-   date_achat           datetime not null,
-   primary key (achat_id)
-);
-
-/*==============================================================*/
-/* Table: "assigner destinaitaire"                              */
-/*==============================================================*/
-create table "assigner destinaitaire"
+create table assigner_destinaitaire
 (
    membre_id            int not null,
    msg_id               int not null,
@@ -90,19 +79,19 @@ sex
                                    -&';
 
 /*==============================================================*/
-/* Table: commentraire_jeux                                     */
+/* Table: commentaire_jeux                                      */
 /*==============================================================*/
-create table commentraire_jeux
+create table commentaire_jeux
 (
    commentaire_jeux_id  int not null auto_increment,
    jeux_id              int not null,
    membre_id            int not null,
    commentaire          text not null,
-   evaluation           decimal(1,1),
+   evaluation           decimal(2,1),
    primary key (commentaire_jeux_id)
 );
 
-alter table commentraire_jeux comment 'ce entiter on peux choisir deux type
+alter table commentaire_jeux comment 'ce entiter on peux choisir deux type
 1. le utilisateur';
 
 /*==============================================================*/
@@ -116,7 +105,7 @@ create table jeux
    location_id          int,
    achat_id             int,
    nom                  varchar(255) not null,
-   prix                 decimal(3,2) not null,
+   prix                 decimal(15,2) not null,
    date_ajout           datetime not null,
    concepteur           varchar(255) not null,
    location             bool not null,
@@ -129,6 +118,7 @@ create table jeux
 create table location
 (
    location_id          int not null auto_increment,
+   type_paiement_id     int not null,
    membre_id            int,
    date_debut           datetime not null,
    date_retour          datetime not null,
@@ -221,54 +211,54 @@ create table type_utilisateur
    primary key (type_utilisateur_id)
 );
 
-alter table Appartenir add constraint FK_Appartenir foreign key (jeux_id)
-      references jeux (jeux_id) on delete restrict on update restrict;
-
-alter table Appartenir add constraint FK_Appartenir2 foreign key (categorie_jeux_id)
-      references categorie_jeux (categorie_jeux_id) on delete restrict on update restrict;
-
-alter table Associer add constraint FK_Associer foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
-
-alter table Associer add constraint FK_Associer2 foreign key (type_paiement_id)
+alter table achat add constraint FK_assosier_achat foreign key (type_paiement_id)
       references type_paiement (type_paiement_id) on delete restrict on update restrict;
 
-alter table achat add constraint FK_Faire foreign key (membre_id)
+alter table achat add constraint FK_faire foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
-alter table "assigner destinaitaire" add constraint "FK_assigner destinaitaire" foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
-
-alter table "assigner destinaitaire" add constraint "FK_assigner destinaitaire2" foreign key (msg_id)
-      references messagerie (msg_id) on delete restrict on update restrict;
-
-alter table commentraire_jeux add constraint FK_Composer foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
-
-alter table commentraire_jeux add constraint FK_Concerner foreign key (jeux_id)
+alter table appartenir add constraint FK_appartenir foreign key (jeux_id)
       references jeux (jeux_id) on delete restrict on update restrict;
 
-alter table jeux add constraint FK_Avoir foreign key (membre_id)
+alter table appartenir add constraint FK_appartenir2 foreign key (categorie_jeux_id)
+      references categorie_jeux (categorie_jeux_id) on delete restrict on update restrict;
+
+alter table assigner_destinaitaire add constraint FK_assigner_destinaitaire foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
-alter table jeux add constraint FK_Classer foreign key (plate_forme_id)
+alter table assigner_destinaitaire add constraint FK_assigner_destinaitaire2 foreign key (msg_id)
+      references messagerie (msg_id) on delete restrict on update restrict;
+
+alter table commentaire_jeux add constraint FK_composer foreign key (membre_id)
+      references membre (membre_id) on delete restrict on update restrict;
+
+alter table commentaire_jeux add constraint FK_concerner foreign key (jeux_id)
+      references jeux (jeux_id) on delete restrict on update restrict;
+
+alter table jeux add constraint FK_avoir foreign key (membre_id)
+      references membre (membre_id) on delete restrict on update restrict;
+
+alter table jeux add constraint FK_classer foreign key (plate_forme_id)
       references plate_forme (plate_forme_id) on delete restrict on update restrict;
 
-alter table jeux add constraint "FK_Etre Acheter" foreign key (achat_id)
+alter table jeux add constraint FK_etre_acheter foreign key (achat_id)
       references achat (achat_id) on delete restrict on update restrict;
 
-alter table jeux add constraint "FK_Etre Louer" foreign key (location_id)
+alter table jeux add constraint FK_etre_louer foreign key (location_id)
       references location (location_id) on delete restrict on update restrict;
 
-alter table location add constraint FK_Louer foreign key (membre_id)
+alter table location add constraint FK_associer_louer foreign key (type_paiement_id)
+      references type_paiement (type_paiement_id) on delete restrict on update restrict;
+
+alter table location add constraint FK_louer foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
-alter table membre add constraint FK_Etre foreign key (type_utilisateur_id)
+alter table membre add constraint FK_etre foreign key (type_utilisateur_id)
       references type_utilisateur (type_utilisateur_id) on delete restrict on update restrict;
 
-alter table messagerie add constraint "FK_assigner emmeteur" foreign key (membre_id)
+alter table messagerie add constraint FK_assigner_emmeteur foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
-alter table photo_jeux add constraint FK_Posseder foreign key (jeux_id)
+alter table photo_jeux add constraint FK_posseder foreign key (jeux_id)
       references jeux (jeux_id) on delete restrict on update restrict;
 
