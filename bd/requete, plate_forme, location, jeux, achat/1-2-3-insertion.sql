@@ -1,7 +1,9 @@
+﻿1)
 INSERT INTO type_utilisateur VALUES(1, "Membre"),
 (2, "Admin"),
 (3, "Super Admin");
 
+2)
 INSERT INTO membre VALUES (1, 3, "Hod", "David", "pacman_2018", "5922 St.Hubert", "514-3697777", "david.hod@gmail.com", 1, 1),
 (2, 2, "Guzman", "Marcelo", "4651marcelo", "4651 Clark", "514-9630091", "killpuechess@hotmail.com", 1, 1),
 (3, 2, "Tosin", "Guilherme", "mr.sirois", "711 Rue de Chevillon", "514-2328888", "guiherme.tosin@gmail.com", 1, 1),
@@ -13,6 +15,7 @@ INSERT INTO membre VALUES (1, 3, "Hod", "David", "pacman_2018", "5922 St.Hubert"
 (9, 1, "Rossi",  "Nicolas", "earlyModem", "5683 Pare", "514-4542211", "rossi.nicolas@hotmail.com", 1, 1),
 (10, 1, "Melson", "Julien", "lazy_melody", "5930 rue Théverin", "514-2251516", "melson.julien@gmail.com", 1, 1);
 
+3)
 INSERT INTO type_paiement VALUES (1, "Comptant"),
 (2, "Chèque"),
 (3, "Paypal");
