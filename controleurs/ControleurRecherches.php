@@ -19,6 +19,8 @@
         public function index(array $params)
         {
             $modeleJeu = $this->lireDAO("Jeux");
+            $donnees['jeux'] = $modeleJeu->lireDerniersJeux();
+
             if (isset($params["action"]))
             {
                 switch($params["action"])
@@ -29,13 +31,13 @@
                         break;
 
                     default :
-                        $this->afficherVues("accueil");
+                        $this->afficherVues("accueil", $donnees);
                         break;
                 }
             }
             else
             {
-                $this->afficherVues("accueil");
+                $this->afficherVues("accueil", $donnees);
             }
            
         }

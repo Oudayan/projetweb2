@@ -1,7 +1,6 @@
 <?php
-echo '<pre>';
-
-var_dump($donnees);
+    echo '<pre>';
+    var_dump($donnees['jeux'][0]->getTitre());
     echo '</pre>';
 
     ?>
