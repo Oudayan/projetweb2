@@ -5,7 +5,7 @@
  * @version 1.0
  * @date    Septembre 2018
  * @brief   Définit la classe Jeux
- * @details Cette classe définit les attributs d'un membre
+ * @details Cette classe définit les attributs d'un jeu
  */
 
     class Jeux{
@@ -77,7 +77,7 @@
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          *
-         * @param       [string] $titre , le prénom d'un membre
+         * @param       [string] $titre , le titre d'un jeu
          * @return      [object]
          */
         public function setTitre($titre){
@@ -89,7 +89,7 @@
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [string] $prix , le mot de passe d'un membre
+         * @param       [string] $prix , le prix d'un jeu
          * @return      [object]
          */
         public function setPrix($prix){
@@ -125,7 +125,7 @@
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [mixed] $location, le Location d'un membre
+         * @param       [mixed] $location, le Location d'un jeu
          * @return      [object]
          */
 
@@ -138,7 +138,7 @@
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [bool] $jeux_valide, indique si un membre est ou pas valide
+         * @param       [bool] $jeux_valide, indique si un jeu est ou pas valide
          * @return      [object]
          */
 
@@ -151,7 +151,7 @@
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [bool] $jeux_actif, indique si un membre est ou pas actif
+         * @param       [bool] $jeux_actif, indique si un jeu est ou pas actif
          * @return      [object]
          */
 
@@ -188,7 +188,7 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $membre_id, le nom d'un membre
+         * @param       [string] $membre_id, l'id d'un membre
          * @return      [object]
          */
 
@@ -199,7 +199,7 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $titre, le prénom d'un membre
+         * @param       [string] $titre, le titre d'un jeu
          * @return      [object]
          */
 
@@ -210,7 +210,7 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $prix, le mot de passe d'un memebre
+         * @param       [string] $prix, le prix d'un jeu
          * @return      [object]
          */
 
@@ -221,7 +221,7 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $date_ajout, l'DateAjout' d'un memebre
+         * @param       [string] $date_ajout, l'DateAjout' d'un jeu
          * @return      [object]
          */
 
@@ -232,7 +232,7 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $concepteur, le téléphone d'un memebre
+         * @param       [string] $concepteur, le concepteur d'un jeux
          * @return      [object]
          */
 
@@ -243,7 +243,7 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $location, le Location d'un membre
+         * @param       [string] $location, le Location d'un jeu
          * @return      [object]
          */
 
@@ -254,7 +254,7 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [bool] $jeux_valide, le membre est ou pas valide
+         * @param       [bool] $jeux_valide, le jeu est ou pas valide
          * @return      [object]
          */
 
@@ -265,7 +265,7 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [bool] $jeux_actif, le membre est ou pas acatif
+         * @param       [bool] $jeux_actif, le jeu est ou pas acatif
          * @return      [object]
          */
 
