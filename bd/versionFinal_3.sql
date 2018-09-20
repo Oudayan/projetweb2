@@ -296,7 +296,7 @@ INSERT INTO `plateforme` (`plateforme_id`, `plateforme`) VALUES
 
 INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `titre`, `prix`, `date_ajout`, `concepteur`, `location`, `jeux_valide`, `jeux_actif`) VALUES
 (1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-16 04:13:54', 'Nintendo', 1, 1, 1),
-(2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 0), 1, 1,
+(2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 0, 1, 1),
 (3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-14 11:24:30', 'SEGA', 0, 1, 1),
 (4, 4, 4, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0, 1, 1),
 (5, 3, 5, 'Mario Kart Double Dash', 31, '2018-09-10 12:44:33', 'Nintendo', 0, 1, 1),
