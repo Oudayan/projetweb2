@@ -48,7 +48,7 @@ create table `achat`
 create table `categorie`
 (
    `categorie_id`    int not null auto_increment,
-   `nom`             varchar(255),
+   `categorie`             varchar(255),
    primary key (categorie_id)
 );
 
@@ -91,13 +91,15 @@ create table commentaire_jeux
 create table jeux
 (
    `jeux_id`              int not null auto_increment,
-   `plateforme_id`       int not null,
+   `plateforme_id`        int not null,
    `membre_id`            int not null,
-   `nom`                  varchar(255) not null,
+   `titre`                varchar(255) not null,
    `prix`                 decimal(15,2) not null,
    `date_ajout`           datetime not null,
    `concepteur`           varchar(255) not null,
    `location`             bool not null,
+   `jeux_valide`          bool not null,
+   `jeux_actif`           bool not null,
    primary key (jeux_id)
 );
 
@@ -292,17 +294,17 @@ INSERT INTO `plateforme` (`plateforme_id`, `plateforme`) VALUES
 -- Contenu de la table `jeux`
 --
 
-INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `nom`, `prix`, `date_ajout`, `concepteur`, `location`) VALUES
-(1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-16 04:13:54', 'Nintendo', 1),
-(2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 0),
-(3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-14 11:24:30', 'SEGA', 0),
-(4, 4, 4, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0),
-(5, 3, 5, 'Mario Kart Double Dash', 31, '2018-09-10 12:44:33', 'Nintendo', 0),
-(6, 7, 6, 'Donkey Kong Country', 24, '2018-09-15 10:02:50', 'Nintendo', 0),
-(7, 4, 3, 'Shift 2 Unleashed', 32.99, '2018-09-10 06:24:30', 'EA', 0),
-(8, 6, 4, 'Halo Reach', 44.5, '2018-09-11 07:12:20', 'Bungie', 0),
-(9, 8, 5, 'The Secret of Monkey Island', 16, '2018-09-12 08:44:33', 'SEGA', 1),
-(10, 2, 6, 'Assassins Creed BrotherHood', 35, '2018-09-13 09:02:50', 'UBISOFT', 0);
+INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `titre`, `prix`, `date_ajout`, `concepteur`, `location`, `jeux_valide`, `jeux_actif`) VALUES
+(1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-16 04:13:54', 'Nintendo', 1, 1, 1),
+(2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 0), 1, 1,
+(3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-14 11:24:30', 'SEGA', 0, 1, 1),
+(4, 4, 4, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0, 1, 1),
+(5, 3, 5, 'Mario Kart Double Dash', 31, '2018-09-10 12:44:33', 'Nintendo', 0, 1, 1),
+(6, 7, 6, 'Donkey Kong Country', 24, '2018-09-15 10:02:50', 'Nintendo', 0, 1, 1),
+(7, 4, 3, 'Shift 2 Unleashed', 32.99, '2018-09-10 06:24:30', 'EA', 0, 1, 1),
+(8, 6, 4, 'Halo Reach', 44.5, '2018-09-11 07:12:20', 'Bungie', 0, 1, 1),
+(9, 8, 5, 'The Secret of Monkey Island', 16, '2018-09-12 08:44:33', 'SEGA', 1, 1, 1),
+(10, 2, 6, 'Assassins Creed BrotherHood', 35, '2018-09-13 09:02:50', 'UBISOFT', 0, 1, 1);
 
 
 --
@@ -326,7 +328,7 @@ INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `date_achat`) 
 -- Contenu de la table `categorie`
 --
 
-INSERT INTO `categorie` (`categorie_id`, `nom`) VALUES
+INSERT INTO `categorie` (`categorie_id`, `categorie`) VALUES
 (1, 'Action'),
 (2, 'Adventure'),
 (3, 'Fighting'),
