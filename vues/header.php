@@ -21,10 +21,9 @@
                     </a>
                     <!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent">
                         <span class="navbar-toggler-icon"></span>                      
-                    </button> -->
-                    <!-- <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
-                        <a class="btn navbar-btn ml-2 text-white btn-secondary">
-                        <i class="fa d-inline fa-lg fa-user-circle-o"></i> Se connecter</a>
+                    </button>
+                    <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
+                        <a class="btn navbar-btn ml-2 text-white btn-secondary">S'inscrire'</a>
                     </div> -->
 
                     <!-- Button trigger modal -->
@@ -37,19 +36,40 @@
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                                <form role="form" action="index.php?Membres&action=verificationLogin" method="post">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Se connecter</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-modal-body mx-sm-1 mx-md-3 mx-lg-5">
+                                        <div class="form-group row">
+                                            <!-- <label for="courriel" class="col-md-3 col-form-label">Courriel</label> -->
+                                            <div class="col-md-10">
+                                                <input type="text" name="courriel" class="form-control" id="courriel" placeholder="Courriel">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <!-- <label for="mot_de_passe" class="col-md-3 col-form-label">Mot de Passe</label> -->
+                                            <div class="col-md-10">
+                                                <input type="text" name="mot_de_passe" class="form-control" id="mot_de_passe" placeholder="Mot de passe">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <!-- <label for="mot_de_passe" class="col-md-3 col-form-label">Mot de Passe</label> -->
+                                            <div class="col-md-10">
+                                            <a href="#">Vous avez oublié votre mot de passe?</a>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                        
+                                        <a href="#">S'inscrire</a>
+                                        <button type="button" class="btn btn-primary">Se Connecter</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
