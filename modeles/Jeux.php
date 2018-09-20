@@ -13,28 +13,28 @@
         private $jeux_id;
         private $plateforme_id;
         private $membre_id;
-        private $prenom;
-        private $mot_de_passe;
-        private $adresse;
-        private $telephone;
-        private $courriel;
-        private $membre_valide;
-        private $membre_actif;
+        private $titre;
+        private $prix;
+        private $date_ajout;
+        private $concepteur;
+        private $location;
+        private $jeux_valide;
+        private $jeux_actif;
 
         // Constructeur
 
-        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = false, $membre_actif = true)
+        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true)
         {
            $this->setJeuxId($jeux_id);
            $this->setPlateformeId($plateforme_id);
            $this->setMembreId($membre_id);
-           $this->setPrenom($prenom);
-           $this->setMotDePasse($mot_de_passe);
-           $this->setAdresse($adresse);
-           $this->setTelephone($telephone);
-           $this->setCourriel($courriel);
-           $this->setMembreValide($membre_valide);
-           $this->setMembreActif($membre_actif);
+           $this->setTitre($titre);
+           $this->setPrix($prix);
+           $this->setDateAjout($date_ajout);
+           $this->setConcepteur($concepteur);
+           $this->setLocation($location);
+           $this->setJeuxValide($jeux_valide);
+           $this->setJeuxActif($jeux_actif);
         }
 
         //SETTERS
@@ -77,87 +77,87 @@
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          *
-         * @param       [string] $prenom , le prénom d'un membre
+         * @param       [string] $titre , le prénom d'un membre
          * @return      [object]
          */
-        public function setPrenom($prenom){
-            if(is_string($prenom) && trim($prenom) !=""){
-                $this->prenom = $prenom;
+        public function setTitre($titre){
+            if(is_string($titre) && trim($titre) !=""){
+                $this->titre = $titre;
             }
         }
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [string] $mot_de_passe , le mot de passe d'un membre
+         * @param       [string] $prix , le mot de passe d'un membre
          * @return      [object]
          */
-        public function setMotDePasse($mot_de_passe){
-            if(is_string($mot_de_passe) && trim($mot_de_passe) != ""){
-                $this->mot_de_passe = $mot_de_passe;
+        public function setPrix($prix){
+            if(is_string($prix) && trim($prix) != ""){
+                $this->prix = $prix;
             }
         }
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [string] $adresse, l'adresse d'un membre
+         * @param       [string] $date_ajout, l'DateAjout d'un membre
          * @return      [object]
          */
-        public function setAdresse($adresse){
-            if(is_string($adresse) && trim($adresse) != ""){
-                $this->adresse = $adresse;
+        public function setDateAjout($date_ajout){
+            if(is_string($date_ajout) && trim($date_ajout) != ""){
+                $this->dateAjout = $date_ajout;
             }
         }
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [string] $telephone, le numéro de téléphone d'un utilisateur
+         * @param       [string] $concepteur, le numéro de téléphone d'un utilisateur
          * @return      [object]
          */
-        public function setTelephone($telephone){
-            if(is_string($telephone) && trim($telephone) != ""){
-                $this->telephone = $telephone;
+        public function setConcepteur($concepteur){
+            if(is_string($concepteur) && trim($concepteur) != ""){
+                $this->concepteur = $concepteur;
             }
         }
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [mixed] $courriel, le courriel d'un membre
+         * @param       [mixed] $location, le Location d'un membre
          * @return      [object]
          */
 
-        public function setCourriel($courriel){
-            if(is_string($courriel) && trim($courriel) != ""){
-                $this->courriel = $courriel;
+        public function setLocation($location){
+            if(is_string($location) && trim($location) != ""){
+                $this->location = $location;
             }
         }
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [bool] $membre_valide, indique si un membre est ou pas valide
+         * @param       [bool] $jeux_valide, indique si un membre est ou pas valide
          * @return      [object]
          */
 
-        public function setMembreValide($membre_valide){
-            if(is_bool($membre_valide)){
-                $this->membre_valide = $membre_valide;
+        public function setJeuxValide($jeux_valide){
+            if(is_bool($jeux_valide)){
+                $this->jeux_valide = $jeux_valide;
             }
         }
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [bool] $membre_actif, indique si un membre est ou pas actif
+         * @param       [bool] $jeux_actif, indique si un membre est ou pas actif
          * @return      [object]
          */
 
-        public function setMembreActif($membre_actif){
-            if(is_bool($membre_actif)){
-                $this->membre_actif = $membre_actif;
+        public function setJeuxActif($jeux_actif){
+            if(is_bool($jeux_actif)){
+                $this->jeux_actif = $jeux_actif;
             }
         }
 
@@ -199,77 +199,77 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $prenom, le prénom d'un membre
+         * @param       [string] $titre, le prénom d'un membre
          * @return      [object]
          */
 
-        public function getPrenom(){
-            return $this->prenom;
+        public function getTitre(){
+            return $this->titre;
         }
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $mot_de_passe, le mot de passe d'un memebre
+         * @param       [string] $prix, le mot de passe d'un memebre
          * @return      [object]
          */
 
-        public function getMotDePasse(){
-            return $this->mot_de_passe;
+        public function getPrix(){
+            return $this->prix;
         }
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $adresse, l'adresse' d'un memebre
+         * @param       [string] $date_ajout, l'DateAjout' d'un memebre
          * @return      [object]
          */
 
-        public function getAdresse(){
-            return $this->adresse;
+        public function getDateAjout(){
+            return $this->dateAjout;
         }
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $telephone, le téléphone d'un memebre
+         * @param       [string] $concepteur, le téléphone d'un memebre
          * @return      [object]
          */
 
-        public function getTelephone(){
-            return $this->telephone;
+        public function getConcepteur(){
+            return $this->concepteur;
         }
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [string] $courriel, le courriel d'un membre
+         * @param       [string] $location, le Location d'un membre
          * @return      [object]
          */
 
-        public function getCourriel(){
-            return $this->courriel;
+        public function getLocation(){
+            return $this->location;
         }
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [bool] $membre_valide, le membre est ou pas valide
+         * @param       [bool] $jeux_valide, le membre est ou pas valide
          * @return      [object]
          */
 
-        public function getMembreValide(){
-            return $this->membre_valide;
+        public function getJeuxValide(){
+            return $this->jeux_valide;
         }
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [bool] $membre_actif, le membre est ou pas acatif
+         * @param       [bool] $jeux_actif, le membre est ou pas acatif
          * @return      [object]
          */
 
-        public function getMembreActif(){
-            return $this->membre_actif;
+        public function getJeuxActif(){
+            return $this->jeux_actif;
         }
     }
