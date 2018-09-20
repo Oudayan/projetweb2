@@ -18,12 +18,14 @@
     {
         public function index(array $params)
         {
+            $modeleJeu = $this->lireDAO("Jeux");
             if (isset($params["action"]))
             {
                 switch($params["action"])
                 {
                     case "accueil" :
-                        $this->afficherVues("accueil");
+                        $donnees['jeux'] = $modeleJeu->lireDerniersJeux();
+                        $this->afficherVues("accueil", $donnees);
                         break;
 
                     default :
