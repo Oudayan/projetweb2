@@ -10,7 +10,7 @@ drop table if exists categorie;
 
 drop table if exists categorie_jeux;
 
-drop table if exists destinaitaire;
+drop table if exists destinataire;
 
 drop table if exists commentaire_jeux;
 
@@ -24,7 +24,7 @@ drop table if exists messagerie;
 
 drop table if exists photo_jeux;
 
-drop table if exists plate_forme;
+drop table if exists plateforme;
 
 drop table if exists type_paiement;
 
@@ -63,9 +63,9 @@ create table `categorie_jeux`
 );
 
 /*==============================================================*/
-/* Table: destinaitaire                                         */
+/* Table: destinataire                                          */
 /*==============================================================*/
-create table `destinaitaire`
+create table `destinataire`
 (
    `membre_id`            int not null,
    `msg_id`               int not null,
@@ -91,7 +91,7 @@ create table commentaire_jeux
 create table jeux
 (
    `jeux_id`              int not null auto_increment,
-   `plate_forme_id`       int not null,
+   `plateforme_id`       int not null,
    `membre_id`            int not null,
    `nom`                  varchar(255) not null,
    `prix`                 decimal(15,2) not null,
@@ -158,13 +158,13 @@ create table photo_jeux
 );
 
 /*==============================================================*/
-/* Table: plate_forme                                           */
+/* Table: plateforme                                            */
 /*==============================================================*/
-create table plate_forme
+create table plateforme
 (
-   `plate_forme_id`       int not null auto_increment,
-   `plate_forme`          varchar(255) not null,
-   primary key (plate_forme_id)
+   `plateforme_id`       int not null auto_increment,
+   `plateforme`          varchar(255) not null,
+   primary key (plateforme_id)
 );
 
 /*==============================================================*/
@@ -199,10 +199,10 @@ alter table categorie_jeux add constraint FK_categorie_jeux foreign key (jeux_id
 alter table categorie_jeux add constraint FK_categorie_jeux2 foreign key (categorie_id)
       references categorie (categorie_id) on delete restrict on update restrict;
 
-alter table destinaitaire add constraint FK_destinaitaire foreign key (membre_id)
+alter table destinataire add constraint FK_destinataire foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
-alter table destinaitaire add constraint FK_destinaitaire2 foreign key (msg_id)
+alter table destinataire add constraint FK_destinataire2 foreign key (msg_id)
       references messagerie (msg_id) on delete restrict on update restrict;
 
 alter table commentaire_jeux add constraint FK_composer foreign key (membre_id)
@@ -214,8 +214,8 @@ alter table commentaire_jeux add constraint FK_concerner foreign key (jeux_id)
 alter table jeux add constraint FK_avoir foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
-alter table jeux add constraint FK_classer foreign key (plate_forme_id)
-      references plate_forme (plate_forme_id) on delete restrict on update restrict;
+alter table jeux add constraint FK_classer foreign key (plateforme_id)
+      references plateforme (plateforme_id) on delete restrict on update restrict;
 
 alter table location add constraint FK_associer_louer foreign key (type_paiement_id)
       references type_paiement (type_paiement_id) on delete restrict on update restrict;
@@ -274,10 +274,10 @@ INSERT INTO type_paiement VALUES
 
 
 --
--- Contenu de la table `plate_forme`
+-- Contenu de la table `plateforme`
 --
 
-INSERT INTO `plate_forme` (`plate_forme_id`, `plate_forme`) VALUES
+INSERT INTO `plateforme` (`plateforme_id`, `plateforme`) VALUES
 (1, 'Playstation 4'),
 (2, 'Xbox One'),
 (3, 'Nintendo Wii U'),
@@ -292,7 +292,7 @@ INSERT INTO `plate_forme` (`plate_forme_id`, `plate_forme`) VALUES
 -- Contenu de la table `jeux`
 --
 
-INSERT INTO `jeux` (`jeux_id`, `plate_forme_id`, `membre_id`, `nom`, `prix`, `date_ajout`, `concepteur`, `location`) VALUES
+INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `nom`, `prix`, `date_ajout`, `concepteur`, `location`) VALUES
 (1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-16 04:13:54', 'Nintendo', 0),
 (2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 1),
 (3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-14 11:24:30', 'SEGA', 0),
