@@ -8,7 +8,7 @@
  * @details   Cette classe contrôle l'inscription de nouveaux membres du sites
  */
 
-    class ControleurInscription extends BaseControleur 
+    class ControleurRecherche extends BaseControleur
     /**
      * @brief   Méthode qui sera appelée par les controleurs
      * @details Méthode abstraite pour traiter les "cases" des contrôleurs
