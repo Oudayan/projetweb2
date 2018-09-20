@@ -23,7 +23,7 @@
 
         // Constructeur
 
-        public function __construct($membre_id = 0, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = 0, $membre_actif = true)
+        public function __construct($membre_id = 0, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = false, $membre_actif = true)
         {
            $this->ecrireMembreId($membre_id);
            $this->ecrireTypeUtilisateur($type_utilisateur_id);
