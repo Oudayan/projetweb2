@@ -23,18 +23,18 @@
 
         // Constructeur
 
-        public function __construct($membre_id = 0, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = 0, $membre_actif = true)
+        public function __construct($membre_id = 0, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = false, $membre_actif = true)
         {
-           $this->ecrireMembreId($membre_id);
-           $this->ecrireTypeUtilisateur($type_utilisateur_id);
-           $this->ecrireNom($nom);
-           $this->ecrirePrenom($prenom);
-           $this->ecrireMotDePasse($mot_de_passe);
-           $this->ecrireAdresse($adresse);
-           $this->ecrireTelephone($telephone);
-           $this->ecrireCourriel($courriel);
-           $this->ecrireMembreValide($membre_valide);
-           $this->ecrireMembreActif($membre_actif);
+           $this->setMembreId($membre_id);
+           $this->setTypeUtilisateur($type_utilisateur_id);
+           $this->setNom($nom);
+           $this->setPrenom($prenom);
+           $this->setMotDePasse($mot_de_passe);
+           $this->setAdresse($adresse);
+           $this->setTelephone($telephone);
+           $this->setCourriel($courriel);
+           $this->setMembreValide($membre_valide);
+           $this->setMembreActif($membre_actif);
         }
 
         //SETTERS
@@ -44,7 +44,7 @@
          * @param       [numeric] $membre_id ,  l'id d'un membre
          * @return      [object]
          */
-        public function ecrireMembreId($membre_id){
+        public function setMembreId($membre_id){
             if (is_numeric($membre_id) && trim($membre_id) != ""){
                 $this->membre_id = $membre_id;
             }
@@ -56,7 +56,7 @@
          * @param       [numeric] $type_utilisateur_id , l'id du type d'utilisateur
          * @return      [object]
          */
-        public function ecrireTypeUtilisateur($type_utilisateur_id){
+        public function setTypeUtilisateur($type_utilisateur_id){
             if (is_numeric($type_utilisateur_id) && trim($type_utilisateur_id) != ""){
                 $this->type_utilisateur_id = $type_utilisateur_id;
             }
@@ -68,7 +68,7 @@
          * @param       [string] $nom , le nom d'un membre
          * @return      [object]
          */
-        public function ecrireNom($nom){
+        public function setNom($nom){
             if(is_string($nom) && trim($nom) !=""){
                 $this->nom = $nom;
             }
@@ -80,7 +80,7 @@
          * @param       [string] $prenom , le prénom d'un membre
          * @return      [object]
          */
-        public function ecrirePrenom($prenom){
+        public function setPrenom($prenom){
             if(is_string($prenom) && trim($prenom) !=""){
                 $this->prenom = $prenom;
             }
@@ -92,7 +92,7 @@
          * @param       [string] $mot_de_passe , le mot de passe d'un membre
          * @return      [object]
          */
-        public function ecrireMotDePasse($mot_de_passe){
+        public function setMotDePasse($mot_de_passe){
             if(is_string($mot_de_passe) && trim($mot_de_passe) != ""){
                 $this->mot_de_passe = $mot_de_passe;
             }
@@ -104,7 +104,7 @@
          * @param       [string] $adresse, l'adresse d'un membre
          * @return      [object]
          */
-        public function ecrireAdresse($adresse){
+        public function setAdresse($adresse){
             if(is_string($adresse) && trim($adresse) != ""){
                 $this->adresse = $adresse;
             }
@@ -116,7 +116,7 @@
          * @param       [string] $telephone, le numéro de téléphone d'un utilisateur
          * @return      [object]
          */
-        public function ecrireTelephone($telephone){
+        public function setTelephone($telephone){
             if(is_string($telephone) && trim($telephone) != ""){
                 $this->telephone = $telephone;
             }
@@ -129,7 +129,7 @@
          * @return      [object]
          */
 
-        public function ecrireCourriel($courriel){
+        public function setCourriel($courriel){
             if(is_string($courriel) && trim($courriel) != ""){
                 $this->courriel = $courriel;
             }
@@ -142,7 +142,7 @@
          * @return      [object]
          */
 
-        public function ecrireMembreValide($membre_valide){
+        public function setMembreValide($membre_valide){
             if(is_bool($membre_valide)){
                 $this->membre_valide = $membre_valide;
             }
@@ -155,7 +155,7 @@
          * @return      [object]
          */
 
-        public function ecrireMembreActif($membre_actif){
+        public function setMembreActif($membre_actif){
             if(is_bool($membre_actif)){
                 $this->membre_actif = $membre_actif;
             }
@@ -170,7 +170,7 @@
          * @return      [object]
          */
 
-        public function lireMembreId(){
+        public function getMembreId(){
             return $this->membre_id;
         }
 
@@ -181,7 +181,7 @@
          * @return      [object]
          */
 
-        public function lireTypeUtilisateur(){
+        public function getTypeUtilisateur(){
             return $this->type_utilisateur_id;
         }
 
@@ -192,7 +192,7 @@
          * @return      [object]
          */
 
-        public function lireNom(){
+        public function getNom(){
             return $this->nom;
         }
 
@@ -203,7 +203,7 @@
          * @return      [object]
          */
 
-        public function lirePrenom(){
+        public function getPrenom(){
             return $this->prenom;
         }
 
@@ -214,7 +214,7 @@
          * @return      [object]
          */
 
-        public function lireMotDePasse(){
+        public function getMotDePasse(){
             return $this->mot_de_passe;
         }
 
@@ -225,7 +225,7 @@
          * @return      [object]
          */
 
-        public function lireAdresse(){
+        public function getAdresse(){
             return $this->adresse;
         }
 
@@ -236,7 +236,7 @@
          * @return      [object]
          */
 
-        public function lireTelephone(){
+        public function getTelephone(){
             return $this->telephone;
         }
 
@@ -247,7 +247,7 @@
          * @return      [object]
          */
 
-        public function lireCourriel(){
+        public function getCourriel(){
             return $this->courriel;
         }
 
@@ -258,7 +258,7 @@
          * @return      [object]
          */
 
-        public function lireMembreValide(){
+        public function getMembreValide(){
             return $this->membre_valide;
         }
 
@@ -269,7 +269,7 @@
          * @return      [object]
          */
 
-        public function lireMembreActif(){
+        public function getMembreActif(){
             return $this->membre_actif;
         }
     }
