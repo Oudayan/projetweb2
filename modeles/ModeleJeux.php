@@ -22,19 +22,19 @@
 		}
 		
 		public function lireJeuxParMembre($membre_id) {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE membre_id = '" . $membre_id . "' AND WHERE jeu_actif = true ORDER BY date_debut DESC";
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE membre_id = '" . $membre_id . "' AND WHERE jeux_actif = true ORDER BY date_debut DESC";
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
 		
 		public function lireDerniersJeux($nombreJeux = 9) {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeu_actif = true ORDER BY date_ajout DESC LIMIT = " . $nombreJeux;
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true ORDER BY date_ajout DESC LIMIT = " . $nombreJeux;
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
 		
 		public function lireTousLesJeux() {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeu_actif = true";
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true";
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(\PDO::FETCH_ASSOC);
 		}
