@@ -1,6 +1,6 @@
 <?php
 /**
- * @file      ControleurRecherche.php
+ * @file      ControleurRecherches.php
  * @author    Chunliang He, Guilherme Tosin, Jansy López, Marcelo Guzmán
  * @version   1.0.0
  * @date      Septembre 2018
@@ -8,7 +8,7 @@
  * @details   Cette classe contrôle la recherche de jeux
  */
 
-    class ControleurRecherche extends BaseControleur
+    class ControleurRecherches extends BaseControleur
     /**
      * @brief   Méthode qui sera appelée par les controleurs
      * @details Méthode abstraite pour traiter les "cases" des contrôleurs
