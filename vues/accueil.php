@@ -1,2 +1,9 @@
-<h2>Site en constrution</h2>
+<?php
+echo '<pre>';
+
+var_dump($donnees);
+    echo '</pre>';
+
+    ?>
 <h3>Hello Word</h3>
+
