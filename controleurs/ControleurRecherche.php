@@ -1,11 +1,11 @@
 <?php
 /**
- * @file      ControleurInscription.php
+ * @file      ControleurRecherche.php
  * @author    Chunliang He, Guilherme Tosin, Jansy López, Marcelo Guzmán
  * @version   1.0.0
  * @date      Septembre 2018
- * @brief     Définit la classe pour le controleur pour l'inscripition de nouveau membres
- * @details   Cette classe contrôle l'inscription de nouveaux membres du sites
+ * @brief     Définit la classe pour le controleur pour la recherche de jeux
+ * @details   Cette classe contrôle la recherche de jeux
  */
 
     class ControleurRecherche extends BaseControleur
