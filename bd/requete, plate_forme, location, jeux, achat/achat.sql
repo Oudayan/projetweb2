@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `achat` (
   `achat_id` int(11) NOT NULL,
+  `type_paiement_id` int(11) NOT NULL,
   `membre_id` int(11) NOT NULL,
   `date_achat` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -36,17 +37,17 @@ CREATE TABLE `achat` (
 -- Contenu de la table `achat`
 --
 
-INSERT INTO `achat` (`achat_id`, `membre_id`, `date_achat`) VALUES
-(1, 1, '2018-09-16 04:13:54'),
-(2, 2, '2018-09-12 04:13:54'),
-(3, 3, '2018-09-15 11:24:30'),
-(4, 4, '2018-09-15 11:24:30'),
-(5, 5, '2018-09-15 11:24:30'),
-(6, 6, '2018-09-15 11:24:30'),
-(7, 7, '2018-09-15 11:24:30'),
-(8, 8, '2018-09-15 11:24:30'),
-(9, 9, '2018-09-15 11:24:30'),
-(10, 10, '2018-09-15 11:24:30');
+INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `date_achat`) VALUES
+(1, 2, 1, '2018-09-16 04:13:54'),
+(2, 3, 2, '2018-09-12 04:13:54'),
+(3, 1, 3, '2018-09-15 11:24:30'),
+(4, 2, 4, '2018-09-15 11:24:30'),
+(5, 3, 5, '2018-09-15 11:24:30'),
+(6, 1, 6, '2018-09-15 11:24:30'),
+(7, 2, 7, '2018-09-15 11:24:30'),
+(8, 3, 8,'2018-09-15 11:24:30'),
+(9, 1, 9, '2018-09-15 11:24:30'),
+(10, 2, 10, '2018-09-15 11:24:30');
 
 --
 -- Index pour les tables exportées
