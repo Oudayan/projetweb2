@@ -21,6 +21,6 @@
     // Redirection au bon controleur
     Routeur::route();
     
-    //Ceci est un test
+   
 
 ?>
