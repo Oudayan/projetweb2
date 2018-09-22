@@ -23,19 +23,27 @@ class ControleurJeux extends BaseControleur
         $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
 
-        $donnees['jeux'] = $modeleJeu->lireJeuParId($params["JeuxId"]);
+        $donnees["Erreur"] = "";
 
         if (isset($params["action"]))
         {
             switch($params["action"])
             {
                 case "afficherJeu" :
-                    $donnees['jeu'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
-                    $donnees['images'][] = $modeleImages->lireImagesParJeuxId($params["JeuxId"]);
-                    $donnees['membre'] = $modeleMembres->obtenirParId($donnees['jeux']->getMembreId());
-                    $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeux']->getPlateformeId());
-                    // $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
-                    $this->afficherVues("jeux", $donnees);
+                    if (isset($params["JeuxId"]))
+                    {
+                        $donnees['jeu'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
+                        $donnees['images'] = $modeleImages->lireImagesParJeuxId($params["JeuxId"]);
+                        $donnees['membre'] = $modeleMembres->obtenirParId($donnees['jeu']->getMembreId());
+                        $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeu']->getPlateformeId());
+                        // $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
+                        $this->afficherVues("jeux", $donnees);
+                    }
+                    else
+                    {
+                        $donnees["Erreur"] = "Ce jeu n'existe pas";
+                    }
+                    break;
 
                 case "afficherJeux" :
                     if(isset($params["JeuxId"]))
@@ -45,8 +53,8 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "derniers" :
-                    $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
-                    $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
+                    $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+                    $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
                     $this->afficherVues("accueil", $donnees);
                     break;
 
