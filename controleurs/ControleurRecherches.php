@@ -22,6 +22,7 @@
 
             $modeleJeu = $this->lireDAO("Jeux");
             $donnees['jeux'] = $modeleJeu->lireDerniersJeux();
+            $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
 
 
             if (isset($params["action"]))
@@ -29,7 +30,7 @@
                 switch($params["action"])
                 {
                     case "accueil" :
-                        $donnees['jeux'] = $modeleJeu->lireDerniersJeux();
+                        $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
                         $this->afficherVues("accueil", $donnees);
                         break;
 
