@@ -107,3 +107,4 @@ config.php
 ._.DS_Store
 
 git rm -r --cached .
+/nbproject/private/

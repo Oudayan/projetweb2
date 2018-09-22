@@ -1,7 +1,7 @@
 <?php
 /**
  * @file      ControleurJeux.php
- * @author    Marcelo Guzmán
+ * @author    Chunliang He, Guilherme Tosin, Jansy López, Marcelo Guzmán
  * @version   1.0.0
  * @date      Septembre 2018
  * @brief     Définit la classe pour le controleur jeux
@@ -23,31 +23,41 @@ class ControleurJeux extends BaseControleur
         $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
 
- 
+        $donnees['jeux'] = $modeleJeu->lireJeuParId($params["JeuxId"]);
 
         if (isset($params["action"]))
         {
             switch($params["action"])
             {
                 case "afficherJeu" :
-                    $donnees['jeux'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
+                    $donnees['jeu'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
                     $donnees['images'][] = $modeleImages->lireImagesParJeuxId($params["JeuxId"]);
                     $donnees['membre'] = $modeleMembres->obtenirParId($donnees['jeux']->getMembreId());
                     $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeux']->getPlateformeId());
                     // $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
-
-
                     $this->afficherVues("jeux", $donnees);
+
+                case "afficherJeux" :
+                    if(isset($params["JeuxId"]))
+                    {
+                        $this->afficherVues("accueil", $donnees);
+                    }
+                    break;
+
+                case "derniers" :
+                    $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
+                    $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
+                    $this->afficherVues("accueil", $donnees);
                     break;
 
                 default :
-                    $this->afficherVues("jeux", $donnees);
+                    $this->afficherVues("accueil", $donnees);
                     break;
             }
         }
         else
         {
-            $this->afficherVues("jeux", $donnees);
+            $this->afficherVues("accueil", $donnees);
         }
 
     }

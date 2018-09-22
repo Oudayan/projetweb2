@@ -1,17 +1,9 @@
 <?php
-/**
- * @file    jeux.php
- * @author  Guilherme Tosin, Marcelo Guzmán
- * @version 1.0
- * @date    Septembre 2018
- * @brief   Fichier de vue de jeu
- * @details Fichier pour afficher le détails de chaque jeu
- */
-
 echo '<pre>';
 var_dump($donnees);
 // var_dump($donnees['images']);
 echo '</pre>';
+
 ?>
 <h1><?= $donnees["jeux"]->getTitre() ?></h1>
 
@@ -29,7 +21,6 @@ echo '</pre>';
         {
             echo "<li data-target='carouselImagesJeu' data-slide-to='" . $i . "'></li>";
         }
-
     }
     ?>
   </ol>
@@ -49,8 +40,6 @@ echo '</pre>';
             echo '</div>';            
         }
     ?>
-    
-
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
