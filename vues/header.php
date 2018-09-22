@@ -15,7 +15,7 @@
         <header class="container-fluid"> 
             <nav class="navbar navbar-expand-md bg-dark navbar-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="index.php?Inscription&action=accueil">
+                    <a class="navbar-brand" href="index.php?Recherches&action=accueil">
                         <i class="fa d-inline fa-lg"></i>
                         <b>Game Logo</b>
                     </a>
