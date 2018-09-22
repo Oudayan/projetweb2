@@ -11,19 +11,18 @@
 
 	class ModeleImages extends BaseDAO {
 
+        // Déclaration du nom de la table (fonction abstraite)
 		public function lireNomTable() {
 			return "photo_jeux";
 		}
 
 
-		public function toutesImages() {
-            $sql = "SELECT chemin_photo FROM " . $this->lireNomTable();
-			$resultat = $this->requete($sql);
-			return $resultat->fetchAll(\PDO::FETCH_ASSOC);
-		}
+        public function lireImageJeuParId($idImage) {
+            $resultat = $this->lire($idImage);
+            $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
+            return $resultat->fetch();
+        }
 
 
         
     }
-
-?>

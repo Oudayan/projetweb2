@@ -30,24 +30,24 @@ class ControleurJeux extends BaseControleur
                     if(isset($params["JeuxId"]))
                     {
                         $donnees['jeux'] = $modeleJeu->lireJeuParId($params["JeuxId"]);
-                        $this->afficherVues("jeux", $donnees);
+                        $this->afficherVues("accueil", $donnees);
                     }
                     break;
 
                 case "derniers" :
 
                         $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
-                        $this->afficherVues("jeux", $donnees);
+                        $this->afficherVues("accueil", $donnees);
                     break;
 
                 default :
-                    $this->afficherVues("jeux", $donnees);
+                    $this->afficherVues("accuel", $donnees);
                     break;
             }
         }
         else
         {
-            $this->afficherVues("jeux", $donnees);
+            $this->afficherVues("accueil", $donnees);
         }
 
     }
