@@ -10,6 +10,18 @@
     
     // Inclusion des fichiers selon le répertoire et déclaration des paramètres de connexion
     require_once("config.php");
+    require_once("controleurs/Routeur.php");
+    require_once("controleurs/BaseControleur.php");
+    require_once("modeles/BaseDao.php");
+    require_once("modeles/ManufactureBD.php");
+    require_once("controleurs/ControleurJeux.php");
+    require_once("modeles/ModeleJeux.php");
+    require_once("modeles/Jeux.php");
+    
+//    require_once("vues/accueil.php");
+//    require_once("vues/header.php");
+//    require_once("vues/footer.php");
+//    require_once("vues/jeux.php");
  
     // Départ de la session
     session_start();

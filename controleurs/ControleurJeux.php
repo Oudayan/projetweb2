@@ -21,7 +21,6 @@ class ControleurJeux extends BaseControleur
         $modeleJeu = $this->lireDAO("Jeux");
         $donnees['jeux'] = $modeleJeu->lireJeuParId();
         $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
-
         if (isset($params["action"]))
         {
             switch($params["action"])
