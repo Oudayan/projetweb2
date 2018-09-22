@@ -19,14 +19,24 @@ class ControleurJeux extends BaseControleur
     public function index(array $params)
     {
         $modeleJeux = $this->lireDAO("Jeux");
-        $donnees['jeux'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
+        $modeleImages = $this->lireDAO("Images");
+        $modeleMembres = $this->lireDAO("Membres");
+        $modelePlateformes = $this->lireDAO("Plateformes");
+
+ 
 
         if (isset($params["action"]))
         {
             switch($params["action"])
             {
-                case "afficherJeux" :
+                case "afficherJeu" :
                     $donnees['jeux'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
+                    $donnees['images'][] = $modeleImages->lireImagesParJeuxId($params["JeuxId"]);
+                    $donnees['membre'] = $modeleMembres->obtenirParId($donnees['jeux']->getMembreId());
+                    $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeux']->getPlateformeId());
+                    // $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
+
+
                     $this->afficherVues("jeux", $donnees);
                     break;
 
@@ -42,4 +52,5 @@ class ControleurJeux extends BaseControleur
 
     }
 
+    // public function afficherJeu(array $params)
 }

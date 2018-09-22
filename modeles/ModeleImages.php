@@ -30,8 +30,8 @@
 
         public function lireImagesParJeuxId($id) {
             $resultat = $this->lire($id, "jeux_id");
-            $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
-            return $resultat->fetch();
+            // $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
+            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
         }
 
 
