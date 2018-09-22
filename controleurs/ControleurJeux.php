@@ -8,35 +8,38 @@
  * @details   Cette classe définit les différentes activités concernant aux jeux
  */
 
-    class ControleurJeux extends BaseControleur
+class ControleurJeux extends BaseControleur
+    /**
+     * @brief   Méthode qui sera appelée par les controleurs
+     * @details Méthode abstraite pour traiter les "cases" des contrôleurs
+     * @param   [array] $params La chaîne de requête URL ("query string") captée par le Routeur.php
+     * @return  L'acces aux vues,aux données et aux différents messages pour ce contrôleur.
+     */
+{
+    public function index(array $params)
     {
-        /**
-         * @brief   Méthode qui sera appelée par les controleurs
-         * @details Méthode pour évaluer les "cases" du contrôleurs
-         * @param   [array] $params La chaîne de requête URL ("query string") captée par le fichier Routeur.php
-         * @return  L'acces aux vues, aux donnes
-         */
+        $modeleJeu = $this->lireDAO("Jeux");
+        $donnees['jeux'] = $modeleJeu->lireDerniersJeux();
 
-        public function index(array $params)
+        if (isset($params["action"]))
         {
-            $modeleJeu = $this->lireDAO('Jeux');
-            if (isset($params["action"]))
+            switch($params["action"])
             {
-                switch($params["action"])
-                {
-                    case "afficherJeux" :
-                        if(isset($params["JeuxId"]))
-                        {
-                            $donnes["jeux"] = $modeleJeu->lireJeuParId($params["JeuxId"]);
-                        }
+                case "jeux" :
+                    $donnees['jeux'] = $modeleJeu->lireDerniersJeux();
+                    $this->afficherVues("jeux", $donnees);
                     break;
-                    default:
-                        trigger_error($params["action"]. " Action invalide.");
-                }
-            }
-            else
-            {
-                header("Location: index.php");
+
+                default :
+                    $this->afficherVues("jeux", $donnees);
+                    break;
             }
         }
+        else
+        {
+            $this->afficherVues("jeux", $donnees);
+        }
+
     }
+
+}
