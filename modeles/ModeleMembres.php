@@ -1,7 +1,7 @@
 <?php
 /**
  * @file      ModeleMembres.php
- * @author    Chunliang He, Guilherme Tosin, Jansy López, Marcelo Guzmán
+ * @author    Marcelo Guzmán
  * @version   1.0.0
  * @date      Septembre 2018
  * @brief     Définit la classe ModeleMembres

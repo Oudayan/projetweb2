@@ -1,44 +1,45 @@
 <?php
 /**
  * @file      ControleurJeux.php
- * @author    Chunliang He, Guilherme Tosin, Jansy López, Marcelo Guzmán
+ * @author    Marcelo Guzmán
  * @version   1.0.0
  * @date      Septembre 2018
  * @brief     Définit la classe pour le controleur jeux
  * @details   Cette classe définit les différentes activités concernant aux jeux
  */
 
-    class ControleurJeux extends BaseControleur
+class ControleurJeux extends BaseControleur
+    /**
+     * @brief   Méthode qui sera appelée par les controleurs
+     * @details Méthode abstraite pour traiter les "cases" des contrôleurs
+     * @param   [array] $params La chaîne de requête URL ("query string") captée par le Routeur.php
+     * @return  L'acces aux vues,aux données et aux différents messages pour ce contrôleur.
+     */
+{
+    public function index(array $params)
     {
-        /**
-         * @brief   Méthode qui sera appelée par les controleurs
-         * @details Méthode pour évaluer les "cases" du contrôleurs
-         * @param   [array] $params La chaîne de requête URL ("query string") captée par le fichier Routeur.php
-         * @return  L'acces aux vues, aux donnes
-         */
+        $modeleJeux = $this->lireDAO("Jeux");
+        $donnees['jeux'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
 
-        public function index(array $params)
+        if (isset($params["action"]))
         {
-            $modeleJeu = $this->lireDAO('Jeux');
-            // $donnees['jeux'] = $modeleJeu->lireJeuParId();
-            if (isset($params["action"]))
+            switch($params["action"])
             {
-                switch($params["action"])
-                {
-                    case "afficherJeux" :
-                        if(isset($params["JeuxId"]))
-                        {
-                            $donnees["jeux"] = $modeleJeu->lireJeuParId($params["JeuxId"]);
-                            $this->afficherVues("jeux", $donnees);
-                        }
+                case "afficherJeux" :
+                    $donnees['jeux'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
+                    $this->afficherVues("jeux", $donnees);
                     break;
-                    default:
-                        trigger_error($params["action"]. " Action invalide.");
-                }
-            }
-            else
-            {
-                header("Location: index.php");
+
+                default :
+                    $this->afficherVues("jeux", $donnees);
+                    break;
             }
         }
+        else
+        {
+            $this->afficherVues("jeux", $donnees);
+        }
+
     }
+
+}
