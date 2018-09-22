@@ -8,7 +8,7 @@
  * @details   Cette classe définit les différentes activités concernant aux jeux
  */
 
-class ControleurJeux extends BaseControleur
+class ControleurImages extends BaseControleur
     /**
      * @brief   Méthode qui sera appelée par les controleurs
      * @details Méthode abstraite pour traiter les "cases" des contrôleurs
@@ -18,9 +18,9 @@ class ControleurJeux extends BaseControleur
 {
     public function index(array $params)
     {
-        $modeleJeu = $this->lireDAO("Jeux");
-        $donnees['jeux'] = $modeleJeu->lireJeuParId();
-        $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
+        $modeleJeu = $this->lireDAO("Images");
+        $donnees['images'] = $modeleJeu->toutesImages();
+
 
         if (isset($params["action"]))
         {

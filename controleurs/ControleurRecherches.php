@@ -17,9 +17,12 @@
      */
     {
         public function index(array $params)
+
         {
+
             $modeleJeu = $this->lireDAO("Jeux");
             $donnees['jeux'] = $modeleJeu->lireDerniersJeux();
+
 
             if (isset($params["action"]))
             {
