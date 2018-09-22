@@ -226,7 +226,7 @@
          */
 
         public function getDateAjout(){
-            return $this->dateAjout;
+            return $this->date_ajout;
         }
 
         /**

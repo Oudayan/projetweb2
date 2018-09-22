@@ -15,7 +15,7 @@
 			return "jeux";
 		}
         
-		public function lireJeuParId($id) {
+		public function lireJeuParId($id = 3) {
             $resultat = $this->lire($id);
 			$resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Jeux');
 			return $resultat->fetch();
