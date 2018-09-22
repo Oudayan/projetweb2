@@ -20,6 +20,7 @@
         public function index(array $params)
         {
             $modeleJeu = $this->lireDAO('Jeux');
+            // $donnees['jeux'] = $modeleJeu->lireJeuParId();
             if (isset($params["action"]))
             {
                 switch($params["action"])
@@ -27,7 +28,8 @@
                     case "afficherJeux" :
                         if(isset($params["JeuxId"]))
                         {
-                            $donnes["jeux"] = $modeleJeu->lireJeuParId($params["JeuxId"]);
+                            $donnees["jeux"] = $modeleJeu->lireJeuParId($params["JeuxId"]);
+                            $this->afficherVues("jeux", $donnees);
                         }
                     break;
                     default:
