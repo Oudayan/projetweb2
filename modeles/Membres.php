@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    Membres.php
- * @author  Chunliang He, Guilherme Tosin, Jansy López, Marcelo Guzmán
+ * @author  Guilherme Tosin, Marcelo Guzmán
  * @version 1.0
  * @date    Septembre 2018
  * @brief   Définit la classe Membres
