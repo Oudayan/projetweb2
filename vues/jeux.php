@@ -84,5 +84,11 @@
                 <span><?=($donnees["jeu"]->getDateAjout())?></span>
             </div>
         </div>
+        <div class="row my-5">
+            <div class="d-flex justify-content-center col-12">
+                <button type="button" class="btn btn-secondary btn-lg"><?=($donnees["jeu"]->getLocation() == 1 ? "Louer" : "Acheter") ?></button>
+            </div>
+        </div>
     </section>
+    
 </div>
