@@ -7,7 +7,12 @@
  * @brief     Fichier de vue pour les jeux.
  * @details   Cette vue permettre voir les détails de chaque jeux
  */
+echo "<pre>";
+var_dump($donnees);
+echo "</pre>";
+
 ?>
+
 <div class="container">
     <h1 class="text-center my-4"><?= $donnees["jeu"]->getTitre() ?></h1>
     <section>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file     ModeleImages.php
- * @author   
+ * @author   Guilherme Tosin, Marcelo Guzmán
  * @version  1.0
  * @date     
  * @brief    Modèle Images
