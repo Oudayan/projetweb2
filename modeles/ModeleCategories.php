@@ -1,6 +1,6 @@
 <?php
 /**
- * @file     ModeleCategorie.php
+ * @file     ModeleCategories.php
  * @author   Guilherme Tosin, Marcelo Guzmán
  * @version  1.0
  * @date     
@@ -9,7 +9,7 @@
  * @details  Fonctions "CRUD" pour la table  
  */
 
-	class ModeleCategorie extends BaseDAO {
+	class ModeleCategories extends BaseDAO {
 
         // Déclaration du nom de la table (fonction abstraite)
 		public function lireNomTable() {

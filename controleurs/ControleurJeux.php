@@ -22,10 +22,10 @@ class ControleurJeux extends BaseControleur
         $modeleImages = $this->lireDAO("Images");
         $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
+        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         // $modeleCategories = $this->lireDAO("Categories");
-        // $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         
-        $donnees["Erreur"] = "";
+        $donnees["erreur"] = "";
 
         if (isset($params["action"]))
         {
@@ -38,15 +38,15 @@ class ControleurJeux extends BaseControleur
                         $donnees['images'] = $modeleImages->lireImagesParJeuxId($params["JeuxId"]);
                         $donnees['membre'] = $modeleMembres->obtenirParId($donnees['jeu']->getMembreId());
                         $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeu']->getPlateformeId());
-                        // $donnees['categorie'] = $modeleCategories->lireCategorieParId($donnees['categorieId']->getCategorieId());
-                        // $donnees['categorieJeu'] = $modeleCategoriesJeux->lireCategorieParId($donnees['categorieJeuId']->getCategorieId());
+                        $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
+                        // $donnees['categories'] = $modeleCategories->lireToutesCategories();
                         // $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
-                        $this->afficherVues("jeux", $donnees);
                     }
                     else
                     {
-                        $donnees["Erreur"] = "Ce jeu n'existe pas";
+                        $donnees["erreur"] = "Ce jeu n'existe pas.";
                     }
+                    $this->afficherVues("jeux", $donnees);
                     break;
 
                 case "afficherJeux" :
