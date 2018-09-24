@@ -7,10 +7,6 @@
  * @brief     Fichier de vue pour les jeux.
  * @details   Cette vue permettre voir les détails de chaque jeux
  */
-echo "<pre>";
-var_dump($donnees);
-echo "</pre>";
-
 ?>
 
 <div class="container">
@@ -87,6 +83,18 @@ echo "</pre>";
             <div class="col-6">
                 <h4>Disponible depuis :</h4>
                 <span><?=($donnees["jeu"]->getDateAjout())?></span>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-6">
+                <h4>Catégories de jeu :</h4>
+                <?php 
+                    for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
+                    {
+                        echo '<span class="mr-2">'. $donnees['categoriesJeu'][$i]->getCategorie() .'</span>';
+                        echo '<br>';
+                    }
+                ?>               
             </div>
         </div>
         <div class="row my-5">
