@@ -330,27 +330,43 @@ INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `date_achat`) 
 
 INSERT INTO `categorie` (`categorie_id`, `categorie`) VALUES
 (1, 'Action'),
-(2, 'Adventure'),
-(3, 'Fighting'),
-(4, 'Survival'),
-(5, 'Fiction'),
-(6, 'Platform'),
-(7, 'Shooter'),
-(8, 'Simulation'),
-(9, 'Horror'),
-(10, 'Sports'),
-(11, 'Strategy'),
-(12, 'Misc'),
-(13, 'Puzzle'),
-(14, 'Racing'),
-(15, 'Role-playing'),
-(16, 'Music'),
-(17, 'Misc'),
-(18, 'Arcade'),
-(19, 'Educational'),
-(20, 'Maze'),
-(21, 'Sexual'),
-(22, 'Platform');
+(2, 'Combat'),
+(3, 'Aventure'),
+(4, 'Sports'),
+(5, 'Course'),
+(6, 'Simulation'),
+(7, 'Stratégie'),
+(8, 'Plate-forme'),
+(9, 'Labyrinthe'),
+(10, 'Musique')
+(11, 'Jue de tir à la première personne');
+
+
+--
+-- Contenu de la table `categorie_jeux`
+--
+INSERT INTO `categorie_jeux` (`jeux_id`, `categorie_id`) VALUES
+(1, 3),
+(1, 8),
+(2, 1),
+(2, 3),
+(3, 8), 
+(3, 5),
+(3, 3),
+(4, 1),
+(4, 8),
+(5, 5),
+(6, 8),
+(6, 10),
+(7, 1),
+(7, 5),
+(8, 11),
+(8, 1),
+(8, 3),
+(9, 1),
+(10, 1),
+(10, 3),
+(10, 6);
 
 
 --
