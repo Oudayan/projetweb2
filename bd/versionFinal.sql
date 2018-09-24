@@ -338,8 +338,8 @@ INSERT INTO `categorie` (`categorie_id`, `categorie`) VALUES
 (7, 'Stratégie'),
 (8, 'Plate-forme'),
 (9, 'Labyrinthe'),
-(10, 'Musique')
-(11, 'Jue de tir à la première personne');
+(10, 'Musique'),
+(11, 'Jeu de tir à la première personne');
 
 
 --
