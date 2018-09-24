@@ -7,9 +7,9 @@
  * @brief     Fichier de vue pour les jeux.
  * @details   Cette vue permettre voir les détails de chaque jeux
  */
-echo "<pre>";
-var_dump($donnees);
-echo "</pre>";
+//echo "<pre>";
+//var_dump($donnees);
+//echo "</pre>";
 
 ?>
 

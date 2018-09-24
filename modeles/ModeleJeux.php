@@ -28,7 +28,7 @@
 		}
 		
 		public function lireDerniersJeux($nombreJeux = 9) {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true ORDER BY date_ajout DESC LIMIT " . $nombreJeux;
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true ORDER BY jeux_id DESC LIMIT " . $nombreJeux;
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
@@ -38,6 +38,14 @@
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(\PDO::FETCH_ASSOC);
 		}
+
+//        public function lireTousIdsJeux() {
+//            $sql = "SELECT jeux_id FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
+//            $resultat = $this->requete($sql);
+//            return $resultat->fetchAll(\PDO::FETCH_ASSOC);
+//        }
+
+
 
 
         public function effacerJeu($id) {

@@ -57,7 +57,13 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "derniers" :
+
                     $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+                    $donnees['images'] = $modeleImages->lireDerniersImages();
+
+
+
+
                     $this->afficherVues("accueil", $donnees);
                     break;
 
