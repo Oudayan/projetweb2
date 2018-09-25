@@ -64,22 +64,22 @@
 
 
             <?php
+           
 
             $counter = count($donnees['derniers']);
-//            var_dump($donnees['images']);
 
             for ($i = 0; $i <= $counter -1; $i++) {
 
 
                 echo    '<div class="col-md-4">';
                 echo        '<div class="card mb-4 box-shadow">';
-                echo            '<img class="card-img-top" src="images/thumb01.jpg" alt="Card image cap">';
+                echo            '<img class="card-img-top" src="' . $donnees['images'][$i]->getCheminPhoto() .'" alt="Card image cap">';
                 echo            '<div class="card-body">';
                 echo                '<p class="card-text">' . $donnees['derniers'][$i]->getTitre() . '</p>';
                 echo                '<div class="d-flex justify-content-between align-items-center">';
                 echo                    '<div class="btn-group">';
-                echo                        '<button type="button" class="btn btn-sm btn-outline-secondary">Détails</button>';
-                echo                        '<button type="button" class="btn btn-sm btn-outline-secondary">Acheter</button>';
+                echo                        '<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href=\'index.php?Jeux&action=afficherJeu&JeuxId=' . $donnees['derniers'][$i]->getJeuxId() . ' \' ">Détails</button>';
+                echo                        '<button type="button" class="btn btn-sm btn-outline-secondary">' . ($donnees['derniers'][$i]->getLocation() == 1 ? 'Louer' : 'Acheter') . '</button>';
                 echo                    '</div>';
                 echo                    '<small class="text-muted">Prix : ' . $donnees['derniers'][$i]->getPrix() . ' $CAD</small>';
                 echo                '</div>';
@@ -91,5 +91,6 @@
 
             ?>
         </div>
+       
     </div>
 </div>
