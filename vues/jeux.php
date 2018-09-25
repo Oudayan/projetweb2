@@ -70,6 +70,14 @@
                         <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
                         <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
                         <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
+                        <p>Catégories :</p>
+                        <?php
+                            for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
+                            {
+                                echo '<p>' ."-" . $donnees['categoriesJeu'][$i]->getCategorie() .'</p>';
+                                        
+                            }
+                        ?>
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
                     <div class="contacter-annoceur">
