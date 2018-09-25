@@ -45,7 +45,6 @@
         <h1 class="text-center bg-info mt-2">NOUVEAUTÉS</h1>
         <div class="row">
             <?php
-           
 
             $counter = count($donnees['derniers']);
 
@@ -60,7 +59,7 @@
                 echo                '<div class="d-flex justify-content-between align-items-center">';
                 echo                    '<div class="btn-group">';
                 echo                        '<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href=\'index.php?Jeux&action=afficherJeu&JeuxId=' . $donnees['derniers'][$i]->getJeuxId() . ' \' ">Détails</button>';
-                echo                        '<button type="button" class="btn btn-sm btn-outline-secondary">' . ($donnees['derniers'][$i]->getLocation() == 1 ? 'Louer' : 'Acheter') . '</button>';
+                echo                        '<button type="button" class="btn btn-sm btn-outline-secondary">Acheter</button>';
                 echo                    '</div>';
                 echo                    '<small class="text-muted">Prix : ' . $donnees['derniers'][$i]->getPrix() . ' $CAD</small>';
                 echo                '</div>';
@@ -71,11 +70,7 @@
             }
 
             ?>
-        </div>
-<<<<<<< HEAD
-=======
-       
->>>>>>> 0df7c041245862528ec6a24a5d6ceac970a85210
-    </div>
+                </div>
+            </div>
 
 
