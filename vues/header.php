@@ -7,18 +7,61 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+       
+       
+        <link rel="stylesheet" href="Chat/style.css" type="text/css" />
         <title></title>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-    </head>
+        <script type="text/javascript" src="Chat/chat.js"></script>
+        <script type="text/javascript" src="Chat/script.js"></script>
+        <script type="text/javascript"> 
+        $(document).ready(function () {
+            setInterval('chat.update()', 1000);
+        })
+        </script>
     <body>
+        <div id="page-wrap">
+            
+            <p id="name-area"></p>
+            
+            <div id="chat-wrap"><div id="chat-area"></div></div>
+            
+            <form id="send-message-area">
+                <p style="color:#000;">Your message: </p>
+                <textarea id="sendie" maxlength = '100' ></textarea>
+            </form>
+
+        </div>
         <header class="container-fluid"> 
             <nav class="navbar navbar-expand-md bg-dark navbar-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="index.php?Recherches&action=accueil">
-                        <i class="fa d-inline fa-lg"></i>
-                        <b>Game Logo</b>
-                    </a>
+                    <div>
+                        <a class="navbar-brand" href="index.php?Recherches&action=accueil">
+                            <i class="fa d-inline fa-lg"></i>
+                            <b>Game Logo</b>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="navbar-brand" href="#">
+                            <i class="fa d-inline fa-lg"></i>
+                            <b>Acheter</b>
+                        </a>
+                    </div>
+
+                    
+                    <div>
+                        <a class="navbar-brand" href="#">
+                            <i class="fa d-inline fa-lg"></i>
+                            <b>Vendre</b>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="navbar-brand" href="#">
+                            <i class="fa d-inline fa-lg"></i>
+                            <b>Louer</b>
+                        </a>
+                    </div>
                     <!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent">
                         <span class="navbar-toggler-icon"></span>                      
                     </button>
