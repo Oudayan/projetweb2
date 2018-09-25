@@ -62,9 +62,8 @@ class ControleurJeux extends BaseControleur
                     $donnees['images'] = $modeleImages->lireDerniersImages();
 
 
-
-
                     $this->afficherVues("accueil", $donnees);
+                    
                     break;
 
                 default :

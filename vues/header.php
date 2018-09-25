@@ -15,17 +15,10 @@
         <header class="container-fluid"> 
             <nav class="navbar navbar-expand-md bg-dark navbar-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="index.php?Recherches&action=accueil">
+                    <a class="navbar-brand" href="index.php?Jeux&action=derniers">
                         <i class="fa d-inline fa-lg"></i>
                         <b>Game Logo</b>
                     </a>
-                    <!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent">
-                        <span class="navbar-toggler-icon"></span>                      
-                    </button>
-                    <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
-                        <a class="btn navbar-btn ml-2 text-white btn-secondary">S'inscrire'</a>
-                    </div> -->
-
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                         <i class="fa d-inline fa-lg fa-user-circle-o"></i>
@@ -45,27 +38,22 @@
                                     </div>
                                     <div class="modal-modal-body mx-sm-1 mx-md-3 mx-lg-5">
                                         <div class="form-group row">
-                                            <!-- <label for="courriel" class="col-md-3 col-form-label">Courriel</label> -->
                                             <div class="col-md-10">
                                                 <input type="text" name="courriel" class="form-control" id="courriel" placeholder="Courriel">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <!-- <label for="mot_de_passe" class="col-md-3 col-form-label">Mot de Passe</label> -->
                                             <div class="col-md-10">
                                                 <input type="text" name="mot_de_passe" class="form-control" id="mot_de_passe" placeholder="Mot de passe">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <!-- <label for="mot_de_passe" class="col-md-3 col-form-label">Mot de Passe</label> -->
                                             <div class="col-md-10">
                                             <a href="#">Vous avez oublié votre mot de passe?</a>
                                             </div>
                                         </div>    
                                     </div>
-                                    <div class="modal-footer">
-                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                                        
+                                    <div class="modal-footer">                                      
                                         <a href="#">S'inscrire</a>
                                         <button type="button" class="btn btn-primary">Se Connecter</button>
                                     </div>

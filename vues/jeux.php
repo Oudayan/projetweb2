@@ -7,13 +7,6 @@
  * @brief     Fichier de vue pour les jeux.
  * @details   Cette vue permettre voir les détails de chaque jeux
  */
-<<<<<<< HEAD
-//echo "<pre>";
-//var_dump($donnees);
-//echo "</pre>";
-
-=======
->>>>>>> a65df87e27fe1dd9853ede398aa1c43f1a75443b
 ?>
 
 <div class="container">
