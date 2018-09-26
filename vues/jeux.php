@@ -153,13 +153,6 @@
                 <div class="card-header bg-secondary text-white text-uppercase"><i class="fa fa-comment"></i> Avis</div>
                 <div class="card-body">
                     <div class="review">
-                        <!-- <i class="fas fa-calendar-alt"></i>
-                        Janvier 15, 2018 -->
-                        <!-- <p class="pt-3">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span> par Mario Tardelli
-                        </p> -->
                         <?php
                             for($i = 0; $i < count($donnees['commentaireJeu']); $i++)
                             {
