@@ -70,20 +70,24 @@
                         <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
                         <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
                         <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
-                        <p>Catégories :</p>
+                        <a>Catégories :</a>
                         <?php
                             for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
                             {
-                                echo '<p>' .'* ' . $donnees['categoriesJeu'][$i]->getCategorie() .'</p>';
-                                        
+                                if (count($donnees['categoriesJeu']) > 1 ) {
+                                    echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .' <span class="cat-symbol"><i class="fas fa-angle-right"></i></span> </a>';
+                                }
+                                else {
+                                    echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .'</a>';
+                                }
                             }
                         ?>
+                        <br /><br />
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
                     <div class="contacter-annoceur">
                         <i class="fa fa-phone fa-2x"></i><br/>Contacter annonceur
                     </div>
-
                     <div class="avis-etoiles p-3 mb-2 ">
                         4 avis
                         <i class="fa fa-star"></i>
@@ -146,3 +150,15 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    // Enlève le dernier " > " qui sépare les différentes catégories d'un jeu dans la page "jeux.php"
+
+    let catDiv = document.getElementsByClassName("cat-symbol");  // Trouve le span qui contient l'icone " > " qui sépare les catégories
+    let catDiv2 = (catDiv.length -1);                            // Declare la variable carDiv2 qui contient l'index du dernier élément du HTML Collection "catDiv"
+    catDiv[catDiv2].style.display = "none";                      // Cache le dernier élément du HTML Collection en utilisant "display = none"
+
+</script>
+
+
