@@ -15,16 +15,17 @@
         private $membre_id;
         private $commentaire;
         private $evaluation;
-
+        private $date_commentaire;
 
         // Constructeur
-        public function __construct($commentaire_jeux_id = 0,$jeux_id = 0, $membre_id = 0, $commentaire= "", $evaluation = "")
+        public function __construct($commentaire_jeux_id = 0,$jeux_id = 0, $membre_id = 0, $commentaire= "", $evaluation = "", $date_commentaire = "")
         {
             $this->setCommentaireJeuxId($commentaire_jeux_id); 
             $this->setJeuxId($jeux_id);
             $this->setMembreId($membre_id);
             $this->setCommentaire($commentaire);
             $this->setEvaluation($evaluation);
+            $this->setDateCommentaire($date_commentaire);
         }
 
         //SETTERS
@@ -84,6 +85,17 @@
             }
         }
 
+         /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Categorie
+         * @param       [numeric] $date_commentaire ,  la date d'ajout d'un commentaire
+         * @return      [object]
+         */
+        public function setDateCommentaire($date_commentaire){
+            if (is_string($date_commentaire) && trim($date_commentaire) != ""){
+                $this->date_commentaire = $date_commentaire;
+            }
+        }
+
         // GETTERS
 
         /**
@@ -129,6 +141,15 @@
          */
         public function getEvaluation(){
             return $this->evaluation;
+        }
+
+         /**
+         * @brief       Permet de définir en lecture l'attribut de la classe Commentaire de jeux
+         * @param       [string] $date_commentaire ,  la date d'ajout dún commentarie
+         * @return      [object]
+         */
+        public function getDateCommentaire(){
+            return $this->date_commentaire;
         }
 
     }
