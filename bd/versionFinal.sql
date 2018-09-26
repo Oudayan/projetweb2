@@ -81,7 +81,7 @@ create table commentaire_jeux
    `jeux_id`              int not null,
    `membre_id`            int not null,
    `commentaire`          text not null,
-   `evaluation`           decimal(2,1),
+   `evaluation`           decimal(6,5),
    primary key (commentaire_jeux_id)
 );
 
@@ -100,6 +100,7 @@ create table jeux
    `location`             bool not null,
    `jeux_valide`          bool not null,
    `jeux_actif`           bool not null,
+   `description`          text not null,
    primary key (jeux_id)
 );
 
@@ -290,21 +291,47 @@ INSERT INTO `plateforme` (`plateforme_id`, `plateforme`) VALUES
 (8, 'Playstation Vita');
 
 
+
 --
 -- Contenu de la table `jeux`
 --
 
-INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `titre`, `prix`, `date_ajout`, `concepteur`, `location`, `jeux_valide`, `jeux_actif`) VALUES
-(1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-16 04:13:54', 'Nintendo', 1, 1, 1),
-(2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 0, 1, 1),
-(3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-14 11:24:30', 'SEGA', 0, 1, 1),
-(4, 4, 4, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0, 1, 1),
-(5, 3, 5, 'Mario Kart Double Dash', 31, '2018-09-10 12:44:33', 'Nintendo', 0, 1, 1),
-(6, 7, 6, 'Donkey Kong Country', 24, '2018-09-15 10:02:50', 'Nintendo', 0, 1, 1),
-(7, 4, 3, 'Shift 2 Unleashed', 32.99, '2018-09-10 06:24:30', 'EA', 0, 1, 1),
-(8, 6, 4, 'Halo Reach', 44.5, '2018-09-11 07:12:20', 'Bungie', 0, 1, 1),
-(9, 8, 5, 'The Secret of Monkey Island', 16, '2018-09-12 08:44:33', 'SEGA', 1, 1, 1),
-(10, 2, 6, 'Assassins Creed BrotherHood', 35, '2018-09-13 09:02:50', 'UBISOFT', 0, 1, 1);
+INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `titre`, `prix`, `date_ajout`, `concepteur`, `location`, `jeux_valide`, `jeux_actif`, `description`) VALUES
+(1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-16 04:13:54', 'Nintendo', 1, 1, 1, 'Curabitur sit amet convallis felis. Mauris ac massa justo. Aliquam ex nisl, viverra vitae nulla eu, vulputate rhoncus dui. Nullam a massa ligula. Suspendisse sollicitudin iaculis lacus, et interdum justo maximus a. Phasellus ullamcorper aliquet dolor, eget mattis mauris ornare a. Nam condimentum purus dolor, pellentesque hendrerit tortor pellentesque sit amet. Sed faucibus lectus magna, non iaculis lorem sodales id.'),
+(2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-16 04:13:54', 'Sony', 0, 1, 1, 'Mauris vehicula sapien ac nulla pharetra, sit amet commodo erat feugiat. Phasellus varius massa mauris, ut volutpat ipsum viverra eget. Nunc ut orci blandit, semper nunc id, lacinia odio. Phasellus cursus metus gravida ex consequat tristique. In hac habitasse platea.'),
+(3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-14 11:24:30', 'SEGA', 0, 1, 1, 'Nullam consectetur tempor nibh, sit amet mollis augue suscipit vel. Nullam vestibulum mi sed lectus pharetra condimentum. Quisque varius, augue in scelerisque iaculis, lectus urna facilisis urna, non feugiat est nunc fringilla diam. Fusce vel turpis semper, euismod eros et, fermentum diam. Donec sed nulla in ipsum pulvinar rutrum id.'),
+(4, 4, 4, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0, 1, 1, 'Mauris pharetra egestas sem, eget euismod enim euismod nec. Ut leo augue, bibendum sed metus et, faucibus pretium nulla. Morbi auctor risus ex, vulputate tristique orci volutpat non. Aliquam dapibus.'),
+(5, 3, 5, 'Mario Kart Double Dash', 31, '2018-09-10 12:44:33', 'Nintendo', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porttitor nisi. Ut placerat sapien et consequat aliquam. Duis tincidunt fermentum diam, a porta dui tristique id. Curabitur tristique massa hendrerit nulla mattis, ut facilisis.'),
+(6, 7, 6, 'Donkey Kong Country', 24, '2018-09-15 10:02:50', 'Nintendo', 0, 1, 1, 'Praesent euismod, nibh id consequat porta, lorem nunc tempus mi, quis accumsan justo odio egestas risus. Vivamus ullamcorper euismod porttitor. Aenean tellus ligula, ultrices sit amet enim vel, eleifend iaculis.'),
+(7, 4, 3, 'Shift 2 Unleashed', 32.99, '2018-09-10 06:24:30', 'EA', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pellentesque aliquam ornare. Quisque faucibus auctor nulla, euismod commodo quam posuere quis. Phasellus tempus justo lorem, eget gravida est convallis ac. Nulla consectetur facilisis lacus vel rutrum. Nulla pharetra dapibus ex. Proin orci.'),
+(8, 6, 4, 'Halo Reach', 44.5, '2018-09-11 07:12:20', 'Bungie', 0, 1, 1, 'Cras aliquam erat massa, in ultricies purus elementum sit amet. Nulla nec imperdiet est, sit amet pellentesque magna. Suspendisse neque urna, ornare vel massa posuere, dapibus mollis ipsum. Nulla facilisi. Interdum et malesuada fames ac ante ipsum primis in.'),
+(9, 8, 5, 'The Secret of Monkey Island', 16, '2018-09-12 08:44:33', 'SEGA', 1, 1, 1, 'Nullam malesuada orci et urna tristique, a efficitur tellus lacinia. Suspendisse potenti. Nulla luctus enim turpis, eu cursus erat malesuada eu. Quisque tempor, urna et fringilla congue, enim elit dignissim ligula, vel ultricies elit leo at ligula. Fusce tincidunt dui ac varius cursus. Praesent sollicitudin ligula sapien. Nullam nec tincidunt quam.'),
+(10, 2, 6, 'Assassins Creed BrotherHood', 35, '2018-09-13 09:02:50', 'UBISOFT', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac quam id nisl porttitor rutrum a vitae odio. Etiam ac massa viverra, finibus mi vel, pellentesque nunc. Pellentesque efficitur purus mi, in lobortis magna consequat ut. Orci varius natoque penatibus et magnis.');
+
+
+--
+-- Contenu de la table `commentaire_jeux`
+--
+INSERT INTO `commentaire_jeux` (`commentaire_jeux_id`, `jeux_id`, `membre_id`, `commentaire`, `evaluation`) VALUES
+(1, 1, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis et quam ut mattis. Ut eleifend bibendum magna, eu volutpat metus lacinia vel. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam gravida diam eu dictum interdum. Aliquam erat enim.', 4.02345),
+(2, 1, 6, 'Maecenas ut facilisis ligula. Sed quis laoreet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas enim lorem, faucibus vitae ultrices sit amet, tincidunt.', 4.14588),
+(3, 2, 1, 'Sed ac pulvinar ante, sit amet tristique elit. Sed pellentesque lacus sed sem scelerisque, id fringilla odio rutrum. Nullam fermentum feugiat sollicitudin. Donec ut lacus et mauris eleifend imperdiet nec vel erat. Ut ultricies lorem.', 4.00125),
+(4, 2, 9, 'Nulla molestie nulla arcu, a dapibus lorem pulvinar ac. Phasellus libero ligula, finibus quis pulvinar a, tincidunt quis ligula. Etiam id tortor ac nunc elementum pretium. Quisque fringilla eros vel laoreet congue. Aliquam facilisis quis nibh lacinia aliquet. Sed quis.', 4.21547),
+(5, 2, 5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut.', 4.56235),
+(6, 3, 2, 'Sed varius dui nisl, eu efficitur ipsum feugiat sed. Nulla sed dui risus. Fusce euismod diam vel mi consectetur, sit amet lacinia quam auctor. Cras tincidunt consequat tellus ac feugiat. Curabitur rhoncus.', 3.98457),
+(7, 3, 8, 'Maecenas tempor mauris et sem laoreet, ac fringilla velit accumsan. Nam quis tortor quis lorem dapibus porttitor a at odio. Integer elementum tincidunt cursus. Donec auctor sed quam sit amet ultricies. Vestibulum suscipit dolor nec pulvinar.', 4.25568),
+(8, 4, 7, 'Aenean et nibh rutrum, ullamcorper tellus in, posuere urna. Nam aliquet nisl vitae sem gravida sodales. Vestibulum iaculis orci quam, in commodo felis eleifend id. Proin ac elit ultrices ex hendrerit bibendum. Sed lobortis ultricies turpis at ultricies. Cras et leo vel ante gravida aliquam.', 4.65984),
+(9, 5, 10, 'Integer laoreet ornare lacus eu consequat. Maecenas facilisis tortor neque, lacinia lobortis lacus aliquam nec. Nulla nibh ligula, commodo id velit sit amet, varius tincidunt metus. Pellentesque ut urna condimentum, placerat ligula et, pharetra nibh. Nunc eu vehicula ipsum.', 3.54788),
+(10, 5, 7, 'Sed auctor lobortis est, id convallis turpis condimentum quis. Sed consequat, sem eget scelerisque ullamcorper, dolor elit pretium lectus, eget blandit urna neque nec felis. Nunc convallis dui nec vehicula sodales. Maecenas mi enim, vestibulum.', 4.01452),
+(11, 6, 5, 'Morbi ut ante enim. Praesent fringilla feugiat placerat. Donec imperdiet, nisl vel consequat ultricies, arcu neque congue sem, eget varius urna ligula ut massa. Nam sit amet erat hendrerit, lacinia ante sit amet, porttitor lorem. Integer imperdiet et sem nec.', 3.57841),
+(12, 6, 1, 'Nam eu gravida ipsum. Vestibulum erat leo, efficitur a magna nec, lacinia pharetra nibh. Sed eget laoreet nibh, eget porttitor ipsum. Aenean id dui id dolor commodo fringilla. Mauris nulla lorem, suscipit eget.', 4.01452),
+(13, 7, 2, 'Nam at nisi sit amet massa sagittis vestibulum sit amet eget augue. Pellentesque eget velit eu nunc iaculis sollicitudin eget eu elit. Praesent blandit ligula vitae tempor ultricies. Aliquam euismod, felis in tristique aliquet, nulla leo sagittis.', 4.00125),
+(14, 8, 5, 'Duis magna lacus, posuere nec nisi at, malesuada hendrerit augue. Nunc ac eros accumsan, varius dolor vitae, sodales erat. Donec pellentesque molestie elit, quis ultricies erat rhoncus a. Sed commodo.', 4.10215),
+(15, 8, 7, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tellus ligula, tincidunt nec dolor gravida, interdum hendrerit metus. Ut semper nibh lectus, vitae commodo neque placerat a. Maecenas at mauris.', 4.03024),
+(16, 9, 3, 'Nunc fermentum eget nunc quis volutpat. Aliquam placerat auctor tempus. Pellentesque arcu lectus, vehicula at pulvinar et, laoreet eu ante. Aliquam sodales ante eu lobortis gravida. Phasellus id laoreet mauris. Mauris suscipit laoreet justo vel eleifend. Nulla ac.', 3.02565),
+(17, 9, 6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra ut tortor id fringilla. Praesent a mattis risus, ut laoreet velit. Nunc dapibus imperdiet velit, sed hendrerit eros dictum ut. Fusce efficitur feugiat blandit.', 4.32144),
+(18, 10, 4, 'Ut efficitur sodales egestas. Etiam non ipsum quis lorem mollis iaculis. Vivamus id nibh at lacus gravida aliquam nec ut nibh. Sed blandit massa et eros aliquet, eget ultrices leo ornare. Vestibulum egestas, sem eget rutrum tincidunt, dolor ex semper eros, sit.', 4.10123),
+(19, 10, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dignissim orci pretium porta volutpat. Etiam at lorem nec nisl pellentesque rutrum vel quis nisi. Aliquam risus mauris, convallis ac vulputate ac, commodo a erat. Nunc at leo sit amet ligula ultrices porta. Nullam non urna accumsan.', 4.03325);
 
 
 --

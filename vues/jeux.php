@@ -74,7 +74,7 @@
                         <?php
                             for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
                             {
-                                echo '<p>' ."-" . $donnees['categoriesJeu'][$i]->getCategorie() .'</p>';
+                                echo '<p>' .'* ' . $donnees['categoriesJeu'][$i]->getCategorie() .'</p>';
                                         
                             }
                         ?>
@@ -101,6 +101,11 @@
             </div>
         </div>
     </div>
+    <!-- <?php
+        echo "<pre>";
+        var_dump($donnees);
+        echo "</pre>";
+    ?> -->
     <div class="row">
         <!-- Description -->
         <div class="col-12">
@@ -108,10 +113,7 @@
                 <div class="card-header bg-secondary text-white text-uppercase"><i class="fa fa-align-justify"></i> Description du jeu</div>
                 <div class="card-body">
                     <p class="card-text">
-                        Vestibulum quis blandit arcu. Nulla tristique tristique facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam vel aliquet risus, quis semper nulla. Suspendisse eleifend consequat enim, et accumsan dui consequat vitae. Duis at risus non turpis fringilla consequat vitae commodo enim. Curabitur nibh nulla, pharetra vel porta mollis, bibendum et nibh. Morbi et odio lorem. Maecenas est enim, mollis sed fringilla vel, faucibus sed metus. Mauris ornare faucibus augue sit amet dignissim. Maecenas bibendum, orci a elementum mattis, purus nulla elementum tortor, nec tincidunt nibh diam eu elit. Sed tortor nisi, tincidunt vel vestibulum ut, rhoncus vitae nibh. Pellentesque tempus, ligula in semper condimentum, tortor velit efficitur erat, non sodales purus mi eget sapien. Duis ipsum ex, faucibus aliquam dui et, fermentum cursus nisl. Maecenas convallis consectetur enim, nec mollis urna aliquam a.
-                    </p>
-                    <p class="card-text">
-                        Sed dictum tortor at cursus iaculis. Vestibulum lacinia, ante vel tincidunt laoreet, leo mauris tempus velit, sed ornare mauris lacus sit amet leo. Sed eget ante vitae ex luctus dictum. In vel dapibus ex. Proin vehicula maximus blandit. Cras rhoncus metus ipsum, sit amet iaculis ex aliquam non. Quisque nec mauris consectetur, faucibus turpis ac, egestas libero. Nulla ornare leo elementum, faucibus nibh vitae, aliquet libero. Ut vestibulum nunc tortor. Maecenas in felis ultrices turpis pharetra luctus id ac mauris.
+                        <?=($donnees["jeu"]->getDescription())?>
                     </p>
                 </div>
             </div>
@@ -122,37 +124,22 @@
                 <div class="card-header bg-secondary text-white text-uppercase"><i class="fa fa-comment"></i> Avis</div>
                 <div class="card-body">
                     <div class="review">
-                        <i class="fas fa-calendar-alt"></i>
-                        Janvier 15, 2018
-                        <p class="pt-3">
+                        <!-- <i class="fas fa-calendar-alt"></i>
+                        Janvier 15, 2018 -->
+                        <!-- <p class="pt-3">
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span> par Mario Tardelli
-                        </p>
-                        <p>Aenean sollicitudin urna lacus, quis porttitor lacus eleifend sed. Sed rhoncus tellus vel leo placerat placerat. Vivamus at varius nisl. Nullam lobortis sagittis aliquam. Aliquam mattis vitae dolor quis porta. In varius urna lobortis porttitor lacinia. Integer id venenatis felis.</p>
-                        <hr>
-                    </div>
-                    <div class="review">
-                        <i class="fas fa-calendar-alt"></i>
-                        Juillet 19, 2018
-                        <p class="pt-3">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span> par Luigi Corleone
-                        </p>
-                        <p>Aenean sollicitudin urna lacus, quis porttitor lacus eleifend sed. Sed rhoncus tellus vel leo placerat placerat. Vivamus at varius nisl. Nullam lobortis sagittis aliquam. Aliquam mattis vitae dolor quis porta. In varius urna lobortis porttitor lacinia. Integer id venenatis felis.</p>
-                        <hr>
-                    </div>
-                    <div class="review">
-                        <i class="fas fa-calendar-alt"></i>
-                        Septembre 10, 2018
-                        <p class="pt-3">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span> par M. Sirois
-                        </p>
-                        <p>Aenean sollicitudin urna lacus, quis porttitor lacus eleifend sed. Sed rhoncus tellus vel leo placerat placerat. Vivamus at varius nisl. Nullam lobortis sagittis aliquam. Aliquam mattis vitae dolor quis porta. In varius urna lobortis porttitor lacinia. Integer id venenatis felis.</p>
-                        <hr>
+                        </p> -->
+                        <?php
+                            for($i = 0; $i < count($donnees['commentaireJeu']); $i++)
+                            {  
+                                echo "<p>" ."Par : " .$donnees['commentaireJeu'][$i]->prenom ." " .$donnees['commentaireJeu'][$i]->nom . "</p>"; 
+                                echo "<p>" . $donnees['commentaireJeu'][$i]->getCommentaire() . "</p>";
+                                // echo "<p>" ."Evaluation : ". $donnees['commentaireJeu'][$i]->getEvaluation() ."</p>";
+                                echo "<hr>";
+                            }
+                        ?>                        
                     </div>
                 </div>
             </div>
