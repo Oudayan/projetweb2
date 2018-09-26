@@ -66,10 +66,39 @@
                     <hr>
                     <form>
                         <p>Négotiation : <?=($donnees["jeu"]->getLocation() == 1 ? "Location" : "À vendre") ?></p>
-                        <p>Plateforme(s) : <?=($donnees["plateforme"]->getPlateforme())?></p>
+                        <a>Plateforme(s) :</a>
+                        <?php
+
+                            if ($donnees["plateforme"]->getPlateforme() == "Windows" ) {
+                                echo '<i title="Windows" class="fab fa-windows"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Xbox One" ) {
+                                echo '<i title="Xbox One" class="fab fa-xbox"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Xbox 360" ) {
+                                echo '<i title="Xbox 360" class="fab fa-xbox"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation 4" ) {
+                                echo '<i title="Playstation 4" class="fab fa-playstation"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation Vita" ) {
+                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation 3" ) {
+                                echo '<i title="Playstation 3" class="fab fa-playstation"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Wii U" ) {
+                                echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Switch" ) {
+                                echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i>';
+                            }
+                        ?>
+                        <br><br>
                         <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
                         <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
                         <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
+
                         <a>Catégories :</a>
                         <?php
                             for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
