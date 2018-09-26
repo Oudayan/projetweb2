@@ -74,6 +74,8 @@ class ControleurJeux extends BaseControleur
         }
         else
         {
+            $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+            $donnees['images'] = $modeleImages->lireDerniersImages();
             $this->afficherVues("accueil", $donnees);
         }
 
