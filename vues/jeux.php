@@ -134,11 +134,11 @@
             </div>
         </div>
     </div>
-    <!-- <?php
+    <?php
         echo "<pre>";
         var_dump($donnees);
         echo "</pre>";
-    ?> -->
+    ?>
     <div class="row">
         <!-- Description -->
         <div class="col-12">
@@ -166,7 +166,8 @@
                         </p> -->
                         <?php
                             for($i = 0; $i < count($donnees['commentaireJeu']); $i++)
-                            {  
+                            {
+                                echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaireJeu'][$i]->getDateCommentaire() . "</p>";  
                                 echo "<p>" ."Par : " .$donnees['commentaireJeu'][$i]->prenom ." " .$donnees['commentaireJeu'][$i]->nom . "</p>"; 
                                 echo "<p>" . $donnees['commentaireJeu'][$i]->getCommentaire() . "</p>";
                                 // echo "<p>" ."Evaluation : ". $donnees['commentaireJeu'][$i]->getEvaluation() ."</p>";
