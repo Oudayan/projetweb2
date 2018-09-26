@@ -134,11 +134,6 @@
             </div>
         </div>
     </div>
-    <?php
-        echo "<pre>";
-        var_dump($donnees);
-        echo "</pre>";
-    ?>
     <div class="row">
         <!-- Description -->
         <div class="col-12">
