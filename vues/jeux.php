@@ -114,8 +114,8 @@
                         <br /><br />
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
-                    <div class="contacter-annoceur">
-                        <i class="fa fa-phone fa-2x"></i><br/>Contacter annonceur
+                    <div class="contacter-annoceur mx-auto">
+                        <a>Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
                     </div>
                     <div class="avis-etoiles p-3 mb-2 ">
                         4 avis
