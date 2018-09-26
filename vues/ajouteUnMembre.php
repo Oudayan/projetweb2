@@ -4,8 +4,8 @@
             <div class="align-self-center p-5 col-md-6">
                 <h1 class="mb-4">S'inscrire</h1>
 
-                <!--                <form action="/action_page.php">-->
-                <form action="index.php?Membres&action=ajouterUnMembre" method="POST">
+
+                <form action="index.php?Membres&action=enregistrerMembre" method="POST">
                     <div class="form-group">
                         <label for="email">Courriel :</label>
                         <input type="email" class="form-control" id="email" name="courriel">
@@ -15,11 +15,33 @@
                         <input type="password" class="form-control" id="pwd" name="MotDePasse">
                     </div>
                     <div class="form-group">
-                        <label for="pwd">Confirmer mot de passe:</label>
-                        <input type="password" class="form-control" id="confirmer-pwd" name="confirma_mot_de_passe">
+                        <label for="confimerMotDePasse">Confirmer mot de passe:</label>
+                        <input type="password" class="form-control" id="confimerMotDePasse" name="mot_de_passe">
                     </div>
+                    <div class="form-group">
+                        <label for="nom">Nom:</label>
+                        <input type="text" class="form-control" id="nom" name="nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom">Prénom:</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adresse">Adresse:</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse">
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone:</label>
+                        <input type="text" class="form-control" id="telephone" name="telephone">
+                    </div>
+
+                    <input type="text" hidden name="membre_id" value="null">
+                    <input type="text" hidden name="type_utilisateur_id" value="1">
+
+
                     <button type="submit" class="btn btn-primary">S'inscrire</button>
-                                    </form>
+                </form>
 
 
             </div>
@@ -52,45 +74,6 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="album py-2 bg-light">
-
-    <div class="container">
-        <h1 class="text-center bg-info mt-2">NOUVEAUTÉS</h1>
-        <div class="row">
-
-
-            <?php
-
-            $counter = count($donnees['derniers']);
-            //            var_dump($donnees['images']);
-
-            for ($i = 0; $i <= $counter - 1; $i++) {
-
-
-                echo '<div class="col-md-4">';
-                echo '<div class="card mb-4 box-shadow">';
-                echo '<img class="card-img-top" src="images/thumb01.jpg" alt="Card image cap">';
-                echo '<div class="card-body">';
-                echo '<p class="card-text">' . $donnees['derniers'][$i]->getTitre() . '</p>';
-                echo '<div class="d-flex justify-content-between align-items-center">';
-                echo '<div class="btn-group">';
-                echo '<button type="button" class="btn btn-sm btn-outline-secondary">Détails</button>';
-                echo '<button type="button" class="btn btn-sm btn-outline-secondary">Acheter</button>';
-                echo '</div>';
-                echo '<small class="text-muted">Prix : ' . $donnees['derniers'][$i]->getPrix() . ' $CAD</small>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-
-            }
-
-            ?>
         </div>
     </div>
 </div>

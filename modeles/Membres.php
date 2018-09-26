@@ -8,7 +8,8 @@
  * @details Cette classe définit les attributs d'un membre
  */
 
-    class Membres{
+    class Membres {
+
         //Atributs
         private $membre_id;
         private $type_utilisateur_id;
@@ -23,7 +24,7 @@
 
         // Constructeur
 
-        public function __construct($membre_id = 0, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = false, $membre_actif = true)
+        public function __construct($membre_id = null, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = false, $membre_actif = true)
         {
            $this->setMembreId($membre_id);
            $this->setTypeUtilisateur($type_utilisateur_id);
@@ -57,7 +58,7 @@
          * @return      [object]
          */
         public function setTypeUtilisateur($type_utilisateur_id){
-            if (is_numeric($type_utilisateur_id) && trim($type_utilisateur_id) != ""){
+            if (is_string($type_utilisateur_id) && trim($type_utilisateur_id) != ""){
                 $this->type_utilisateur_id = $type_utilisateur_id;
             }
         }
@@ -88,7 +89,7 @@
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Membres
-         * 
+         *
          * @param       [string] $mot_de_passe , le mot de passe d'un membre
          * @return      [object]
          */
@@ -100,7 +101,7 @@
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Membres
-         * 
+         *
          * @param       [string] $adresse, l'adresse d'un membre
          * @return      [object]
          */
@@ -112,7 +113,7 @@
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Membres
-         * 
+         *
          * @param       [string] $telephone, le numéro de téléphone d'un utilisateur
          * @return      [object]
          */
@@ -124,7 +125,7 @@
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Membres
-         * 
+         *
          * @param       [mixed] $courriel, le courriel d'un membre
          * @return      [object]
          */
@@ -137,7 +138,7 @@
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Membres
-         * 
+         *
          * @param       [bool] $membre_valide, indique si un membre est ou pas valide
          * @return      [object]
          */
@@ -150,7 +151,7 @@
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Membres
-         * 
+         *
          * @param       [bool] $membre_actif, indique si un membre est ou pas actif
          * @return      [object]
          */
