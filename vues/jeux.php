@@ -147,18 +147,13 @@
             </div>
         </div>
         <!-- Avis -->
-        <?php
-            echo "<pre>";
-            var_dump($donnees);
-            echo "</pre>";
-        ?>
         <div class="col-12" id="avis">
             <div class="card border-light mb-3">
                 <div class="card-header bg-secondary text-white text-uppercase"><i class="fa fa-comment"></i> Avis</div>
                 <div class="card-body">
                     <div class="review">
                         <?php
-                            for($i = 0; $i < count($donnees['commentaires']); $i++)
+                            for($i = 0; $i < count($donnees['commentaires'])-1; $i++)
                             {
                                 echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaires'][$i]->getDateCommentaire() . "</p>";  
                                 echo "<p>" ."Par : " .$donnees['commentaires']['membres'][$i]->getPrenom() ." " .$donnees['commentaires']['membres'][$i]->getNom() . "</p>"; 
