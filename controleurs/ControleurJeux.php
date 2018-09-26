@@ -23,7 +23,9 @@ class ControleurJeux extends BaseControleur
         $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
-        // $modeleCategories = $this->lireDAO("Categories");
+        $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
+
+
         
         $donnees["erreur"] = "";
 
@@ -39,8 +41,7 @@ class ControleurJeux extends BaseControleur
                         $donnees['membre'] = $modeleMembres->obtenirParId($donnees['jeu']->getMembreId());
                         $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeu']->getPlateformeId());
                         $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
-                        // $donnees['categories'] = $modeleCategories->lireToutesCategories();
-                        // $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
+                        $donnees['commentaireJeu'] = $modeleCommentaireJeux->toutObtenirParIdJeuxId($params["JeuxId"]);
                     }
                     else
                     {
@@ -57,8 +58,13 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "derniers" :
+
                     $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+                    $donnees['images'] = $modeleImages->lireDerniersImages();
+
+
                     $this->afficherVues("accueil", $donnees);
+                    
                     break;
 
                 default :
