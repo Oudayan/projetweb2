@@ -52,17 +52,17 @@ font-size: 30px;
 background-color: #536dca;
 }
 
-.parallax 
+.parallax
 {
 background-image: url("../images/background.jpg");
-min-height: 500px; 
+min-height: 500px;
 background-attachment: fixed;
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 }
 
-.jeu-titre 
+.jeu-titre
 {
 color: #c01508;
 text-align: center;
@@ -71,7 +71,6 @@ font-size: 200%;
 margin-bottom: 0;
 }
 
-<<<<<<< HEAD
 .contacter-annoceur 
 {
 padding: 10px;
@@ -87,15 +86,17 @@ text-transform: uppercase;
 {
 color: gold;
 }
-=======
-/* La police a utilicer cest Monserrat et Roboto */
-.bg-secondary {
-  
-    background-image: url(../images/thumb10.jpg);  
-    background-position: left;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover; 
-       
-  }
->>>>>>> f218d08d624f270dd3a14cf5754a2ca62b48944d
+
+
+
+ /*La police a utilicer cest Monserrat et Roboto*/
+/*.bg-secondary {*/
+
+    /*background-image: url(../images/thumb10.jpg);*/
+    /*background-position: left;*/
+    /*background-repeat: no-repeat;*/
+    /*background-attachment: fixed;*/
+    /*background-size: cover;*/
+
+  /*}*/
+

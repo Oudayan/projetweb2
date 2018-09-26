@@ -66,24 +66,57 @@
                     <hr>
                     <form>
                         <p>Négotiation : <?=($donnees["jeu"]->getLocation() == 1 ? "Location" : "À vendre") ?></p>
-                        <p>Plateforme(s) : <?=($donnees["plateforme"]->getPlateforme())?></p>
+                        <a>Plateforme(s) :</a>
+                        <?php
+
+                            if ($donnees["plateforme"]->getPlateforme() == "Windows" ) {
+                                echo '<i title="Windows" class="fab fa-windows"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Xbox One" ) {
+                                echo '<i title="Xbox One" class="fab fa-xbox"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Xbox 360" ) {
+                                echo '<i title="Xbox 360" class="fab fa-xbox"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation 4" ) {
+                                echo '<i title="Playstation 4" class="fab fa-playstation"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation Vita" ) {
+                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation 3" ) {
+                                echo '<i title="Playstation 3" class="fab fa-playstation"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Wii U" ) {
+                                echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i>';
+                            }
+                            else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Switch" ) {
+                                echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i>';
+                            }
+                        ?>
+                        <br><br>
                         <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
                         <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
                         <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
-                        <p>Catégories :</p>
+
+                        <a>Catégories :</a>
                         <?php
                             for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
                             {
-                                echo '<p>' .'* ' . $donnees['categoriesJeu'][$i]->getCategorie() .'</p>';
-                                        
+                                if (count($donnees['categoriesJeu']) > 1 ) {
+                                    echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .' <span class="cat-symbol"><i class="fas fa-angle-right"></i></span> </a>';
+                                }
+                                else {
+                                    echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .'</a>';
+                                }
                             }
                         ?>
+                        <br /><br />
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
                     <div class="contacter-annoceur">
                         <i class="fa fa-phone fa-2x"></i><br/>Contacter annonceur
                     </div>
-
                     <div class="avis-etoiles p-3 mb-2 ">
                         4 avis
                         <i class="fa fa-star"></i>
@@ -147,3 +180,15 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    // Enlève le dernier " > " qui sépare les différentes catégories d'un jeu dans la page "jeux.php"
+
+    let catDiv = document.getElementsByClassName("cat-symbol");  // Trouve le span qui contient l'icone " > " qui sépare les catégories
+    let catDiv2 = (catDiv.length -1);                            // Declare la variable carDiv2 qui contient l'index du dernier élément du HTML Collection "catDiv"
+    catDiv[catDiv2].style.display = "none";                      // Cache le dernier élément du HTML Collection en utilisant "display = none"
+
+</script>
+
+
