@@ -78,7 +78,7 @@ class ModeleMembres extends BaseDAO
      * @param   [string] $adresse
      * @param   [string] $telephone
      * @param   [string] $courriel
-     * @return  [aucun]
+     * @return  [array]
      */
 
     public function sauvegarde(Membres $unMembre)
@@ -100,7 +100,7 @@ class ModeleMembres extends BaseDAO
      * @brief   Méthode pour valider un membre inscrit dans la bd
      * @details Méthode modifie la valeur par défaut dans la bd de chaque nouveau membre
      * @param   [string] $courriel
-     * @return  [aucun]
+     * @return  [array]
      */
 //
 //    public function validerMembre(Membres $membre)

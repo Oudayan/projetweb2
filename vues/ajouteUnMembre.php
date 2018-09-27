@@ -7,7 +7,7 @@
 
                 <form action="index.php?Membres&action=enregistrerMembre" method="POST">
                     <div class="form-group">
-                        <label for="email">Courriel :</label>
+                        <label for="email">Courriel :</label><span> *</span>
                         <input type="email" class="form-control" id="email" name="courriel">
                     </div>
                     <div class="form-group">

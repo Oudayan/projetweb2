@@ -20,7 +20,6 @@ class ControleurMembres extends BaseControleur
 
     public function index(array $params)
     {
-
         if (isset($params["action"])) {
 
             switch ($params["action"]) {
@@ -29,6 +28,21 @@ class ControleurMembres extends BaseControleur
                     $this->afficherVues("ajouteUnMembre");
                     break;
 
+                case "enregistrerMembre" :
+
+                    if (!isset($params["nom"]) || !isset($params["prenom"]) || !isset($params["mot_de_passe"]) || !isset($params["adresse"]) || !isset($params["telephone"]) || !isset($params["courriel"])) {
+                        echo "Remplissez tous les champs...";
+                    } else {
+
+                        $modeleMembres = $this->lireDAO("Membres");
+                        $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
+                        $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
+
+                        $_SESSION["succes"] = "Vous avez devenu membre de notre site";
+                        $this->afficherVues("message");
+                    }
+                    break;
+//
                 case "verifierLogin" :
                     {
                         if (isset($params["courriel"]) && isset($params["MotDePasse"])) {
@@ -48,23 +62,7 @@ class ControleurMembres extends BaseControleur
                     }
                     break;
 
-                case "enregistrerMembre" :
 
-//                    echo '<pre>';
-//                    print_r($_POST);
-                    var_dump($params);
-
-                    if (!isset($params["nom"]) || !isset($params["prenom"]) || !isset($params["mot_de_passe"]) || !isset($params["adresse"]) || !isset($params["telephone"]) || !isset($params["courriel"])) {
-                        echo "Remplissez tous les champs...";
-                    } else {
-                        $modeleMembres = $this->lireDAO("Membres");
-                        $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
-                        $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
-
-                        $_SESSION["succes"] = "Vous avez devenu membre de notre site";
-                        header("Location: index.php");
-                    }
-                    break;
 
                 default:
                     trigger_error($params["action"] . " Action invalide.");
