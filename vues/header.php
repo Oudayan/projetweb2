@@ -21,8 +21,8 @@
             <ul class="navbar-nav">
                 <li class="nav-item pr-4">
                     <form class="form-inline m-0">
-                        <input class="form-control mr-1" type="text" placeholder="Chercher pour jeux">
-                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+<!--                        <input class="form-control mr-1" type="text" placeholder="Chercher pour jeux">-->
+<!--                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>-->
                     </form>
                 </li>
             </ul>

@@ -23,6 +23,7 @@ class ControleurJeux extends BaseControleur
         $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+        $modeleCategories = $this->lireDAO("Categories");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
 
 
@@ -62,9 +63,22 @@ class ControleurJeux extends BaseControleur
                     $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
                     $donnees['images'] = $modeleImages->lireDerniersImages();
 
-
                     $this->afficherVues("accueil", $donnees);
                     
+                    break;
+
+                case "rechercher" :
+
+                    $donnees['negotiation'] = $modeleJeux->lireTousLesJeux();
+                    $donnees['concepteurs'] = $modeleJeux->lireTousLesConcepteurs();
+                    $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+                    $donnees['categories'] = $modeleCategories->lireToutesCategories();
+                    $donnees['images'] = $modeleImages->lireDerniersImages();
+                    $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+
+
+                    $this->afficherVues("chercher", $donnees);
+
                     break;
 
                 default :

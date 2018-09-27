@@ -32,12 +32,24 @@
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
+
+        public function lireTousLesJeux() {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide";
+            $resultat = $this->requete($sql);
+            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
+        }
+
+        public function lireTousLesConcepteurs() {
+            $sql = "SELECT DISTINCT concepteur FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide";
+            $resultat = $this->requete($sql);
+            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
+        }
 		
-		public function lireTousLesJeux() {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
-			$resultat = $this->requete($sql);
-			return $resultat->fetchAll(\PDO::FETCH_ASSOC);
-		}
+//		public function lireTousLesJeux() {
+//            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
+//			$resultat = $this->requete($sql);
+//			return $resultat->fetchAll(\PDO::FETCH_ASSOC);
+//		}
 
 //        public function lireTousIdsJeux() {
 //            $sql = "SELECT jeux_id FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
