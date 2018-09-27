@@ -22,7 +22,7 @@
         }
 
         public function toutObtenirParIdJeuxId($id){
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " cj JOIN membre m ON cj.membre_id = m.membre_id WHERE jeux_id = " . $id . " ORDER BY cj.date_commentaire DESC";
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_id = " . $id . "ORDER BY date_commentaire DESC";
             $resultat = $this->requete($sql);
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "CommentaireJeux");
         }
