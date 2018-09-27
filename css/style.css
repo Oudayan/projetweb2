@@ -71,8 +71,9 @@ font-size: 200%;
 margin-bottom: 0;
 }
 
-.contacter-annoceur 
+.contacter-annoceur
 {
+font-size: 20px;
 padding: 10px;
 margin-top: 15px;
 background: white;
@@ -80,6 +81,7 @@ border: 1px solid #6c757d;
 color: lightslategrey;
 text-align: center;
 text-transform: uppercase;
+
 }
 
 .avis-etoiles .fa-star 
@@ -87,7 +89,42 @@ text-transform: uppercase;
 color: gold;
 }
 
+.navbar ul {
+  display: flex;
+  width: 100%;
+  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar ul li {
+  width: 100%;
+}
+.navbar ul li.logo {
+  margin-right: auto;
+}
+.navbar ul li form {display: flex;}
+.navbar ul li form .form-control {min-width: 200px;}
 
+.navbar ul .toggle-item {
+  display: none;
+  position: absolute;
+  right: 20px;
+  width: 30px;
+  top: 20px;
+}
+.navbar ul .toggle-item .bar {
+  width: 35px;
+  height: 2px;
+  background: #fff;
+}
+.navbar ul .toggle-item .bar-center {
+  width: 35px;
+  height: 2px;
+  background: #fff;
+  margin: 10px 0;
+}
+
+<<<<<<< HEAD
 
  /*La police a utilicer cest Monserrat et Roboto*/
 /*.bg-secondary {*/
@@ -141,3 +178,13 @@ color: gold;
 
 
 
+=======
+@media screen and (max-width: 1200px) {
+  .navbar ul .toggle-item {
+    display: block;
+  }
+  .navbar ul li.item {
+    display: none;
+  }
+}
+>>>>>>> 00249b2e184b958a77534b9a82e73ed9e94d0269

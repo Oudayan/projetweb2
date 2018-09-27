@@ -114,8 +114,8 @@
                         <br /><br />
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
-                    <div class="contacter-annoceur">
-                        <i class="fa fa-phone fa-2x"></i><br/>Contacter annonceur
+                    <div class="contacter-annoceur mx-auto">
+                        <a>Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
                     </div>
                     <div class="avis-etoiles p-3 mb-2 ">
                         4 avis
@@ -134,11 +134,6 @@
             </div>
         </div>
     </div>
-    <!-- <?php
-        echo "<pre>";
-        var_dump($donnees);
-        echo "</pre>";
-    ?> -->
     <div class="row">
         <!-- Description -->
         <div class="col-12">
@@ -157,21 +152,16 @@
                 <div class="card-header bg-secondary text-white text-uppercase"><i class="fa fa-comment"></i> Avis</div>
                 <div class="card-body">
                     <div class="review">
-                        <!-- <i class="fas fa-calendar-alt"></i>
-                        Janvier 15, 2018 -->
-                        <!-- <p class="pt-3">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span> par Mario Tardelli
-                        </p> -->
                         <?php
-                            for($i = 0; $i < count($donnees['commentaireJeu']); $i++)
-                            {  
-                                echo "<p>" ."Par : " .$donnees['commentaireJeu'][$i]->prenom ." " .$donnees['commentaireJeu'][$i]->nom . "</p>"; 
-                                echo "<p>" . $donnees['commentaireJeu'][$i]->getCommentaire() . "</p>";
+                            for($i = 0; $i < count($donnees['commentaires'])-1; $i++)
+                            {
+                                echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaires'][$i]->getDateCommentaire() . "</p>";  
+                                echo "<p>" ."Par : " .$donnees['commentaires']['membres'][$i]->getPrenom() ." " .$donnees['commentaires']['membres'][$i]->getNom() . "</p>"; 
+                                echo "<p>" . $donnees['commentaires'][$i]->getCommentaire() . "</p>";
                                 // echo "<p>" ."Evaluation : ". $donnees['commentaireJeu'][$i]->getEvaluation() ."</p>";
                                 echo "<hr>";
                             }
+                            
                         ?>                        
                     </div>
                 </div>

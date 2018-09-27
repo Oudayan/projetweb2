@@ -1,7 +1,5 @@
 /* 
-Created by: Kenrick Beckett
-
-Name: Chat Engine
+ Chat
 */
 
 var instanse = false;
@@ -15,7 +13,7 @@ function Chat () {
 	this.getState = getStateOfChat;
 }
 
-//gets the state of the chat
+//obtient l'état du chat
 function getStateOfChat(){
 	if(!instanse){
 		 instanse = true;
@@ -36,7 +34,7 @@ function getStateOfChat(){
 	}	 
 }
 
-//Updates the chat
+//Mises à jour du chat
 function updateChat(){
 	 if(!instanse){
 		 instanse = true;
@@ -66,7 +64,7 @@ function updateChat(){
 	 }
 }
 
-//send the message
+//envoyer le message
 function sendChat(message, nickname)
 {       
     updateChat();

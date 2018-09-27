@@ -8,27 +8,90 @@
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="Chat/style.css" type="text/css" />
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="Chat/chat.js"></script>
+        <script type="text/javascript" src="Chat/script.js"></script>
+        <script type="text/javascript"> 
+        $(document).ready(function () {
+            setInterval('chat.update()', 1000);
+        })
+
+                
+        </script>
 </head>
-<body>
+<body> 
+
 <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.php?Jeux&action=derniers"></a>
-        <a href="index.php?Jeux&action=derniers"><img src="images/logo.png" height="60" class="logo" title="GameXchange" alt="GameXchange Logo"></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#btn-navbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse text-center justify-content-end" id="btn-navbar">
-            <ul class="navbar-nav">
-                <li class="nav-item pr-4">
-                    <form class="form-inline m-0">
+    <div class="container-fluid">
+
+        <ul>
+            
+        <li class="logo"> <a href="index.php?Jeux&action=derniers"><img src="images/logo.png" height="60" class="logo" title="GameXchange" alt="GameXchange Logo"></a></li>
+
+         <li class="item"><a class="navbar-brand" href="index.php?Jeux&action=derniers"></a></li>
+        
+       
+
+       
+        <li class="item"> 
+            <a class="navbar-brand" href="#">
+                <i class="fa d-inline fa-lg"></i>
+                <b>Acheter</b>
+            </a>
+        </li>
+    
+        <li class="item">
+            <a class="navbar-brand" href="#">
+                <i class="fa d-inline fa-lg"></i>
+                <b>Vendre</b>
+            </a>
+        </li>
+    
+    
+        <li class="item">
+            <a class="navbar-brand" href="#">
+                <i class="fa d-inline fa-lg"></i>
+                <b>Louer</b>
+            </a>
+        </li>
+        <li>
+
+        <li class="nav-item pr-4 item">
+                    <form class="m-0">
                         <input class="form-control mr-1" type="text" placeholder="Chercher pour jeux">
                         <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
                     </form>
-                </li>
-            </ul>
+                
+        </li>
+
+        <li class="item">
             <a id="btn-login" class="btn navbar-btn text-white btn-secondary">
                 <i class="far fa-user-circle"></i> Se connecter</a>
-        </div>
+        </li>
+
+        <li class="toggle-item">  
+            <div class="btn-toggle">
+                <div class="bar"></div>
+                <div class="bar-center"></div>
+                <div class="bar"></div>
+            </div>
+        </li>
+
+        </ul>
+       
+                    
+        
+
+        <!--div class="collapse navbar-collapse text-center justify-content-end" id="btn-navbar">
+            <ul class="navbar-nav">
+                
+            </ul>
+            
+        </div-->
     </div>
 </nav>
 
@@ -65,3 +128,18 @@
         </div>
     </div>
 </div>
+        <div id="page-wrap">
+
+            <div id="title-chat">
+                <p>Chat</p>
+                <button class="minimize">▼</button>
+            </div>
+            <p id="name-area"></p>
+            <div id="chat-wrap"><div id="chat-area"></div></div>
+            <form id="send-message-area">
+                <p style="color:#000;">Votre message: </p>
+                <textarea id="sendie" maxlength = '100' ></textarea>
+                
+            </form>
+
+        </div>
