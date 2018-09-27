@@ -15,7 +15,12 @@
     	// kick off chat
         var chat =  new Chat();
     	$(function() {
-    	
+		
+			
+			$('.minimize').click(function(){
+				$('#page-wrap').toggleClass('minimize');
+			});
+
     		 chat.getState(); 
     		 
     		 // watch textarea for key presses
