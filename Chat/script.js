@@ -1,18 +1,18 @@
-        // ask user for name with popup prompt    
+        // demander à l'utilisateur pour le nom avec popup prompt    
         var name = prompt("Enter your chat name:", "Guest");
         
-        // default name is 'Guest'
+        // nom par défaut 'Guest'
     	if (!name || name === ' ') {
     	   name = "Guest";	
     	}
     	
-    	// strip tags
+    	// étiquettes à bandes
     	name = name.replace(/(<([^>]+)>)/ig,"");
     	
     	// display name on page
     	$("#name-area").html("You are: <span>" + name + "</span>");
     	
-    	// kick off chat
+    	// démarrer chat
         var chat =  new Chat();
     	$(function() {
 		
@@ -23,7 +23,7 @@
 
     		 chat.getState(); 
     		 
-    		 // watch textarea for key presses
+    		 // regarder textarea pour les cle presses
              $("#sendie").keydown(function(event) {  
              
                  var key = event.which;  
@@ -34,13 +34,13 @@
                      var maxLength = $(this).attr("maxlength");  
                      var length = this.value.length;  
                      
-                     // don't allow new content if length is maxed out
+                     // toutes les clés y compris le retour
                      if (length >= maxLength) {  
                          event.preventDefault();  
                      }  
                   }  
     		 																																																});
-    		 // watch textarea for release of key press
+    		 // Regarder le texte pour la publication de la presse clé
     		 $('#sendie').keyup(function(e) {	
     		 					 
     			  if (e.keyCode == 13) { 
