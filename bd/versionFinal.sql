@@ -131,8 +131,8 @@ create table membre
    `adresse`              varchar(128) not null,
    `telephone`            varchar(32) not null,
    `courriel`             varchar(96) not null,
-   `membre_valide`        bool not null,
-   `membre_actif`         bool not null,
+   `membre_valide` tinyint(1) NOT NULL DEFAULT '0',
+   `membre_actif` tinyint(1) NOT NULL DEFAULT '1',
    primary key (membre_id)
 );
 
