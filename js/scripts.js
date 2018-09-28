@@ -104,9 +104,18 @@ function cargaSendMail(){
  
 }
 
+// $(document).ready(function(){
+//     $("#btn-inscription").click(function(){
+//         $("#modal-inscription").modal();
+//     });
+//
+// });
+
 $(document).ready(function(){
     $("#btn-login").click(function(){
         $("#modal-login").modal();
     });
+
+
 });
 
