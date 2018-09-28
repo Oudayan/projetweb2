@@ -202,7 +202,7 @@ function cargaSendMail(){
 
 $(document).ready(function(){
     $("#btn-login").click(function(){
-        $("#modal-login").modal();
+        $("#modal-login").modal({"backdrop": "static"});
     });
 
 

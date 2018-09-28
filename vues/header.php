@@ -104,9 +104,11 @@
 </nav>
 
 <div class="text-center">
-    <?php if(isset($_SESSION["msg"])) {
-        echo '<h1>'. $_SESSION["msg"] .'</h1>';
-    } ?>
+
+<!--    --><?php //if(isset($_SESSION["msg"])) {
+//        echo $_SESSION["msg"];
+//    } ?>
+
 
 
 
@@ -122,13 +124,13 @@
             <div class="modal-body" style="padding:40px 50px;">
                 <form action="index.php?Membres&action=verifierLogin" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel">
+                        <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe">
+                        <input type="text" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required>
                     </div>
                     <div class="checkbox">
-                        <label><input type="checkbox" value="" checked  Se souvenir de moi></label>
+                        <label><input type="checkbox" value="" checked>  Se souvenir de moi></label>
                     </div>
                     <button type="submit" class="btn btn-success btn-block"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
                     <div class="pt-2">
@@ -143,7 +145,6 @@
         </div>
     </div>
 </div>
-
 <!--        <div id="page-wrap">-->
 <!---->
 <!--            <div id="title-chat">-->
