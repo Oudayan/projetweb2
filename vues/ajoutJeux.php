@@ -45,7 +45,7 @@ if(isset($_SESSION['id']))
                             <label for="pwd">Prix :</label>
                             <input type="text" class="form-control" id="prix" name="prix">
                         </div>
-                        <?=date('C')?>
+                        <?=date("Y-m-d H:i")?>
                     </div>       
                 </form>
             </div>
