@@ -10,11 +10,21 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     
-
+<!--    <link rel="stylesheet" href="Chat/style.css" type="text/css" />-->
+<!--        <script type="text/javascript" src="js/jquery-ui.min.js"></script>-->
+<!--        <script type="text/javascript" src="Chat/chat.js"></script>-->
+<!--        <script type="text/javascript" src="Chat/script.js"></script>-->
+<!--        <script type="text/javascript"> -->
+<!--        $(document).ready(function () {-->
+<!--            setInterval('chat.update()', 1000);-->
+<!--        })-->
+<!---->
+<!--                -->
+<!--        </script>-->
 </head>
 <body> 
 
-<!-- <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
     <div class="container-fluid">
 
         <ul>
@@ -49,13 +59,17 @@
         </li>
         <li>
 
-        <li class="item">
-            <a id="btn-login" class="pr-5 btn navbar-btn text-white btn-secondary">
-                <i class="far fa-user-circle"></i> Se connecter</a>
+        <li class="nav-item pr-4 item">
+                    <form class="m-0">
+                        <input class="form-control mr-1" type="text" placeholder="Chercher pour jeux">
+                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                
         </li>
+
         <li class="item">
-            <a id="btn-inscription-header" class="btn navbar-btn text-white btn-secondary">
-                <i class="far fa-user-circle"></i> S'inscrire'</a>
+            <a id="btn-login" class="btn navbar-btn text-white btn-secondary">
+                <i class="far fa-user-circle"></i> Se connecter</a>
         </li>
 
         <li class="toggle-item">  
@@ -77,7 +91,8 @@
             </ul>
             
         </div-->
-
+    </div>
+</nav>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-login" role="dialog">
@@ -112,18 +127,18 @@
         </div>
     </div>
 </div>
-        <!-- <div id="page-wrap">
-
-            <div id="title-chat">
-                <p>Chat</p>
-                <button class="minimize">▼</button>
-            </div>
-            <p id="name-area"></p>
-            <div id="chat-wrap"><div id="chat-area"></div></div>
-            <form id="send-message-area">
-                <p style="color:#000;">Votre message: </p>
-                <textarea id="sendie" maxlength = '100' ></textarea>
-                
-            </form>
-
-        </div> -->
+<!--        <div id="page-wrap">-->
+<!---->
+<!--            <div id="title-chat">-->
+<!--                <p>Chat</p>-->
+<!--                <button class="minimize">▼</button>-->
+<!--            </div>-->
+<!--            <p id="name-area"></p>-->
+<!--            <div id="chat-wrap"><div id="chat-area"></div></div>-->
+<!--            <form id="send-message-area">-->
+<!--                <p style="color:#000;">Votre message: </p>-->
+<!--                <textarea id="sendie" maxlength = '100' ></textarea>-->
+<!--                -->
+<!--            </form>-->
+<!---->
+<!--        </div>-->
