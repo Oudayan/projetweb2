@@ -51,7 +51,7 @@ class ControleurMembres extends BaseControleur
 //
                 case "verifierLogin" :
                     {
-//                        var_dump($_POST);
+                        var_dump($_POST);
 //                        echo $params["courriel"];
                         
                         if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
@@ -61,7 +61,7 @@ class ControleurMembres extends BaseControleur
                             var_dump($donnees);
                             if ($donnees) {
                                 // Comparaison entre les données reçues et ceux de la BD
-                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"]) {
+                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"] ) {
                                     $_SESSION["id"] = $donnees->getMembreId();
                                     $_SESSION["courriel"] = $params["courriel"];
                                     $_SESSION["type"] = $donnees->getTypeUtilisateur();
