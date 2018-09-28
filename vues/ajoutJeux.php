@@ -21,6 +21,7 @@ if(isset($_SESSION['id']))
                 <?php
                 echo '<pre>';
                 var_dump($donnees['plateforme']);
+                var_dump($donnees['jeu']);
                 echo '</pre>';
                 
                 ?>
