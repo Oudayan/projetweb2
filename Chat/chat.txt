@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <span>Guest</span>Hello 
 <span>Guest</span>What's up 
 <span>Guest</span>akldj  
@@ -30,15 +28,3 @@
 <span>Guest</span>sdvsadv 
 <span>Guest</span>cdffdfdbbfds 
 <span>null</span>Como carajos funciona esto? 
-<<<<<<< HEAD
-<span>Marcelo</span>Que pasa&Eacute; 
-<span>null</span>bls 
-<span>Marcelo</span>Esta wea esta rara 
-=======
->>>>>>> 294a36dbf903843f28dad0c6f8a6b1f260c8cb1a
-<<<<<<< HEAD
->>>>>>> 00249b2e184b958a77534b9a82e73ed9e94d0269
-<span>Guest</span>fuck you 
-=======
-<span>Guest</span>dwaew 
->>>>>>> 032a30a627400fb94a917a0384df8871bd3801b7

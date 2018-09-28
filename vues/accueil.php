@@ -27,7 +27,13 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body" style="padding:40px 50px;">
-                            <form action="index.php?Membres&action=verifierLogin" method="POST">
+                            <form action="index.php?Membres&action=enregistrerMembre" method="POST">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="prenom" placeholder="Prénom" name="prenom" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="nom" placeholder="Nom" name="nom" required>
+                                </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="courriel" placeholder="Courriel" name="courriel" required>
                                 </div>
@@ -38,15 +44,15 @@
                                     <input type="text" class="form-control" id="confirm_mdp" placeholder="Confirmez le mot de passe" name="confirm_mdp" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="prenom" placeholder="Prénom" name="prenom" required>
+                                    <input type="text" class="form-control" id="adresse" placeholder="Adresse" name="adresse" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="nom" placeholder="Nom" name="nom" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" id="phone" placeholder="Téléphone ~ exemple : 514-456-7890" name="phone" required>
+                                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" id="phone" placeholder="Téléphone ~ exemple : 514-456-7890" name="telephone" required>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block"><i class="fas fa-sign-in-alt"></i> S'inscrire</button>
+
+                                <input type="text" hidden name="membre_id" value="null">
+                                <input type="text" hidden name="type_utilisateur_id" value="1">
                             </form>
                             <div class="pt-1">* Tous les champs sont obligatoires</div>
                         </div>
