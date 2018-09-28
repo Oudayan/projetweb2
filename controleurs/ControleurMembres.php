@@ -17,7 +17,6 @@ class ControleurMembres extends BaseControleur
      * @return  L'acces aux vues, aux donnes
      */
 
-
     public function index(array $params)
     {
         if (isset($params["action"])) {
@@ -45,15 +44,22 @@ class ControleurMembres extends BaseControleur
 //
                 case "verifierLogin" :
                     {
-                        if (isset($params["courriel"]) && isset($params["MotDePasse"])) {
+                        var_dump($_POST);
+                        echo $params["courriel"];
+                        if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
                             $modeleMembres = $this->lireDAO("Membres");
                             $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
 
+
+                            var_dump($donnees);
+
+                            echo $donnees->getCourriel();
                             // Comparaison entre les données reçues et ceux de la BD
-                            if ($donnees && $donnees->lireCourriel() == $params["courriel"] && $donnees->lireMotDePasse() == $params["MotDePasse"]) {
+                            if ($donnees && ($donnees->getCourriel() == $params["courriel"]) && ($donnees->lireMotDePasse() == $params["mot_de_passe"])) {
                                 $_SESSION["courriel"] = $params["courriel"];
                                 $_SESSION["prenom"] = $donnees->lirePrenom();
                                 $_SESSION["succes"] = "Bienvenue ! " . $_SESSION["prenom"] . " ";
+
                             } else {
                                 var_dump("Le mot de passe ou le courriel ne sont pas corrects");
                                 $_SESION["erreur"] = "Le courriel ou le mot de passe ne sont pas corrects";
@@ -61,7 +67,6 @@ class ControleurMembres extends BaseControleur
                         }
                     }
                     break;
-
 
 
                 default:

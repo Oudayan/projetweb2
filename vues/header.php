@@ -89,15 +89,15 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" style="padding:40px 50px;">
-                <form>
+                <form action="index.php?Membres&action=verifierLogin" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="usrname" placeholder="Courriel">
+                        <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="psw" placeholder="Mot de passe">
+                        <input type="text" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe">
                     </div>
                     <div class="checkbox">
-                        <label><input type="checkbox" value="" checked> Se souvenir de moi</label>
+                        <label><input type="checkbox" value="" checked  Se souvenir de moi</label>
                     </div>
                     <button type="submit" class="btn btn-success btn-block"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
                     <div class="pt-2">
