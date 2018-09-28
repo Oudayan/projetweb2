@@ -21,6 +21,7 @@ if(isset($_SESSION['id']))
                 <?php
                 echo '<pre>';
                 var_dump($donnees['plateforme']);
+                var_dump($donnees['jeu']);
                 echo '</pre>';
                 
                 ?>
@@ -45,7 +46,7 @@ if(isset($_SESSION['id']))
                             <label for="pwd">Prix :</label>
                             <input type="text" class="form-control" id="prix" name="prix">
                         </div>
-                        <?=date('C')?>
+                        <?=date("Y-m-d H:i")?>
                     </div>       
                 </form>
             </div>
