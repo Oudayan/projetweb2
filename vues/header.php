@@ -69,8 +69,14 @@
         </li>
 
         <li class="item">
+            <?php if (isset($_SESSION["courriel"])) { ?>
+            <a href="index.php?Membres&action=logout" id="btn-logout" class="btn navbar-btn text-white btn-secondary">
+                <i class="far fa-user-circle"></i> Se déconnecter</a>
+            <?php } else { ?>
             <a id="btn-login" class="btn navbar-btn text-white btn-secondary">
                 <i class="far fa-user-circle"></i> Se connecter</a>
+            <?php } ?>
+
         </li>
 
         <li class="toggle-item">  
@@ -94,6 +100,13 @@
         </div-->
     </div>
 </nav>
+
+<div class="text-center">
+    <?php if(isset($_SESSION["msg"])) {
+        echo $_SESSION["msg"];
+    } ?>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="modal-login" role="dialog">
@@ -128,6 +141,8 @@
         </div>
     </div>
 </div>
+
+
         <div id="page-wrap">
 
             <div id="title-chat">
