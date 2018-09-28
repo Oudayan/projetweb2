@@ -2,15 +2,22 @@
     <div class="container">
         <div class="row contact-form">
             <div class="align-self-center mb-3 col-md-6">
-                <h1 class="pt-3"><span><i class="fas fa-user-plus"></i></span> S'inscrire</h1>
-                <br>
-                <form action="index.php?Membres&action=ajouterUnMembre" method="POST">
+                <!-- <h1 class="pt-3"><span><i class="fas fa-user-plus"></i></span> S'inscrire</h1>
+                <br> -->
+                <h1 class="pb-5 text-center"> Bienvenue à GameXchange</h1>
+                <h5 class="pb-5 text-center"> La plus grande plateforme d'échange de jeux vidéo du Canada!</h1>
+                <div class="text-center pt-4">
+                <a id="btn-inscription" class="btn navbar-btn text-white btn-danger">
+                <i class="far fa-user-circle"></i> S'INSCRIRE MAINTENANT !</a>
+                </div>
+
+                <!-- <form action="index.php?Membres&action=ajouterUnMembre" method="POST"> -->
                     <!-- Aller à la page d'action -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="pwd">Adresse courriel :</label>
                         <input type="email" class="form-control" id="courriel">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                         <label for="pwd">Mot de passe :</label>
                         <input type="password" class="form-control" id="pwd">
                     </div>
@@ -19,7 +26,7 @@
                         <input type="password" class="form-control" id="pwd-confirm">
                     </div>
                     <input class="mt-4" type="submit" name="inscrire" value="S'inscrire">
-                </form>
+                </form> -->
             </div>
             <div class="col-md-6 p-0">
                 <div class="carousel slide" data-ride="carousel" data-interval="3000">
