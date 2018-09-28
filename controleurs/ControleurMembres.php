@@ -39,13 +39,14 @@ class ControleurMembres extends BaseControleur
                         $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
 
                         $_SESSION["msg"] = "Vous avez devenu membre de notre site";
-                        header("location:index.php");
+//                        header("location:index.php");
 
                     } else {
 
                         $_SESSION["msg"] ="Remplissez tous les champs...";
-                        $this->afficherVues("ajouteUnMembre");
+//                        $this->afficherVues("ajouteUnMembre");
                     }
+                    header("location:index.php");
                     break;
 //
                 case "verifierLogin" :
@@ -64,7 +65,7 @@ class ControleurMembres extends BaseControleur
                                     $_SESSION["id"] = $donnees->getMembreId();
                                     $_SESSION["courriel"] = $params["courriel"];
                                     $_SESSION["type"] = $donnees->getTypeUtilisateur();
-                                    $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
+//                                    $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
                                     $_SESSION['prenom'] = $donnees->getPrenom();
                                 }
                             } else {
