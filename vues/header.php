@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
     <link rel="stylesheet" href="Chat/style.css" type="text/css" />
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="Chat/chat.js"></script>
+        <!-- <script type="text/javascript" src="Chat/chat.js"></script>
         <script type="text/javascript" src="Chat/script.js"></script>
         <script type="text/javascript"> 
         $(document).ready(function () {
@@ -21,7 +21,7 @@
         })
 
                 
-        </script>
+        </script> -->
 </head>
 <body> 
 
@@ -128,7 +128,7 @@
         </div>
     </div>
 </div>
-        <div id="page-wrap">
+        <!-- <div id="page-wrap">
 
             <div id="title-chat">
                 <p>Chat</p>
@@ -142,4 +142,4 @@
                 
             </form>
 
-        </div>
+        </div> -->

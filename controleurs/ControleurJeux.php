@@ -70,6 +70,17 @@ class ControleurJeux extends BaseControleur
                     $this->afficherVues("accueil", $donnees);
                     
                     break;
+                
+                case "formAjoutJeux":
+
+                    $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+                    $this->afficherVues("ajoutJeux", $donnees);
+                    
+                    break;
+
+                case "enregistrerJeux":
+
+                    $this->afficherVues("accueil", $donnees);
 
                 default :
                     $this->afficherVues("accueil", $donnees);
