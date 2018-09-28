@@ -4,8 +4,17 @@
             <div class="align-self-center col-md-6">
                 <div class="col text-center justify-content-center align-self-center">
                 <h1 class="pb-3">Bienvenue à GameXchange</h1>
-                <h5 class="pt-5">La plus grande plateforme d'achat, vendre et d'échange de jeux vidéos du Canada !</h5>
-                <button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5">S'INSCRIRE MAINTENANT !</button>            </div>
+                <h5 class="pt-5 pb-5">La plus grande plateforme d'achat, vendre et d'échange de jeux vidéos du Canada !</h5>
+                    <?php
+
+                    if(isset($_SESSION["id"])) {
+//                        echo '<a class="mt-5">Bienvenu(e). Vous êtes connecté ! </a></div>';
+                        echo '<button class="btn btn-success mt-5 disabled">Bienvenu(e). Vous êtes connecté(e) !</button></div>';
+
+                    } else {
+                        echo '<button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5">S\'INSCRIRE MAINTENANT !</button></div>';
+                    }
+                    ?>
                 </div>
 
             <!-- Modal -->

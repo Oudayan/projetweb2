@@ -103,9 +103,9 @@
 </nav>
 
 <div class="text-center">
-    <?php if(isset($_SESSION["msg"])) {
-        echo $_SESSION["msg"];
-    } ?>
+<!--    --><?php //if(isset($_SESSION["msg"])) {
+//        echo $_SESSION["msg"];
+//    } ?>
 
 
 
@@ -142,7 +142,6 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
 <!--        <div id="page-wrap">-->
 <!---->
 <!--            <div id="title-chat">-->
@@ -158,20 +157,3 @@
 <!--            </form>-->
 <!---->
 <!--        </div>-->
-=======
-        <!-- <div id="page-wrap">
-
-            <div id="title-chat">
-                <p>Chat</p>
-                <button class="minimize">▼</button>
-            </div>
-            <p id="name-area"></p>
-            <div id="chat-wrap"><div id="chat-area"></div></div>
-            <form id="send-message-area">
-                <p style="color:#000;">Votre message: </p>
-                <textarea id="sendie" maxlength = '100' ></textarea>
-                
-            </form>
-
-        </div> -->
->>>>>>> 62dd2f590e5439ed2dd60838b5c80b2427085c80
