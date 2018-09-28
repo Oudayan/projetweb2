@@ -144,12 +144,12 @@
                             <textarea name="message" id="c_msg" cols="40" rows="8" tabindex="5" placeholder="votre message... (*)"></textarea>
                         </p>
                     </div>
-                    <div id="spam">
+                    <!-- <div id="spam">
                         <label>Laissez ce champ vide</label>
                         <input type="text" id="c_spam_textbox1" name="spam_textoblanco" />
                         <label>Ne change pas cela</label>
                         <input type="text" id="c_spam_textbox2" value="http://" name="spam_webvacia" />
-                    </div>
+                    </div> -->
                     <p>
                         <label>(*) Champs requis</label>
                         <input name="cenvoyer" type="button" id="c_envoyer" tabindex="6" value="Envoyer Message" onclick="cargaSendMail()" />

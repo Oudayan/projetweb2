@@ -47,7 +47,7 @@ class ModeleMembres extends BaseDAO
 
     public function obtenirParCourriel($courriel)
     {
-        $resultat = $this->lire($courriel);
+        $resultat = $this->lire($courriel,'courriel');
         $resultat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Membres');
         $unMembre = $resultat->fetch();
         return $unMembre;

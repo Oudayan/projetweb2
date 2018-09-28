@@ -46,7 +46,16 @@
 //        }
 
 
+		public function sauvegarderJeux(Jeux $jeux) {
+			$sql = "INSERT INTO " . $this->lireNomTable() . "(
+				plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+			$donnees = array(
+				$jeux->getPlateformeId(), $jeux->getMembreId(), $jeux->getTitre(), $jeux->getPrix(), $jeux->getDateAjout(),
+				$jeux->getConcepteur(), $jeux->getLocation(), $jeux->getJeuxValide(), $jeux->getJeuxActif(), $jeux->getDescription());
+			return $this->requete($sql, $donnees);
+		}
 
         public function effacerJeu($id) {
         	return $this->effacer($id);
