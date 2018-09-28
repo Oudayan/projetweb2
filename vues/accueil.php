@@ -122,7 +122,7 @@
 
     $(document).ready(function(){
         $("#btn-inscription").click(function(){
-            $("#modal-inscription").modal();
+            $("#modal-inscription").modal({"backdrop": "static"});
         });
     });
 </script>
