@@ -4,7 +4,7 @@
             <div class="align-self-center mb-3 col-md-6">
                 <h1 class="pt-3"><span><i class="fas fa-user-plus"></i></span> S'inscrire</h1>
                 <br>
-                <form action="index.html">
+                <form action="index.php?Membres&action=ajouterUnMembre" method="POST">
                     <!-- Aller à la page d'action -->
                     <div class="form-group">
                         <label for="pwd">Adresse courriel :</label>
