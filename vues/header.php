@@ -106,12 +106,12 @@
     </div>
 </nav>
 
-
-<div class="text-center bg-dark ">
-    <?php if (isset($_SESSION["msg"])) {
-        echo '<h1>' . $_SESSION["msg"] . '</h1>';
-    } ?>
-</div>
+<!---->
+<!--<div class="text-center bg-dark ">-->
+<!--    --><?php //if (isset($_SESSION["msg"])) {
+//        echo '<h1>' . $_SESSION["msg"] . '</h1>';
+//    } ?>
+<!--</div>-->
 
 <!-- Modal -->
 <div class="modal fade" id="modal-login" role="dialog">
@@ -128,7 +128,7 @@
                         <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required>
+                        <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required>
                     </div>
                     <div class="checkbox">
 
