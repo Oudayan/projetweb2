@@ -252,7 +252,7 @@ if(isset($_POST['c_envoyer'])){
     mail('jansylopez@gmail.com', 'Sujeto:Testing le Formulaire de contact...', $msj);
 
 }
-else die("L'accès direct à ce fichier n'est pas autorisé.");
+//else die("L'accès direct à ce fichier n'est pas autorisé.");
 
     
     
