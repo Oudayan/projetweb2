@@ -74,6 +74,7 @@
                     echo 'Bonjour '. $_SESSION["prenom"];
                 } ?>
             </li>
+
             <li class="item">
                 <?php if (isset($_SESSION["courriel"])) { ?>
                     <a href="index.php?Membres&action=logout" id="btn-logout"
@@ -106,12 +107,8 @@
     </div>
 </nav>
 
-<!---->
-<!--<div class="text-center bg-dark ">-->
-<!--    --><?php //if (isset($_SESSION["msg"])) {
-//        echo '<h1>' . $_SESSION["msg"] . '</h1>';
-//    } ?>
-<!--</div>-->
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="modal-login" role="dialog">
@@ -145,11 +142,7 @@
             </div>
             <!-- Footer du modal -->
             <div class="modal-footer">
-                <div class="text-center  ">
-                    <?php if (isset($_SESSION["msg"])) {
-                        echo  $_SESSION["msg"];
-                    } ?>
-                </div>
+
                 <button type="submit" class="btn btn-danger btn-default float-right" data-dismiss="modal"><i
                             class="fas fa-times"></i> Canceller
                 </button>
