@@ -135,13 +135,9 @@
                 <button class="minimize">▼</button>
             </div>
             <p id="name-area"></p>
-            
             <div id="chat-wrap"><div id="chat-area"></div></div>
-            
             <form id="send-message-area">
-            
-                <p style="color:#000;">Your message: </p>
-                
+                <p style="color:#000;">Votre message: </p>
                 <textarea id="sendie" maxlength = '100' ></textarea>
                 
             </form>
