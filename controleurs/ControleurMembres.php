@@ -25,9 +25,9 @@ class ControleurMembres extends BaseControleur
 
             switch ($params["action"]) {
 
-                case "ajouterUnMembre": // Tourner a la page de la formulaire de s`inscrire
-                    $this->afficherVues("ajouteUnMembre");
-                    break;
+//                case "ajouterUnMembre": // Tourner a la page de la formulaire de s`inscrire
+//                    $this->afficherVues("ajouteUnMembre");
+//                    break;
 
                 case "enregistrerMembre" :
 
@@ -65,6 +65,7 @@ class ControleurMembres extends BaseControleur
                                     $_SESSION["courriel"] = $params["courriel"];
                                     $_SESSION["type"] = $donnees->getTypeUtilisateur();
                                     $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
+                                    $_SESSION['prenom'] = $donnees->getPrenom();
                                 }
                             } else {
 //                                var_dump("Le mot de passe ou le courriel ne sont pas corrects");
