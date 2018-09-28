@@ -13,16 +13,22 @@
             <div class="col-12">
                 <div>
                     <h1 class="jeu-titre">Ajouter un jeux</h1>
+                    <?php
+                    echo '<pre>';
+                    var_dump($donnees['plateforme']);
+                    echo '</pre>';
+                    
+                    ?>
                     <form action="index.php?Jeux&action=enregistrerJeuxJeux" method="POST">
                         <div class="form-group">
                             <label>Type de plateforme</label>
-                            <select name="form-control" id="plateforme_id">
-                            <?php
-                            echo '<pre>';
-                            var_dump($donnees['plateforme']);
-                            echo '</pre>';
-                            // foreach($donness[])
-                            ?>
+                            <select class="form-control" name="plateforme_id">
+                                <?php
+                                for($i = 0; $i < count($donnees['plateforme']); $i++)
+                                {
+                                    echo "<option value='". $donnees['plateforme'][$i]->getPlateformeId() . "'>" . $donnees['plateforme'][$i]->getPlateforme() . "</option>";
+                                }
+                                ?>
                             </select>
                             
                     </form>
