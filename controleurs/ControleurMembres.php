@@ -61,6 +61,7 @@ class ControleurMembres extends BaseControleur
                             var_dump($donnees);
                             if ($donnees) {
                                 // Comparaison entre les données reçues et ceux de la BD
+//                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == md5($params["mot_de_passe"] )) {
                                 if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"] ) {
                                     $_SESSION["id"] = $donnees->getMembreId();
                                     $_SESSION["courriel"] = $params["courriel"];
