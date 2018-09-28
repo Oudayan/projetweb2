@@ -95,7 +95,7 @@
 
                 echo    '<div class="col-md-4">';
                 echo        '<div class="card mb-4 box-shadow cardjeux">';
-                echo            '<img class="card-img-top" src="' . $donnees['images'][$i]->getCheminPhoto() .'" alt="Card image cap">';
+                echo            '<a href="index.php?Jeux&action=afficherJeu&JeuxId='. $donnees['derniers'][$i]->getJeuxId() .'"><img class="card-img-top" src="' . $donnees['images'][$i]->getCheminPhoto() .'" alt="Card image cap"></a>';
                 echo            '<div class="card-body">';
                 echo                '<p class="card-text">' . $donnees['derniers'][$i]->getTitre() . '</p>';
                 echo                '<div class="d-flex justify-content-between align-items-center">';

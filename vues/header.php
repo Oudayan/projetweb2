@@ -106,12 +106,12 @@
     </div>
 </nav>
 
-
-<div class="text-center bg-dark ">
-    <?php if (isset($_SESSION["msg"])) {
-        echo '<h1>' . $_SESSION["msg"] . '</h1>';
-    } ?>
-</div>
+<!---->
+<!--<div class="text-center bg-dark ">-->
+<!--    --><?php //if (isset($_SESSION["msg"])) {
+//        echo '<h1>' . $_SESSION["msg"] . '</h1>';
+//    } ?>
+<!--</div>-->
 
 <!-- Modal -->
 <div class="modal fade" id="modal-login" role="dialog">
