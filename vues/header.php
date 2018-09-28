@@ -127,7 +127,7 @@
                         <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required>
+                        <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required>
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox" value="" checked>  Se souvenir de moi></label>
