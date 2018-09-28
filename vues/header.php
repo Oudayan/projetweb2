@@ -11,16 +11,15 @@
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
-    <link rel="stylesheet" href="Chat/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/styleChat.css" type="text/css" />
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="Chat/chat.js"></script>
-        <script type="text/javascript" src="Chat/script.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
+        <script type="text/javascript" src="js/scriptChat.js"></script>
         <script type="text/javascript"> 
         $(document).ready(function () {
             setInterval('chat.update()', 1000);
         })
-
-                
+               
         </script>
 </head>
 <body> 

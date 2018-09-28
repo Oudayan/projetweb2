@@ -1,7 +1,7 @@
 *                               { margin: 0; padding: 0; }
-/*body{ font: 12px "Lucida Grande",*/
-     /*Sans-Serif; background: url(images/bg.png);*/
-    /*}*/
+body{ font: 12px "Lucida Grande",
+     Sans-Serif; background: url(images/bg.png);
+    }
 h2{ color: #fa9f00;
     font: 30px Helvetica,
     Sans-Serif; margin: 0 0 10px 0;
@@ -38,8 +38,8 @@ h2{ color: #fa9f00;
 { color: white;
      background: #333;
      padding: 4px 8px;
-     -moz-border-radius: 5px;
-     -webkit-border-radius: 8px; margin: 0 5px 0 0;
+     border-radius: 5px;
+     border-radius: 8px; margin: 0 5px 0 0;
 }
 #chat-area p
     {
