@@ -7,7 +7,13 @@
  * @brief     Fichier de vue pour l'ajout de jeu
  * @details   Cette vue permettre l'insertion de nouveaux jeux dans la BD
  */
+
+if(isset($_SESSION['id']))
+{
+
+
 ?>
+
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -36,3 +42,8 @@
             </div>
         </div>
     </div>
+<?php
+}
+else{
+    echo "Vous n'avez pas la permission d'acceder à cette page";
+}
