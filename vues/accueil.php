@@ -82,7 +82,7 @@
         </div>
     </div>
 </div>
-<div class="album py-2 bg-light">
+<div class="bg-light">
     <div class="container">
         <h1 class="text-center bg-info mt-2">NOUVEAUTÉS</h1>
         <div class="row">
