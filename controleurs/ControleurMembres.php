@@ -20,6 +20,7 @@ class ControleurMembres extends BaseControleur
     public function index(array $params)
     {
         $donnees["erreur"] = "";
+        $_SESSION["msg"]="";
 
         if (isset($params["action"])) {
 
@@ -31,27 +32,34 @@ class ControleurMembres extends BaseControleur
 
                 case "enregistrerMembre" :
 
-                    if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"])) {
+                    var_dump($params);
 
+                    if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"]) && $params["confirm_mdp"]) {
 
-                        $modeleMembres = $this->lireDAO("Membres");
-                        $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
-                        $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
+                        // comparer les mot de passe sont pareile.
+                        if ($params["mot_de_passe"] == $params["confirm_mdp"]) {
 
-                        $_SESSION["msg"] = "Vous avez devenu membre de notre site";
+                            $modeleMembres = $this->lireDAO("Membres");
+                            $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
+                            $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
+
+                            $_SESSION["msg"] = "Vous avez devenu membre de notre site";
 //                        header("location:index.php");
-
+                        } else {
+                            $_SESSION["msg"] = " Champ requis Le mot de passe de confirmation est différent du mot de passe saisi ";
+                        }
                     } else {
 
                         $_SESSION["msg"] ="Remplissez tous les champs...";
 //                        $this->afficherVues("ajouteUnMembre");
                     }
                     header("location:index.php");
+
                     break;
 //
                 case "verifierLogin" :
                     {
-//                        var_dump($_POST);
+                        var_dump($_POST);
 //                        echo $params["courriel"];
                         
                         if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
@@ -59,9 +67,11 @@ class ControleurMembres extends BaseControleur
                             $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
 
                             var_dump($donnees);
+
                             if ($donnees) {
                                 // Comparaison entre les données reçues et ceux de la BD
-                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"]) {
+//                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == md5($params["mot_de_passe"] )) {
+                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"] ) {
                                     $_SESSION["id"] = $donnees->getMembreId();
                                     $_SESSION["courriel"] = $params["courriel"];
                                     $_SESSION["type"] = $donnees->getTypeUtilisateur();
