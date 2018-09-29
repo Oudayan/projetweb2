@@ -50,7 +50,7 @@
 </nav>
 
 
-<!--<!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="modal-login" role="dialog">
     <div class="modal-dialog">
         <!-- Contenu du formulaire MODAL de connexion d'utilisateur-->
@@ -83,18 +83,16 @@
         </div>
     </div>
 </div>
-<!--<!--        <div id="page-wrap">--
-<!--<!---->
-<!--<!--            <div id="title-chat">-->
-<!--<!--                <p>Chat</p>-->
-<!--<!--                <button class="minimize">▼</button>-->
-<!--<!--            </div>-->
-<!--<!--            <p id="name-area"></p>-->
-<!--<!--            <div id="chat-wrap"><div id="chat-area"></div></div>-->
-<!--<!--            <form id="send-message-area">-->
-<!--<!--                <p style="color:#000;">Votre message: </p>-->
-<!--<!--                <textarea id="sendie" maxlength = '100' ></textarea>-->
-<!--<!--                -->
-<!--<!--            </form>-->
-<!--<!---->
-<!--<!--        </div>-->
+<!--        <div id="page-wrap">-->
+<!--            <div id="title-chat">-->
+<!--                <p>Chat</p>-->
+<!--                <button class="minimize">▼</button>-->
+<!--            </div>-->
+<!--            <p id="name-area"></p>-->
+<!--            <div id="chat-wrap"><div id="chat-area"></div></div>-->
+<!--            <form id="send-message-area">-->
+<!--                <p style="color:#000;">Votre message: </p>-->
+<!--                <textarea id="sendie" maxlength = '100' ></textarea>-->
+<!--            </form>-->
+
+<!--        </div>-->
