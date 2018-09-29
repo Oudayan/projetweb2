@@ -91,7 +91,7 @@
     </div>
 </div>
 
-<!--    <!--Affichage la message -->-->
+<!--    Affichage la message -->
 <!--    <div class="text-center bg-dark ">-->
 <!--        --><?php //if (isset($_SESSION["msg"])) {
 //            echo '<h5>' . $_SESSION["msg"] . '</h5>';
