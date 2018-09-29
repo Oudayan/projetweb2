@@ -124,6 +124,34 @@ color: gold;
   margin: 10px 0;
 }
 
+/* Évaluations 
+Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rating-define-by-width
+*/
+
+.score {
+  display: inline-block;
+  font-family: Wingdings;
+  font-size: 25px;
+  color: #ccc;
+  position: relative;
+}
+
+.score::before,
+.score span::before {
+  content: "\2605\2605\2605\2605\2605";
+  display: block;
+}
+
+.score span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: #e98d34;
+  text-shadow: 1px 1px 3px #666;
+}
+
+
 /*vues/message.php Chunliang le 26/09/2018*/
 
 

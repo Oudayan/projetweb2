@@ -24,6 +24,7 @@ class ControleurJeux extends BaseControleur
         $modelePlateformes = $this->lireDAO("Plateformes");
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
+        $modeleCategories = $this->lireDAO("Categories");
 
 
         
@@ -75,6 +76,8 @@ class ControleurJeux extends BaseControleur
 
                     $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
                     $donnees['jeu'] = $modeleJeux->lireTousLesJeux();
+                    $donnees['categories'] = $modeleCategories->lireToutesCategories();
+
                     $this->afficherVues("ajoutJeux", $donnees);
                     
                     break;
