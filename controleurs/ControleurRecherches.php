@@ -20,9 +20,13 @@
 
         {
 
-            $modeleJeu = $this->lireDAO("Jeux");
-            $donnees['jeux'] = $modeleJeu->lireDerniersJeux();
-            $donnees['derniers'] = $modeleJeu->lireDerniersJeux();
+            $modeleJeux = $this->lireDAO("Jeux");
+            $modeleImages = $this->lireDAO("Images");
+            $modeleMembres = $this->lireDAO("Membres");
+            $modelePlateformes = $this->lireDAO("Plateformes");
+            $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+            $modeleCategories = $this->lireDAO("Categories");
+            $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
 
 
             if (isset($params["action"]))
@@ -34,16 +38,54 @@
                         $this->afficherVues("accueil", $donnees);
                         break;
 
+                    case "rechercher" :
+
+                        $donnees['negotiation'] = $modeleJeux->lireTousLesJeux();
+                        $donnees['concepteurs'] = $modeleJeux->lireTousLesConcepteurs();
+                        $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+                        $donnees['categories'] = $modeleCategories->lireToutesCategories();
+                        $donnees['images'] = $modeleImages->lireDerniersImages();
+                        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+
+
+                        $this->afficherVues("chercher", $donnees);
+
+                        break;
+
                     default :
                         $this->afficherVues("accueil", $donnees);
                         break;
+
                 }
             }
             else
             {
                 $this->afficherVues("accueil", $donnees);
             }
-           
         }
+
+            public function filtrerJeux(array $params) {
+
+                $modeleJeux = $this->lireDAO("Jeux");
+                $modeleImages = $this->lireDAO("Images");
+                $modeleMembres = $this->lireDAO("Membres");
+                $modelePlateformes = $this->lireDAO("Plateformes");
+                $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+                $modeleCategories = $this->lireDAO("Categories");
+                $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
+
+
+
+//                $filtre = "l_actif = true AND d_active = true";
+
+
+                if (isset($params["categorie"])) {
+                    $_POST["categorie"] = $params["categorie"];
+                }
+
+
+            }
+
         
     }
+

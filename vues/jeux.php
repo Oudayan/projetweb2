@@ -153,14 +153,15 @@
                 <div class="card-body">
                     <div class="review">
                         <?php
-                            for($i = 0; $i < count($donnees['commentaireJeu']); $i++)
+                            for($i = 0; $i < count($donnees['commentaires'])-1; $i++)
                             {
-                                echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaireJeu'][$i]->getDateCommentaire() . "</p>";  
-                                echo "<p>" ."Par : " .$donnees['commentaireJeu'][$i]->prenom ." " .$donnees['commentaireJeu'][$i]->nom . "</p>"; 
-                                echo "<p>" . $donnees['commentaireJeu'][$i]->getCommentaire() . "</p>";
+                                echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaires'][$i]->getDateCommentaire() . "</p>";  
+                                echo "<p>" ."Par : " .$donnees['commentaires']['membres'][$i]->getPrenom() ." " .$donnees['commentaires']['membres'][$i]->getNom() . "</p>"; 
+                                echo "<p>" . $donnees['commentaires'][$i]->getCommentaire() . "</p>";
                                 // echo "<p>" ."Evaluation : ". $donnees['commentaireJeu'][$i]->getEvaluation() ."</p>";
                                 echo "<hr>";
                             }
+                            
                         ?>                        
                     </div>
                 </div>

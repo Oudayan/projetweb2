@@ -42,7 +42,11 @@ class ControleurJeux extends BaseControleur
                         $donnees['membre'] = $modeleMembres->obtenirParId($donnees['jeu']->getMembreId());
                         $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeu']->getPlateformeId());
                         $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
-                        $donnees['commentaireJeu'] = $modeleCommentaireJeux->toutObtenirParIdJeuxId($params["JeuxId"]);
+                        $donnees['commentaires'] = $modeleCommentaireJeux->toutObtenirParIdJeuxId($params["JeuxId"]);
+                        // $donnees['commentaires'] = $modeleCommentaireJeux->lireCommentaireParJeuxId($params["JeuxId"]);
+                        foreach ($donnees['commentaires'] as $commentaire){
+                            $donnees['commentaires']['membres'][] = $modeleMembres->obtenirParId($commentaire->getMembreId());
+                        }
                     }
                     else
                     {
