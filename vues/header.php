@@ -20,9 +20,15 @@
         <div class="collapse navbar-collapse" id="navbar12"> <a class="navbar-brand d-none d-md-block" href="#">
             </a>
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"> <a class="nav-link" href="#">Acheter</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Louer</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Chercher</a> </li>
+                <?php
+                if(isset($_SESSION["courriel"])) {
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\">Annoncer</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\">Messagerie</a></li>";
+                } ?>
+
+            </ul>
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"> <a class="nav-link" href="#">Chercher</a></li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item"> <a class="nav-link" href="#"><?php
