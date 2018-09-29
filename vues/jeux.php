@@ -5,7 +5,6 @@
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
 <!-- * @details   Cette vue permettre voir les détails de chaque jeux-->
-<!-- */-->
 
 <div class="container pt-3">
     <div class="row">

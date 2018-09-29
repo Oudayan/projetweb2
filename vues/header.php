@@ -31,16 +31,6 @@
                         } ?></a>
                 </li>
 
-<<<<<<< HEAD
-            </li>
-            <li>  <?php if (isset($_SESSION["courriel"])) {
-                    echo 'Bonjour '. $_SESSION["prenom"];
-                } ?>
-            </li>
-
-            <li class="item">
-=======
->>>>>>> 020f78d95cbf408c10687679306cce1359f495e2
                 <?php if (isset($_SESSION["courriel"])) { ?>
                     <a href="index.php?Membres&action=logout" id="btn-logout" class="btn navbar-btn text-white btn-primary">
                         <i class="far fa-user-circle"></i> Se déconnecter</a>
@@ -53,13 +43,8 @@
     </div>
 </nav>
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 020f78d95cbf408c10687679306cce1359f495e2
-
-<!--<!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="modal-login" role="dialog">
     <div class="modal-dialog">
         <!-- Contenu du formulaire MODAL de connexion d'utilisateur-->
@@ -87,31 +72,21 @@
             </div>
             <!-- Footer du modal -->
             <div class="modal-footer">
-<<<<<<< HEAD
-
-                <button type="submit" class="btn btn-danger btn-default float-right" data-dismiss="modal"><i
-                            class="fas fa-times"></i> Canceller
-                </button>
-
-=======
                 <button type="submit" class="btn btn-danger btn-default float-right" data-dismiss="modal"><i class="fas fa-times"></i> Canceller</button>
->>>>>>> 020f78d95cbf408c10687679306cce1359f495e2
             </div>
         </div>
     </div>
 </div>
-<!--<!--        <div id="page-wrap">--
-<!--<!---->
-<!--<!--            <div id="title-chat">-->
-<!--<!--                <p>Chat</p>-->
-<!--<!--                <button class="minimize">▼</button>-->
-<!--<!--            </div>-->
-<!--<!--            <p id="name-area"></p>-->
-<!--<!--            <div id="chat-wrap"><div id="chat-area"></div></div>-->
-<!--<!--            <form id="send-message-area">-->
-<!--<!--                <p style="color:#000;">Votre message: </p>-->
-<!--<!--                <textarea id="sendie" maxlength = '100' ></textarea>-->
-<!--<!--                -->
-<!--<!--            </form>-->
-<!--<!---->
-<!--<!--        </div>-->
+<!--        <div id="page-wrap">-->
+<!--            <div id="title-chat">-->
+<!--                <p>Chat</p>-->
+<!--                <button class="minimize">▼</button>-->
+<!--            </div>-->
+<!--            <p id="name-area"></p>-->
+<!--            <div id="chat-wrap"><div id="chat-area"></div></div>-->
+<!--            <form id="send-message-area">-->
+<!--                <p style="color:#000;">Votre message: </p>-->
+<!--                <textarea id="sendie" maxlength = '100' ></textarea>-->
+<!--            </form>-->
+
+<!--        </div>-->
