@@ -14,33 +14,35 @@ if(isset($_SESSION['id']))
     <div class="container">
         <div class="d-flex-row justify-content-between">
             <div class="d-flex justify-content-center">
-                <h1 class="my-3 jeu-titre">Ajouter un jeux</h1>
+                <h1 class="my-3 jeu-titre">Ajouter un jeu</h1>
             </div>
             
-            <!-- <?php
-            echo '<pre>';
-            var_dump($donnees['plateforme']);
-            var_dump($donnees['jeu']);
-            var_dump($donnees['categories']);
-            echo '</pre>';
-            ?> -->
+            <?php
+            // echo '<pre>';
+            // var_dump($donnees['plateforme']);
+            // var_dump($donnees['jeu']);
+            // var_dump($donnees['categories']);
+            // echo '</pre>';
+            $membre_id = $_SESSION['id'];
+            $date_ajout = date("Y-m-d H:i");
+            ?>
             <form action="index.php?Jeux&action=enregistrerJeux" method="POST">
+                <input type="hidden" name="membre_id" id="membre_id" value="<?=$membre_id?>">
+                <input type="hidden" name="date_ajout" id="date_ajout" value="<?=$date_ajout?>">
                 <div class="form-group row">
                     <div class="col-lg-4">
                         <label for="pwd">Titre :</label>
-                        <input type="text" class="form-control" id="titre" name="titre">
-                        <input type="hidden" name="membre_id" id="membre_id" value="<?=$_SESSION['id']?>">
-                        <input type="hidden" name="date_ajout" id="date_ajout" value="<?=date("Y-m-d H:i")?>">
+                        <input type="text" class="form-control" id="titre" name="titre" value="<?=$titre?>"> 
                     </div>
                     
                     <div class="col-lg-4">
                         <label for="pwd">Prix :</label>
-                        <input type="text" class="form-control" id="prix" name="prix">
+                        <input type="text" class="form-control" id="prix" name="prix" value="<?=$prix?>">
                     </div>
                     
                     <div class="col-lg-4">
                         <label for="pwd">Concepteur :</label>
-                        <input type="text" class="form-control" id="concepteur" name="concepteur">
+                        <input type="text" class="form-control" id="concepteur" name="concepteur" value="<?=$concepteur?>">
                     </div>
                 </div>
                 <hr>
@@ -49,13 +51,13 @@ if(isset($_SESSION['id']))
                         <legend>Vous voulez mettre votre jeu à :</legend>
                         <div>
                             <input type="radio" id="louer" 
-                            name="drone" value="louer" checked />
+                            name="jeu_a" value="louer" checked />
                             <label for="louer">Louer </label>
                         </div>
                         <div>
                             <input type="radio" id="vendre" 
-                            name="drone" value="vendre" checked />
-                            <label for="vendre">À vendre</label>
+                            name="jeu_a" value="vendre" checked />
+                            <label for="vendre">Vendre</label>
                         </div>
                     </fieldset>
                 </div>
@@ -75,12 +77,14 @@ if(isset($_SESSION['id']))
                 </div>
                 <hr>
                 <div class="form-group row">
-                    <div class="col-lg-4">
+                    <div class="d-flex flex-wrap justify-content-between">
                         <?php
                             for($i = 0; $i < count($donnees['categories']); $i++)
                             {
-                                echo "<input type='checkbox' name='categorie1' value='" . $donnees['categories'][$i]->getCategorieId() . "'>" . $donnees['categories'][$i]->getCategorie() . "<br>";
-
+                                echo "<div class='col-lg-6'>";
+                                    echo "<input type='checkbox' name='categorie1' value=" . $donnees['categories'][$i]->getCategorieId() .">";
+                                    echo "<label class='ml-2'>" . $donnees['categories'][$i]->getCategorie() . "</label><br>";
+                                echo "</div>";
                             }
                         ?>
                     </div>
@@ -92,7 +96,11 @@ if(isset($_SESSION['id']))
                         <textarea rows="8" cols="60"></textarea>
                     </div> 
                 </div>
-                <hr>          
+                <hr>
+                <div class="d-flex justify-content-around my-5">
+                    <a href="index.php?Jeux&action=derniers"><button type="button" class="btn-lg btn-outline-dark">Annuler</button></a>
+                    <input type="submit" class="btn btn-lg btn-outline-success" value="Sauvegarder">
+                </div>          
             </form>
         </div>
     </div>
@@ -101,3 +109,4 @@ if(isset($_SESSION['id']))
 else{
     echo "Vous n'avez pas la permission d'acceder à cette page";
 }
+

@@ -206,5 +206,15 @@ $(document).ready(function(){
     });
 
 
+   
+
 });
+
+
+$(document).on("click", "#annoce a", function(e){
+    // e.preventDefault();
+    $(this).addClass("invisible");
+    // console.log(this);
+});
+
 
