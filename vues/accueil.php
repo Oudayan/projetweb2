@@ -12,7 +12,7 @@
                         echo '<button class="btn btn-success mt-5 disabled">Bienvenu(e). Vous êtes connecté(e) !</button></div>';
 
                     } else {
-                        echo '<button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5">S\'INSCRIRE MAINTENANT !</button></div>';
+                        echo '<button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5" data-toggle="modal" data-target="#modal-inscription">S\'INSCRIRE MAINTENANT !</button></div>';
                     }
                     ?>
                     <!--Affichage la message -->
@@ -132,7 +132,7 @@
             </div>
 
 
-<script>
+<!-- <script>
 
     // Modal d'inscription
 
@@ -141,4 +141,4 @@
             $("#modal-inscription").modal({"backdrop": "static"});
         });
     });
-</script>
+</script> -->

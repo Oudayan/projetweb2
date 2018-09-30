@@ -167,7 +167,7 @@
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [bool] $jeux_actif, la description de chaque jeu
+         * @param       [string] $jeux_actif, la description de chaque jeu
          * @return      [object]
          */
 

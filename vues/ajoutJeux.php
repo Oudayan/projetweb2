@@ -10,25 +10,53 @@
 
 if(isset($_SESSION['id']))
 {
+
+    if(isset($donnees['jeu']))
+    {
+        $titre = $donnees['jeu']->getTitre();
+        $prix = $donnees['jeu']->getPrix();
+        $concepteur = $donnees['jeu']->getConcepteur();
+        if($donnees['jeu']->getLocation()){
+            $location = "checked";
+            $vendre = "";
+        }
+        else
+        {
+            $location = "";
+            $vendre = "checked"; 
+        } 
+        $plateforme_id = $donnees['jeu']->getPlateformeId();
+        $description = $donnees['jeu']->getDescription();
+
+    }
+    else
+    {
+        $titre = $prix = $concepteur = $location = $vendre = $plateforme_id = $description = "";
+    }
+
+    //var_dump($donnees['categoriesJeu']);
+    for ($i = 0; $i < count($donnees['categories']); $i++)
+    {
+        $categorie[$i] = "";
+        if (isset($donnees['categoriesJeu']))
+        {
+            for ($j = 0; $j < count($donnees['categoriesJeu']); $j++) {
+                if ($donnees['categories'][$i]->getCategorieId() == $donnees['categoriesJeu'][$j]->getCategorieId()) {
+                    $categorie[$i] = " checked";
+                }
+            }
+            //var_dump($donnees['categoriesJeu'][$donnees['categoriesJeu'][$i]->getCategorieId()]);
+        }
+    }
+    // var_dump($donnees['jeu']);
 ?>
     <div class="container">
         <div class="d-flex-row justify-content-between">
             <div class="d-flex justify-content-center">
-                <h1 class="my-3 jeu-titre">Ajouter un jeu</h1>
+                <h1 class="my-3 jeu-titre"><?=isset($donnees['jeu']) ? 'Modifier un jeu' : 'Ajouter un jeu'?></h1>
             </div>
-            
-            <?php
-            // echo '<pre>';
-            // var_dump($donnees['plateforme']);
-            // var_dump($donnees['jeu']);
-            // var_dump($donnees['categories']);
-            // echo '</pre>';
-            $membre_id = $_SESSION['id'];
-            $date_ajout = date("Y-m-d H:i");
-            ?>
             <form action="index.php?Jeux&action=enregistrerJeux" method="POST">
-                <input type="hidden" name="membre_id" id="membre_id" value="<?=$membre_id?>">
-                <input type="hidden" name="date_ajout" id="date_ajout" value="<?=$date_ajout?>">
+                <input type="hidden" name="membre_id" id="membre_id" value="<?=$_SESSION['id']?>">
                 <div class="form-group row">
                     <div class="col-lg-4">
                         <label for="pwd">Titre :</label>
@@ -50,13 +78,11 @@ if(isset($_SESSION['id']))
                     <fieldset class="col-lg-4">
                         <legend>Vous voulez mettre votre jeu à :</legend>
                         <div>
-                            <input type="radio" id="louer" 
-                            name="jeu_a" value="louer" checked />
+                            <input type="radio" id="louer" name="location" value="1" <?= $location ?>/>
                             <label for="louer">Louer </label>
                         </div>
                         <div>
-                            <input type="radio" id="vendre" 
-                            name="jeu_a" value="vendre" checked />
+                            <input type="radio" id="vendre" name="location" value="0" <?= $vendre ?>/>
                             <label for="vendre">Vendre</label>
                         </div>
                     </fieldset>
@@ -69,7 +95,7 @@ if(isset($_SESSION['id']))
                             <?php
                             for($i = 0; $i < count($donnees['plateforme']); $i++)
                             {
-                                echo "<option value='". $donnees['plateforme'][$i]->getPlateformeId() . "'>" . $donnees['plateforme'][$i]->getPlateforme() . "</option>";
+                                echo "<option value='". $donnees['plateforme'][$i]->getPlateformeId() . "' " . ($donnees['plateforme'][$i]->getPlateformeId() == $plateforme_id ? 'selected' : '') . ">" . $donnees['plateforme'][$i]->getPlateforme() . "</option>";
                             }
                             ?>
                         </select>
@@ -77,12 +103,14 @@ if(isset($_SESSION['id']))
                 </div>
                 <hr>
                 <div class="form-group row">
+                    <label class="ml-3">Categories :</label>
                     <div class="d-flex flex-wrap justify-content-between">
+                        
                         <?php
                             for($i = 0; $i < count($donnees['categories']); $i++)
                             {
                                 echo "<div class='col-lg-6'>";
-                                    echo "<input type='checkbox' name='categorie1' value=" . $donnees['categories'][$i]->getCategorieId() .">";
+                                    echo "<input type='checkbox' name='categorie1' value='" . $donnees['categories'][$i]->getCategorieId() . "'" . $categorie[$i] . ">";
                                     echo "<label class='ml-2'>" . $donnees['categories'][$i]->getCategorie() . "</label><br>";
                                 echo "</div>";
                             }
@@ -93,10 +121,17 @@ if(isset($_SESSION['id']))
                 <div class="form-group row">
                     <div class="col-lg-4">
                         <label>Description :</label>
-                        <textarea rows="8" cols="60"></textarea>
+                        <textarea rows="8" cols="60"><?=$description?></textarea>
                     </div> 
                 </div>
                 <hr>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <label>File : </label>
+                        <input type="file" name="image"/>
+                        <input type="submit" class="ml-3"/>
+                    </div> 
+                </div>
                 <div class="d-flex justify-content-around my-5">
                     <a href="index.php?Jeux&action=derniers"><button type="button" class="btn-lg btn-outline-dark">Annuler</button></a>
                     <input type="submit" class="btn btn-lg btn-outline-success" value="Sauvegarder">
@@ -109,4 +144,12 @@ if(isset($_SESSION['id']))
 else{
     echo "Vous n'avez pas la permission d'acceder à cette page";
 }
+?>
+<!-- <script>
+$(document).on("click", "#annoce a", function(e){
+    // e.preventDefault();
+    $(this).addClass("invisible");
+    // console.log(this);
+});
 
+</script> -->

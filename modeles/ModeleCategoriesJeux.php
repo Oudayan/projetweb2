@@ -21,5 +21,14 @@
             $resultat = $this->requete($sql);
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "CategoriesJeux");
         }
+
+        public function sauvegarderCategoriesJeu(CategoriesJeux $categoriesJeux){
+            $sql = "INSERT INTO " . $this->lireNomTable() . "(
+                jeux_id, categorie_id) VALUES (?, ?)";
+
+            $donnees = array(
+                $jeux_id->getJeuxId(), $categorie_id->getCategorieId());
+            return $this->requete($sql, $donnees);
+        }
         
     }
