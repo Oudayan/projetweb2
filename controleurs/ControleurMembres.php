@@ -8,64 +8,115 @@
  * @details   Cette classe définit les différentes activités concernant aux membres inscrits sur le site
  */
 
-    class ControleurMembres extends BaseControleur
+class ControleurMembres extends BaseControleur
+{
+    /**
+     * @brief   Méthode qui sera appelée par les controleurs
+     * @details Méthode pour évaluer les "cases" du contrôleurs
+     * @param   [array] $params La chaîne de requête URL ("query string") captée par le fichier Routeur.php
+     * @return  L'acces aux vues, aux donnes
+     */
+
+    public function index(array $params)
     {
-        /**
-         * @brief   Méthode qui sera appelée par les controleurs
-         * @details Méthode pour évaluer les "cases" du contrôleurs
-         * @param   [array] $params La chaîne de requête URL ("query string") captée par le fichier Routeur.php
-         * @return  L'acces aux vues, aux donnes
-         */
+        $donnees["erreur"] = "";
+        $_SESSION["msg"]="";
 
-        public function index(array $params)
-        {
-            if (isset($params["action"]))
-            {
-                switch($params["action"])
-                {
-                    case "verifierLogin" :
-                        {
-                            if(isset($params["courriel"]) && isset($params["MotDePasse"]))
-                            {
-                                $modeleMembres = $this->lireDAO("Membres");
-                                $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
-                                // Comparaison entre les données reçues et ceux de la BD
-                                if($donnees && $donnees->lireCourriel() == $params["courriel"] && $donnees->lireMotDePasse() == $params["MotDePasse"])
-                                {
-                                    $_SESSION["courriel"] = $params["courriel"];
-                                    $_SESSION["prenom"] = $donnees->lirePrenom();
-                                    $_SESSION["succes"] = "Bienvenue ! " . $_SESSION["prenom"] . " ";
-                                }
-                                else
-                                {
-                                    var_dump("Le mot de passe ou le courriel ne sont pas corrects");
-                                    $_SESION["erreur"] = "Le courriel ou le mot de passe ne sont pas corrects";
-                                }
-                            }
-                        }
-                    break;
+        if (isset($params["action"])) {
 
-                    case "enregistrerMembre" :
-                        if(!isset($params["nom"]) || !isset($params["prenom"]) || !isset($params["mot_de_passe"]) || !isset($params["adresse"]) || !isset($params["telephone"]) || !isset($params["courriel"]))
-                        {
-                            echo "Remplissez tous les champs...";
-                        }
-                        else
-                        {
+            switch ($params["action"]) {
+
+//                case "ajouterUnMembre": // Tourner a la page de la formulaire de s`inscrire
+//                    $this->afficherVues("ajouteUnMembre");
+//                    break;
+
+                case "enregistrerMembre" :
+
+                    var_dump($params);
+
+                    if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"]) && $params["confirm_mdp"]) {
+
+                        // comparer les mot de passe sont pareile.
+                        if ($params["mot_de_passe"] == $params["confirm_mdp"]) {
+
                             $modeleMembres = $this->lireDAO("Membres");
-                            $enregistrement["Membre"] = new Membres($params["membre_id"],$params["type_utilisateur_id"],$params["nom"],$params["prenom"],$params["mot_de_passe"],$params["adresse"],$params["telephone"],$params["courriel"],false,true);
-                            $succes = $modeleMembres->sauvegarde($enregistrement["Membres"]);
-                            $_SESSION["succes"] = "Vous avez devenu membre de notre site";
+                            $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
+                            $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
+
+                            $_SESSION["msg"] = "Vous avez devenu membre de notre site";
+//                        header("location:index.php");
+                        } else {
+                            $_SESSION["msg"] = " Champ requis Le mot de passe de confirmation est différent du mot de passe saisi ";
                         }
+                    } else {
+
+                        $_SESSION["msg"] ="Remplissez tous les champs...";
+//                        $this->afficherVues("ajouteUnMembre");
+                    }
+                    header("location:index.php");
+
+                    break;
+//
+                case "verifierLogin" :
+                    {
+                        var_dump($_POST);
+//                        echo $params["courriel"];
+                        
+                        if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
+                            $modeleMembres = $this->lireDAO("Membres");
+                            $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
+
+                            var_dump($donnees);
+
+                            if ($donnees) {
+                                // Comparaison entre les données reçues et ceux de la BD
+//                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == md5($params["mot_de_passe"] )) {
+                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"] ) {
+                                    $_SESSION["id"] = $donnees->getMembreId();
+                                    $_SESSION["courriel"] = $params["courriel"];
+                                    $_SESSION["type"] = $donnees->getTypeUtilisateur();
+//                                    $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
+                                    $_SESSION['prenom'] = $donnees->getPrenom();
+                                }
+                            } else {
+//                                var_dump("Le mot de passe ou le courriel ne sont pas corrects");
+                                $_SESSION["msg"] = "Le courriel ou le mot de passe ne sont pas corrects";
+                            }
+                        }  else {
+                            $_SESSION["msg"] = "Veuillez remplir le courriel et le mot de passe!";
+                        }
+
+                        header("location:index.php");
+                    }
                     break;
 
-                    default:
-                        trigger_error($params["action"]. " Action invalide.");
-                }
+                case  "logout":
+                    if (isset($_SESSION["id"])) {
+                        unset($_SESSION["id"]);
+                        setcookie("id",null,-1,'/');
+                    }
+                    if (isset($_SESSION["courriel"])) {
+                        unset($_SESSION["courriel"]);
+                        setcookie("courriel",null,-1,'/');
+                    }
+                    if (isset($_SESSION["type"])) {
+                        unset($_SESSION["type"]);
+                        setcookie("type",null,-1,'/');
+                    }
+                    if (isset($_SESSION["msg"])) {
+                        unset($_SESSION["msg"]);
+                        setcookie("msg",null,-1,'/');
+                    }
+                    header("location:index.php");
+                    break;
+
+
+
+                default:
+                    trigger_error($params["action"] . " Action invalide.");
             }
-            else
-            {
-                var_dump("No");
-            }
+        } else {
+            var_dump("No");
         }
     }
+}

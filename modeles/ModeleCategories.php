@@ -27,4 +27,6 @@
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Categories');
         }
 
+
+        
     }

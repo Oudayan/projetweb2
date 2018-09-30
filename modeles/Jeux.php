@@ -21,10 +21,11 @@
         private $jeux_valide;
         private $jeux_actif;
         private $description;
+        private $evaluation_globale;
 
         // Constructeur
 
-        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "")
+        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= "")
         {
            $this->setJeuxId($jeux_id);
            $this->setPlateformeId($plateforme_id);
@@ -176,6 +177,20 @@
             }
         }
 
+         /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Jeux
+         * 
+         * @param       [bool] $jeux_actif, l'evaluation globale de chauqe jeu
+         * @return      [object]
+         */
+
+        public function setEvaluationGlobale($evaluation_globale){
+            if(is_numeric($evaluation_globale) && trim($evaluation_globale) != ""){
+                $this->evaluation_globale = $evaluation_globale;
+            }
+        }
+
+
 
         // GETTERS
 
@@ -299,6 +314,18 @@
         public function getDescription(){
             return $this->description;
         }
+
+        /**
+         * @brief       Permet de définir en lecture l'attribut de la classe Jeux
+         *
+         * @param       [string] $evaluation_globale, l'evaluation globale d'un jeu
+         * @return      [object]
+         */
+
+        public function getEvaluationGlobale(){
+            return $this->evaluation_globale;
+        }
+
 
 
     }

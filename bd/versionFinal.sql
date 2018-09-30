@@ -38,6 +38,7 @@ create table `achat`
    `achat_id`             int not null auto_increment,
    `type_paiement_id`     int not null,
    `membre_id`            int not null,
+   `jeux_id`              int not null,
    `date_achat`           datetime not null,
    primary key (achat_id)
 );
@@ -102,6 +103,7 @@ create table jeux
    `jeux_valide`          bool not null,
    `jeux_actif`           bool not null,
    `description`          text not null,
+   `evaluation_globale`    decimal(6,5),
    primary key (jeux_id)
 );
 
@@ -112,7 +114,8 @@ create table location
 (
    `location_id`          int not null auto_increment,
    `type_paiement_id`     int not null,
-   `membre_id`            int,
+   `membre_id`            int not null,
+   `jeux_id`              int not null,
    `date_debut`           datetime not null,
    `date_retour`          datetime not null,
    primary key (location_id)
@@ -131,8 +134,8 @@ create table membre
    `adresse`              varchar(128) not null,
    `telephone`            varchar(32) not null,
    `courriel`             varchar(96) not null,
-   `membre_valide`        bool not null,
-   `membre_actif`         bool not null,
+   `membre_valide` tinyint(1) NOT NULL DEFAULT '0',
+   `membre_actif` tinyint(1) NOT NULL DEFAULT '1',
    primary key (membre_id)
 );
 
@@ -194,6 +197,9 @@ create table type_utilisateur
 alter table achat add constraint FK_assosier_achat foreign key (type_paiement_id)
       references type_paiement (type_paiement_id) on delete restrict on update restrict;
 
+alter table achat add constraint FK_assosier_jeux foreign key (jeux_id)
+      references jeux (jeux_id) on delete restrict on update restrict;
+
 alter table achat add constraint FK_faire foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
@@ -224,6 +230,9 @@ alter table jeux add constraint FK_classer foreign key (plateforme_id)
 alter table location add constraint FK_associer_louer foreign key (type_paiement_id)
       references type_paiement (type_paiement_id) on delete restrict on update restrict;
 
+alter table location add constraint FK_assosier_jeux2 foreign key (jeux_id)
+      references jeux (jeux_id) on delete restrict on update restrict;
+
 alter table location add constraint FK_louer foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
@@ -235,6 +244,8 @@ alter table messagerie add constraint FK_assigner_emmeteur foreign key (membre_i
 
 alter table photo_jeux add constraint FK_posseder foreign key (jeux_id)
       references jeux (jeux_id) on delete restrict on update restrict;
+
+
 
 
 
@@ -297,17 +308,17 @@ INSERT INTO `plateforme` (`plateforme_id`, `plateforme`) VALUES
 -- Contenu de la table `jeux`
 --
 
-INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `titre`, `prix`, `date_ajout`, `concepteur`, `location`, `jeux_valide`, `jeux_actif`, `description`) VALUES
-(1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-10 04:13:54', 'Nintendo', 1, 1, 1, 'Curabitur sit amet convallis felis. Mauris ac massa justo. Aliquam ex nisl, viverra vitae nulla eu, vulputate rhoncus dui. Nullam a massa ligula. Suspendisse sollicitudin iaculis lacus, et interdum justo maximus a. Phasellus ullamcorper aliquet dolor, eget mattis mauris ornare a. Nam condimentum purus dolor, pellentesque hendrerit tortor pellentesque sit amet. Sed faucibus lectus magna, non iaculis lorem sodales id.'),
-(2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-10 04:15:54', 'Sony', 0, 1, 1, 'Mauris vehicula sapien ac nulla pharetra, sit amet commodo erat feugiat. Phasellus varius massa mauris, ut volutpat ipsum viverra eget. Nunc ut orci blandit, semper nunc id, lacinia odio. Phasellus cursus metus gravida ex consequat tristique. In hac habitasse platea.'),
-(3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-11 11:24:30', 'SEGA', 0, 1, 1, 'Nullam consectetur tempor nibh, sit amet mollis augue suscipit vel. Nullam vestibulum mi sed lectus pharetra condimentum. Quisque varius, augue in scelerisque iaculis, lectus urna facilisis urna, non feugiat est nunc fringilla diam. Fusce vel turpis semper, euismod eros et, fermentum diam. Donec sed nulla in ipsum pulvinar rutrum id.'),
-(4, 4, 4, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0, 1, 1, 'Mauris pharetra egestas sem, eget euismod enim euismod nec. Ut leo augue, bibendum sed metus et, faucibus pretium nulla. Morbi auctor risus ex, vulputate tristique orci volutpat non. Aliquam dapibus.'),
-(5, 3, 5, 'Mario Kart Double Dash', 31, '2018-09-13 12:44:33', 'Nintendo', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porttitor nisi. Ut placerat sapien et consequat aliquam. Duis tincidunt fermentum diam, a porta dui tristique id. Curabitur tristique massa hendrerit nulla mattis, ut facilisis.'),
-(6, 7, 6, 'Donkey Kong Country', 24, '2018-09-14 10:02:50', 'Nintendo', 0, 1, 1, 'Praesent euismod, nibh id consequat porta, lorem nunc tempus mi, quis accumsan justo odio egestas risus. Vivamus ullamcorper euismod porttitor. Aenean tellus ligula, ultrices sit amet enim vel, eleifend iaculis.'),
-(7, 4, 3, 'Shift 2 Unleashed', 32.99, '2018-09-15 06:24:30', 'EA', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pellentesque aliquam ornare. Quisque faucibus auctor nulla, euismod commodo quam posuere quis. Phasellus tempus justo lorem, eget gravida est convallis ac. Nulla consectetur facilisis lacus vel rutrum. Nulla pharetra dapibus ex. Proin orci.'),
-(8, 6, 4, 'Halo Reach', 44.5, '2018-09-16 07:12:20', 'Bungie', 0, 1, 1, 'Cras aliquam erat massa, in ultricies purus elementum sit amet. Nulla nec imperdiet est, sit amet pellentesque magna. Suspendisse neque urna, ornare vel massa posuere, dapibus mollis ipsum. Nulla facilisi. Interdum et malesuada fames ac ante ipsum primis in.'),
-(9, 8, 5, 'The Secret of Monkey Island', 16, '2018-09-17 08:44:33', 'SEGA', 1, 1, 1, 'Nullam malesuada orci et urna tristique, a efficitur tellus lacinia. Suspendisse potenti. Nulla luctus enim turpis, eu cursus erat malesuada eu. Quisque tempor, urna et fringilla congue, enim elit dignissim ligula, vel ultricies elit leo at ligula. Fusce tincidunt dui ac varius cursus. Praesent sollicitudin ligula sapien. Nullam nec tincidunt quam.'),
-(10, 2, 6, 'Assassins Creed BrotherHood', 35, '2018-09-17 09:02:50', 'UBISOFT', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac quam id nisl porttitor rutrum a vitae odio. Etiam ac massa viverra, finibus mi vel, pellentesque nunc. Pellentesque efficitur purus mi, in lobortis magna consequat ut. Orci varius natoque penatibus et magnis.');
+INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `titre`, `prix`, `date_ajout`, `concepteur`, `location`, `jeux_valide`, `jeux_actif`, `description`,`evaluation_globale`) VALUES
+(1, 1, 1, 'Super Mario U 2', 7.5, '2018-09-10 04:13:54', 'Nintendo', 1, 1, 1, 'Curabitur sit amet convallis felis. Mauris ac massa justo. Aliquam ex nisl, viverra vitae nulla eu, vulputate rhoncus dui. Nullam a massa ligula. Suspendisse sollicitudin iaculis lacus, et interdum justo maximus a. Phasellus ullamcorper aliquet dolor, eget mattis mauris ornare a. Nam condimentum purus dolor, pellentesque hendrerit tortor pellentesque sit amet. Sed faucibus lectus magna, non iaculis lorem sodales id.', 4.02345),
+(2, 2, 2, 'Shadow of the Colossus', 49.5, '2018-09-10 04:15:54', 'Sony', 0, 1, 1, 'Mauris vehicula sapien ac nulla pharetra, sit amet commodo erat feugiat. Phasellus varius massa mauris, ut volutpat ipsum viverra eget. Nunc ut orci blandit, semper nunc id, lacinia odio. Phasellus cursus metus gravida ex consequat tristique. In hac habitasse platea.',  4.00125),
+(3, 3, 3, 'Sonic The Hedgehog', 39.99, '2018-09-11 11:24:30', 'SEGA', 0, 1, 1, 'Nullam consectetur tempor nibh, sit amet mollis augue suscipit vel. Nullam vestibulum mi sed lectus pharetra condimentum. Quisque varius, augue in scelerisque iaculis, lectus urna facilisis urna, non feugiat est nunc fringilla diam. Fusce vel turpis semper, euismod eros et, fermentum diam. Donec sed nulla in ipsum pulvinar rutrum id.',4.21547),
+(4, 4, 4, 'Megaman', 24, '2018-09-12 04:12:20', 'CAPCOM', 0, 1, 1, 'Mauris pharetra egestas sem, eget euismod enim euismod nec. Ut leo augue, bibendum sed metus et, faucibus pretium nulla. Morbi auctor risus ex, vulputate tristique orci volutpat non. Aliquam dapibus.', 3.54788),
+(5, 3, 5, 'Mario Kart Double Dash', 31, '2018-09-13 12:44:33', 'Nintendo', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porttitor nisi. Ut placerat sapien et consequat aliquam. Duis tincidunt fermentum diam, a porta dui tristique id. Curabitur tristique massa hendrerit nulla mattis, ut facilisis.', 4.01452),
+(6, 7, 6, 'Donkey Kong Country', 24, '2018-09-14 10:02:50', 'Nintendo', 0, 1, 1, 'Praesent euismod, nibh id consequat porta, lorem nunc tempus mi, quis accumsan justo odio egestas risus. Vivamus ullamcorper euismod porttitor. Aenean tellus ligula, ultrices sit amet enim vel, eleifend iaculis.', 4.01452),
+(7, 4, 3, 'Shift 2 Unleashed', 32.99, '2018-09-15 06:24:30', 'EA', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pellentesque aliquam ornare. Quisque faucibus auctor nulla, euismod commodo quam posuere quis. Phasellus tempus justo lorem, eget gravida est convallis ac. Nulla consectetur facilisis lacus vel rutrum. Nulla pharetra dapibus ex. Proin orci.', 4.03024),
+(8, 6, 4, 'Halo Reach', 44.5, '2018-09-16 07:12:20', 'Bungie', 0, 1, 1, 'Cras aliquam erat massa, in ultricies purus elementum sit amet. Nulla nec imperdiet est, sit amet pellentesque magna. Suspendisse neque urna, ornare vel massa posuere, dapibus mollis ipsum. Nulla facilisi. Interdum et malesuada fames ac ante ipsum primis in.', 4.32144),
+(9, 8, 5, 'The Secret of Monkey Island', 16, '2018-09-17 08:44:33', 'SEGA', 1, 1, 1, 'Nullam malesuada orci et urna tristique, a efficitur tellus lacinia. Suspendisse potenti. Nulla luctus enim turpis, eu cursus erat malesuada eu. Quisque tempor, urna et fringilla congue, enim elit dignissim ligula, vel ultricies elit leo at ligula. Fusce tincidunt dui ac varius cursus. Praesent sollicitudin ligula sapien. Nullam nec tincidunt quam.', 3.02565),
+(10, 2, 6, 'Assassins Creed BrotherHood', 35, '2018-09-17 09:02:50', 'UBISOFT', 0, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac quam id nisl porttitor rutrum a vitae odio. Etiam ac massa viverra, finibus mi vel, pellentesque nunc. Pellentesque efficitur purus mi, in lobortis magna consequat ut. Orci varius natoque penatibus et magnis.', 4.25568);
 
 
 --
@@ -339,17 +350,9 @@ INSERT INTO `commentaire_jeux` (`commentaire_jeux_id`, `jeux_id`, `membre_id`, `
 -- Contenu de la table `achat`
 --
 
-INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `date_achat`) VALUES
-(1, 2, 1, '2018-09-16 04:13:54'),
-(2, 3, 2, '2018-09-12 04:13:54'),
-(3, 1, 3, '2018-09-15 11:24:30'),
-(4, 2, 4, '2018-09-15 11:24:30'),
-(5, 3, 5, '2018-09-15 11:24:30'),
-(6, 1, 6, '2018-09-15 11:24:30'),
-(7, 2, 7, '2018-09-15 11:24:30'),
-(8, 3, 8,'2018-09-15 11:24:30'),
-(9, 1, 9, '2018-09-15 11:24:30'),
-(10, 2, 10, '2018-09-15 11:24:30');
+INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `date_achat`) VALUES
+(1, 2, 1, 2, '2018-09-16 04:13:54');
+
 
 
 --
@@ -401,17 +404,8 @@ INSERT INTO `categorie_jeux` (`jeux_id`, `categorie_id`) VALUES
 -- Contenu de la table `location`
 --
 
-INSERT INTO `location` (`location_id`, `type_paiement_id`, `membre_id`, `date_debut`, `date_retour`) VALUES
-(1, 2, 1, '2018-09-10 09:15:54', '2018-09-16 04:13:54'),
-(2, 3, 2, '2018-09-09 10:15:20', '2018-09-14 06:08:11'),
-(3, 1, 3, '2018-09-11 12:09:24', '2018-09-13 08:17:21'),
-(4, 2, 4, '2018-09-15 11:24:30', '2018-09-18 11:24:30'),
-(5, 3, 5, '2018-09-15 11:24:30', '2018-09-18 11:24:30'),
-(6, 1, 6, '2018-09-15 11:24:30', '2018-09-18 11:24:30'),
-(7, 2, 7, '2018-09-15 11:24:30', '2018-09-18 11:24:30'),
-(8, 3, 8, '2018-09-15 11:24:30', '2018-09-19 11:24:30'),
-(9, 1, 9, '2018-09-15 11:24:30', '2018-09-19 11:24:30'),
-(10, 2, 10, '2018-09-15 11:24:30', '2018-09-19 11:24:30');
+INSERT INTO `location` (`location_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `date_debut`, `date_retour`) VALUES
+(1, 2, 1, 1, '2018-09-10 09:15:54', '2018-09-16 04:13:54');
 
 
 --

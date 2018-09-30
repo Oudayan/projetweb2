@@ -32,24 +32,18 @@
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
-
-        public function lireTousLesJeux() {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide";
-            $resultat = $this->requete($sql);
-            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
-        }
-
-        public function lireTousLesConcepteurs() {
-            $sql = "SELECT DISTINCT concepteur FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide";
-            $resultat = $this->requete($sql);
-            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
-        }
 		
-//		public function lireTousLesJeux() {
-//            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
-//			$resultat = $this->requete($sql);
-//			return $resultat->fetchAll(\PDO::FETCH_ASSOC);
-//		}
+		public function lireTousLesJeux() {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
+			$resultat = $this->requete($sql);
+			return $resultat->fetchAll(\PDO::FETCH_ASSOC);
+		}
+
+        public function filtreJeux($filtre) {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . "$filtre";
+            $resultat = $this->requete($sql);
+            return $resultat->fetchAll(\PDO::FETCH_ASSOC);
+        }
 
 //        public function lireTousIdsJeux() {
 //            $sql = "SELECT jeux_id FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
@@ -58,7 +52,16 @@
 //        }
 
 
+		public function sauvegarderJeux(Jeux $jeux) {
+			$sql = "INSERT INTO " . $this->lireNomTable() . "(
+				plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+			$donnees = array(
+				$jeux->getPlateformeId(), $jeux->getMembreId(), $jeux->getTitre(), $jeux->getPrix(), $jeux->getDateAjout(),
+				$jeux->getConcepteur(), $jeux->getLocation(), $jeux->getJeuxValide(), $jeux->getJeuxActif(), $jeux->getDescription());
+			return $this->requete($sql, $donnees);
+		}
 
         public function effacerJeu($id) {
         	return $this->effacer($id);

@@ -5,7 +5,6 @@
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
 <!-- * @details   Cette vue permettre voir les détails de chaque jeux-->
-<!-- */-->
 
 <div class="container pt-3">
     <div class="row">
@@ -114,8 +113,45 @@
                         <br /><br />
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
-                    <div class="contacter-annoceur mx-auto">
-                        <a>Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
+                    <!-- Mensagerie -->
+                                <div class="contacter-annoceur mx-auto">
+                                    <a>Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
+                <div id="fcontacto">
+                <!-- bloc de confirmation de envoy caché  -->
+                <div id="c_information" class="hide">
+                    <p></p>
+                </div>
+                <!-- Fin de confirmation de l'envoi -->
+                <br>
+
+                <!-- debut de formulario -->
+                <form id="c_form" name="contact">
+                    <div>
+                        <p>
+                            <input name="nom" id="c_name" type="text" size="22" tabindex="1" placeholder="votre nom... (*)" />
+                        </p>
+                        <p>
+                            <input name="email" id="c_mail" type="email" size="22" tabindex="2" placeholder="votre email... (*)" />
+                        </p>
+                        <p>
+                            <input name="telephonr" id="c_telephone" type="number" size="22" tabindex="4" placeholder="votre téléphone..." />
+                        </p>
+                        
+                    </div>
+                    <div>
+                        <p>
+                            <textarea name="message" id="c_msg" cols="40" rows="8" tabindex="5" placeholder="votre message... (*)"></textarea>
+                        </p>
+                    </div>
+                    <p>
+                        <label>(*) Champs requis</label>
+                        <input name="cenvoyer" type="button" id="c_envoyer" tabindex="6" value="Envoyer Message" onclick="cargaSendMail()" />
+                    </p>
+
+                </form>
+                <!-- fin de formulario -->
+
+                </div>
                     </div>
                     <div class="avis-etoiles p-3 mb-2 ">
                         4 avis
@@ -153,16 +189,19 @@
                 <div class="card-body">
                     <div class="review">
                         <?php
+                            
                             for($i = 0; $i < count($donnees['commentaires'])-1; $i++)
                             {
                                 echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaires'][$i]->getDateCommentaire() . "</p>";  
                                 echo "<p>" ."Par : " .$donnees['commentaires']['membres'][$i]->getPrenom() ." " .$donnees['commentaires']['membres'][$i]->getNom() . "</p>"; 
                                 echo "<p>" . $donnees['commentaires'][$i]->getCommentaire() . "</p>";
-                                // echo "<p>" ."Evaluation : ". $donnees['commentaireJeu'][$i]->getEvaluation() ."</p>";
-                                echo "<hr>";
-                            }
-                            
-                        ?>                        
+                            ?>
+                            <div class="col-6 text-center text-right my-3">
+                                Évaluation&nbsp;:&nbsp;<?= round($donnees["commentaires"][$i]->getEvaluation(), 2); ?>&nbsp;/&nbsp;5
+                                <br><span class="score"><span style="width: <?= ($donnees["commentaires"][$i]->getEvaluation() / 5) * 100 ?>%"></span></span>
+                            </div>
+                            <hr>
+                            <?php } ?>                    
                     </div>
                 </div>
             </div>
@@ -179,5 +218,46 @@
     catDiv[catDiv2].style.display = "none";                      // Cache le dernier élément du HTML Collection en utilisant "display = none"
 
 </script>
+
+<!--Debut du Mesenger -->
+<?php
+
+if(isset($_POST['c_envoyer'])){
+
+
+    if(isset($_POST['nom'])){
+        $nom = $_POST['nom'];
+    }
+    if(isset($_POST['email'])){
+        $email = $_POST['email'];
+    }
+    if(isset($_POST['telephone'])){
+        $telephone = $_POST['telephone'];
+    }
+    if(isset($_POST['messenger'])){
+        $messenger = $_POST['messenger'];
+    }
+    // Si quelque ligne a plus de 70 caracteres
+    $messenger = wordwrap($messenger, 70, "\r\n");
+
+
+
+    $msj = "De: ".$nom."\r\n";
+    $msj .= "Email: ".$email."\r\n";
+    $msj .= "Date: ".date("d-m-Y H:i:s")."\r\n";
+    $msj .= "Telephone: ".$telephone."\r\n\n\n\n";
+    $msj .= "Messenger: ".$messenger;
+
+
+    /***** Envoy avec la function MAIL de php *****/
+      
+    mail('jansylopez@gmail.com', 'Sujeto:Testing le Formulaire de contact...', $msj);
+
+}
+//else die("L'accès direct à ce fichier n'est pas autorisé.");
+
+    
+    
+?>
 
 

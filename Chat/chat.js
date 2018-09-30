@@ -1,4 +1,4 @@
-/* 
+/*
 Created by: Kenrick Beckett
 
 Name: Chat Engine
@@ -85,3 +85,4 @@ function sendChat(message, nickname)
 		   },
 		});
 }
+>>>>>>> 62dd2f590e5439ed2dd60838b5c80b2427085c80
