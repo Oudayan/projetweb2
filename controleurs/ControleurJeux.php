@@ -25,8 +25,6 @@ class ControleurJeux extends BaseControleur
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
-
-
         
         $donnees["erreur"] = "";
 
@@ -85,69 +83,138 @@ class ControleurJeux extends BaseControleur
                 case "enregistrerJeux":
 
                     $this->afficherVues("accueil", $donnees);
+                    break;
 
                 case "rechercherJeux":
+                    $modeleJeux = $this->lireDAO("Jeux");
+                    $modeleImages = $this->lireDAO("Images");
+                    $modeleMembres = $this->lireDAO("Membres");
+                    $modelePlateformes = $this->lireDAO("Plateformes");
+                    $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+                    $modeleCategories = $this->lireDAO("Categories");
 
-                    $donnees['filter'] = $this->filtrerJeux($params);
-                    $donnees['jeux'] = $modeleJeux->lireTousLesJeux();
-                    $donnees['images'] = $modeleImages->toutesImages();
-                    $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+                    //  Construction de la requête SQL
 
+                    $filtre = "jeux_actif = true AND jeux_valide = true";
 
+                    if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
+                        $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = " . $params["plateforme"];
+                    }
 
+                    if (isset($params["categories"])) {
+                        $counter = 0;
+                        for ($i = 1; $i <= count($params["categories"]); $i++) {
+                            $counter++;
+                            if ($counter == 1) {
+                                $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $i;
+                            }
+                            else {
+                                $filtre .= (" OR ") . "c.categorie_id = " . $i;
+                            }
+                        }
+                        if ($counter > 0) {
+                            $filtre .= ")";
+                        }
+                    }
+
+                    if (isset($params["negotiation"]) && ($params["negotiation"] !== '')) {
+                        $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["negotiation"] . "'";
+                    }
+
+                    $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
+                    $donnees['categories'] = $modeleCategories->lireToutesCategories();
+                    $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+                    
                     $this->afficherVues("rechercher", $donnees);
+                    break;
 
                 default :
                     $this->afficherVues("accueil", $donnees);
                     break;
-                            }
-                        }
-                        else
-                        {
-                            $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-                            $donnees['images'] = $modeleImages->lireDerniersImages();
-                            $this->afficherVues("accueil", $donnees);
-                        }
+            }
+        }
+        else
+        {
+            $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+            $donnees['images'] = $modeleImages->lireDerniersImages();
+            $this->afficherVues("accueil", $donnees);
+        }
 
-                    }
+    }
 
-            public function filtrerJeux(array $params) {
+    public function filtrerJeux(array $params) {
 
+        $modeleJeux = $this->lireDAO("Jeux");
+        $modeleImages = $this->lireDAO("Images");
+        $modeleMembres = $this->lireDAO("Membres");
+        $modelePlateformes = $this->lireDAO("Plateformes");
+        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+        $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
+        $modeleCategories = $this->lireDAO("Categories");
+        $donnees['images'] = $modeleImages->toutesImages();
+        $donnees['categories'] = $modeleCategories->lireToutesCategories();
+        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
 
+        //$_POST['action'] = "index.php?Jeux&action=rechercherJeux";
 
-                $modeleJeux = $this->lireDAO("Jeux");
+        //  Construction de la requête SQL
 
-                $modeleImages = $this->lireDAO("Images");
-                $donnees['images'] = $modeleImages->toutesImages();
+        $filtre = "jeux_actif = true AND jeux_valide = true";
 
+        if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
+            $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = '" . $params["plateforme"] . "'";
+            //$params['plateforme'] = $params["plateforme"];
+        }
+        else if (!isset($params['plateforme'])) {
+            //$params['plateforme'] = null;
+        }
 
-                $_POST['action'] = "index.php?Jeux&action=rechercherJeux";
+        $counter = 0;
 
-                $filtre = " WHERE jeux_actif = true AND jeux_valide = true";
-
-                if (isset($params["categorie"]) && ($_POST['categorie'] !== '')) {
-                    $filtre = " JOIN categorie_jeux cj ON cj.jeux_id = jeux.jeux_id JOIN categorie c ON c.categorie_id = cj.categorie_id WHERE c.categorie_id = '" . $params["categorie"] . "'";
-                    $_POST['categorie'] = $params["categorie"];
-                }
-                else if (!isset($_POST['categorie'])) {
-                    $_POST['categorie'] = null;
-                }
-
-                if (isset($params["plateforme"]) && ($_POST['plateforme'] !== '')) {
-                    $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = '" . $params["plateforme"] . "'";
-                    $_POST['plateforme'] = $params["plateforme"];
-                }
-                else if (!isset($_POST['categorie'])) {
-                    $_POST['plateforme'] = null;
-                }
-
-                if (isset($params["negotiation"]) && ($_POST['negotiation'] !== '')) {
-                    $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["negotiation"] . "'";
-                    $_POST['negotiation'] = $params["negotiation"];
+        for ($i = 1; $i <= count($params["categories"]); $i++) {
+            if (isset($params['categories'][$i])) {
+                //$params["categorie"]++;
+                $counter++;
+                if ($counter == 1) {
+                    $filtre .= ($filtre == "" ? "(" : " AND (") . "categorie_id = " . $i;
                 }
                 else {
-                    $_POST['negotiation'] = null;
+                    $filtre .= (" OR ") . "categorie_id = " . $i;
                 }
-                return $modeleJeux->filtreJeux($filtre);
+                //$params["categorie" .$i] = "checked";
             }
+            else {
+                //$params["categorie" .$i] = "";
+            }
+        }
+        if ($counter == 0) {
+            for ($i = 1; $i <= count($_POST["categorie"]); $i++) {
+                //$_POST["categorie" .$i] = "checked";
+            }
+        }
+        else {
+            $filtre .= ")";
+        }
+
+
+//                if (isset($params["categorie"]) && (trim($_POST['categorie'] !== ''))) {
+//                    $filtre .= ($filtre == "" ? "" : " AND ") . "c.categorie_id = '" . $params["categorie"] . "'";
+//                    $_POST['categorie'] = $params["categorie"];
+//                }
+//                else if (!isset($_POST['categorie'])) {
+//                    $_POST['categorie'] = null;
+//                }
+
+
+        if (isset($params["negotiation"]) && ($_POST['negotiation'] !== '')) {
+            $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["negotiation"] . "'";
+            //$_POST['negotiation'] = $params["negotiation"];
+        }
+        else {
+            //$_POST['negotiation'] = null;
+        }
+        $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
+        //var_dump($donnees['jeux']);
+        $this->afficherVues("rechercher", $donnees);
+    }
 }
