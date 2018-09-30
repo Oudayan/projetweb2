@@ -73,8 +73,26 @@ class ControleurJeux extends BaseControleur
                 case "formAjoutJeux":
 
                     $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-                    $donnees['jeu'] = $modeleJeux->lireTousLesJeux();
                     $donnees['categories'] = $modeleCategories->lireToutesCategories();
+                    // $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId(2);
+                    // $donnees['jeu'] = $modeleJeux->lireJeuParId(2);
+                    
+                    $this->afficherVues("ajoutJeux", $donnees);
+                    
+                    break;
+
+                case "formModifierJeux":
+                    if (isset($params["JeuxId"]))
+                    {
+                        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+                        $donnees['categories'] = $modeleCategories->lireToutesCategories();
+                        $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
+                        $donnees['jeu'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
+                    }
+                    else
+                    {
+                        $donnees["erreur"] = "Ce jeu n'existe pas.";
+                    }
 
                     $this->afficherVues("ajoutJeux", $donnees);
                     
@@ -82,7 +100,27 @@ class ControleurJeux extends BaseControleur
 
                 case "enregistrerJeux":
 
-                    $this->afficherVues("accueil", $donnees);
+                    var_dump($params); 
+
+                    if (isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
+                    {
+           
+                        $modeleJeux = $this->lireDAO("Jeux");
+                        $enregistrement["Jeux"] = new Jeux(null, $params["plateforme_id"], $params["membre_id"], $params['titre'], $params['prix'], $now, $params['concepteur'], $params['location'], $params['jeux_valide'], $params['jeux_actif'], $params['description'], $params['evaluation_globale']);
+                        $succes = $modeleJeux->sauvegarderJeux($enregistrement["Jeux"]);
+                    }
+
+                    else
+                    {
+                        $_SESSION['msg'] ="Remplissez tous les champs...";
+                        $this->afficherVues("maPage", $donnees);
+                    }
+
+                    // $donnees['jeux'] = $$modeleJeux->sauvegarderJeux();
+                    // $donnees['categoriesJeu'] = $modeleCategoriesJeux->sauvegarderCategoriesJeu();
+                    // $this->afficherVues("accueil", $donnees);
+                    $this->afficherVues("maPage", $donnees);
+
                     break;
 
                 case "rechercherJeux":
