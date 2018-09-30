@@ -20,7 +20,7 @@ class ControleurMembres extends BaseControleur
     public function index(array $params)
     {
         $donnees["erreur"] = "";
-        $_SESSION["msg"]="";
+        $_SESSION["msg"] = "";
 
         if (isset($params["action"])) {
 
@@ -50,7 +50,7 @@ class ControleurMembres extends BaseControleur
                         }
                     } else {
 
-                        $_SESSION["msg"] ="Remplissez tous les champs...";
+                        $_SESSION["msg"] = "Remplissez tous les champs...";
 //                        $this->afficherVues("ajouteUnMembre");
                     }
                     header("location:index.php");
@@ -60,18 +60,17 @@ class ControleurMembres extends BaseControleur
                 case "verifierLogin" :
                     {
                         var_dump($_POST);
-//                        echo $params["courriel"];
-                        
+//
                         if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
                             $modeleMembres = $this->lireDAO("Membres");
                             $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
 
-                            var_dump($donnees);
+//                            var_dump($donnees);
 
                             if ($donnees) {
                                 // Comparaison entre les données reçues et ceux de la BD
 //                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == md5($params["mot_de_passe"] )) {
-                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"] ) {
+                                if ($donnees->getCourriel() == $params["courriel"] && $donnees->getMotDePasse() == $params["mot_de_passe"]) {
                                     $_SESSION["id"] = $donnees->getMembreId();
                                     $_SESSION["courriel"] = $params["courriel"];
                                     $_SESSION["type"] = $donnees->getTypeUtilisateur();
@@ -82,34 +81,40 @@ class ControleurMembres extends BaseControleur
 //                                var_dump("Le mot de passe ou le courriel ne sont pas corrects");
                                 $_SESSION["msg"] = "Le courriel ou le mot de passe ne sont pas corrects";
                             }
-                        }  else {
+                        } else {
                             $_SESSION["msg"] = "Veuillez remplir le courriel et le mot de passe!";
                         }
 
-                        header("location:index.php");
+
+                        if ($_SESSION["type"] == '2' || $_SESSION["type"] == '3') {
+                            header("location:index.php?Admin&action=afficherMembres");
+                        } else {
+                            header("location:index.php");
+                        }
+
+//                        header("location:index.php");
                     }
                     break;
 
                 case  "logout":
                     if (isset($_SESSION["id"])) {
                         unset($_SESSION["id"]);
-                        setcookie("id",null,-1,'/');
+                        setcookie("id", null, -1, '/');
                     }
                     if (isset($_SESSION["courriel"])) {
                         unset($_SESSION["courriel"]);
-                        setcookie("courriel",null,-1,'/');
+                        setcookie("courriel", null, -1, '/');
                     }
                     if (isset($_SESSION["type"])) {
                         unset($_SESSION["type"]);
-                        setcookie("type",null,-1,'/');
+                        setcookie("type", null, -1, '/');
                     }
                     if (isset($_SESSION["msg"])) {
                         unset($_SESSION["msg"]);
-                        setcookie("msg",null,-1,'/');
+                        setcookie("msg", null, -1, '/');
                     }
                     header("location:index.php");
                     break;
-
 
 
                 default:

@@ -62,10 +62,10 @@
             <div class="modal-body" style="padding:40px 50px;">
                 <form action="index.php?Membres&action=verifierLogin" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel" required>
+                        <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel" required value="david.hod@gmail.com">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required>
+                        <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required value="11">
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox" value="" checked>  Se souvenir de moi></label>
