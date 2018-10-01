@@ -28,7 +28,7 @@
 
             </ul>
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"> <a class="nav-link" href="#">Chercher</a></li>
+                <li class="nav-item"> <a class="nav-link" href="index.php?Jeux&action=rechercherJeux">Chercher</a></li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item"> <a class="nav-link" href="#"><?php

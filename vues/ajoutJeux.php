@@ -105,12 +105,11 @@ if(isset($_SESSION['id']))
                 <hr>
                 <div class="form-group row">
                     <label class="ml-3">Categories :</label>
-                    <div class="d-flex flex-wrap justify-content-between">
-                        
+                    <div class="d-flex flex-wrap justify-content-between">   
                         <?php
                             for($i = 0; $i < count($donnees['categories']); $i++)
                             {
-                                echo "<div class='col-lg-6'>";
+                                echo "<div class='col-lg-3'>";
                                     echo "<input type='checkbox' name='categorie1' value='" . $donnees['categories'][$i]->getCategorieId() . "'" . $categorie[$i] . ">";
                                     echo "<label class='ml-2'>" . $donnees['categories'][$i]->getCategorie() . "</label><br>";
                                 echo "</div>";
