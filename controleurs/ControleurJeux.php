@@ -131,6 +131,7 @@ class ControleurJeux extends BaseControleur
                     $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
                     $modeleCategories = $this->lireDAO("Categories");
 
+
                     //  Construction de la requête SQL
 
                     $filtre = "jeux_actif = true AND jeux_valide = true";
