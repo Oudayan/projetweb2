@@ -19,6 +19,14 @@ class ControleurMembres extends BaseControleur
 
     public function index(array $params)
     {
+        $modeleJeux = $this->lireDAO("Jeux");
+        $modeleImages = $this->lireDAO("Images");
+        $modeleMembres = $this->lireDAO("Membres");
+        $modelePlateformes = $this->lireDAO("Plateformes");
+        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+        $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
+        $modeleCategories = $this->lireDAO("Categories");
+
         $donnees["erreur"] = "";
         $_SESSION["msg"] = "";
 
@@ -30,6 +38,13 @@ class ControleurMembres extends BaseControleur
 //                    $this->afficherVues("ajouteUnMembre");
 //                    break;
 
+                case "afficherMembre":
+                    $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+                    $donnees['images'] = $modeleImages->lireDerniersImages();
+                    $this->afficherVues("accueil", $donnees);
+
+                break;
+
                 case "enregistrerMembre" :
 
                     var_dump($params);
@@ -38,8 +53,7 @@ class ControleurMembres extends BaseControleur
 
                         // comparer les mot de passe sont pareile.
                         if ($params["mot_de_passe"] == $params["confirm_mdp"]) {
-
-                            $modeleMembres = $this->lireDAO("Membres");
+                            
                             $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
                             $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
 

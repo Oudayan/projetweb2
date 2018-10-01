@@ -36,19 +36,47 @@ class ControleurAdmin extends BaseControleur
             switch ($params["action"]) {
 
                 case "afficherMembres" :
-                    $donnees['membres'] = $modeleMembres->obtenirTous();
-                    $this->afficherVues("admin", $donnees);
+                    $this->afficherAdmin();
                 break;
 
                 case "validerMembre" :
+                    if (isset($params['membre_id'])) {
+//                        echo $params['membre_id'];
+                        $modeleMembres->validerMembre($params['membre_id']);
+                    }
+                    $this->afficherAdmin();
                 break;
+
                 case "bannirMembre" :
+                    if (isset($params['membre_id'])) {
+//                        echo $params['membre_id'];
+                        $modeleMembres->bannirMembre($params['membre_id']);
+                    }
+                    $this->afficherAdmin();
                     break;
-                case "modifierMembre" :
+
+                case "reactiverMembre" :
+                    if (isset($params['membre_id'])) {
+//                        echo $params['membre_id'];
+                        $modeleMembres->reactiverMembre($params['membre_id']);
+                    }
+                    $this->afficherAdmin();
                     break;
-                case "ajouterMembre" :
-                    break;
+
                 case "promouvoirMembre" :
+                    if (isset($params['membre_id'])) {
+//                        echo $params['membre_id'];
+                        $modeleMembres->promouvoirMembre($params['membre_id']);
+                    }
+                    $this->afficherAdmin();
+                    break;
+
+                case "demouvoirMembre" :
+                    if (isset($params['membre_id'])) {
+//                        echo $params['membre_id'];
+                        $modeleMembres->demouvoirMembre($params['membre_id']);
+                    }
+                    $this->afficherAdmin();
                     break;
 
                 default:
@@ -58,4 +86,12 @@ class ControleurAdmin extends BaseControleur
             var_dump("No");
         }
     }
+
+    public function afficherAdmin() {
+        $modeleMembres = $this->lireDAO("Membres");
+
+        $donnees['membres'] = $modeleMembres->obtenirTous();
+        $this->afficherVues("admin", $donnees);
+    }
+
 }
