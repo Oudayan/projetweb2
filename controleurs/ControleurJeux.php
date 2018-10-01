@@ -103,22 +103,20 @@ class ControleurJeux extends BaseControleur
                     var_dump($params); 
 
                     if (isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
-                    {
-           
+                    {  
                         $modeleJeux = $this->lireDAO("Jeux");
-                        $enregistrement["Jeux"] = new Jeux(null, $params["plateforme_id"], $params["membre_id"], $params['titre'], $params['prix'], $now, $params['concepteur'], $params['location'], $params['jeux_valide'], $params['jeux_actif'], $params['description'], $params['evaluation_globale']);
-                        $succes = $modeleJeux->sauvegarderJeux($enregistrement["Jeux"]);
+                        $enregistrement["Jeu"] = new Jeux(null, $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], date("Y-m-d H:i"), $params["concepteur"], $params["location"], $params["jeux_valide"], $params["jeux_actif"], $params["description"], $params["evaluation_globale"]);
+                        $succes = $modeleJeux->sauvegarderJeux($enregistrement["Jeu"]);
                     }
 
                     else
                     {
                         $_SESSION['msg'] ="Remplissez tous les champs...";
-                        $this->afficherVues("maPage", $donnees);
+                        // $this->afficherVues("maPage", $donnees);
                     }
 
                     // $donnees['jeux'] = $$modeleJeux->sauvegarderJeux();
                     // $donnees['categoriesJeu'] = $modeleCategoriesJeux->sauvegarderCategoriesJeu();
-                    // $this->afficherVues("accueil", $donnees);
                     $this->afficherVues("maPage", $donnees);
 
                     break;

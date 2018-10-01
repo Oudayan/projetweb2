@@ -54,11 +54,11 @@
 
 
 		public function sauvegarderJeux(Jeux $jeu) {
-			$sql = "INSERT INTO " . $this->lireNomTable() . "(plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$sql = "INSERT INTO " . $this->lireNomTable() . "(jeux_id, plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description, evaluation_globale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			$donnees = array(
-				$jeu->getPlateformeId(), $jeu->getMembreId(), $jeu->getTitre(), $jeu->getPrix(), $jeu->getDateAjout(),
-				$jeu->getConcepteur(), $jeu->getLocation(), $jeu->getJeuValide(), $jeu->getJeuxActif(), $jeux->getDescription());
+				$jeu->getJeuxId(), $jeu->getPlateformeId(), $jeu->getMembreId(), $jeu->getTitre(), $jeu->getPrix(), $jeu->getDateAjout(),
+				$jeu->getConcepteur(), $jeu->getLocation(), $jeu->getJeuValide(), $jeu->getJeuxActif(), $jeux->getDescription(), $jeux->getEvaluationGlobale());
 			return $this->requete($sql, $donnees);
 		}
 
