@@ -3,7 +3,7 @@
 ////var_dump($donnees['membres']);
 //var_dump($donnees['membres'][0]);
 
-if ($_SESSION["type"] == 3 && $_SESSION["type"] == 2) {
+if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) {
 
 
 ?>
