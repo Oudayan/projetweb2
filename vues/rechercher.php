@@ -18,19 +18,20 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select name="negotiation" id="negotiation" class="form-control mx-sm-3" style="width: 100%">
-                            <option value='' <?= ($_POST["negotiation"]) == null ?> selected>Je cherche un jeux à ...</option>
-                            <option value="0" <?= ($_POST["negotiation"]) == 0 ?>>Vendre</option>
-                            <option value="1" <?= ($_POST["negotiation"]) == 1 ?>>Louer</option>
+                        <select name="transaction" id="transaction" class="form-control mx-sm-3" style="width: 100%">
+                            <option value='' selected>Je cherche un jeux à ...</option>
+                            <option value="0">Vendre</option>
+                            <option value="1">Louer</option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <select class="form-control mx-sm-3" style="width: 100%">
                             <option>Évaluation</option>
+                            <option>Pas encore fonctionel</option>
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" placeholder="Titre" style="width: 100%">
+                        <input name="titre" id="titre" type="text" class="form-control" placeholder="Chercher par mot-clé" style="width: 100%">
                     </div>
 
                     <div class="d-flex flex-wrap justify-content-between ml-3 my-3">
