@@ -1,48 +1,55 @@
-
-
 <nav class="navbar navbar-expand-md bg-secondary navbar-dark">
     <div class="container">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#hamburguer-chercher">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="hamburguer-chercher">
+        <div class="row">
 
             <form class="form-inline justify-content-center" action="index.php?Jeux&action=rechercherJeux" method="post">
 
+                <div class="row" >
+                    <div class="col-md-3">
+                        <select name="plateforme" id="plateforme" class="form-control mx-sm-3" style="width: 100%">
+                            <option value="">Plateforme</option>
+                            <?php
+                            $counter = count($donnees['plateforme']);
 
-                <select name="plateforme" id="plateforme" class="form-control mx-sm-3">
-                    <option value="">Plateforme</option>
-                    <?php
-                    $counter = count($donnees['plateforme']);
+                            for ($i = 0; $i <= $counter -1; $i++) {
+                                echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="negotiation" id="negotiation" class="form-control mx-sm-3" style="width: 100%">
+                            <option value='' <?= ($_POST["negotiation"]) == null ?> selected>Je cherche un jeux à ...</option>
+                            <option value="0" <?= ($_POST["negotiation"]) == 0 ?>>Vendre</option>
+                            <option value="1" <?= ($_POST["negotiation"]) == 1 ?>>Louer</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control mx-sm-3" style="width: 100%">
+                            <option>Évaluation</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Titre" style="width: 100%">
+                    </div>
 
-                    for ($i = 0; $i <= $counter -1; $i++) {
-                        echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
-                    }
-                    ?>
+                    <div class="d-flex flex-wrap justify-content-between ml-3 my-3">
+                        <?php
+                            $counter = count($donnees['categories']);
 
-                </select>
-
-                <select name="negotiation" id="negotiation" class="form-control mx-sm-3">
-                    <option value='' <?= ($_POST["negotiation"]) == null ?> selected>Je cherche un jeux à ...</option>
-                    <option value="0" <?= ($_POST["negotiation"]) == 0 ?>>Vendre</option>
-                    <option value="1" <?= ($_POST["negotiation"]) == 1 ?>>Louer</option>
-                </select>
-<?php
-               $counter = count($donnees['categories']);
-               for ($i = 0; $i <= $counter -1; $i++) {
-                   echo '<div class="form-check form-check-inline">';
-                   echo '<input class="form-check-input" type="checkbox" value="' . $donnees['categories'][$i]->getCategorieId() . '" name=categories[' . $donnees['categories'][$i]->getCategorieId() . ']>';
-                   echo '<label class="form-check-label" for="inlineCheckbox1">'. $donnees['categories'][$i]->getCategorie() .'</label>';
-                   echo '</div>';
-               }
-?>
-
-                <input type="submit" name="submit" />
+                            for ($i = 0; $i <= $counter -1; $i++) {
+                                echo '<div class="col-lg-3">';
+                                echo '<input  type="checkbox" value="' . $donnees['categories'][$i]->getCategorieId() . '" name=categories[' . $donnees['categories'][$i]->getCategorieId() . ']> ' . $donnees['categories'][$i]->getCategorie();
+//                                echo '<label>'. $donnees['categories'][$i]->getCategorie() .'</label>';
+                                echo '</div>';
+                            }
+                        ?>
+                    </div>
+                    <button type="submit" class="btn btn-success ml-4">Chercher</button>
             </form>
         </div>
     </div>
 </nav>
-
 
 <div class="py-2 bg-light">
     <div class="container">
