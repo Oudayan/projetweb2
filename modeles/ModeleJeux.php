@@ -40,9 +40,9 @@
 		}
 
         public function filtreJeux($filtre = 'jeux_actif = true AND jeux_valide = true', $ordre = 'prix DESC') {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " j JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id JOIN categorie c ON c.categorie_id = cj.categorie_id WHERE " . $filtre . " GROUP BY j.jeux_id ORDER BY " . $ordre;
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " j JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id JOIN categorie c ON c.categorie_id = cj.categorie_id WHERE " . $filtre . " ORDER BY " . $ordre;
 			$resultat = $this->requete($sql);
-			// var_dump($resultat);
+			var_dump($resultat);
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
         }
 

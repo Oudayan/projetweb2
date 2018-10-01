@@ -141,13 +141,16 @@ class ControleurJeux extends BaseControleur
 
                     if (isset($params["categories"])) {
                         $counter = 0;
-                        for ($i = 1; $i <= count($params["categories"]); $i++) {
-                            $counter++;
-                            if ($counter == 1) {
-                                $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $i;
-                            }
-                            else {
-                                $filtre .= (" OR ") . "c.categorie_id = " . $i;
+                        $categories = $modeleCategories->lireToutesCategories();
+                        for ($i = 0; $i <= count($categories); $i++) {
+                            if (isset($params["categories"][$i])) {
+                                $counter++;
+                                if ($counter == 1) {
+                                    $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params["categories"][$i];
+                                }
+                                else {
+                                    $filtre .= (" OR ") . "c.categorie_id = " . $params["categories"][$i];
+                                }
                             }
                         }
                         if ($counter > 0) {
