@@ -53,14 +53,36 @@
 //        }
 
 
-		public function sauvegarderJeux(Jeux $jeu) {
-			$sql = "INSERT INTO " . $this->lireNomTable() . "(plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+		public function sauvegarderJeux(Jeux $jeu) 
+		{
 			$donnees = array(
-				$jeu->getPlateformeId(), $jeu->getMembreId(), $jeu->getTitre(), $jeu->getPrix(), $jeu->getDateAjout(),
-				$jeu->getConcepteur(), $jeu->getLocation(), $jeu->getJeuValide(), $jeu->getJeuxActif(), $jeux->getDescription());
+				$jeu->getPlateformeId(),
+				$jeu->getMembreId(), 
+				$jeu->getTitre(), 
+				$jeu->getPrix(), 
+				$jeu->getDateAjout(),
+				$jeu->getConcepteur(),
+				$jeu->getLocation(),
+				$jeu->getJeuxValide(),
+				$jeu->getJeuxActif(),
+				$jeu->getDescription(),
+				$jeu->getEvaluationGlobale(),
+				$jeu->getJeuxId()
+			);
+			// var_dump($jeu->getJeuxId() && $this->lire($jeu->getJeuxId())->fetch());
+			if($jeu->getJeuxId() && $this->lire($jeu->getJeuxId())->fetch())
+			{
+				$sql = "UPDATE " . $this->lireNomTable() . " SET plateforme_id=?, membre_id=?, titre=?, prix=?, date_ajout=?, concepteur=?, location=?, jeux_valide=?, jeux_actif=?, description=?, evaluation_globale=? WHERE jeux_id=?";
+			}
+			else
+			{
+				$id = array_pop($donnees);
+				$sql = "INSERT INTO " . $this->lireNomTable() . "(plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description, evaluation_globale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			}
+			// var_dump($donnees);
 			return $this->requete($sql, $donnees);
-		}
+			
+		}		
 
         public function effacerJeu($id) {
         	return $this->effacer($id);
