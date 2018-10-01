@@ -53,7 +53,7 @@ class ControleurMembres extends BaseControleur
 
                         // comparer les mot de passe sont pareile.
                         if ($params["mot_de_passe"] == $params["confirm_mdp"]) {
-                            
+
                             $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
                             $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
 

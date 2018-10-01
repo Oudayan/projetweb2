@@ -5,6 +5,7 @@
 
 
 ?>
+<h1 class="text-center my-3">Adminstration: gestion des membres</h1>
 <div class="d-flex container">
 
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -19,13 +20,14 @@
     </div>
 
     <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        <div class="tab-pane fade show active  table-responsive" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
     <!--Tableau -->
-            <table class="table table-hover">
+            <table class="table table-hover ">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Courriel</th>
+                    <th scope="col">Nom</th>
                     <th scope="col">Type</th>
                     <th class="text-center" colspan="3" scope="col">Opération</th>
                 </tr>
@@ -36,6 +38,7 @@
                 <tr>
                     <td><?= $membre->getMembreId(); ?></td>
                     <td><?= ( $_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $membre->getTypeUtilisateur() == 1) || $_SESSION["id"] == $membre->getMembreId()  ? '<a href="index.php?Membres&action=afficherMembre&membre_id=' . $membre->getMembreId() . '">' . $membre->getCourriel() . '</a>'  :  $membre->getCourriel())  ?></td>
+                    <td><?= $membre->getPrenom() . ' ' . $membre->getNom(); ?></td>
 
                     <td><?php
                         $modeleMembres = $this->lireDAO("Membres");
