@@ -56,6 +56,7 @@ if(isset($_SESSION['id']))
                 <h1 class="my-3 jeu-titre"><?=isset($donnees['jeu']) ? 'Modifier un jeu' : 'Ajouter un jeu'?></h1>
             </div>
             <form action="index.php?Jeux&action=enregistrerJeux" method="POST">
+                <input type="hidden" name="jeux_id" id="jeux_id" value="<?= (isset($donnees['jeu']) ? $donnees['jeu']->getJeuxId() : 0) ?>">
                 <input type="hidden" name="membre_id" id="membre_id" value="<?=$_SESSION['id']?>">
                 <div class="form-group row">
                     <div class="col-lg-4">
@@ -121,7 +122,7 @@ if(isset($_SESSION['id']))
                 <div class="form-group row">
                     <div class="col-lg-4">
                         <label>Description :</label>
-                        <textarea rows="8" cols="60"><?=$description?></textarea>
+                        <textarea name="description" rows="8" cols="60"><?=$description?></textarea>
                     </div> 
                 </div>
                 <hr>
