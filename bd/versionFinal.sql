@@ -370,7 +370,7 @@ INSERT INTO `categorie` (`categorie_id`, `categorie`) VALUES
 (8, 'Plate-forme'),
 (9, 'Labyrinthe'),
 (10, 'Musique'),
-(11, 'FPS');
+(11, 'FPS'),
 (12, 'RPG');
 
 
