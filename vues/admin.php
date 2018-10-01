@@ -3,6 +3,8 @@
 ////var_dump($donnees['membres']);
 //var_dump($donnees['membres'][0]);
 
+if ($_SESSION["type"] == 3 && $_SESSION["type"] == 2) {
+
 
 ?>
 <h1 class="text-center my-3">Adminstration: gestion des membres</h1>
@@ -37,7 +39,7 @@
                 <?php foreach ($donnees['membres'] as $membre) { ?>
                 <tr>
                     <td><?= $membre->getMembreId(); ?></td>
-                    <td><?= ( $_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $membre->getTypeUtilisateur() == 1) || $_SESSION["id"] == $membre->getMembreId()  ? '<a href="index.php?Membres&action=afficherMembre&membre_id=' . $membre->getMembreId() . '">' . $membre->getCourriel() . '</a>'  :  $membre->getCourriel())  ?></td>
+                    <td><?= ($_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $membre->getTypeUtilisateur() == 1) || $_SESSION["id"] == $membre->getMembreId()  ? '<a href="index.php?Membres&action=afficherMembre&membre_id=' . $membre->getMembreId() . '">' . $membre->getCourriel() . '</a>'  :  $membre->getCourriel())  ?></td>
                     <td><?= $membre->getPrenom() . ' ' . $membre->getNom(); ?></td>
 
                     <td><?php
@@ -78,3 +80,7 @@
         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
     </div>
 </div>
+
+<?php }
+else {
+    echo "<h3 class='text-center my-5'>Vous n`avez pas droit d`acceder à cette page!!!</h3>"; }?>
