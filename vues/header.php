@@ -22,7 +22,7 @@
             <ul class="navbar-nav mx-auto">
                 <?php
                 if(isset($_SESSION["courriel"])) {
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\">Annoncer</a></li>";
+                    echo "<li id='annoce' class=\"nav-item\"><a href='index.php?Jeux&action=formAjoutJeux'class=\"nav-link\">Annoncer</a></li>";
                     echo "<li class=\"nav-item\"><a class=\"nav-link\">Messagerie</a></li>";
                 } ?>
 
@@ -96,3 +96,5 @@
 <!--            </form>-->
 
 <!--        </div>-->
+
+

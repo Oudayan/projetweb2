@@ -12,7 +12,7 @@
                         echo '<button class="btn btn-success mt-5 disabled">Bienvenu(e). Vous êtes connecté(e) !</button></div>';
 
                     } else {
-                        echo '<button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5">S\'INSCRIRE MAINTENANT !</button></div>';
+                        echo '<button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5" data-toggle="modal" data-target="#modal-inscription">S\'INSCRIRE MAINTENANT !</button></div>';
                     }
                     ?>
                     <!--Affichage la message -->
@@ -70,8 +70,6 @@
                 </div>
             </div>
 
-
-
             <div class="col-md-6 p-0">
                 <div class="carousel slide" data-ride="carousel" data-interval="3000">
                     <div class="carousel-inner" role="listbox">
@@ -90,13 +88,6 @@
         </div>
     </div>
 </div>
-
-<!--    Affichage la message -->
-<!--    <div class="text-center bg-dark ">-->
-<!--        --><?php //if (isset($_SESSION["msg"])) {
-//            echo '<h5>' . $_SESSION["msg"] . '</h5>';
-//        } ?>
-<!--    </div>-->
 
 <div class="bg-light">
     <div class="container">
@@ -132,7 +123,7 @@
             </div>
 
 
-<script>
+<!-- <script>
 
     // Modal d'inscription
 
@@ -141,4 +132,4 @@
             $("#modal-inscription").modal({"backdrop": "static"});
         });
     });
-</script>
+</script> -->
