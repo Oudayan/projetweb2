@@ -27,7 +27,7 @@
                     <div class="col-md-3">
                         <select class="form-control mx-sm-3" style="width: 100%">
                             <option>Évaluation</option>
-                            <option>Pas encore fonctionel</option>
+                            <option>Pas encore fonctionnel</option>
                         </select>
                     </div>
                     <div class="col-md-3">
