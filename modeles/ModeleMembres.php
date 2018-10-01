@@ -102,12 +102,88 @@ class ModeleMembres extends BaseDAO
      * @param   [string] $courriel
      * @return  [array]
      */
-//
-//    public function validerMembre(Membres $membre)
-//    {
-//        $sql = "UPDATE " . $this->lireNomTable() . " SET membre_valide = 1  WHERE courriel = ?";
-//        $donnees = array($membre->getCourriel());
-//        return $this->requete($sql, $donnees);
-//    }
+
+    public function validerMembre($id)
+    {
+        return $this->modifierChamp($id,'membre_valide',1);
+    }
+
+    /**
+ * @brief   Méthode pour valider un membre inscrit dans la bd
+ * @details Méthode modifie la valeur par défaut dans la bd de chaque nouveau membre
+ * @param   [string] $courriel
+ * @return  [array]
+ */
+
+    public function bannirMembre($id)
+    {
+        return $this->modifierChamp($id,'membre_actif',0);
+    }
+
+    /**
+     * @brief   Méthode pour valider un membre inscrit dans la bd
+     * @details Méthode modifie la valeur par défaut dans la bd de chaque nouveau membre
+     * @param   [string] $courriel
+     * @return  [array]
+     */
+
+    public function reactiverMembre($id)
+    {
+        return $this->modifierChamp($id,'membre_actif',1);
+    }
+
+
+    /**
+     * @brief   Méthode pour valider un membre inscrit dans la bd
+     * @details Méthode modifie la valeur par défaut dans la bd de chaque nouveau membre
+     * @param   [string] $courriel
+     * @return  [array]
+     */
+
+    public function promouvoirMembre($id)
+    {
+        return $this->modifierChamp($id,'type_utilisateur_id',2);
+    }
+
+    /**
+     * @brief   Méthode pour valider un membre inscrit dans la bd
+     * @details Méthode modifie la valeur par défaut dans la bd de chaque nouveau membre
+     * @param   [string] $courriel
+     * @return  [array]
+     */
+
+    public function demouvoirMembre($id)
+    {
+        return $this->modifierChamp($id,'type_utilisateur_id',1);
+    }
+
+
+
+
+
+
+    /**
+     * @brief   Méthode pour obtenir le rôle de utilisateur
+     * @details Méthode qui obtiens un nom pour tous les type de l'utilisateur
+     * @return  [string]
+     */
+
+    public function obtenirRole($role)
+    {
+        switch ($role) {
+            case '1':
+                echo 'Membre';
+                break;
+            case '2':
+                echo 'Administrateur';
+                break;
+            case '3':
+                echo 'Super administrateur';
+                break;
+            default:
+                echo '';
+        }
+        return $role;
+    }
 
 }
