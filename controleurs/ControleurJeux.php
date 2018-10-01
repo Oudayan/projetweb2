@@ -100,25 +100,26 @@ class ControleurJeux extends BaseControleur
 
                 case "enregistrerJeux":
 
-                    var_dump($params); 
+                    // var_dump($params); 
 
-                    if (isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
+                    if (isset($params['jeux_id']) && isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']))
                     {
-           
-                        $modeleJeux = $this->lireDAO("Jeux");
-                        $enregistrement["Jeux"] = new Jeux(null, $params["plateforme_id"], $params["membre_id"], $params['titre'], $params['prix'], $now, $params['concepteur'], $params['location'], $params['jeux_valide'], $params['jeux_actif'], $params['description'], $params['evaluation_globale']);
-                        $succes = $modeleJeux->sauvegarderJeux($enregistrement["Jeux"]);
+                        (string)$date = date("Y-m-d H:i");  
+                        // $jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= ""
+                        $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], 1, 0, $params["description"], -1);
+                        var_dump($jeu);
+                        $succes = $modeleJeux->sauvegarderJeux($jeu);
                     }
 
                     else
                     {
                         $_SESSION['msg'] ="Remplissez tous les champs...";
-                        $this->afficherVues("maPage", $donnees);
+                        // $this->afficherVues("maPage", $donnees);
+                        var_dump("bla");
                     }
 
                     // $donnees['jeux'] = $$modeleJeux->sauvegarderJeux();
                     // $donnees['categoriesJeu'] = $modeleCategoriesJeux->sauvegarderCategoriesJeu();
-                    // $this->afficherVues("accueil", $donnees);
                     $this->afficherVues("maPage", $donnees);
 
                     break;
@@ -131,6 +132,7 @@ class ControleurJeux extends BaseControleur
                     $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
                     $modeleCategories = $this->lireDAO("Categories");
 
+
                     //  Construction de la requête SQL
 
                     $filtre = "jeux_actif = true AND jeux_valide = true";
@@ -141,13 +143,16 @@ class ControleurJeux extends BaseControleur
 
                     if (isset($params["categories"])) {
                         $counter = 0;
-                        for ($i = 1; $i <= count($params["categories"]); $i++) {
-                            $counter++;
-                            if ($counter == 1) {
-                                $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $i;
-                            }
-                            else {
-                                $filtre .= (" OR ") . "c.categorie_id = " . $i;
+                        $categories = $modeleCategories->lireToutesCategories();
+                        for ($i = 0; $i <= count($categories); $i++) {
+                            if (isset($params["categories"][$i])) {
+                                $counter++;
+                                if ($counter == 1) {
+                                    $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params["categories"][$i];
+                                }
+                                else {
+                                    $filtre .= (" OR ") . "c.categorie_id = " . $params["categories"][$i];
+                                }
                             }
                         }
                         if ($counter > 0) {

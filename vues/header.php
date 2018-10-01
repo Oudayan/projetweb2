@@ -28,7 +28,7 @@
 
             </ul>
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"> <a class="nav-link" href="#">Chercher</a></li>
+                <li class="nav-item"> <a class="nav-link" href="index.php?Jeux&action=rechercherJeux">Chercher</a></li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item"> <a class="nav-link" href="#"><?php
@@ -65,7 +65,7 @@
                         <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel" required value="david.hod@gmail.com">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required value="11">
+                        <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required value="pacman_2018">
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox" value="" checked>  Se souvenir de moi></label>
