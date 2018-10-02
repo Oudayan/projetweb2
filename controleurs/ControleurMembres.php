@@ -51,14 +51,13 @@ class ControleurMembres extends BaseControleur
 //
                 case "verifierLogin" :
                     {
-//                        var_dump($_POST);
+                       
 //                        echo $params["courriel"];
                         
                         if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
                             $modeleMembres = $this->lireDAO("Membres");
                             $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
 
-                            var_dump($donnees);
                             if ($donnees) {
                                 // Comparaison entre les données reçues et ceux de la BD
                                 if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"]) {

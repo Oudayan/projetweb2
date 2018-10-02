@@ -12,16 +12,16 @@
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 
     <!--
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/styleChat.css" type="text/css" />
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/scripts.js"></script>
         <script type="text/javascript" src="js/scriptChat.js"></script>
-        <script type="text/javascript"> 
+        <script type="text/javascript">
         $(document).ready(function () {
             setInterval('chat.update()', 1000);
         })
-               
+
         </script>
     -->
 
@@ -61,6 +61,13 @@
                     <b>Louer</b>
                 </a>
             </li>
+            <li class="item">
+                <a class="navbar-brand" href="index.php?Messagerie&action=afficherMessagerie">
+                    <i class="fa d-inline fa-lg"></i>
+                    <b>Messagerie</b>
+                </a>
+            </li>
+
             <li>
 
             <li class="nav-item pr-4 item">
@@ -99,9 +106,9 @@
 
         <!--div class="collapse navbar-collapse text-center justify-content-end" id="btn-navbar">
             <ul class="navbar-nav">
-                
+
             </ul>
-            
+
         </div-->
     </div>
 </nav>

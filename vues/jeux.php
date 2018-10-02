@@ -117,39 +117,7 @@
                     <!-- Mensagerie -->
                                 <div class="contacter-annoceur mx-auto">
                                     <a>Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
-                <div id="fcontacto">
-                <!-- bloc de confirmation de envoy caché  -->
-                <div id="c_information" class="hide">
-                    <p></p>
-                </div>
-                <!-- Fin de confirmation de l'envoi -->
-                <br>
-
-                <!-- debut de formulario -->
-                <form id="c_form" name="contact">
-                    <div>
-                        <p>
-                            <input name="nom" id="c_name" type="text" size="22" tabindex="1" placeholder="votre nom... (*)" />
-                        </p>
-                        <p>
-                            <input name="email" id="c_mail" type="email" size="22" tabindex="2" placeholder="votre email... (*)" />
-                        </p>
-                        <p>
-                            <input name="telephonr" id="c_telephone" type="number" size="22" tabindex="4" placeholder="votre téléphone..." />
-                        </p>
-                        
-                    </div>
-                    <div>
-                        <p>
-                            <textarea name="message" id="c_msg" cols="40" rows="8" tabindex="5" placeholder="votre message... (*)"></textarea>
-                        </p>
-                    </div>
-                    <p>
-                        <label>(*) Champs requis</label>
-                        <input name="cenvoyer" type="button" id="c_envoyer" tabindex="6" value="Envoyer Message" onclick="cargaSendMail()" />
-                    </p>
-
-                </form>
+                    </form>
                 <!-- fin de formulario -->
 
                 </div>

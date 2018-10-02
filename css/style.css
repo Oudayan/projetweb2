@@ -27,7 +27,7 @@ color: #fff;
 font-size: 16px;
 }
 
-.contact-form input[type="submit"] 
+.contact-form input[type="submit"]
 {
 height: 30px;
 color: #fff;
@@ -39,7 +39,7 @@ outline: none;
 margin-top: 5%;
 }
 
-.modal-header, h4, .close 
+.modal-header, h4, .close
 {
 background-color: #536dca;
 color:white !important;
@@ -47,7 +47,7 @@ text-align: center;
 font-size: 30px;
 }
 
-.modal-footer 
+.modal-footer
 {
 background-color: #536dca;
 }
@@ -79,12 +79,11 @@ margin-top: 15px;
 background: rgb(65, 64, 64);
 border: 1px solid #6c757d;
 color: lightslategrey;
-text-align: center;
-text-transform: uppercase;
+text-align: left;
 
 }
 
-.avis-etoiles .fa-star 
+.avis-etoiles .fa-star
 {
 color: gold;
 }
@@ -125,7 +124,6 @@ color: gold;
 }
 
 /*vues/message.php Chunliang le 26/09/2018*/
-
 
 
 
