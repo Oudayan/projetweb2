@@ -53,7 +53,7 @@ class ModeleMessagerie extends BaseDAO
         return $unMessage;
     }
 
-   
+
      /**
      * @brief   Méthode pour aller chercher un mesaage
      * @details Méthode que permets aller chercher un message en utilisant son msg_id
@@ -98,10 +98,10 @@ class ModeleMessagerie extends BaseDAO
      * @return  [array]
      */
 
-    public function sauvegarde(Message $unMessage)
+    public function sauvegarde(Messagerie $unMessage)
     {
 //        var_dump($unMessage);
-        $sql = "INSERT INTO " . $this->lireNomTable() . "( msg_id, membre_id, sujet, message, msg_date, msg_actif, telephone, courriel) VALUES (?,?,?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO " . $this->lireNomTable() . "( msg_id, membre_id, sujet, message, msg_date, msg_actif) VALUES (?,?,?, ?, ?, ?)";
         $donnees = array(
             $unMessage->getMsg_Id(),
             $unMessage->getMembre_Id(),
@@ -111,6 +111,6 @@ class ModeleMessagerie extends BaseDAO
             $unMessage->getMsg_Actif());
         return $this->requete($sql, $donnees);
     }
- 
+
 }
 ?>

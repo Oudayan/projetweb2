@@ -38,6 +38,7 @@ create table `achat`
    `achat_id`             int not null auto_increment,
    `type_paiement_id`     int not null,
    `membre_id`            int not null,
+   `jeux_id`              int not null,
    `date_achat`           datetime not null,
    primary key (achat_id)
 );
@@ -113,7 +114,8 @@ create table location
 (
    `location_id`          int not null auto_increment,
    `type_paiement_id`     int not null,
-   `membre_id`            int,
+   `membre_id`            int not null,
+   `jeux_id`              int not null,
    `date_debut`           datetime not null,
    `date_retour`          datetime not null,
    primary key (location_id)
@@ -195,6 +197,9 @@ create table type_utilisateur
 alter table achat add constraint FK_assosier_achat foreign key (type_paiement_id)
       references type_paiement (type_paiement_id) on delete restrict on update restrict;
 
+alter table achat add constraint FK_assosier_jeux foreign key (jeux_id)
+      references jeux (jeux_id) on delete restrict on update restrict;
+
 alter table achat add constraint FK_faire foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
@@ -225,6 +230,9 @@ alter table jeux add constraint FK_classer foreign key (plateforme_id)
 alter table location add constraint FK_associer_louer foreign key (type_paiement_id)
       references type_paiement (type_paiement_id) on delete restrict on update restrict;
 
+alter table location add constraint FK_assosier_jeux2 foreign key (jeux_id)
+      references jeux (jeux_id) on delete restrict on update restrict;
+
 alter table location add constraint FK_louer foreign key (membre_id)
       references membre (membre_id) on delete restrict on update restrict;
 
@@ -236,6 +244,8 @@ alter table messagerie add constraint FK_assigner_emmeteur foreign key (membre_i
 
 alter table photo_jeux add constraint FK_posseder foreign key (jeux_id)
       references jeux (jeux_id) on delete restrict on update restrict;
+
+
 
 
 
@@ -340,17 +350,9 @@ INSERT INTO `commentaire_jeux` (`commentaire_jeux_id`, `jeux_id`, `membre_id`, `
 -- Contenu de la table `achat`
 --
 
-INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `date_achat`) VALUES
-(1, 2, 1, '2018-09-16 04:13:54'),
-(2, 3, 2, '2018-09-12 04:13:54'),
-(3, 1, 3, '2018-09-15 11:24:30'),
-(4, 2, 4, '2018-09-15 11:24:30'),
-(5, 3, 5, '2018-09-15 11:24:30'),
-(6, 1, 6, '2018-09-15 11:24:30'),
-(7, 2, 7, '2018-09-15 11:24:30'),
-(8, 3, 8,'2018-09-15 11:24:30'),
-(9, 1, 9, '2018-09-15 11:24:30'),
-(10, 2, 10, '2018-09-15 11:24:30');
+INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `date_achat`) VALUES
+(1, 2, 1, 2, '2018-09-16 04:13:54');
+
 
 
 --
@@ -368,7 +370,8 @@ INSERT INTO `categorie` (`categorie_id`, `categorie`) VALUES
 (8, 'Plate-forme'),
 (9, 'Labyrinthe'),
 (10, 'Musique'),
-(11, 'Jeu de tir à la première personne');
+(11, 'FPS'),
+(12, 'RPG');
 
 
 --
@@ -402,17 +405,8 @@ INSERT INTO `categorie_jeux` (`jeux_id`, `categorie_id`) VALUES
 -- Contenu de la table `location`
 --
 
-INSERT INTO `location` (`location_id`, `type_paiement_id`, `membre_id`, `date_debut`, `date_retour`) VALUES
-(1, 2, 1, '2018-09-10 09:15:54', '2018-09-16 04:13:54'),
-(2, 3, 2, '2018-09-09 10:15:20', '2018-09-14 06:08:11'),
-(3, 1, 3, '2018-09-11 12:09:24', '2018-09-13 08:17:21'),
-(4, 2, 4, '2018-09-15 11:24:30', '2018-09-18 11:24:30'),
-(5, 3, 5, '2018-09-15 11:24:30', '2018-09-18 11:24:30'),
-(6, 1, 6, '2018-09-15 11:24:30', '2018-09-18 11:24:30'),
-(7, 2, 7, '2018-09-15 11:24:30', '2018-09-18 11:24:30'),
-(8, 3, 8, '2018-09-15 11:24:30', '2018-09-19 11:24:30'),
-(9, 1, 9, '2018-09-15 11:24:30', '2018-09-19 11:24:30'),
-(10, 2, 10, '2018-09-15 11:24:30', '2018-09-19 11:24:30');
+INSERT INTO `location` (`location_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `date_debut`, `date_retour`) VALUES
+(1, 2, 1, 1, '2018-09-10 09:15:54', '2018-09-16 04:13:54');
 
 
 --

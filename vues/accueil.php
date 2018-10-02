@@ -12,9 +12,15 @@
                         echo '<button class="btn btn-success mt-5 disabled">Bienvenu(e). Vous êtes connecté(e) !</button></div>';
 
                     } else {
-                        echo '<button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5">S\'INSCRIRE MAINTENANT !</button></div>';
+                        echo '<button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5" data-toggle="modal" data-target="#modal-inscription">S\'INSCRIRE MAINTENANT !</button></div>';
                     }
                     ?>
+                    <!--Affichage la message -->
+                    <div class="text-center mt-3  ">
+                        <?php if (isset($_SESSION["msg"])) {
+                            echo '<h5>' . $_SESSION["msg"] . '</h5>';
+                        } ?>
+                    </div>
                 </div>
 
             <!-- Modal -->
@@ -82,7 +88,8 @@
         </div>
     </div>
 </div>
-<div class="album py-2 bg-light">
+
+<div class="bg-light">
     <div class="container">
         <h1 class="text-center bg-info mt-2">NOUVEAUTÉS</h1>
         <div class="row">
@@ -116,7 +123,7 @@
             </div>
 
 
-<script>
+<!-- <script>
 
     // Modal d'inscription
 
@@ -125,4 +132,4 @@
             $("#modal-inscription").modal({"backdrop": "static"});
         });
     });
-</script>
+</script> -->

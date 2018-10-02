@@ -38,6 +38,7 @@
            $this->setJeuxValide($jeux_valide);
            $this->setJeuxActif($jeux_actif);
            $this->setDescription($description);
+           $this->setEvaluationGlobale($evaluation_globale);
         }
 
         //SETTERS
@@ -109,7 +110,7 @@
          */
         public function setDateAjout($date_ajout){
             if(is_string($date_ajout) && trim($date_ajout) != ""){
-                $this->dateAjout = $date_ajout;
+                $this->date_ajout = $date_ajout;
             }
         }
 
@@ -146,7 +147,7 @@
          */
 
         public function setJeuxValide($jeux_valide){
-            if(is_bool($jeux_valide)){
+            if(is_numeric($jeux_valide)){
                 $this->jeux_valide = $jeux_valide;
             }
         }
@@ -159,7 +160,7 @@
          */
 
         public function setJeuxActif($jeux_actif){
-            if(is_bool($jeux_actif)){
+            if(is_numeric($jeux_actif)){
                 $this->jeux_actif = $jeux_actif;
             }
         }
@@ -167,7 +168,7 @@
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          * 
-         * @param       [bool] $jeux_actif, la description de chaque jeu
+         * @param       [string] $jeux_actif, la description de chaque jeu
          * @return      [object]
          */
 

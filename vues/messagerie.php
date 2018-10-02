@@ -1,6 +1,6 @@
 
 <?php
-
+//var_dump($donnees);
 $messages = $donnees["messages"]; ?>
 <div class="container">
     <div class="h3 mt-5 mb-5" style="display:flex;">
@@ -56,7 +56,7 @@ $messages = $donnees["messages"]; ?>
           <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
               <div class="contacter-annoceur mx-auto">
                         <div id="c_information" class="hide">
-                            <p>- - -</p>
+
                           </div>
 
                           <a>Composer un message</a> <i class="fas fa-envelope"></i>
@@ -67,11 +67,11 @@ $messages = $donnees["messages"]; ?>
                           <br>
 
                           <!-- debut de formulario -->
-                          <form action="<?php echo URL; ?>messagerie/setMessage" method="post" enctype="multipart/form-data" name="contact">
+                          <form action="index.php?messagerie&action=formAjoutMessage" method="post" enctype="multipart/form-data" name="contact">
                                 <div>
 
                                     <p>
-                                      <input name="message" id="message" type="text" size="22" tabindex="2" placeholder="Message" />
+                                      <input name="msg_id"  type="text" size="22" tabindex="2" placeholder="Membre" />
                                     </p>
                                     <p>
                                         <input name="sujet" id="sujet" type="text" size="22" tabindex="1" placeholder="Subjet... (*)" />
@@ -79,12 +79,12 @@ $messages = $donnees["messages"]; ?>
                                 </div>
                                 <div>
                                     <p>
-                                        <textarea name="message" id="message" cols="40" rows="8" tabindex="5" placeholder="votre message... (*)"></textarea>
+                                        <textarea name="message"  cols="40" rows="8" tabindex="5" placeholder="votre message... (*)"></textarea>
                                     </p>
                                 </div>
                                 <p>
                                     <label>(*) Champs requis</label>
-                                    <input name="cenvoyer" type="submit" id="submit" tabindex="6" value="Envoyer Message" />
+                                    <input name="cenvoyer" type="submit" id="submit" name="submit" tabindex="6" value="Envoyer Message" />
                                 </p>
                           </form>
 

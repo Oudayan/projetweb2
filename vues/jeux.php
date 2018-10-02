@@ -5,7 +5,6 @@
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
 <!-- * @details   Cette vue permettre voir les détails de chaque jeux-->
-<!-- */-->
 
 <div class="container pt-3">
     <div class="row">
@@ -116,7 +115,7 @@
                     </form>
                     <!-- Mensagerie -->
                                 <div class="contacter-annoceur mx-auto">
-                                    <a>Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
+                                    <a href="http://localhost/projetweb2/index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
                     </form>
                 <!-- fin de formulario -->
 
@@ -158,16 +157,19 @@
                 <div class="card-body">
                     <div class="review">
                         <?php
+                            
                             for($i = 0; $i < count($donnees['commentaires'])-1; $i++)
                             {
                                 echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaires'][$i]->getDateCommentaire() . "</p>";  
                                 echo "<p>" ."Par : " .$donnees['commentaires']['membres'][$i]->getPrenom() ." " .$donnees['commentaires']['membres'][$i]->getNom() . "</p>"; 
                                 echo "<p>" . $donnees['commentaires'][$i]->getCommentaire() . "</p>";
-                                // echo "<p>" ."Evaluation : ". $donnees['commentaireJeu'][$i]->getEvaluation() ."</p>";
-                                echo "<hr>";
-                            }
-                            
-                        ?>                        
+                            ?>
+                            <div class="col-6 text-center text-right my-3">
+                                Évaluation&nbsp;:&nbsp;<?= round($donnees["commentaires"][$i]->getEvaluation(), 2); ?>&nbsp;/&nbsp;5
+                                <br><span class="score"><span style="width: <?= ($donnees["commentaires"][$i]->getEvaluation() / 5) * 100 ?>%"></span></span>
+                            </div>
+                            <hr>
+                            <?php } ?>                    
                     </div>
                 </div>
             </div>
