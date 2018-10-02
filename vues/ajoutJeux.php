@@ -110,7 +110,7 @@ if(isset($_SESSION['id']))
                             for($i = 0; $i < count($donnees['categories']); $i++)
                             {
                                 echo "<div class='col-lg-3'>";
-                                    echo "<input type='checkbox' name='categorie1' value='" . $donnees['categories'][$i]->getCategorieId() . "'" . $categorie[$i] . ">";
+                                    echo "<input type='checkbox' name='categorie[]' value='" . $donnees['categories'][$i]->getCategorieId() . "'" . $categorie[$i] . ">";
                                     echo "<label class='ml-2'>" . $donnees['categories'][$i]->getCategorie() . "</label><br>";
                                 echo "</div>";
                             }

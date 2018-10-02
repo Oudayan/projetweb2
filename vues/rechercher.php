@@ -66,7 +66,12 @@
                  echo    '<div class="col-md-4">';
                  echo        '<div class="card mb-4 box-shadow cardjeux">';                 
                  $images[$i] = $modeleImages->lireImageParJeuxId($donnees['jeux'][$i]->getJeuxId());
+                 if ($images[$i]) {
                  echo            '<img class="card-img-top" src="' . $images[$i]->getCheminPhoto() .'" alt="Card image cap">';
+                }
+                 else {
+                 echo            '<img class="card-img-top" src="images/image_defaut.png" alt="Card image cap">';
+                }
                  echo            '<div class="card-body">';
                  echo                '<p class="card-text">' . $donnees['jeux'][$i]->getTitre() . '</p>';
                  echo                '<div class="d-flex justify-content-between align-items-center">';
