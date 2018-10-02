@@ -22,7 +22,7 @@
 		}
 		
 		public function lireJeuxParMembre($membre_id) {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE membre_id = '" . $membre_id . "' AND jeux_actif = true AND jeux_valide = true ORDER BY date_debut DESC";
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE membre_id = '" . $membre_id . "' AND jeux_actif = true AND jeux_valide = true GROUP BY j.jeux_id ORDER BY date_debut DESC";
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
@@ -36,8 +36,15 @@
 		public function lireTousLesJeux() {
             $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
 			$resultat = $this->requete($sql);
-			return $resultat->fetchAll(\PDO::FETCH_ASSOC);
+			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
+
+        public function filtreJeux($filtre = 'jeux_actif = true AND jeux_valide = true', $ordre = 'prix DESC') {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " j JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id JOIN categorie c ON c.categorie_id = cj.categorie_id WHERE " . $filtre . " GROUP BY j.jeux_id ORDER BY " . $ordre;
+			$resultat = $this->requete($sql);
+//			var_dump($resultat);
+            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
+        }
 
 //        public function lireTousIdsJeux() {
 //            $sql = "SELECT jeux_id FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
@@ -46,16 +53,37 @@
 //        }
 
 
-		public function sauvegarderJeux(Jeux $jeux) {
-			$sql = "INSERT INTO " . $this->lireNomTable() . "(
-				plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+		public function sauvegarderJeux(Jeux $jeu) 
+		{
 			$donnees = array(
-				$jeux->getPlateformeId(), $jeux->getMembreId(), $jeux->getTitre(), $jeux->getPrix(), $jeux->getDateAjout(),
-				$jeux->getConcepteur(), $jeux->getLocation(), $jeux->getJeuxValide(), $jeux->getJeuxActif(), $jeux->getDescription());
-			return $this->requete($sql, $donnees);
-		}
+				$jeu->getPlateformeId(),
+				$jeu->getMembreId(), 
+				$jeu->getTitre(), 
+				$jeu->getPrix(), 
+				$jeu->getDateAjout(),
+				$jeu->getConcepteur(),
+				$jeu->getLocation(),
+				$jeu->getJeuxValide(),
+				$jeu->getJeuxActif(),
+				$jeu->getDescription(),
+				$jeu->getEvaluationGlobale(),
+				$jeu->getJeuxId()
+			);
+			// var_dump($jeu->getJeuxId() && $this->lire($jeu->getJeuxId())->fetch());
+			if($jeu->getJeuxId() && $this->lire($jeu->getJeuxId())->fetch())
+			{
+				$sql = "UPDATE " . $this->lireNomTable() . " SET plateforme_id=?, membre_id=?, titre=?, prix=?, date_ajout=?, concepteur=?, location=?, jeux_valide=?, jeux_actif=?, description=?, evaluation_globale=? WHERE jeux_id=?";
+			}
+			else
+			{
+				$id = array_pop($donnees);
+				$sql = "INSERT INTO " . $this->lireNomTable() . "(plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description, evaluation_globale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			}
+			// var_dump($donnees);
+			$this->requete($sql, $donnees);
+            return $jeu->getJeuxId() > 0 ? $jeu->getJeuxId() : $this->bd->lastInsertId();
+			
+		}		
 
         public function effacerJeu($id) {
         	return $this->effacer($id);

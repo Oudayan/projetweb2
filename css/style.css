@@ -88,40 +88,74 @@ text-align: left;
 color: gold;
 }
 
-.navbar ul {
-  display: flex;
-  width: 100%;
-  list-style: none;
-  justify-content: space-between;
-  align-items: center;
-}
-.navbar ul li {
-  width: 100%;
-}
-.navbar ul li.logo {
-  margin-right: auto;
-}
-.navbar ul li form {display: flex;}
-.navbar ul li form .form-control {min-width: 200px;}
+#navheader{
+  background-color: black;
+  background-color: rgba(0,0,0,0.9);
 
-.navbar ul .toggle-item {
-  display: none;
+}
+
+/*.navbar ul {*/
+  /*display: flex;*/
+  /*width: 100%;*/
+  /*list-style: none;*/
+  /*justify-content: space-between;*/
+  /*align-items: center;*/
+/*}*/
+/*.navbar ul li {*/
+  /*width: 100%;*/
+/*}*/
+/*.navbar ul li.logo {*/
+  /*margin-right: auto;*/
+/*}*/
+/*.navbar ul li form {display: flex;}*/
+/*.navbar ul li form .form-control {min-width: 200px;}*/
+
+/*.navbar ul .toggle-item {*/
+  /*display: none;*/
+  /*position: absolute;*/
+  /*right: 20px;*/
+  /*width: 30px;*/
+  /*top: 20px;*/
+/*}*/
+/*.navbar ul .toggle-item .bar {*/
+  /*width: 35px;*/
+  /*height: 2px;*/
+  /*background: #fff;*/
+/*}*/
+/*.navbar ul .toggle-item .bar-center {*/
+  /*width: 35px;*/
+  /*height: 2px;*/
+  /*background: #fff;*/
+  /*margin: 10px 0;*/
+/*}*/
+
+/* Évaluations 
+Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rating-define-by-width
+*/
+
+.score {
+  display: inline-block;
+  font-family: Wingdings;
+  font-size: 25px;
+  color: #ccc;
+  position: relative;
+}
+
+.score::before,
+.score span::before {
+  content: "\2605\2605\2605\2605\2605";
+  display: block;
+}
+
+.score span {
   position: absolute;
-  right: 20px;
-  width: 30px;
-  top: 20px;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: #e98d34;
+  text-shadow: 1px 1px 3px #666;
 }
-.navbar ul .toggle-item .bar {
-  width: 35px;
-  height: 2px;
-  background: #fff;
-}
-.navbar ul .toggle-item .bar-center {
-  width: 35px;
-  height: 2px;
-  background: #fff;
-  margin: 10px 0;
-}
+
 
 /*vues/message.php Chunliang le 26/09/2018*/
 

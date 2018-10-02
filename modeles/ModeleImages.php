@@ -40,6 +40,12 @@
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
         }
 
+        public function lireImageParJeuxId($id) {
+            $resultat = $this->lire($id, "jeux_id");
+            $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
+            return $resultat->fetch();
+        }
+
         public function lireDerniersImages($nombreImages = 9) {
             $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE photo_jeux_id = jeux_id ORDER BY jeux_id DESC LIMIT " . $nombreImages;
             $resultat = $this->requete($sql);

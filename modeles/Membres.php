@@ -102,7 +102,10 @@ class Membres
     public function setMotDePasse($mot_de_passe)
     {
         if (is_string($mot_de_passe) && trim($mot_de_passe) != "") {
-            $this->mot_de_passe = $this->encMotDePasse($mot_de_passe);
+//            $this->mot_de_passe = $this->encMotDePasse($mot_de_passe);
+
+            // La methode sans md5
+             $this->mot_de_passe = $mot_de_passe;
         }
     }
 
@@ -116,6 +119,8 @@ class Membres
     protected function encMotDePasse($mtp) {
         return md5($mtp);
     }
+
+
 
     /**
      * @brief       Permet de définir en écriture l'attribut de la classe Membres
@@ -244,8 +249,9 @@ class Membres
 
     public function getMotDePasse()
     {
-        return $this->mot_de_passe;
+        return $this-> mot_de_passe;
     }
+
 
     /**
      * @brief       Permet de définir en lecture l'attribut de la classe Membres

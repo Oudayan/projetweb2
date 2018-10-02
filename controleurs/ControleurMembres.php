@@ -19,7 +19,16 @@ class ControleurMembres extends BaseControleur
 
     public function index(array $params)
     {
+        $modeleJeux = $this->lireDAO("Jeux");
+        $modeleImages = $this->lireDAO("Images");
+        $modeleMembres = $this->lireDAO("Membres");
+        $modelePlateformes = $this->lireDAO("Plateformes");
+        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+        $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
+        $modeleCategories = $this->lireDAO("Categories");
+
         $donnees["erreur"] = "";
+        $_SESSION["msg"] = "";
 
         if (isset($params["action"])) {
 
@@ -29,24 +38,37 @@ class ControleurMembres extends BaseControleur
 //                    $this->afficherVues("ajouteUnMembre");
 //                    break;
 
+                case "afficherMembre":
+                    $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+                    $donnees['images'] = $modeleImages->lireDerniersImages();
+                    $this->afficherVues("accueil", $donnees);
+
+                break;
+
                 case "enregistrerMembre" :
 
-                    if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"])) {
+                    var_dump($params);
 
+                    if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"]) && $params["confirm_mdp"]) {
 
-                        $modeleMembres = $this->lireDAO("Membres");
-                        $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
-                        $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
+                        // comparer les mot de passe sont pareile.
+                        if ($params["mot_de_passe"] == $params["confirm_mdp"]) {
 
-                        $_SESSION["msg"] = "Vous avez devenu membre de notre site";
+                            $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
+                            $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
+
+                            $_SESSION["msg"] = "Vous avez devenu membre de notre site";
 //                        header("location:index.php");
-
+                        } else {
+                            $_SESSION["msg"] = " Champ requis Le mot de passe de confirmation est différent du mot de passe saisi ";
+                        }
                     } else {
 
-                        $_SESSION["msg"] ="Remplissez tous les champs...";
+                        $_SESSION["msg"] = "Remplissez tous les champs...";
 //                        $this->afficherVues("ajouteUnMembre");
                     }
                     header("location:index.php");
+
                     break;
 //
                 case "verifierLogin" :
@@ -54,13 +76,18 @@ class ControleurMembres extends BaseControleur
                        
 //                        echo $params["courriel"];
                         
+
+//
                         if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
                             $modeleMembres = $this->lireDAO("Membres");
                             $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
 
+
+
                             if ($donnees) {
                                 // Comparaison entre les données reçues et ceux de la BD
-                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == $params["mot_de_passe"]) {
+//                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == md5($params["mot_de_passe"] )) {
+                                if ($donnees->getCourriel() == $params["courriel"] && $donnees->getMotDePasse() == $params["mot_de_passe"]) {
                                     $_SESSION["id"] = $donnees->getMembreId();
                                     $_SESSION["courriel"] = $params["courriel"];
                                     $_SESSION["type"] = $donnees->getTypeUtilisateur();
@@ -71,34 +98,40 @@ class ControleurMembres extends BaseControleur
 //                                var_dump("Le mot de passe ou le courriel ne sont pas corrects");
                                 $_SESSION["msg"] = "Le courriel ou le mot de passe ne sont pas corrects";
                             }
-                        }  else {
+                        } else {
                             $_SESSION["msg"] = "Veuillez remplir le courriel et le mot de passe!";
                         }
 
-                        header("location:index.php");
+
+                        if ($_SESSION["type"] == '2' || $_SESSION["type"] == '3') {
+                            header("location:index.php?Admin&action=afficherMembres");
+                        } else {
+                            header("location:index.php");
+                        }
+
+//                        header("location:index.php");
                     }
                     break;
 
                 case  "logout":
                     if (isset($_SESSION["id"])) {
                         unset($_SESSION["id"]);
-                        setcookie("id",null,-1,'/');
+                        setcookie("id", null, -1, '/');
                     }
                     if (isset($_SESSION["courriel"])) {
                         unset($_SESSION["courriel"]);
-                        setcookie("courriel",null,-1,'/');
+                        setcookie("courriel", null, -1, '/');
                     }
                     if (isset($_SESSION["type"])) {
                         unset($_SESSION["type"]);
-                        setcookie("type",null,-1,'/');
+                        setcookie("type", null, -1, '/');
                     }
                     if (isset($_SESSION["msg"])) {
                         unset($_SESSION["msg"]);
-                        setcookie("msg",null,-1,'/');
+                        setcookie("msg", null, -1, '/');
                     }
                     header("location:index.php");
                     break;
-
 
 
                 default:
