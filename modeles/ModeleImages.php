@@ -52,6 +52,25 @@
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Images");
         }
 
+        public function sauvegarderImage(Images $image)
+        {
+            //$photo_jeux_id = 0, $jeux_id = 0, $chemin_photo = ""
+            $donnees = array(
+                $image->getCheminPhoto(),
+                $image->getJeuxId()
+            );
+            if ($image->getPhotoJeuxId() && $this->lire($image->getPhotoJeuxId())->fetch())
+            {
+                $sql = "UPDATE " . $this->lireNomTable() . "SET chemin_photo=? WHERE photo_jeux_id=?"; 
+            }
+            else 
+            {
+                $id = array_pop($donnees);
+                $sql = "INSERT INTO " . $this->lireNomTable() . "(chemin_photo) VALUES (?)";
+            }
 
+            $this->requete($sql, $donnees);
+            return $image->getPhotoJeuxId() > 0 ? $image->getPhotoJeuxId() : $this->bd->lastInsertId();
+        }
         
     }

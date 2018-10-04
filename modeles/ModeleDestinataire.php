@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 
+=======
+>>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 /**
  * @file     ModeleDestinataire.php
  * @author   Jansy Lopez
@@ -9,6 +12,7 @@
  *
  * @details  Fonctions "CRUD" pour la table  
  */
+<<<<<<< HEAD
 class ModeleDestinataire extends BaseDAO {
 
     // Déclaration du nom de la table (fonction abstraite)
@@ -37,3 +41,27 @@ class ModeleDestinataire extends BaseDAO {
     }
 
 }
+=======
+
+	class ModeleDestinataire extends BaseDAO {
+
+        // Déclaration du nom de la table (fonction abstraite)
+		public function lireNomTable() {
+			return "destinataire";
+        }
+               
+        public function lireDestinataireParId($id) {
+            $resultat = $this->lire($id);
+            $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Destinataire');
+            return $resultat->fetch();
+        }
+
+        public function lireToutesDestinataire() {
+            $resultat = $this->lireTous();
+            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Destinataire');
+        }
+
+
+        
+    }
+>>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
