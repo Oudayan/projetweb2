@@ -126,11 +126,26 @@ if(isset($_SESSION['id']))
                 </div>
                 <hr>
                 <div class="form-group row">
-                    <div class="col-lg-4">
-                        <label>File : </label>
-                        <input type="file" name="image"/>
-                        <input type="submit" class="ml-3"/>
+                    <div class="col-sm-3" id="image1">
+                        <label class="text-center">Image 1</label><br>
+                        <input type="file" name="image1" id="upload1" onchange="upload(this, 1)">
+                        <!-- <button type="button" class="btn btn-primary mx-auto" onclick="upload(1)">Televerser image</button> -->
                     </div> 
+                    <div class="col-sm-3 invisible" id="image2">
+                        <label class="text-center">Image 2</label><br>
+                        <input type="file" name="image2" id="upload2">
+                        <button type="button" class="btn btn-primary mx-auto" onclick="upload(2)">Televerser image</button>
+                    </div>
+                    <div class="col-sm-3 invisible" id="image3">
+                        <label class="text-center">Image 3</label><br>
+                        <input type="file" name="image3" id="upload3">
+                        <button type="button" class="btn btn-primary mx-auto" onclick="upload(3)">Televerser image</button>
+                    </div>
+                    <div class="col-sm-3 invisible" id="image4">
+                        <label class="text-center">Image 4</label><br>
+                        <input type="file" name="image4" id="upload4">
+                        <button type="button" class="btn btn-primary mx-auto" onclick="upload(4)">Televerser image</button>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-around my-5">
                     <a href="index.php?Jeux&action=derniers"><button type="button" class="btn-lg btn-outline-dark">Annuler</button></a>
@@ -145,11 +160,34 @@ else{
     echo "Vous n'avez pas la permission d'acceder à cette page";
 }
 ?>
-<!-- <script>
-$(document).on("click", "#annoce a", function(e){
-    // e.preventDefault();
-    $(this).addClass("invisible");
-    // console.log(this);
-});
+<script>
+   function upload(input, id){
+    // console.log(input.files[0].name);
+    // console.log(input.id[0]);
+    // for(i=0;i<20;i++){
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        /* reader.onload = function (e) {
+        	$('#photo'+input.id)
+        		.attr('src', e.target.result);
+        }; */
+        formData = new FormData();
+        formData.append('files[]', input.files[0]);  
+        $.ajax({
+            url: "index.php?Images&action=sauvegardeFichiersImages",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            // async: false,
+            dataType:"html",
+            success: function(data) {
+                $('#image' + id).html(data);
+                $('#image' + (id + 1)).removeClass("invisible");
+            }
+        });
 
-</script> -->
+    };
+
+};   
+</script>

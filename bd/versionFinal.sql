@@ -423,4 +423,9 @@ INSERT INTO `photo_jeux` (`photo_jeux_id`, `jeux_id`, `chemin_photo`) VALUES
 (7, 7, 'images/thumb04.jpg'),
 (8, 8, 'images/thumb05.jpg'),
 (9, 9, 'images/thumb06.jpg'),
-(10, 10, 'images/thumb07.jpg');
+(10, 10, 'images/thumb07.jpg'),
+(11, 3, 'images/sonic.jpg'),
+(12, 3, 'images/sonic1.jpg'),
+(13, 3, 'images/sonic3.jpg'), 
+(14, 3, 'images/sonic4.jpg'),
+(15, 3, 'images/sonic5.jpg');
