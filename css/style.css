@@ -79,8 +79,7 @@ margin-top: 15px;
 background: rgb(65, 64, 64);
 border: 1px solid #6c757d;
 color: lightslategrey;
-text-align: center;
-text-transform: uppercase;
+text-align: left;
 
 }
 
@@ -159,7 +158,6 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 
 
 /*vues/message.php Chunliang le 26/09/2018*/
-
 
 
 

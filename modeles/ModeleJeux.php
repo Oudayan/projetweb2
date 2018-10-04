@@ -86,7 +86,8 @@
 				$sql = "INSERT INTO " . $this->lireNomTable() . "(plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description, evaluation_globale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			}
 			// var_dump($donnees);
-			return $this->requete($sql, $donnees);
+			$this->requete($sql, $donnees);
+            return $jeu->getJeuxId() > 0 ? $jeu->getJeuxId() : $this->bd->lastInsertId();
 			
 		}		
 

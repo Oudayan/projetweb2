@@ -98,9 +98,7 @@ function cargaSendMail(){
     var s_email = $('#c_mail').val();  
     var s_name = $('#c_name').val();    
     var s_msg = $('#c_msg').val();
-    var s_spam_textbox1 = $('#c_spam_textbox1').val();
-    var s_spam_textbox2 = $('#c_spam_textbox2').val();
-    
+   
     
     if (filter.test(s_email)){
     sendMail = "true";

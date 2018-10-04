@@ -116,15 +116,26 @@ class ControleurJeux extends BaseControleur
 
                 case "enregistrerJeux":
 
-                    // var_dump($params); 
+                    //var_dump($params); 
 
-                    if (isset($params['jeux_id']) && isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']))
+                    if (isset($params['jeux_id']) && isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
                     {
                         (string)$date = date("Y-m-d H:i");  
                         // $jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= ""
-                        $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], 1, 0, $params["description"], -1);
-                        var_dump($jeu);
-                        $succes = $modeleJeux->sauvegarderJeux($jeu);
+                        $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], 1, 1, $params["description"], -1);
+                        $id = $modeleJeux->sauvegarderJeux($jeu);
+                        var_dump($jeu, "ID = " . $id);
+
+                        //Sauvegarder les categories de jeu
+                        $modeleCategoriesJeux->effacerCategoriesParJeuxId($id);
+                        for($i=0; $i < count($params['categorie']); $i++)
+                        {
+                            // $jeux_id = 0,$categorie_id = 0, $categorie = ""
+                            $cat = new CategoriesJeux($id, $params['categorie'][$i], "test");
+                            //var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
+                            $modeleCategoriesJeux->sauvegarderCategoriesJeu($cat);
+                        }
+
                     }
 
                     else
@@ -136,59 +147,13 @@ class ControleurJeux extends BaseControleur
 
                     // $donnees['jeux'] = $$modeleJeux->sauvegarderJeux();
                     // $donnees['categoriesJeu'] = $modeleCategoriesJeux->sauvegarderCategoriesJeu();
-                    $this->afficherVues("maPage", $donnees);
+                    // $this->afficherVues("maPage", $donnees);
+                    $this->filtrerJeux($params);
 
                     break;
 
                 case "rechercherJeux":
-                    $modeleJeux = $this->lireDAO("Jeux");
-                    $modeleImages = $this->lireDAO("Images");
-                    $modeleMembres = $this->lireDAO("Membres");
-                    $modelePlateformes = $this->lireDAO("Plateformes");
-                    $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
-                    $modeleCategories = $this->lireDAO("Categories");
-
-
-                    //  Construction de la requête SQL
-
-                    $filtre = "jeux_actif = true AND jeux_valide = true";
-
-                    if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
-                        $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = " . $params["plateforme"];
-                    }
-
-                    if (isset($params["titre"]) && ($params['titre'] !== '')) {
-                        $filtre .= ($filtre == "" ? "" : " AND ") . "j.titre LIKE '%" . $params["titre"] . "%'";
-                    }
-
-                    if (isset($params["categories"])) {
-                        $counter = 0;
-                        $categories = $modeleCategories->lireToutesCategories();
-                        for ($i = 0; $i <= count($categories); $i++) {
-                            if (isset($params["categories"][$i])) {
-                                $counter++;
-                                if ($counter == 1) {
-                                    $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params["categories"][$i];
-                                }
-                                else {
-                                    $filtre .= (" OR ") . "c.categorie_id = " . $params["categories"][$i];
-                                }
-                            }
-                        }
-                        if ($counter > 0) {
-                            $filtre .= ")";
-                        }
-                    }
-
-                    if (isset($params["transaction"]) && ($params["transaction"] !== '')) {
-                        $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
-                    }
-
-                    $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
-                    $donnees['categories'] = $modeleCategories->lireToutesCategories();
-                    $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-                    
-                    $this->afficherVues("rechercher", $donnees);
+                    $this->filtrerJeux($params);
                     break;
 
                 default :
@@ -205,79 +170,56 @@ class ControleurJeux extends BaseControleur
 
     }
 
-//    public function filtrerJeux(array $params) {
-//
-//        $modeleJeux = $this->lireDAO("Jeux");
-//        $modeleImages = $this->lireDAO("Images");
-//        $modeleMembres = $this->lireDAO("Membres");
-//        $modelePlateformes = $this->lireDAO("Plateformes");
-//        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
-//        $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
-//        $modeleCategories = $this->lireDAO("Categories");
-//        $donnees['images'] = $modeleImages->toutesImages();
-//        $donnees['categories'] = $modeleCategories->lireToutesCategories();
-//        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-//
-//        //$_POST['action'] = "index.php?Jeux&action=rechercherJeux";
-//
-//        //  Construction de la requête SQL
-//
-//        $filtre = "jeux_actif = true AND jeux_valide = true";
-//
-//        if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
-//            $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = '" . $params["plateforme"] . "'";
-//            //$params['plateforme'] = $params["plateforme"];
-//        }
-//        else if (!isset($params['plateforme'])) {
-//            //$params['plateforme'] = null;
-//        }
-//
-//        $counter = 0;
-//
-//        for ($i = 1; $i <= count($params["categories"]); $i++) {
-//            if (isset($params['categories'][$i])) {
-//                //$params["categorie"]++;
-//                $counter++;
-//                if ($counter == 1) {
-//                    $filtre .= ($filtre == "" ? "(" : " AND (") . "categorie_id = " . $i;
-//                }
-//                else {
-//                    $filtre .= (" OR ") . "categorie_id = " . $i;
-//                }
-//                //$params["categorie" .$i] = "checked";
-//            }
-//            else {
-//                //$params["categorie" .$i] = "";
-//            }
-//        }
-//        if ($counter == 0) {
-//            for ($i = 1; $i <= count($_POST["categorie"]); $i++) {
-//                //$_POST["categorie" .$i] = "checked";
-//            }
-//        }
-//        else {
-//            $filtre .= ")";
-//        }
-//
-//
-////                if (isset($params["categorie"]) && (trim($_POST['categorie'] !== ''))) {
-////                    $filtre .= ($filtre == "" ? "" : " AND ") . "c.categorie_id = '" . $params["categorie"] . "'";
-////                    $_POST['categorie'] = $params["categorie"];
-////                }
-////                else if (!isset($_POST['categorie'])) {
-////                    $_POST['categorie'] = null;
-////                }
-//
-//
-//        if (isset($params["transaction"]) && ($_POST['transaction'] !== '')) {
-//            $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
-//            //$_POST['negotiation'] = $params["negotiation"];
-//        }
-//        else {
-//            //$_POST['negotiation'] = null;
-//        }
-//        $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
-//        //var_dump($donnees['jeux']);
-//        $this->afficherVues("rechercher", $donnees);
-//    }
+    public function filtrerJeux(array $params) {
+
+        $modeleJeux = $this->lireDAO("Jeux");
+        $modeleImages = $this->lireDAO("Images");
+        $modeleMembres = $this->lireDAO("Membres");
+        $modelePlateformes = $this->lireDAO("Plateformes");
+        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+        $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
+        $modeleCategories = $this->lireDAO("Categories");
+
+        //  Construction de la requête SQL
+        $filtre = "jeux_actif = true AND jeux_valide = true";
+
+        if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
+            $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = " . $params["plateforme"];
+        }
+
+        if (isset($params["titre"]) && ($params['titre'] !== '')) {
+            $filtre .= ($filtre == "" ? "" : " AND ") . "j.titre LIKE '%" . $params["titre"] . "%'";
+        }
+
+        if (isset($params["categories"])) {
+            $counter = 0;
+            $categories = $modeleCategories->lireToutesCategories();
+            for ($i = 0; $i <= count($categories); $i++) {
+                if (isset($params["categories"][$i])) {
+                    $counter++;
+                    if ($counter == 1) {
+                        $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params["categories"][$i];
+                    }
+                    else {
+                        $filtre .= (" OR ") . "c.categorie_id = " . $params["categories"][$i];
+                    }
+                }
+            }
+            if ($counter > 0) {
+                $filtre .= ")";
+            }
+        }
+
+        if (isset($params["transaction"]) && ($params["transaction"] !== '')) {
+            $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
+        }
+
+        $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
+        $donnees['categories'] = $modeleCategories->lireToutesCategories();
+        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+        
+        $this->afficherVues("rechercher", $donnees);
+
+    }
+
 }

@@ -7,6 +7,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+    <!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styleChat.css" type="text/css" />
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
+        <script type="text/javascript" src="js/scriptChat.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function () {
+            setInterval('chat.update()', 1000);
+        })
+
+        </script>
+    -->
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 
@@ -26,7 +44,17 @@
                     // echo "<li class=\"nav-item\"><a class=\"nav-link\">Messagerie</a></li>";
                 } ?>
 
+
+          
+
+            <li class="nav-item pr-4 item">
+
             </ul>
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"> <a class="nav-link" href="index.php?Messagerie&action=afficherMessagerie">Messagerie</a></li>
+            </ul>
+
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item"> <a class="nav-link" href="index.php?Jeux&action=rechercherJeux">Chercher</a></li>
             </ul>
@@ -44,7 +72,27 @@
                     <a id="btn-login" class="btn navbar-btn text-white btn-secondary">
                         <i class="far fa-user-circle"></i> Se connecter</a>
                 <?php } ?>
+
+            </li>
+
+            <li class="toggle-item">
+                <div class="btn-toggle">
+                    <div class="bar"></div>
+                    <div class="bar-center"></div>
+                    <div class="bar"></div>
+                </div>
+            </li>
+
+        </ul>
+
+
+        <!--div class="collapse navbar-collapse text-center justify-content-end" id="btn-navbar">
+            <ul class="navbar-nav">
+
             </ul>
+
+        </div-->
+
         </div>
     </div>
 </nav>
@@ -96,5 +144,3 @@
 <!--            </form>-->
 
 <!--        </div>-->
-
-
