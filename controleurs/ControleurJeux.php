@@ -108,7 +108,7 @@ class ControleurJeux extends BaseControleur
                         // $jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= ""
                         $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], 1, 1, $params["description"], -1);
                         $id = $modeleJeux->sauvegarderJeux($jeu);
-                        var_dump($jeu, "ID = " . $id);
+                        // var_dump($jeu, "ID = " . $id);
 
                         //Sauvegarder les categories de jeu
                         $modeleCategoriesJeux->effacerCategoriesParJeuxId($id);
