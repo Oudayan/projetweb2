@@ -73,14 +73,15 @@
             <div class="col-md-6 p-0">
                 <div class="carousel slide" data-ride="carousel" data-interval="3000">
                     <div class="carousel-inner" role="listbox">
+
                         <div class="carousel-item active">
-                            <img src="images/01.jpg" alt="premier slide" class="d-block img-fluid w-100">
+                            <img src="<?= $donnees['dernierstrois'][0]->getCheminPhoto() ?>" alt="premier slide" class="d-block img-fluid w-100">
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block img-fluid w-100" alt="image-jeu" src="images/02.jpg" data-holder-rendered="true">
+                            <img src="<?= $donnees['dernierstrois'][1]->getCheminPhoto() ?>" class="d-block img-fluid w-100" alt="image-jeu"  data-holder-rendered="true">
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block img-fluid w-100" alt="image-jeu" src="images/03.jpg" data-holder-rendered="true">
+                            <img src="<?= $donnees['dernierstrois'][2]->getCheminPhoto() ?>" class="d-block img-fluid w-100" alt="image-jeu"  data-holder-rendered="true">
                         </div>
                     </div>
                 </div>
@@ -93,11 +94,15 @@
     <div class="container">
         <h1 class="text-center bg-info mt-2">NOUVEAUTÉS</h1>
         <div class="row">
+
             <?php
+//            echo '<pre>';
+//            var_dump($donnees['dernierstrois'][1]->getCheminPhoto());
+//            echo '</pre>';
 
             $counter = count($donnees['derniers']);
 
-            for ($i = 0; $i <= $counter -1; $i++) {
+            for ($i = 0; $i < $counter; $i++) {
 
 
                 echo    '<div class="col-md-4">';

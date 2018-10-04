@@ -63,8 +63,24 @@ class ControleurJeux extends BaseControleur
                 case "derniers" :
 
                     $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-                    $donnees['images'] = $modeleImages->lireDerniersImages();
+                    foreach($donnees['derniers'] as $derniers ){
+                        if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
+                            $donnees['images'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
+                        }
+                        else {
+                            $donnees['images'][] = new Images(0, $derniers->getJeuxId(), 'images/logo.png');
+                        }
+                    }
+                    $donnees['trois'] = $modeleJeux->lireDerniersTrois();
 
+                    foreach($donnees['trois'] as $derniers ){
+                        if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
+                            $donnees['dernierstrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
+                        }
+                        else {
+                            $donnees['dernierstrois'][] = new Images(0, $derniers->getJeuxId(), 'images/logo.png');
+                        }
+                    }
 
                     $this->afficherVues("accueil", $donnees);
                     
