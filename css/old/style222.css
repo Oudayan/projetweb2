@@ -1,0 +1,27 @@
+/**
+ * @file     style.css
+ * @author   
+ * @version  1.0
+ * @date     
+ * @brief    Styles CSS custom
+ * @details  Feuille de style CSS pour rajouter/modifier des style de Bootstrap
+ */
+
+/*
+@import url('https://fonts.googleapis.com/css?family=Pragati+Narrow|Roboto');
+
+    font-family: 'Pragati Narrow', sans-serif;
+    font-family: 'Roboto', sans-serif;
+*/
+
+body {
+    /*font-family: 'Pragati Narrow', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;*/
+}
+
+h1, h2, h3, h4, h5, h6 {
+    /* font-family: 'Pragati Narrow', sans-serif; */
+}
+
+/* La police a utilicer cest Monserrat et Roboto */

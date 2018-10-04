@@ -20,10 +20,12 @@
         private $location;
         private $jeux_valide;
         private $jeux_actif;
+        private $description;
+        private $evaluation_globale;
 
         // Constructeur
 
-        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true)
+        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= "")
         {
            $this->setJeuxId($jeux_id);
            $this->setPlateformeId($plateforme_id);
@@ -35,6 +37,8 @@
            $this->setLocation($location);
            $this->setJeuxValide($jeux_valide);
            $this->setJeuxActif($jeux_actif);
+           $this->setDescription($description);
+           $this->setEvaluationGlobale($evaluation_globale);
         }
 
         //SETTERS
@@ -106,7 +110,7 @@
          */
         public function setDateAjout($date_ajout){
             if(is_string($date_ajout) && trim($date_ajout) != ""){
-                $this->dateAjout = $date_ajout;
+                $this->date_ajout = $date_ajout;
             }
         }
 
@@ -143,7 +147,7 @@
          */
 
         public function setJeuxValide($jeux_valide){
-            if(is_bool($jeux_valide)){
+            if(is_numeric($jeux_valide)){
                 $this->jeux_valide = $jeux_valide;
             }
         }
@@ -156,10 +160,38 @@
          */
 
         public function setJeuxActif($jeux_actif){
-            if(is_bool($jeux_actif)){
+            if(is_numeric($jeux_actif)){
                 $this->jeux_actif = $jeux_actif;
             }
         }
+
+        /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Jeux
+         * 
+         * @param       [string] $jeux_actif, la description de chaque jeu
+         * @return      [object]
+         */
+
+        public function setDescription($description){
+            if(is_string($description) && trim($description) != ""){
+                $this->description = $description;
+            }
+        }
+
+         /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Jeux
+         * 
+         * @param       [bool] $jeux_actif, l'evaluation globale de chauqe jeu
+         * @return      [object]
+         */
+
+        public function setEvaluationGlobale($evaluation_globale){
+            if(is_numeric($evaluation_globale) && trim($evaluation_globale) != ""){
+                $this->evaluation_globale = $evaluation_globale;
+            }
+        }
+
+
 
         // GETTERS
 
@@ -272,4 +304,29 @@
         public function getJeuxActif(){
             return $this->jeux_actif;
         }
+
+        /**
+         * @brief       Permet de définir en lecture l'attribut de la classe Jeux
+         *
+         * @param       [string] $description, le description d'un jeu
+         * @return      [object]
+         */
+
+        public function getDescription(){
+            return $this->description;
+        }
+
+        /**
+         * @brief       Permet de définir en lecture l'attribut de la classe Jeux
+         *
+         * @param       [string] $evaluation_globale, l'evaluation globale d'un jeu
+         * @return      [object]
+         */
+
+        public function getEvaluationGlobale(){
+            return $this->evaluation_globale;
+        }
+
+
+
     }

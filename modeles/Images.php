@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    Images.php
- * @author  Chunliang He, Guilherme Tosin, Jansy López, Marcelo Guzmán
+ * @author  Guilherme Tosin, Marcelo Guzmán
  * @version 1.0
  * @date    Septembre 2018
  * @brief   Définit la classe Jeux
@@ -18,13 +18,27 @@
 
         public function __construct($photo_jeux_id = 0, $jeux_id = 0, $chemin_photo = "")
         {
-           $this->setJeuxId($jeux_id);
-           $this->setPhotoJeuxId($photo_jeux_id);
-           $this->setCheminPhoto($chemin_photo);
+            $this->setPhotoJeuxId($photo_jeux_id);
+            $this->setJeuxId($jeux_id);
+            $this->setCheminPhoto($chemin_photo);
 
         }
 
         //SETTERS
+
+        /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Jeux
+         *
+         * @param       [numeric] $plateforme_id , l'id du type de plateforme
+         * @return      [object]
+         */
+        public function setPhotoJeuxId($photo_jeux_id)
+        {
+            if (is_numeric($photo_jeux_id) && trim($photo_jeux_id) != ""){
+                $this->photo_jeux_id = $photo_jeux_id;
+            }
+        }
+
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Jeux
          *
@@ -34,18 +48,6 @@
         public function setJeuxId($jeux_id){
             if (is_numeric($jeux_id) && trim($jeux_id) != ""){
                 $this->jeux_id = $jeux_id;
-            }
-        }
-
-        /**
-         * @brief       Permet de définir en écriture l'attribut de la classe Jeux
-         *
-         * @param       [numeric] $plateforme_id , l'id du type de plateforme
-         * @return      [object]
-         */
-        public function setPhotoJeuxId($photo_jeux_id){
-            if (is_numeric($photo_jeux_id) && trim($photo_jeux_id) != ""){
-                $this->photo_jeux_id = $photo_jeux_id;
             }
         }
 
