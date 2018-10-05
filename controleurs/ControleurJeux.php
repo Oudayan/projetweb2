@@ -142,9 +142,9 @@ class ControleurJeux extends BaseControleur
                             {
                                 if ($cheminImage != "") {
                                     $image = new Images(0, $jeux_id, str_replace('/tmp' . $_SESSION['id'] . '/', '/' . $jeux_id . '/', $cheminImage));
-                                    echo "<pre>";
-                                    var_dump($image);
-                                    echo "</pre>";
+                                    // echo "<pre>";
+                                    // var_dump($image);
+                                    // echo "</pre>";
                                     $modeleImages->sauvegarderImage($image);
                                 }
                             }
