@@ -113,14 +113,7 @@
                         <br /><br />
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
-                    <!-- Mensagerie -->
-                                <div class="contacter-annoceur mx-auto">
-                                    <a href="http://localhost/projetweb2/index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
-                    </form>
-                <!-- fin de formulario -->
-
-                </div>
-                    </div>
+                    <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
                         4 avis
                         <i class="fa fa-star"></i>
@@ -131,12 +124,21 @@
                         (4/5)
                         <a class="pull-right" href="#avis">Voir les avis</a>
                     </div>
-                    <a class="btn btn-success btn-lg btn-block text-uppercase text-white">
-                        <i class="fa fa-shopping-cart"></i> Ajouter au panier
-                    </a>
+                    <?php if($_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
+                        <!-- Mensagerie -->
+                        <div class="contacter-annoceur mx-auto">
+                            <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
+                        </div>
+                        <a class="btn btn-success btn-lg btn-block text-uppercase text-white">
+                            <i class="fa fa-shopping-cart"></i> Ajouter au panier
+                        </a>
+                    <?php } else{ ?>
+                        <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeu"]->getJeuxId() ?>" class="btn btn-primary btn-lg btn-block text-uppercase text-white">Modifier ce jeu</a>
+                    <?php } ?>
                 </div>
-            </div>
+            </div>          
         </div>
+    </div>
     </div>
     <div class="row">
         <!-- Description -->
@@ -169,7 +171,7 @@
                                 <br><span class="score"><span style="width: <?= ($donnees["commentaires"][$i]->getEvaluation() / 5) * 100 ?>%"></span></span>
                             </div>
                             <hr>
-                            <?php } ?>                    
+                        <?php } ?>                    
                     </div>
                 </div>
             </div>

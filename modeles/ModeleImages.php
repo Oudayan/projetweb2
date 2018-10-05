@@ -56,21 +56,28 @@
         {
             //$photo_jeux_id = 0, $jeux_id = 0, $chemin_photo = ""
             $donnees = array(
+                $image->getJeuxId(),
                 $image->getCheminPhoto(),
-                $image->getJeuxId()
+                $image->getPhotoJeuxId()
             );
             if ($image->getPhotoJeuxId() && $this->lire($image->getPhotoJeuxId())->fetch())
             {
-                $sql = "UPDATE " . $this->lireNomTable() . "SET chemin_photo=? WHERE photo_jeux_id=?"; 
+                $sql = "UPDATE " . $this->lireNomTable() . "SET jeux_id=?, chemin_photo=? WHERE photo_jeux_id=?"; 
             }
             else 
             {
                 $id = array_pop($donnees);
-                $sql = "INSERT INTO " . $this->lireNomTable() . "(chemin_photo) VALUES (?)";
+                $sql = "INSERT INTO " . $this->lireNomTable() . "(jeux_id, chemin_photo) VALUES (?, ?)";
             }
 
             $this->requete($sql, $donnees);
             return $image->getPhotoJeuxId() > 0 ? $image->getPhotoJeuxId() : $this->bd->lastInsertId();
+        }
+
+        public function effacerImagesParJeuxId($id) {
+            $resultat = $this->effacer($id, "jeux_id");
+            // $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
+            // return $resultat->fetch();
         }
         
     }

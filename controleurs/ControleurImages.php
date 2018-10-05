@@ -42,12 +42,10 @@ class ControleurImages extends BaseControleur
                     break;
             
                 case "sauvegardeFichiersImages" :
-                    // if(isset($params['jeux_id']))
-                    // {
-                    //     $jeux_id = $params["jeux_id"];
-                        // var_dump($params["jeux_id"]);
-                        // $dir = '../images/Jeux/1';
-                        $dir = 'images/Jeux/test';
+                    if(isset( $_SESSION['id']))
+                    {
+                        // var_dump($params);
+                        $dir = 'images/Jeux/tmp' . $_SESSION['id'];
                         if (!is_dir($dir))
                                 mkdir ($dir,0777); 
                         $chemin = $dir . '/';
@@ -59,24 +57,23 @@ class ControleurImages extends BaseControleur
                                 $name = $_FILES["files"]["name"][$key];
                                 move_uploaded_file( $_FILES["files"]["tmp_name"][$key], $chemin . $_FILES['files']['name'][$key]);
                                 $cheminImage[] = $chemin . $_FILES['files']['name'][$key];
+                                echo "<img src='" . $cheminImage[$key] . "' class='img-fluid'>";
+                                echo "<input type='text'  id='inputImage" . $params["Id"] . "' name='cheminsImages[]' value='" . $cheminImage[$key] . "' hidden />";
                             }
                         }
-                        // echo "<input type='file' name='image' value='" . $chemin . "/>";
-                        echo "<input type='text' name='path' value='" . $cheminImage[0] . "' hidden>"; 
-                        echo "<img src='" . $cheminImage[0] . "' class='img-fluid'/>";
-                        //var_dump($cheminImage);
+                        
                         
                         /* var_dump($_FILES["files"]["name"]);
                         var_dump($_FILES["files"]["type"]);
                         var_dump($_FILES["files"]["tmp_name"]);
                         var_dump($_FILES["files"]["error"]);
                         var_dump($_FILES["files"]["size"]); */ 
-                    //}
+                    }
                         
                 
                 break;
                 case "deleteFichierImage" :
-                
+                    var_dump($params);
                     $fichier = $_POST['files'][0];
                     $solo = strstr($fichier,"/images/");
                     $solo1 = ".." . $solo ;

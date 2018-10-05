@@ -21,9 +21,17 @@ abstract class BaseDAO {
      * @param      [string]  $clePrimaire     ID de la clé primaire
      * @return     [object]
      */
-    protected function effacer($clePrimaire) {
-        $sql = "DELETE FROM " . $this->lireNomTable() . " WHERE " . $this->lireClePrimaire() . "=?";
-        $donnees = array($clePrimaire);
+    protected function effacer($valeur, $clePrimaire = NULL) {
+        if (!isset($clePrimaire)) 
+        {
+            $sql = "DELETE FROM " . $this->lireNomTable() . " WHERE " . $this->lireClePrimaire() . "=?";
+        }
+        else
+        {
+            $sql = "DELETE FROM " . $this->lireNomTable() . " WHERE " . $clePrimaire . "=?";
+        }
+        $donnees = array($valeur);
+        // var_dump($this->requete($sql, $donnees));
         return $this->requete($sql, $donnees);
     }
 
