@@ -75,17 +75,17 @@
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
                             <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['trois'][0]->getJeuxId();?>">
-                            <img src="<?= $donnees['dernierstrois'][0]->getCheminPhoto() ?>" alt="premier slide" class="d-block img-fluid w-100">
+                            <img src="<?= $donnees['imagesTrois'][0]->getCheminPhoto() ?>" alt="premier slide" class="d-block img-fluid w-100">
                             </a>
                         </div>
                         <div class="carousel-item">
                             <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['trois'][1]->getJeuxId();?>">
-                            <img src="<?= $donnees['dernierstrois'][1]->getCheminPhoto() ?>" class="d-block img-fluid w-100" alt="image-jeu"  data-holder-rendered="true">
+                            <img src="<?= $donnees['imagesTrois'][1]->getCheminPhoto() ?>" class="d-block img-fluid w-100" alt="image-jeu"  data-holder-rendered="true">
                             </a>
                         </div>
                         <div class="carousel-item">
                             <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['trois'][2]->getJeuxId();?>">
-                            <img src="<?= $donnees['dernierstrois'][2]->getCheminPhoto() ?>" class="d-block img-fluid w-100" alt="image-jeu"  data-holder-rendered="true">
+                            <img src="<?= $donnees['imagesTrois'][2]->getCheminPhoto() ?>" class="d-block img-fluid w-100" alt="image-jeu"  data-holder-rendered="true">
                             </a>
                         </div>
                     </div>
@@ -101,9 +101,9 @@
         <div class="row">
 
     <?php
-            echo '<pre>';
-            var_dump($donnees['dernierstrois'][1]->getCheminPhoto());
-            echo '</pre>';
+            // echo '<pre>';
+            // var_dump($donnees['dernierstrois'][1]->getCheminPhoto());
+            // echo '</pre>';
 
             $counter = count($donnees['derniers']);
 
@@ -116,28 +116,28 @@
                 echo            '<div class="card-body">';
                 echo                '<h5 class="card-text">' . $donnees['derniers'][$i]->getTitre() . '</h5>';
 
-                if ($donnees["plat"][$i]->getPlateforme() == "Windows" ) {
+                if ($donnees["derniers"][$i]->getPlateformeId() == 4 ) {
                     echo '<p title="Windows" class="fab fa-windows"></p> Windows';
                 }
-                else if ($donnees["plat"][$i]->getPlateforme() == "Xbox One" ) {
+                else if ($donnees["derniers"][$i]->getPlateformeId() == 2 ) {
                     echo '<p title="Xbox One" class="fab fa-xbox"></p> Xbox One';
                 }
-                else if ($donnees["plat"][$i]->getPlateforme() == "Xbox 360" ) {
+                else if ($donnees["derniers"][$i]->getPlateformeId() == 6 ) {
                     echo '<p title="Xbox 360" class="fab fa-xbox"></p> Xbox 360';
                 }
-                else if ($donnees["plat"][$i]->getPlateforme() == "Playstation 4" ) {
+                else if ($donnees["derniers"][$i]->getPlateformeId() == 1 ) {
                     echo '<p title="Playstation 4" class="fab fa-playstation"></p> Playstation 4';
                 }
-                else if ($donnees["plat"][$i]->getPlateforme() == "Playstation Vita" ) {
+                else if ($donnees["derniers"][$i]->getPlateformeId() == 8 ) {
                     echo '<p title="Playstation Vita" class="fab fa-playstation"></p> Playstation Vita';
                 }
-                else if ($donnees["plat"][$i]->getPlateforme() == "Playstation 3" ) {
+                else if ($donnees["derniers"][$i]->getPlateformeId() == 5 ) {
                     echo '<p title="Playstation 3" class="fab fa-playstation"></p> Playstation 3';
                 }
-                else if ($donnees["plat"][$i]->getPlateforme() == "Nintendo Wii U" ) {
+                else if ($donnees["derniers"][$i]->getPlateformeId() == 3 ) {
                     echo '<p title="Nintendo Wii U" class="fab fa-nintendo-switch"></p> Nintendo Wii U';
                 }
-                else if ($donnees["plat"][$i]->getPlateforme() == "Nintendo Switch" ) {
+                else if ($donnees["derniers"][$i]->getPlateformeId() == 7 ) {
                     echo '<p title="Nintendo Switch" class="fab fa-nintendo-switch"></p> Nintendo Switch';
                 }
 
