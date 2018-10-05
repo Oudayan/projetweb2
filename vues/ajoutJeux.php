@@ -180,7 +180,7 @@ if(isset($_SESSION['id']))
                             <?php
                                 if(isset($donnees['images'][2])) {
                                     echo "<input type='text' id='inputImage3'name='cheminsImages[]' value='" .  $donnees['images'][2]->getCheminPhoto() . "' hidden />";
-                                    echo "<img src='" . $donnees['images'][2]->getCheminPhoto() . "' class='img-thumbnail'>";
+                                    echo "<img src='" . $donnees['images'][2]->getCheminPhoto() . "' class='img-thumbnail '>";
                                 }
                                 else {
                                     echo "<input type='text' id='inputImage3' name='cheminsImages[]' hidden />";
