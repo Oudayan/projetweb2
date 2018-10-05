@@ -54,45 +54,11 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "afficherJeux" :
-                    if(isset($params["JeuxId"]))
-                    {
-                        $this->afficherVues("accueil", $donnees);
-                    }
+                    $this->afficherAccueil();
                     break;
 
                 case "derniers" :
-
-                    $donnees['plat'] = $modelePlateformes->lireToutesPlateformes();
-
-                    // Affiche les images des NOUVEUTÉS de l'accueil
-                    // Recupère la première image des neufs derniers jeux ajoutés
-
-                    $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-                    foreach($donnees['derniers'] as $derniers ){
-                        if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
-                            $donnees['images'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
-                        }
-                        else {
-                            $donnees['images'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
-                        }
-                    }
-
-                    // Affiche les images du caroussel de l'accueil
-                    // Recupère la première image des trois derniers jeux ajoutés
-
-                    $donnees['trois'] = $modeleJeux->lireDerniersTrois();
-
-                    foreach($donnees['trois'] as $derniers ){
-                        if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
-                            $donnees['dernierstrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
-                        }
-                        else {
-                            $donnees['dernierstrois'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
-                        }
-                    }
-
-                    $this->afficherVues("accueil", $donnees);
-                    
+                    $this->afficherAccueil();
                     break;
                 
                 case "formAjoutJeux":
@@ -206,15 +172,13 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 default :
-                    $this->afficherVues("accueil", $donnees);
+                    $this->afficherAccueil();
                     break;
             }
         }
         else
         {
-            $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-            $donnees['images'] = $modeleImages->lireDerniersImages();
-            $this->afficherVues("accueil", $donnees);
+            $this->afficherAccueil();
         }
 
     }
@@ -270,5 +234,36 @@ class ControleurJeux extends BaseControleur
         $this->afficherVues("rechercher", $donnees);
 
     }
+
+    public function afficherAccueil(){
+
+        $modeleJeux = $this->lireDAO("Jeux");
+        $modeleImages = $this->lireDAO("Images");
+
+        $donnees['trois'] = $modeleJeux->lireDerniersTrois();
+        foreach($donnees['trois'] as $derniers ){
+            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
+                $donnees['imagesTrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
+            }
+            else {
+                $donnees['imagesTrois'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
+            }
+        }
+
+        $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+        foreach($donnees['derniers'] as $derniers ){
+            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
+                $donnees['images'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
+            }
+            else {
+                $donnees['images'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
+            }
+        }
+   
+        $this->afficherVues("accueil", $donnees);
+
+    }
+
+
 
 }
