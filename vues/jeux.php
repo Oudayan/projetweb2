@@ -5,7 +5,7 @@
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
 <!-- * @details   Cette vue permettre voir les détails de chaque jeux-->
-
+<input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : ""?>"/>
 <div class="container pt-3">
     <div class="row">
         <!-- Image principale du jeu -->
@@ -63,7 +63,6 @@
                 <div class="card-body">
                     <p class="jeu-titre"><?=($donnees["jeu"]->getTitre())?></p>
                     <hr>
-                    <form>
                         <p>Négotiation : <?=($donnees["jeu"]->getLocation() == 1 ? "Location" : "À vendre") ?></p>
                         <a>Plateforme(s) :</a>
                         <?php
@@ -97,7 +96,7 @@
                         <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
                         <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
                         <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
-
+                        <input type="hidden" id="destinataire_id" value="<?=($donnees["membre"]->getMembreId())?>" />
                         <a>Catégories :</a>
                         <?php
                             for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
@@ -114,6 +113,74 @@
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
                     <!-- fin de formulario -->
+                    <!-- Mensagerie -->
+                    <button id="button-contacter-annoceur">Contacter annoceur <i class="fas fa-envelope"></i></button>
+                    <div id="fcontacto" class="contacter-annoceur mx-auto hidden">
+                        <div class="contacter-annoceur mx-auto">
+                            <div>
+                                <p>
+                                    <input name="sujet" id="sujet" type="text" size="22" tabindex="1" placeholder="Subjet... (*)" />
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <textarea name="message" id="message" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea>
+                                </p>
+                            </div>
+                            <p>
+                            <div class="alert alert-danger hidden" role="alert">
+                                (*) Champs requis
+                            </div>
+                                <button id="envoyer-contacter">Envoyer Message <i class="fa fa-paper-plane"></i></button>
+                            </p>
+
+                        </div>
+                    </div>
+                    <script>
+                        $( "#button-contacter-annoceur" ).click(function() {
+                            if($("#membre_id").val() != ""){
+                               $( "#fcontacto" ).show();   
+                            }else{
+                                bootoast.toast({
+                                    message: 'seuls les membres inscrits peuvent contacter un autre membre!',
+                                    type: 'warning',
+                                    position: 'top-center'
+
+                                    });
+                            }
+                             
+                        });
+                        $( "#envoyer-contacter" ).click(function() {
+                            if($("#sujet").val() == "" || $("#message").val() == ""){
+                                $( ".alert" ).show(); 
+                                $(".alert").alert();
+                            }else{
+                                $( ".alert" ).hide(); 
+                                request = $.ajax({
+                                url: "index.php?messagerie&action=formAjoutMessage",
+                                type: "post",
+                                data: { 
+                                    membre_id : $("#membre_id").val(),
+                                    destinataire_id : $("#destinataire_id").val(),
+                                    sujet : $("#sujet").val(),
+                                    message : $("#message").val()
+                                }
+                            });
+                              request.done(function (response, textStatus, jqXHR){
+                                  bootoast.toast({
+                                    message: 'message envoyé correctement!',
+                                    type: 'success',
+                                    position: 'top-center'
+
+                                    });
+
+                                 $( "#fcontacto" ).hide(); 
+                            });
+                            }
+                        });
+                    </script>
+                <!-- fin de formulario -->
+
                     <div class="avis-etoiles p-3 mb-2 ">
                         4 avis
                         <i class="fa fa-star"></i>
@@ -138,7 +205,6 @@
                 </div>
             </div>          
         </div>
-    </div>
     </div>
     <div class="row">
         <!-- Description -->

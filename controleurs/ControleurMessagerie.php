@@ -19,6 +19,10 @@ class ControleurMessagerie extends BaseControleur
     public function index(array $params)
     {
         $modeleMessagerie = $this->lireDAO("Messagerie");
+<<<<<<< HEAD
+        $modeleDestinataire = $this->lireDAO("Destinataire");
+=======
+>>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
         $modeleJeux = $this->lireDAO("Membres");
 
         $donnees["erreur"] = "";
@@ -53,6 +57,17 @@ class ControleurMessagerie extends BaseControleur
                 break;
 
                 case "formAjoutMessage" :
+<<<<<<< HEAD
+                  if (isset($_POST['membre_id']) && isset($_POST['destinataire_id']) && isset($_POST['sujet']) && isset($_POST['message']))
+                  {
+                      (string)$date = date("Y-m-d");
+                      // $jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= ""
+                      $message = new Messagerie(null, $_POST['membre_id'], $_POST['sujet'],  $_POST['message'] , $date, true);
+                      $msg_id = $modeleMessagerie->sauvegarde($message);
+                      $destinataire = new Destinataire($_POST['destinataire_id'], $msg_id);
+                      $modeleDestinataire->sauvegarde($destinataire);
+                      echo "success";
+=======
                 //  var_dump($_POST);
                 $donnees['messages'] = $modeleMessagerie->obtenirTousParMembre_Id($_SESSION["id"]);
                   // if (isset($params['msg_id']) && isset($params['sujet']) && isset($params['message']))
@@ -65,13 +80,18 @@ class ControleurMessagerie extends BaseControleur
                       //var_dump($message, "ID = " . $id);
 
                       $this->afficherVues("messagerie", $donnees);
+>>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
                   }
 
                   else
                   {
+<<<<<<< HEAD
+                      echo 'Remplissez tous les champs...';
+=======
                       $_SESSION['msg'] ="Remplissez tous les champs...";
                       // $this->afficherVues("maPage", $donnees);
                       var_dump($_SESSION['msg']);
+>>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
                   }
 
                   // $donnees['jeux'] = $$modeleJeux->sauvegarderJeux();

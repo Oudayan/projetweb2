@@ -84,6 +84,9 @@ abstract class BaseDAO {
         try {
             $stmt = $this->bd->prepare($sql);
             $stmt->execute($donnees);
+            if(strpos($sql, 'INSERT') !== false){
+                return $this->bd->lastInsertId();
+            }
         } catch (PDOException $e) {
             trigger_error("<p>La requête suivante a donné une erreur : $sql</p><p>Exception : " . $e->getMessage() . "</p>");
         }

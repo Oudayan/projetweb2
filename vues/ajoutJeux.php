@@ -129,7 +129,7 @@ if(isset($_SESSION['id']))
                 <?php //var_dump($donnees['images']); ?>
                 </pre> -->
                 <div id="groupeImages"class="form-group row">
-                    <div class="col-sm-3">
+                    <div id="imageBox1" class="col-md-3">
                         <label class="text-center">Image 1</label><br>
                         <div id="image1">
                             <?php
@@ -147,7 +147,7 @@ if(isset($_SESSION['id']))
                             <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(1)">Effacer</button>
                         </div>
                     </div> 
-                    <div class="col-sm-3 <?= isset($donnees['images'][0]) ? '' : 'invisible' ?>">
+                    <div id="imageBox2" class="col-md-3 <?= isset($donnees['images'][0]) ? '' : 'invisible' ?>">
                         <label class="text-center">Image 2</label><br>
                         <div id="image2">
                             <?php
@@ -165,7 +165,7 @@ if(isset($_SESSION['id']))
                             <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(2)">Effacer</button>
                         </div>
                     </div>
-                    <div class="col-sm-3 <?= isset($donnees['images'][1]) ? '' : 'invisible' ?>">
+                    <div id="imageBox3" class="col-md-3 <?= isset($donnees['images'][1]) ? '' : 'invisible' ?>">
                         <label class="text-center">Image 3</label><br>
                         <div id="image3">
                             <?php
@@ -183,7 +183,7 @@ if(isset($_SESSION['id']))
                             <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(3)">Effacer</button>
                         </div>
                     </div>
-                    <div class="col-sm-3 <?= isset($donnees['images'][2]) ? '' : 'invisible' ?>">
+                    <div id="imageBox4" class="col-md-3 <?= isset($donnees['images'][2]) ? '' : 'invisible' ?>">
                         <label class="text-center">Image 4</label><br>
                         <div id="image4">
                             <?php
@@ -218,79 +218,79 @@ else{
 }
 ?>
 <script>
-   function upload(input, id){
-    // console.log(input.files[0].name);
-    // console.log(input.id[0]);
-    // for(i=0;i<20;i++){
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        /* reader.onload = function (e) {
-        	$('#photo'+input.id)
-        		.attr('src', e.target.result);
-        }; */
-        formData = new FormData();
-        formData.append('files[]', input.files[0]);  
-        $.ajax({
-            url: "index.php?Images&action=sauvegardeFichiersImages&Id=" + id ,
-            method: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            // async: false,
-            dataType:"html",
-            success: function(data) {
-                $('#image' + id).html(data);
-                $('#image' + (id + 1)).removeClass("invisible");
+    function upload(input, id){
+        // console.log(input.files[0].name);
+        // console.log(input.id[0]);
+        // for(i=0;i<20;i++){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            /* reader.onload = function (e) {
+                $('#photo'+input.id)
+                    .attr('src', e.target.result);
+            }; */
+            formData = new FormData();
+            formData.append('files[]', input.files[0]);  
+            $.ajax({
+                url: "index.php?Images&action=sauvegardeFichiersImages&Id=" + id ,
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                // async: false,
+                dataType:"html",
+                success: function(data) {
+                    $('#image' + id).html(data);
+                    $('#imageBox' + (id + 1)).removeClass("invisible");
+                }
+            });
+
+        };
+
+    }; 
+
+    function deleteImage(id){
+        var cheminImage = $('#inputImage' + id).val();
+        console.log(cheminImage);
+        if (cheminImage) {
+
+            $.ajax({
+                url: "index.php?Images&action=deleteFichierImage&Id=" + id ,
+                method: "POST",
+                data: {
+                    idd: id,
+                    path: cheminImage
+                },
+                dataType:"html",
+                success: function(data) {
+                    $('#image' + id).html(data);
+                    $('#image' + (id + 1)).removeClass("invisible");
+                }
+            });
+
+        };
+
+    }; 
+
+
+    var updateDelete = function() {
+        var cheminsImages = $("[id^=inputImage]");
+        var boutonsEffacer = $('.btn-outline-danger'); 
+        for(var i = 0; i < cheminsImages.length; i++){
+            //console.log(cheminsImages[i].value);
+            if(cheminsImages[i].value != ""){
+                $(boutonsEffacer[i]).removeClass("invisible")
+                //console.log(boutonsEffacer[i]);
             }
-        });
-
-    };
-
-}; 
-
-function deleteImage(id){
-    var cheminImage = $('#inputImage' + id).val();
-    console.log(cheminImage);
-    if (cheminImage) {
-
-        $.ajax({
-            url: "index.php?Images&action=deleteFichierImage&Id=" + id ,
-            method: "POST",
-            data: {
-                idd: id,
-                path: cheminImage
-            },
-            dataType:"html",
-            success: function(data) {
-                $('#image' + id).html(data);
-                $('#image' + (id + 1)).removeClass("invisible");
-            }
-        });
-
-    };
-
-}; 
-
-
-var updateDelete = function() {
-    var cheminsImages = $("[id^=inputImage]");
-    var boutonsEffacer = $('.btn-outline-danger'); 
-    for(var i = 0; i < cheminsImages.length; i++){
-        //console.log(cheminsImages[i].value);
-        if(cheminsImages[i].value != ""){
-            $(boutonsEffacer[i]).removeClass("invisible")
-            //console.log(boutonsEffacer[i]);
         }
-    }
-};
+    };
 
-$('#groupeImages').ready(function(){
-    updateDelete();
-});
+    $('#groupeImages').ready(function(){
+        updateDelete();
+    });
 
-$('#groupeImages').mouseover(function(){
-    updateDelete();
-});
-//console.log($("[id^=inputImage]"));
+    $('#groupeImages').mouseover(function(){
+        updateDelete();
+    });
+    //console.log($("[id^=inputImage]"));
   
 </script>
