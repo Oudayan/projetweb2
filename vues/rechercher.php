@@ -19,9 +19,9 @@
                     </div>
                     <div class="col-md-3">
                         <select name="transaction" id="transaction" class="form-control mx-sm-3" style="width: 100%">
-                            <option value='' selected>Je cherche un jeux à ...</option>
-                            <option value="0">Vendre</option>
-                            <option value="1">Louer</option>
+                            <option value='-1' selected>Je cherche un jeux à ...</option>
+                            <option value="0" <?php if ($_SESSION["rechercher"]["transaction"] == '0') echo 'selected'; ?>>Vendre</option>
+                            <option value="1" <?php if ($_SESSION["rechercher"]["transaction"] == '1') echo 'selected'; ?>>Louer</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -31,22 +31,21 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <input name="titre" id="titre" type="text" class="form-control" placeholder="Chercher par mot-clé" style="width: 100%">
+                        <input name="titre" id="titre" type="text" class="form-control" placeholder="Chercher par mot-clé" style="width: 100%" value="<?= isset($_SESSION["rechercher"]['titre']) ? $_SESSION["rechercher"]['titre'] : '' ?>">
                     </div>
 
                     <div class="d-flex flex-wrap justify-content-between ml-3 my-3">
                         <?php
                             $counter = count($donnees['categories']);
 
-                            for ($i = 0; $i <= $counter -1; $i++) {
-                                echo '<div class="col-lg-3">';
-                                echo '<input  type="checkbox" value="' . $donnees['categories'][$i]->getCategorieId() . '" name=categories[' . $donnees['categories'][$i]->getCategorieId() . ']> ' . $donnees['categories'][$i]->getCategorie();
-//                                echo '<label>'. $donnees['categories'][$i]->getCategorie() .'</label>';
-                                echo '</div>';
-                            }
-                        ?>
+                            for ($i = 0; $i < $counter; $i++) { ?>
+                                <div class="col-lg-3">
+                                <input  type="checkbox" value="'<?= $donnees['categories'][$i]->getCategorieId() ?>'" name=categories<?= $donnees['categories'][$i]->getCategorieId() - 1 ?> <?= isset($_SESSION["rechercher"]['categories' . $i]) ? $_SESSION["rechercher"]['categories' . $i] : '' ?>> <?= $donnees['categories'][$i]->getCategorie() ?>
+                                </div>
+                            <?php } ?>
                     </div>
                     <button type="submit" class="btn btn-success ml-4">Chercher</button>
+                    <a href="index.php?Jeux&action=resetRecherche" class="btn btn-warning ml-4">Reset recherche</a>
             </form>
         </div>
     </div>

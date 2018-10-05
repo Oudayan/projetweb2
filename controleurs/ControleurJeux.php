@@ -171,6 +171,11 @@ class ControleurJeux extends BaseControleur
                     $this->filtrerJeux($params);
                     break;
 
+                case "resetRecherche":
+                    unset($_SESSION['recherche']);
+                    $this->filtrerJeux($params);
+                    break;
+
                 default :
                     $this->afficherAccueil();
                     break;
@@ -197,35 +202,55 @@ class ControleurJeux extends BaseControleur
         $filtre = "jeux_actif = true AND jeux_valide = true";
 
         if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
+            $_SESSION["rechercher"]["plateforme"] = $params["plateforme"];
+
             $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = " . $params["plateforme"];
         }
 
         if (isset($params["titre"]) && ($params['titre'] !== '')) {
+            $_SESSION["rechercher"]["titre"] = $params["titre"];
+
             $filtre .= ($filtre == "" ? "" : " AND ") . "j.titre LIKE '%" . $params["titre"] . "%'";
         }
+        else {
+            $_SESSION["rechercher"]["titre"] = '';
+        }
 
-        if (isset($params["categories"])) {
-            $counter = 0;
-            $categories = $modeleCategories->lireToutesCategories();
-            for ($i = 0; $i <= count($categories); $i++) {
-                if (isset($params["categories"][$i])) {
-                    $counter++;
-                    if ($counter == 1) {
-                        $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params["categories"][$i];
-                    }
-                    else {
-                        $filtre .= (" OR ") . "c.categorie_id = " . $params["categories"][$i];
-                    }
+        $counter = 0;
+        $categories = $modeleCategories->lireToutesCategories();
+        for ($i = 0; $i <= count($categories); $i++) {
+            $cat = "categories" . $i;
+            if (isset($params[$cat])) {
+//                    var_dump($cat);
+                $_SESSION["rechercher"][$cat] = "checked";
+
+                $counter++;
+                if ($counter == 1) {
+                    $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params[$cat];
+                }
+                else {
+                    $filtre .= (" OR ") . "c.categorie_id = " . $params[$cat];
                 }
             }
-            if ($counter > 0) {
-                $filtre .= ")";
+            else {
+                $_SESSION["rechercher"][$cat] = "";
             }
         }
+        if ($counter > 0) {
+            $filtre .= ")";
+        }
+
 
         if (isset($params["transaction"]) && ($params["transaction"] !== '')) {
+            $_SESSION["rechercher"]["transaction"] = $params["transaction"];
+
             $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
         }
+        else {
+            $_SESSION["rechercher"]["transaction"] = '-1';
+        }
+
+
 
         $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
