@@ -111,6 +111,7 @@ class ControleurJeux extends BaseControleur
                         $donnees['categories'] = $modeleCategories->lireToutesCategories();
                         $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
                         $donnees['jeu'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
+                        $donnees['images'] = $modeleImages->lireImagesParJeuxId($params["JeuxId"]);
                     }
                     else
                     {
@@ -130,16 +131,57 @@ class ControleurJeux extends BaseControleur
                         (string)$date = date("Y-m-d H:i");  
                         // $jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= ""
                         $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], 1, 1, $params["description"], -1);
-                        $id = $modeleJeux->sauvegarderJeux($jeu);
-                        var_dump($jeu, "ID = " . $id);
+                        $jeux_id = $modeleJeux->sauvegarderJeux($jeu);
+                        if(isset($params['cheminsImages']))
+                        {
+                            $tmpDir = 'images/Jeux/tmp' . $_SESSION['id'];
+                            $newDir = 'images/Jeux/' . $jeux_id;
+                            if(is_dir($tmpDir))
+                            {
+                                if(is_dir($newDir))
+                                {
+                                    $files = scandir($tmpDir);
+                                    $tmpDir .= "/";
+                                    $newDir .= "/";
+                                    foreach ($files as $file) {
+                                        if (in_array($file, array(".",".."))) continue;
+                                        // If we copied this successfully, mark it for deletion
+                                        if (copy($tmpDir.$file, $newDir.$file)) {
+                                            $delete[] = $tmpDir.$file;
+                                        }
+                                    }
+                                    // Delete all successfully-copied files
+                                    foreach ($delete as $file) {
+                                        unlink($file);
+                                    }
+                                    rmdir($tmpDir);
+                                }
+                                else {
+                                    rename($tmpDir, $newDir);
+                                }
+                            }
+                            $modeleImages->effacerImagesParJeuxId($jeux_id);
+                            foreach($params['cheminsImages'] as $cheminImage)
+                            {
+                                if ($cheminImage != "") {
+                                    $image = new Images(0, $jeux_id, str_replace('/tmp' . $_SESSION['id'] . '/', '/' . $jeux_id . '/', $cheminImage));
+                                    // echo "<pre>";
+                                    // var_dump($image);
+                                    // echo "</pre>";
+                                    $modeleImages->sauvegarderImage($image);
+                                }
+                            }
+                        }
 
-                        // Sauvegarder les categories de jeu
-                        $modeleCategoriesJeux->effacerCategoriesParJeuxId($id);
+                        // var_dump($jeu, "ID = " . $id);
+
+                        //Sauvegarder les categories de jeu
+                        $modeleCategoriesJeux->effacerCategoriesParJeuxId($jeux_id);
                         for($i=0; $i < count($params['categorie']); $i++)
                         {
                             // $jeux_id = 0,$categorie_id = 0, $categorie = ""
-                            $cat = new CategoriesJeux($id, $params['categorie'][$i], "test");
-                            // var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
+                            $cat = new CategoriesJeux($jeux_id, $params['categorie'][$i], "test");
+                            //var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
                             $modeleCategoriesJeux->sauvegarderCategoriesJeu($cat);
                         }
 

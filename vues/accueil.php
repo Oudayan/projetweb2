@@ -101,9 +101,9 @@
         <div class="row">
 
     <?php
-//            echo '<pre>';
-//            var_dump($donnees['plat']);
-//            echo '</pre>';
+            echo '<pre>';
+            var_dump($donnees['dernierstrois'][1]->getCheminPhoto());
+            echo '</pre>';
 
             $counter = count($donnees['derniers']);
 
