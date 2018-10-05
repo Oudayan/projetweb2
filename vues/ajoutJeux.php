@@ -129,7 +129,7 @@ if(isset($_SESSION['id']))
                 <?php //var_dump($donnees['images']); ?>
                 </pre> -->
                 <div id="groupeImages"class="form-group row">
-                    <div id="imageBox1" class="col-md-3">
+                    <div id="imageBox1" class="col-md-6 col-xl-3">
                         <label class="text-center">Image 1</label><br>
                         <div id="image1">
                             <?php
@@ -147,7 +147,7 @@ if(isset($_SESSION['id']))
                             <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(1)">Effacer</button>
                         </div>
                     </div> 
-                    <div id="imageBox2" class="col-md-3 <?= isset($donnees['images'][0]) ? '' : 'invisible' ?>">
+                    <div id="imageBox2" class="col-md-6 col-xl-3 <?= isset($donnees['images'][0]) ? '' : 'invisible' ?>">
                         <label class="text-center">Image 2</label><br>
                         <div id="image2">
                             <?php
@@ -165,7 +165,7 @@ if(isset($_SESSION['id']))
                             <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(2)">Effacer</button>
                         </div>
                     </div>
-                    <div id="imageBox3" class="col-md-3 <?= isset($donnees['images'][1]) ? '' : 'invisible' ?>">
+                    <div id="imageBox3" class="col-md-6 col-xl-3 <?= isset($donnees['images'][1]) ? '' : 'invisible' ?>">
                         <label class="text-center">Image 3</label><br>
                         <div id="image3">
                             <?php
@@ -183,7 +183,7 @@ if(isset($_SESSION['id']))
                             <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(3)">Effacer</button>
                         </div>
                     </div>
-                    <div id="imageBox4" class="col-md-3 <?= isset($donnees['images'][2]) ? '' : 'invisible' ?>">
+                    <div id="imageBox4" class="col-md-6 col-xl-3 <?= isset($donnees['images'][2]) ? '' : 'invisible' ?>">
                         <label class="text-center">Image 4</label><br>
                         <div id="image4">
                             <?php
