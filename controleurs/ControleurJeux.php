@@ -124,26 +124,29 @@ class ControleurJeux extends BaseControleur
                                         if (in_array($file, array(".",".."))) continue;
                                         // If we copied this successfully, mark it for deletion
                                         if (copy($tmpDir.$file, $newDir.$file)) {
-                                          $delete[] = $tmpDir.$file;
+                                            $delete[] = $tmpDir.$file;
                                         }
-                                      }
-                                      // Delete all successfully-copied files
-                                      foreach ($delete as $file) {
+                                    }
+                                    // Delete all successfully-copied files
+                                    foreach ($delete as $file) {
                                         unlink($file);
-                                      }
-                                      rmdir($tmpDir);
+                                    }
+                                    rmdir($tmpDir);
                                 }
                                 else {
-                                    rename($tmpDir . '/', $newDir . '/');
+                                    rename($tmpDir, $newDir);
                                 }
                             }
                             $modeleImages->effacerImagesParJeuxId($jeux_id);
                             foreach($params['cheminsImages'] as $cheminImage)
                             {
-                                $image = new Images(0, $jeux_id, str_replace('/tmp' . $_SESSION['id'] . '/', '/' . $jeux_id . '/', $cheminImage));
-                                var_dump($image);
-                                $modeleImages->sauvegarderImage($image);
-
+                                if ($cheminImage != "") {
+                                    $image = new Images(0, $jeux_id, str_replace('/tmp' . $_SESSION['id'] . '/', '/' . $jeux_id . '/', $cheminImage));
+                                    echo "<pre>";
+                                    var_dump($image);
+                                    echo "</pre>";
+                                    $modeleImages->sauvegarderImage($image);
+                                }
                             }
                         }
 
