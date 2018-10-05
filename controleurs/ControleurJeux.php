@@ -62,15 +62,24 @@ class ControleurJeux extends BaseControleur
 
                 case "derniers" :
 
+                    $donnees['plat'] = $modelePlateformes->lireToutesPlateformes();
+
+                    // Affiche les images des NOUVEUTÉS de l'accueil
+                    // Recupère la première image des neufs derniers jeux ajoutés
+
                     $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
                     foreach($donnees['derniers'] as $derniers ){
                         if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
                             $donnees['images'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
                         }
                         else {
-                            $donnees['images'][] = new Images(0, $derniers->getJeuxId(), 'images/logo.png');
+                            $donnees['images'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
                         }
                     }
+
+                    // Affiche les images du caroussel de l'accueil
+                    // Recupère la première image des trois derniers jeux ajoutés
+
                     $donnees['trois'] = $modeleJeux->lireDerniersTrois();
 
                     foreach($donnees['trois'] as $derniers ){
@@ -78,7 +87,7 @@ class ControleurJeux extends BaseControleur
                             $donnees['dernierstrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
                         }
                         else {
-                            $donnees['dernierstrois'][] = new Images(0, $derniers->getJeuxId(), 'images/logo.png');
+                            $donnees['dernierstrois'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
                         }
                     }
 
@@ -90,8 +99,6 @@ class ControleurJeux extends BaseControleur
 
                     $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
                     $donnees['categories'] = $modeleCategories->lireToutesCategories();
-                    // $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId(2);
-                    // $donnees['jeu'] = $modeleJeux->lireJeuParId(2);
                     
                     $this->afficherVues("ajoutJeux", $donnees);
                     
@@ -126,13 +133,13 @@ class ControleurJeux extends BaseControleur
                         $id = $modeleJeux->sauvegarderJeux($jeu);
                         var_dump($jeu, "ID = " . $id);
 
-                        //Sauvegarder les categories de jeu
+                        // Sauvegarder les categories de jeu
                         $modeleCategoriesJeux->effacerCategoriesParJeuxId($id);
                         for($i=0; $i < count($params['categorie']); $i++)
                         {
                             // $jeux_id = 0,$categorie_id = 0, $categorie = ""
                             $cat = new CategoriesJeux($id, $params['categorie'][$i], "test");
-                            //var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
+                            // var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
                             $modeleCategoriesJeux->sauvegarderCategoriesJeu($cat);
                         }
 

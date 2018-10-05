@@ -73,15 +73,20 @@
             <div class="col-md-6 p-0">
                 <div class="carousel slide" data-ride="carousel" data-interval="3000">
                     <div class="carousel-inner" role="listbox">
-
                         <div class="carousel-item active">
+                            <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['trois'][0]->getJeuxId();?>">
                             <img src="<?= $donnees['dernierstrois'][0]->getCheminPhoto() ?>" alt="premier slide" class="d-block img-fluid w-100">
+                            </a>
                         </div>
                         <div class="carousel-item">
+                            <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['trois'][1]->getJeuxId();?>">
                             <img src="<?= $donnees['dernierstrois'][1]->getCheminPhoto() ?>" class="d-block img-fluid w-100" alt="image-jeu"  data-holder-rendered="true">
+                            </a>
                         </div>
                         <div class="carousel-item">
+                            <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['trois'][2]->getJeuxId();?>">
                             <img src="<?= $donnees['dernierstrois'][2]->getCheminPhoto() ?>" class="d-block img-fluid w-100" alt="image-jeu"  data-holder-rendered="true">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -95,9 +100,9 @@
         <h1 class="text-center bg-info mt-2">NOUVEAUTÉS</h1>
         <div class="row">
 
-            <?php
+    <?php
 //            echo '<pre>';
-//            var_dump($donnees['dernierstrois'][1]->getCheminPhoto());
+//            var_dump($donnees['plat']);
 //            echo '</pre>';
 
             $counter = count($donnees['derniers']);
@@ -109,7 +114,33 @@
                 echo        '<div class="card mb-4 box-shadow cardjeux">';
                 echo            '<a href="index.php?Jeux&action=afficherJeu&JeuxId='. $donnees['derniers'][$i]->getJeuxId() .'"><img class="card-img-top" src="' . $donnees['images'][$i]->getCheminPhoto() .'" alt="Card image cap"></a>';
                 echo            '<div class="card-body">';
-                echo                '<p class="card-text">' . $donnees['derniers'][$i]->getTitre() . '</p>';
+                echo                '<h5 class="card-text">' . $donnees['derniers'][$i]->getTitre() . '</h5>';
+
+                if ($donnees["plat"][$i]->getPlateforme() == "Windows" ) {
+                    echo '<p title="Windows" class="fab fa-windows"></p> Windows';
+                }
+                else if ($donnees["plat"][$i]->getPlateforme() == "Xbox One" ) {
+                    echo '<p title="Xbox One" class="fab fa-xbox"></p> Xbox One';
+                }
+                else if ($donnees["plat"][$i]->getPlateforme() == "Xbox 360" ) {
+                    echo '<p title="Xbox 360" class="fab fa-xbox"></p> Xbox 360';
+                }
+                else if ($donnees["plat"][$i]->getPlateforme() == "Playstation 4" ) {
+                    echo '<p title="Playstation 4" class="fab fa-playstation"></p> Playstation 4';
+                }
+                else if ($donnees["plat"][$i]->getPlateforme() == "Playstation Vita" ) {
+                    echo '<p title="Playstation Vita" class="fab fa-playstation"></p> Playstation Vita';
+                }
+                else if ($donnees["plat"][$i]->getPlateforme() == "Playstation 3" ) {
+                    echo '<p title="Playstation 3" class="fab fa-playstation"></p> Playstation 3';
+                }
+                else if ($donnees["plat"][$i]->getPlateforme() == "Nintendo Wii U" ) {
+                    echo '<p title="Nintendo Wii U" class="fab fa-nintendo-switch"></p> Nintendo Wii U';
+                }
+                else if ($donnees["plat"][$i]->getPlateforme() == "Nintendo Switch" ) {
+                    echo '<p title="Nintendo Switch" class="fab fa-nintendo-switch"></p> Nintendo Switch';
+                }
+
                 echo                '<div class="d-flex justify-content-between align-items-center">';
                 echo                    '<div class="btn-group">';
                 echo                        '<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href=\'index.php?Jeux&action=afficherJeu&JeuxId=' . $donnees['derniers'][$i]->getJeuxId() . ' \' ">Détails</button>';
