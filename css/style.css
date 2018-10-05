@@ -1,38 +1,23 @@
 .cardjeux
 {
-<<<<<<< HEAD
     border-bottom: 5px solid #536dca;
-=======
-border-bottom: 5px solid #536dca;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .contact-form
 {
-<<<<<<< HEAD
     box-sizing: border-box;
     background: rgba(0,0,0,.9);
-=======
-box-sizing: border-box;
-background: rgba(0,0,0,.9);
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .contact-form input
 {
-<<<<<<< HEAD
     width: 100%;
     margin-bottom: 20px;
-=======
-width: 100%;
-margin-bottom: 20px;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .contact-form input[type="email"],
 .contact-form input[type="password"]
 {
-<<<<<<< HEAD
     border: none;
     border-bottom: 1px solid #fff;
     background: transparent;
@@ -40,20 +25,10 @@ margin-bottom: 20px;
     height: 45px;
     color: #fff;
     font-size: 16px;
-=======
-border: none;
-border-bottom: 1px solid #fff;
-background: transparent;
-outline: none;
-height: 45px;
-color: #fff;
-font-size: 16px;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .contact-form input[type="submit"]
 {
-<<<<<<< HEAD
     height: 30px;
     color: #fff;
     font-size: 15px;
@@ -62,81 +37,42 @@ font-size: 16px;
     border: none;
     outline: none;
     margin-top: 5%;
-=======
-height: 30px;
-color: #fff;
-font-size: 15px;
-background: #536dca;
-cursor: pointer;
-border: none;
-outline: none;
-margin-top: 5%;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .modal-header, h4, .close
 {
-<<<<<<< HEAD
     background-color: #536dca;
     color:white !important;
     text-align: center;
     font-size: 30px;
-=======
-background-color: #536dca;
-color:white !important;
-text-align: center;
-font-size: 30px;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .modal-footer
 {
-<<<<<<< HEAD
     background-color: #536dca;
-=======
-background-color: #536dca;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .parallax
 {
-<<<<<<< HEAD
     background-image: url("../images/background.jpg");
     min-height: 500px;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-=======
-background-image: url("../images/background.jpg");
-min-height: 500px;
-background-attachment: fixed;
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .jeu-titre
 {
-<<<<<<< HEAD
     color: #c01508;
     text-align: center;
     font-weight: bold;
     font-size: 200%;
     margin-bottom: 0;
-=======
-color: #c01508;
-text-align: center;
-font-weight: bold;
-font-size: 200%;
-margin-bottom: 0;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 }
 
 .contacter-annoceur
 {
-<<<<<<< HEAD
     font-size: 19px;
     padding: 5px;
     margin-top: 15px;
@@ -144,52 +80,21 @@ margin-bottom: 0;
     border: 1px solid #6c757d;
     /* color: lightslategrey; */
     text-align: left;
-=======
-font-size: 20px;
-padding: 10px;
-margin-top: 15px;
-background: rgb(65, 64, 64);
-border: 1px solid #6c757d;
-color: lightslategrey;
-text-align: left;
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 
 }
 
 .avis-etoiles .fa-star
 {
-<<<<<<< HEAD
     color: gold;
 }
 
 #navheader{
     background-color: black;
     background-color: rgba(0,0,0,0.9);
-=======
-color: gold;
-}
-
-#navheader{
-  background-color: black;
-  background-color: rgba(0,0,0,0.9);
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 
 }
 
 /*.navbar ul {*/
-<<<<<<< HEAD
-/*display: flex;*/
-/*width: 100%;*/
-/*list-style: none;*/
-/*justify-content: space-between;*/
-/*align-items: center;*/
-/*}*/
-/*.navbar ul li {*/
-/*width: 100%;*/
-/*}*/
-/*.navbar ul li.logo {*/
-/*margin-right: auto;*/
-=======
   /*display: flex;*/
   /*width: 100%;*/
   /*list-style: none;*/
@@ -201,33 +106,11 @@ color: gold;
 /*}*/
 /*.navbar ul li.logo {*/
   /*margin-right: auto;*/
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 /*}*/
 /*.navbar ul li form {display: flex;}*/
 /*.navbar ul li form .form-control {min-width: 200px;}*/
 
 /*.navbar ul .toggle-item {*/
-<<<<<<< HEAD
-/*display: none;*/
-/*position: absolute;*/
-/*right: 20px;*/
-/*width: 30px;*/
-/*top: 20px;*/
-/*}*/
-/*.navbar ul .toggle-item .bar {*/
-/*width: 35px;*/
-/*height: 2px;*/
-/*background: #fff;*/
-/*}*/
-/*.navbar ul .toggle-item .bar-center {*/
-/*width: 35px;*/
-/*height: 2px;*/
-/*background: #fff;*/
-/*margin: 10px 0;*/
-/*}*/
-
-/* Ã‰valuations 
-=======
   /*display: none;*/
   /*position: absolute;*/
   /*right: 20px;*/
@@ -247,12 +130,10 @@ color: gold;
 /*}*/
 
 /* Évaluations 
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
 Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rating-define-by-width
 */
 
 .score {
-<<<<<<< HEAD
     display: inline-block;
     font-family: Wingdings;
     font-size: 25px;
@@ -280,72 +161,8 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 }
 
 
-
-=======
-  display: inline-block;
-  font-family: Wingdings;
-  font-size: 25px;
-  color: #ccc;
-  position: relative;
-}
-
-.score::before,
-.score span::before {
-  content: "\2605\2605\2605\2605\2605";
-  display: block;
-}
-
-.score span {
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  color: #e98d34;
-  text-shadow: 1px 1px 3px #666;
-}
-
-
 /*vues/message.php Chunliang le 26/09/2018*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
 @media screen and (max-width: 1200px) {
   .navbar ul .toggle-item {
     display: block;
@@ -354,7 +171,6 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
     display: none;
   }
 }
-<<<<<<< HEAD
 
 /* mesenger */
 
@@ -363,7 +179,4 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 c_msg{
     display:none;
 }
-=======
->>>>>>> 00249b2e184b958a77534b9a82e73ed9e94d0269
->>>>>>> f38c2a5f37a32fdf619452bb70f8fdf4a9e0fda2
->>>>>>> 09be3cd7f5917a735cf596d10531471c2204dfa6
+

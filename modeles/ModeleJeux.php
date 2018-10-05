@@ -32,6 +32,12 @@
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
+
+        public function lireDerniersTrois($nombreJeux = 3) {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true ORDER BY jeux_id DESC LIMIT " . $nombreJeux;
+            $resultat = $this->requete($sql);
+            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
+        }
 		
 		public function lireTousLesJeux() {
             $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
@@ -40,7 +46,7 @@
 		}
 
         public function filtreJeux($filtre = 'jeux_actif = true AND jeux_valide = true', $ordre = 'prix DESC') {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " j JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id JOIN categorie c ON c.categorie_id = cj.categorie_id WHERE " . $filtre . " GROUP BY j.jeux_id ORDER BY " . $ordre;
+            $sql = "SELECT DISTINCT j.jeux_id, j.plateforme_id,j.membre_id, j.titre, j.prix, j.date_ajout, j.concepteur, j.location, j.jeux_valide, j.jeux_actif, j.description, j.evaluation_globale FROM " . $this->lireNomTable() . " j JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id JOIN categorie c ON c.categorie_id = cj.categorie_id WHERE " . $filtre . " GROUP BY j.jeux_id ORDER BY " . $ordre;
 			$resultat = $this->requete($sql);
 //			var_dump($resultat);
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");

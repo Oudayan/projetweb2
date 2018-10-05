@@ -68,28 +68,28 @@
                         <?php
 
                             if ($donnees["plateforme"]->getPlateforme() == "Windows" ) {
-                                echo '<i title="Windows" class="fab fa-windows"></i>';
+                                echo '<i title="Windows" class="fab fa-windows"></i> Windows';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Xbox One" ) {
-                                echo '<i title="Xbox One" class="fab fa-xbox"></i>';
+                                echo '<i title="Xbox One" class="fab fa-xbox"></i> Xbox One';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Xbox 360" ) {
-                                echo '<i title="Xbox 360" class="fab fa-xbox"></i>';
+                                echo '<i title="Xbox 360" class="fab fa-xbox"></i> Xbox 360';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Playstation 4" ) {
-                                echo '<i title="Playstation 4" class="fab fa-playstation"></i>';
+                                echo '<i title="Playstation 4" class="fab fa-playstation"></i> Playstation 4';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Playstation Vita" ) {
-                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i>';
+                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i> Playstation Vita';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Playstation 3" ) {
-                                echo '<i title="Playstation 3" class="fab fa-playstation"></i>';
+                                echo '<i title="Playstation 3" class="fab fa-playstation"></i> Playstation 3';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Wii U" ) {
-                                echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i>';
+                                echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i> Nintendo Wii U';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Switch" ) {
-                                echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i>';
+                                echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i> Nintendo Switch';
                             }
                         ?>
                         <br><br>

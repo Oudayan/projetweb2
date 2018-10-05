@@ -15,13 +15,6 @@
 		public function lireNomTable() {
 			return "photo_jeux";
         }
-        
-//		 public function toutesImages() {
-//             $sql = "SELECT chemin_photo FROM " . $this->lireNomTable();
-//		 	$resultat = $this->requete($sql);
-//		 	return $resultat->fetchAll(PDO::FETCH_ASSOC);
-//         }
-
 
         public function toutesImages() {
             $resultat = $this->lireTous();
@@ -36,7 +29,6 @@
 
         public function lireImagesParJeuxId($id) {
             $resultat = $this->lire($id, "jeux_id");
-            // $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Images');
         }
 
