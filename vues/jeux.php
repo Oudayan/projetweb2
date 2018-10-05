@@ -191,7 +191,7 @@
                         (4/5)
                         <a class="pull-right" href="#avis">Voir les avis</a>
                     </div>
-                    <?php if($_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
+                    <?php if(isset($_SESSION['id']) && $_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
                         <!-- Mensagerie -->
                         <div class="contacter-annoceur mx-auto">
                             <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
