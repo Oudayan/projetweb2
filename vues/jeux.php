@@ -5,7 +5,7 @@
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
 <!-- * @details   Cette vue permettre voir les détails de chaque jeux-->
-
+<input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : ""?>"/>
 <div class="container pt-3">
     <div class="row">
         <!-- Image principale du jeu -->
@@ -64,41 +64,40 @@
                 <div class="card-body">
                     <p class="jeu-titre"><?=($donnees["jeu"]->getTitre())?></p>
                     <hr>
-                    <form>
                         <p>Négotiation : <?=($donnees["jeu"]->getLocation() == 1 ? "Location" : "À vendre") ?></p>
                         <a>Plateforme(s) :</a>
                         <?php
 
                             if ($donnees["plateforme"]->getPlateforme() == "Windows" ) {
-                                echo '<i title="Windows" class="fab fa-windows"></i>';
+                                echo '<i title="Windows" class="fab fa-windows"></i> Windows';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Xbox One" ) {
-                                echo '<i title="Xbox One" class="fab fa-xbox"></i>';
+                                echo '<i title="Xbox One" class="fab fa-xbox"></i> Xbox One';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Xbox 360" ) {
-                                echo '<i title="Xbox 360" class="fab fa-xbox"></i>';
+                                echo '<i title="Xbox 360" class="fab fa-xbox"></i> Xbox 360';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Playstation 4" ) {
-                                echo '<i title="Playstation 4" class="fab fa-playstation"></i>';
+                                echo '<i title="Playstation 4" class="fab fa-playstation"></i> Playstation 4';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Playstation Vita" ) {
-                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i>';
+                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i> Playstation Vita';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Playstation 3" ) {
-                                echo '<i title="Playstation 3" class="fab fa-playstation"></i>';
+                                echo '<i title="Playstation 3" class="fab fa-playstation"></i> Playstation 3';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Wii U" ) {
-                                echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i>';
+                                echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i> Nintendo Wii U';
                             }
                             else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Switch" ) {
-                                echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i>';
+                                echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i> Nintendo Switch';
                             }
                         ?>
                         <br><br>
                         <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
                         <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
                         <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
-
+                        <input type="hidden" id="destinataire_id" value="<?=($donnees["membre"]->getMembreId())?>" />
                         <a>Catégories :</a>
                         <?php
                             for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
@@ -114,46 +113,75 @@
                         <br /><br />
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
+                    <!-- fin de formulario -->
                     <!-- Mensagerie -->
-                                <div class="contacter-annoceur mx-auto">
-                                    <a>Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
-                <div id="fcontacto">
-                <!-- bloc de confirmation de envoy caché  -->
-                <div id="c_information" class="hide">
-                    <p></p>
-                </div>
-                <!-- Fin de confirmation de l'envoi -->
-                <br>
+                    <button id="button-contacter-annoceur">Contacter annoceur <i class="fas fa-envelope"></i></button>
+                    <div id="fcontacto" class="contacter-annoceur mx-auto hidden">
+                        <div class="contacter-annoceur mx-auto">
+                            <div>
+                                <p>
+                                    <input name="sujet" id="sujet" type="text" size="22" tabindex="1" placeholder="Subjet... (*)" />
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <textarea name="message" id="message" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea>
+                                </p>
+                            </div>
+                            <p>
+                            <div class="alert alert-danger hidden" role="alert">
+                                (*) Champs requis
+                            </div>
+                                <button id="envoyer-contacter">Envoyer Message <i class="fa fa-paper-plane"></i></button>
+                            </p>
 
-                <!-- debut de formulario -->
-                <form id="c_form" name="contact">
-                    <div>
-                        <p>
-                            <input name="nom" id="c_name" type="text" size="22" tabindex="1" placeholder="votre nom... (*)" />
-                        </p>
-                        <p>
-                            <input name="email" id="c_mail" type="email" size="22" tabindex="2" placeholder="votre email... (*)" />
-                        </p>
-                        <p>
-                            <input name="telephonr" id="c_telephone" type="number" size="22" tabindex="4" placeholder="votre téléphone..." />
-                        </p>
-                        
+                        </div>
                     </div>
-                    <div>
-                        <p>
-                            <textarea name="message" id="c_msg" cols="40" rows="8" tabindex="5" placeholder="votre message... (*)"></textarea>
-                        </p>
-                    </div>
-                    <p>
-                        <label>(*) Champs requis</label>
-                        <input name="cenvoyer" type="button" id="c_envoyer" tabindex="6" value="Envoyer Message" onclick="cargaSendMail()" />
-                    </p>
+                    <script>
+                        $( "#button-contacter-annoceur" ).click(function() {
+                            if($("#membre_id").val() != ""){
+                               $( "#fcontacto" ).show();   
+                            }else{
+                                bootoast.toast({
+                                    message: 'seuls les membres inscrits peuvent contacter un autre membre!',
+                                    type: 'warning',
+                                    position: 'top-center'
 
-                </form>
+                                    });
+                            }
+                             
+                        });
+                        $( "#envoyer-contacter" ).click(function() {
+                            if($("#sujet").val() == "" || $("#message").val() == ""){
+                                $( ".alert" ).show(); 
+                                $(".alert").alert();
+                            }else{
+                                $( ".alert" ).hide(); 
+                                request = $.ajax({
+                                url: "index.php?messagerie&action=formAjoutMessage",
+                                type: "post",
+                                data: { 
+                                    membre_id : $("#membre_id").val(),
+                                    destinataire_id : $("#destinataire_id").val(),
+                                    sujet : $("#sujet").val(),
+                                    message : $("#message").val()
+                                }
+                            });
+                              request.done(function (response, textStatus, jqXHR){
+                                  bootoast.toast({
+                                    message: 'message envoyé correctement!',
+                                    type: 'success',
+                                    position: 'top-center'
+
+                                    });
+
+                                 $( "#fcontacto" ).hide(); 
+                            });
+                            }
+                        });
+                    </script>
                 <!-- fin de formulario -->
 
-                </div>
-                    </div>
                     <div class="avis-etoiles p-3 mb-2 ">
                         4 avis
                         <i class="fa fa-star"></i>
@@ -164,11 +192,19 @@
                         (4/5)
                         <a class="pull-right" href="#avis">Voir les avis</a>
                     </div>
-                    <a class="btn btn-success btn-lg btn-block text-uppercase text-white">
-                        <i class="fa fa-shopping-cart"></i> Ajouter au panier
-                    </a>
+                    <?php if($_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
+                        <!-- Mensagerie -->
+                        <div class="contacter-annoceur mx-auto">
+                            <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
+                        </div>
+                        <a class="btn btn-success btn-lg btn-block text-uppercase text-white">
+                            <i class="fa fa-shopping-cart"></i> Ajouter au panier
+                        </a>
+                    <?php } else{ ?>
+                        <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeu"]->getJeuxId() ?>" class="btn btn-primary btn-lg btn-block text-uppercase text-white">Modifier ce jeu</a>
+                    <?php } ?>
                 </div>
-            </div>
+            </div>          
         </div>
     </div>
     <div class="row">
@@ -202,7 +238,7 @@
                                 <br><span class="score"><span style="width: <?= ($donnees["commentaires"][$i]->getEvaluation() / 5) * 100 ?>%"></span></span>
                             </div>
                             <hr>
-                            <?php } ?>                    
+                        <?php } ?>                    
                     </div>
                 </div>
             </div>

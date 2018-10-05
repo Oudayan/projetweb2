@@ -414,13 +414,16 @@ INSERT INTO `location` (`location_id`, `type_paiement_id`, `membre_id`, `jeux_id
 --
 
 INSERT INTO `photo_jeux` (`photo_jeux_id`, `jeux_id`, `chemin_photo`) VALUES
-(1, 1, 'images/01.jpg'),
-(2, 2, 'images/02.jpg'),
-(3, 3, 'images/03.jpg'),
-(4, 4, 'images/thumb01.jpg'),
-(5, 5, 'images/thumb02.jpg'),
-(6, 6, 'images/thumb03.jpg'),
-(7, 7, 'images/thumb04.jpg'),
-(8, 8, 'images/thumb05.jpg'),
-(9, 9, 'images/thumb06.jpg'),
-(10, 10, 'images/thumb07.jpg');
+(1, 1, 'images/Jeux/1/01.jpg'),
+(2, 2, 'images/Jeux/2/02.jpg'),
+(3, 3, 'images/Jeux/3/03.jpg'),
+(4, 4, 'images/Jeux/4/thumb01.jpg'),
+(5, 5, 'images/Jeux/5/thumb02.jpg'),
+(6, 6, 'images/Jeux/6/thumb03.jpg'),
+(7, 7, 'images/Jeux/7/thumb04.jpg'),
+(8, 8, 'images/Jeux/8/thumb05.jpg'),
+(9, 9, 'images/Jeux/9/thumb06.jpg'),
+(10, 10, 'images/Jeux/10/thumb07.jpg'),
+(11, 3, 'images/Jeux/3/sonic.jpg'),
+(12, 3, 'images/Jeux/3/sonic1.jpg'),
+(13, 3, 'images/Jeux/3/sonic4.jpg'); 
