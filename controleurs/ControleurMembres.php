@@ -30,6 +30,7 @@ class ControleurMembres extends BaseControleur
         $donnees["erreur"] = "";
         $_SESSION["msg"] = "";
 
+
         if (isset($params["action"])) {
 
             switch ($params["action"]) {

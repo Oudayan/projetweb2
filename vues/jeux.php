@@ -15,6 +15,7 @@
                     <div id="carouselImagesJeu" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <?php
+
                             for($i = 0; $i < count($donnees['images']); $i++)
                             {
                                 if($i == 0)
