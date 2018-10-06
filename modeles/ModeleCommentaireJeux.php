@@ -27,4 +27,10 @@
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "CommentaireJeux");
         }
         
+        public function nbEvaluationsParJeu($id){
+            $sql = "SELECT COUNT(jeux_id) FROM " . $this->lireNomTable() . " WHERE jeux_id = " . $id;
+            $resultat = $this->requete($sql);
+            return $resultat->fetch();
+        }
+
     }
