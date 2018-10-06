@@ -31,7 +31,7 @@ if(isset($_SESSION["id"]))
                 <div class="btn-group">
                   <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeux"][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-primary">Modifier</a>
                   <?php if($donnees['jeux'][$i]->getJeuxActif()){ ?>
-                  <button type="button" class="btn btn-sm btn-outline-danger" onclick="location.href='index.php?Jeux&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Désacativer</button>
+                  <button type="button" class="btn btn-sm btn-outline-danger" onclick="location.href='index.php?Jeux&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Désactiver</button>
                   <?php } else { ?>
                     <button type="button" class="btn btn-sm btn-outline-success" onclick="location.href='index.php?Jeux&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Activer</button>
                   <?php } ?>
