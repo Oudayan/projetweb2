@@ -113,6 +113,10 @@ class ControleurMembres extends BaseControleur
                     }
                     break;
 
+                case "gererMesJeux":
+
+                    $this->afficherVues("membre", $donnees);
+                break; 
                 case  "logout":
                     if (isset($_SESSION["id"])) {
                         unset($_SESSION["id"]);
