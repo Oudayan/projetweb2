@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +16,25 @@
         <script type="text/javascript" src="js/bootoast.js"></script>
         <script type="text/javascript" src="js/moment.min.js"></script>
         <script type="text/javascript" src="js/daterangepicker.js"></script>
+
+
+        <!--
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/styleChat.css" type="text/css" />
+            <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+            <script type="text/javascript" src="js/scripts.js"></script>
+            <script type="text/javascript" src="js/scriptChat.js"></script>
+            <script type="text/javascript">
+            $(document).ready(function () {
+                setInterval('chat.update()', 1000);
+            })
+    
+            </script>
+        -->
+
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     </head>
+
     <body>
         <header>
             <input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : "" ?>"/>
