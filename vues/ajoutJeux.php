@@ -208,7 +208,7 @@ if(isset($_SESSION['id']))
                 </div>
                 <hr>
                 <div class="d-flex justify-content-around my-5">
-                    <a href="index.php?Jeux&action=derniers"><button type="button" class="btn-lg btn-outline-dark">Annuler</button></a>
+                    <a href="index.php?Jeux&action=gererMesJeux"><button type="button" class="btn-lg btn-outline-dark">Annuler</button></a>
                     <input type="submit" class="btn btn-lg btn-outline-success" value="Sauvegarder">
                 </div>
                           

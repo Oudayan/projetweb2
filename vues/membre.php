@@ -13,6 +13,13 @@ if(isset($_SESSION["id"]))
 ?>
   <div class="container">
     <h1 class="text-center my-3">Gestion des jeux à <?=$_SESSION['nomComplet']?></h1>
+    <hr>
+    <!-- <li id="annoce" class="nav-item <?= !isset($_SESSION["courriel"]) ? "hidden" : "" ?>"><a href='index.php?Jeux&action=formAjoutJeux'class="nav-link">Annoncer</a></li> -->
+    <div class="d-flex justify-content-around my-3">
+      <a href="index.php?Jeux&action=formAjoutJeux"><button class="btn btn-outline-success btn-lg">Ajouter un&nbsp;jeu</button></a>
+      <a href="index.php?Jeux&action=formAjoutJeux"><button class="btn btn-outline-info btn-lg">Gérer mon profil</button></a>
+    </div>
+    <hr>
     <div class="row">
       <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
         <div class="col-md-4">
@@ -22,11 +29,11 @@ if(isset($_SESSION["id"]))
               <p class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeux"][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                  <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeux"][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-primary">Modifier</a>
                   <?php if($donnees['jeux'][$i]->getJeuxActif()){ ?>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='index.php?Jeux&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Désacativer</button>
+                  <button type="button" class="btn btn-sm btn-outline-danger" onclick="location.href='index.php?Jeux&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Désacativer</button>
                   <?php } else { ?>
-                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='index.php?Jeux&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Activer</button>
+                    <button type="button" class="btn btn-sm btn-outline-success" onclick="location.href='index.php?Jeux&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Activer</button>
                   <?php } ?>
                 </div>
               </div>

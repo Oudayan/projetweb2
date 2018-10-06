@@ -129,60 +129,38 @@
 /*margin: 10px 0;*/
 /*}*/
 
-/* Ã‰valuations 
+/* Évaluations 
 Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rating-define-by-width
 */
 
 .score {
-
+    box-sizing: border-box;
     display: inline-block;
     font-family: Wingdings;
-    font-size: 25px;
+    font-size: 20px;
     color: #ccc;
     position: relative;
+    word-wrap: normal;
 }
 
 .score::before,
-.score span::before {
+.score span::before{
     content: "\2605\2605\2605\2605\2605";
     display: block;
 }
 
 .score span {
+    color: gold;
     position: absolute;
     top: 0;
     left: 0;
     overflow: hidden;
-    color: #e98d34;
-    text-shadow: 1px 1px 3px #666;
 }
 
 .hidden{
     display: none;
 }
 
-
-/* display: inline-block;
-font-family: Wingdings;
-font-size: 25px;
-color: #ccc;
-position: relative;
-} */
-
-.score::before,
-.score span::before {
-    content: "\2605\2605\2605\2605\2605";
-    display: block;
-}
-
-.score span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    color: #e98d34;
-    text-shadow: 1px 1px 3px #666;
-}
 
 .list-message{
     list-style: none;
@@ -319,5 +297,3 @@ position: relative;
     display: table;
     clear: both;
 }
-
-

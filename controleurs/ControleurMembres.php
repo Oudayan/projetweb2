@@ -107,7 +107,9 @@ class ControleurMembres extends BaseControleur
                         }
 
 
-                        if ($_SESSION["type"] == '2' || $_SESSION["type"] == '3') {
+                        if($_SESSION["type"] =='1'){
+                            header("location:index.php?Jeux&action=gererMesJeux");
+                        }elseif ($_SESSION["type"] == '2' || $_SESSION["type"] == '3') {
                             header("location:index.php?Admin&action=afficherMembres");
                         } else {
                             header("location:index.php");
