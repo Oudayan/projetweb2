@@ -63,41 +63,40 @@
                 <div class="card-body">
                     <p class="jeu-titre"><?=($donnees["jeu"]->getTitre())?></p>
                     <hr>
-                        <p>Négotiation : <?=($donnees["jeu"]->getLocation() == 1 ? "Location" : "À vendre") ?></p>
-                        <a>Plateforme(s) :</a>
+                        <p>Transaction : <?=($donnees["jeu"]->getLocation() == 1 ? "Location" : "À vendre") ?></p>
+                        <p>Plateforme :
                         <?php
-
-                            if ($donnees["plateforme"]->getPlateforme() == "Windows" ) {
-                                echo '<i title="Windows" class="fab fa-windows"></i> Windows';
-                            }
-                            else if ($donnees["plateforme"]->getPlateforme() == "Xbox One" ) {
-                                echo '<i title="Xbox One" class="fab fa-xbox"></i> Xbox One';
-                            }
-                            else if ($donnees["plateforme"]->getPlateforme() == "Xbox 360" ) {
-                                echo '<i title="Xbox 360" class="fab fa-xbox"></i> Xbox 360';
-                            }
-                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation 4" ) {
+                            if ($donnees["jeu"]->getPlateformeId() == 1 ) {
                                 echo '<i title="Playstation 4" class="fab fa-playstation"></i> Playstation 4';
                             }
-                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation Vita" ) {
-                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i> Playstation Vita';
+                            else if ($donnees["jeu"]->getPlateformeId() == 2 ) {
+                                echo '<i title="Xbox One" class="fab fa-xbox"></i> Xbox One';
                             }
-                            else if ($donnees["plateforme"]->getPlateforme() == "Playstation 3" ) {
-                                echo '<i title="Playstation 3" class="fab fa-playstation"></i> Playstation 3';
-                            }
-                            else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Wii U" ) {
+                            else if ($donnees["jeu"]->getPlateformeId() == 3 ) {
                                 echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i> Nintendo Wii U';
                             }
-                            else if ($donnees["plateforme"]->getPlateforme() == "Nintendo Switch" ) {
+                            else if ($donnees["jeu"]->getPlateformeId() == 4 ) {
+                                echo '<i title="Windows" class="fab fa-windows"></i> Windows';
+                            }
+                            else if ($donnees["jeu"]->getPlateformeId() == 5 ) {
+                                echo '<i title="Playstation 3" class="fab fa-playstation"></i> Playstation 3';
+                            }
+                            else if ($donnees["jeu"]->getPlateformeId() == 6 ) {
+                                echo '<i title="Xbox 360" class="fab fa-xbox"></i> Xbox 360';
+                            }
+                            else if ($donnees["jeu"]->getPlateformeId() == 7 ) {
                                 echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i> Nintendo Switch';
                             }
+                            else if ($donnees["jeu"]->getPlateformeId() == 8 ) {
+                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i> Playstation Vita';
+                            }
                         ?>
-                        <br><br>
+                        </p>
                         <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
                         <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
                         <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
                         <input type="hidden" id="destinataire_id" value="<?=($donnees["membre"]->getMembreId())?>" />
-                        <a>Catégories :</a>
+                        <a>Catégorie<?= count($donnees['categoriesJeu']) > 1 ? "s" : "" ?> :</a>
                         <?php
                             for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
                             {
@@ -114,8 +113,10 @@
                     </form>
                     <!-- fin de formulario -->
                     <!-- Mensagerie -->
-                    <button id="button-contacter-annoceur">Contacter annoceur <i class="fas fa-envelope"></i></button>
-                    <div id="fcontacto" class="contacter-annoceur mx-auto hidden">
+                    <button type="button" id="button-contacter-annoceur" class="btn btn-outline-dark" data-toggle="collapse" data-target="#fcontact" aria-expanded="false" aria-controls="fcontact">Contacter annoceur <i class="fas fa-envelope"></i></button>
+                    <div id="fcontact" class="contacter-annoceur collapse mx-auto">
+                    <!-- <button id="button-contacter-annoceur">Contacter annoceur <i class="fas fa-envelope"></i></button> -->
+                    <!-- <div id="fcontacto" class="contacter-annoceur mx-auto hidden"> -->
                         <div class="contacter-annoceur mx-auto">
                             <div>
                                 <p>
@@ -175,6 +176,10 @@
                             }
                         });
                     </script>
+                    <!-- Mensagerie -->
+                    <!-- <div class="contacter-annoceur mx-auto">
+                        <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
+                    </div> -->
                 <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
                         <span><?= $donnees['nbCommentaires'][0] ?> avis</span>
@@ -191,16 +196,15 @@
                         <?php } ?>
                         <a class="pull-right" href="#avis"> Voir les avis </a>
                     </div>
-                    <?php if(isset($_SESSION['id']) && $_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
-                        <!-- Mensagerie -->
-                        <!-- <div class="contacter-annoceur mx-auto">
-                            <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
-                        </div> -->
-                        <a class="btn btn-success btn-lg btn-block text-uppercase text-white">
-                            <i class="fa fa-shopping-cart"></i> Ajouter au panier
-                        </a>
-                    <?php } else{ ?>
+                    <?php if(isset($_SESSION['id'])){
+                        if($_SESSION['id'] == $donnees["jeu"]->getMembreId() || $_SESSION["type"] == 2 || $_SESSION["type"] == 3){ ?>
                         <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeu"]->getJeuxId() ?>" class="btn btn-primary btn-lg btn-block text-uppercase text-white">Modifier ce jeu</a>
+                        <?php } 
+                        if(isset($_SESSION['id']) && $_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
+                            <a class="btn btn-success btn-lg btn-block text-uppercase text-white"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
+                        <?php } 
+                    } else { ?>
+                        <p class="text-success text-center">Seuls les membres inscrits peuvent ajouter un jeu au panier!</p>
                     <?php } ?>
                 </div>
             </div>          
