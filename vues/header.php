@@ -32,6 +32,7 @@
     </head>
 
     <body>
+        <input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : "" ?>"/>
         <nav class="navbar navbar-expand-md navbar-dark sticky-top" id="navheader">
             <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar12">
                     <span class="navbar-toggler-icon" ></span>
@@ -62,17 +63,20 @@
                                 }
                                 ?></a>
                         </li>
-
-<?php if (isset($_SESSION["courriel"])) { ?>
-                            <a href="index.php?Membres&action=logout" id="btn-logout" class="btn navbar-btn text-white btn-primary">
-                                <i class="far fa-user-circle"></i> Se déconnecter</a>
-<?php } else { ?>
-                            <a id="btn-login" class="btn navbar-btn text-white btn-secondary">
-                                <i class="far fa-user-circle"></i> Se connecter</a>
-<?php } ?>
-
+                        <li class="nav-item">
+                            <?php if (isset($_SESSION["courriel"])) { ?>
+                                <a href="index.php?Membres&action=logout" id="btn-logout" class="btn navbar-btn text-white btn-primary">
+                                    <i class="far fa-user-circle"></i> Se déconnecter</a>
+                            <?php } else { ?>
+                                <a id="btn-login" class="btn navbar-btn text-white btn-secondary">
+                                    <i class="far fa-user-circle"></i> Se connecter</a>
+                            <?php } ?>
                         </li>
-
+                        <li class="nav-item">
+                            <button class="btn btn-success btn-block text-uppercase text-white" href="#" id="cart">
+                                <i class="fa fa-shopping-cart"> <span class="badge" id="cartQuantity"><?= isset($_SESSION["cart"]) ? sizeof($_SESSION["cart"]) : "0" ?></span></i>
+                            </button>
+                        </li>
                         <li class="toggle-item">
                             <div class="btn-toggle">
                                 <div class="bar"></div>
@@ -84,18 +88,48 @@
                     </ul>
 
 
-                    <!--div class="collapse navbar-collapse text-center justify-content-end" id="btn-navbar">
-                        <ul class="navbar-nav">
-            
-                        </ul>
-            
-                    </div-->
-
                 </div>
             </div>
+
+
         </nav>
+        <script>
+            $("#cart").on("click", function () {
+                $(".shopping-cart").fadeToggle("fast");
+            });
+        </script>
+        <div class="container">
+            <div class="shopping-cart">
+                <table class="table table-striped">
+                    <?php
+                    if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
+                        $i = 0;
+                        foreach ($_SESSION["cart"] as $jeux) {
+                            ?>
 
-
+                            <tr>
+                                <td class="text-center">
+                                    <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $jeux->getJeuxId() ?>"  class="img-thumbnail" >
+                                        <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i][0]->getCheminPhoto() ?>" alt="Card image cap">
+                                    </a>
+                                </td>
+                                <td class="text-center"><?= $jeux->getTitre() ?></td>
+                                <td class="text-center">x1</td>
+                                <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
+                                <td class="text-center"></td>
+                            </tr>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <tr>
+                            <td colspan="5"><strong>le panier est vide</strong></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+                <a href="#" class="button">Checkout</a>
+            </div> <!--end shopping-cart -->
+        </div> <!--end container -->
         <!-- Modal -->
         <div class="modal fade" id="modal-login" role="dialog">
             <div class="modal-dialog">

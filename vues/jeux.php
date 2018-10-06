@@ -5,7 +5,7 @@
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
 <!-- * @details   Cette vue permettre voir les détails de chaque jeux-->
-<input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : ""?>"/>
+
 <div class="container pt-3">
     <div class="row">
         <!-- Image principale du jeu -->
@@ -192,10 +192,7 @@
                         <a class="pull-right" href="#avis">Voir les avis</a>
                     </div>
                     <?php if($_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
-                        <!-- Mensagerie -->
-                        <div class="contacter-annoceur mx-auto">
-                            <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
-                        </div>
+                       
                         <a class="btn btn-success btn-lg btn-block text-uppercase text-white">
                             <i class="fa fa-shopping-cart"></i> Ajouter au panier
                         </a>
