@@ -175,6 +175,24 @@ class ControleurJeux extends BaseControleur
                     unset($_SESSION['recherche']);
                     $this->filtrerJeux($params);
                     break;
+                
+                case "gererMesJeux":
+                    $this->afficherJeuxMembres();
+                    break; 
+                
+                case "desactiverJeu":
+                    if(isset($params['jeux_id'])){
+                        $modeleJeux->desactiverJeu($params['jeux_id']);
+                    }
+                    $this->afficherJeuxMembres();    
+                    break;
+
+                case "activerJeu":
+                    if(isset($params['jeux_id'])){
+                        $modeleJeux->activerJeu($params['jeux_id']);
+                    }
+                    $this->afficherJeuxMembres();    
+                    break;
 
                 default :
                     $this->afficherAccueil();
@@ -289,6 +307,28 @@ class ControleurJeux extends BaseControleur
 
     }
 
+    public function afficherJeuxMembres(){
+        if(isset($_SESSION["id"]))
+        {
+            $modeleJeux = $this->lireDAO("Jeux");
+            $modeleImages = $this->lireDAO("Images");
+    
+            $donnees['jeux'] = $modeleJeux->lireJeuxParMembre($_SESSION["id"]);
+            foreach($donnees['jeux'] as $jeu ){
+                if ($modeleImages->lireImageParJeuxId($jeu->getJeuxId())) {
+                    $donnees['images'][] = $modeleImages->lireImageParJeuxId($jeu->getJeuxId());
+                }
+                else {
+                    $donnees['images'][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
+                }
+            }
+        }
+        else
+        {
+            $donnees['erreur'] = "Vous devez vous connecter pour acceder à cette page";
+        }
+        $this->afficherVues("membre", $donnees);
+    }
 
 
 }

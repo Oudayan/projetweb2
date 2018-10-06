@@ -93,6 +93,8 @@ class ControleurMembres extends BaseControleur
                                     $_SESSION["type"] = $donnees->getTypeUtilisateur();
 //                                    $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
                                     $_SESSION['prenom'] = $donnees->getPrenom();
+                                    $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
+
                                 }
                             } else {
 //                                var_dump("Le mot de passe ou le courriel ne sont pas corrects");
@@ -113,10 +115,7 @@ class ControleurMembres extends BaseControleur
                     }
                     break;
 
-                case "gererMesJeux":
-
-                    $this->afficherVues("membre", $donnees);
-                break; 
+               
                 case  "logout":
                     if (isset($_SESSION["id"])) {
                         unset($_SESSION["id"]);

@@ -22,7 +22,7 @@
 		}
 		
 		public function lireJeuxParMembre($membre_id) {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE membre_id = '" . $membre_id . "' AND jeux_actif = true AND jeux_valide = true GROUP BY j.jeux_id ORDER BY date_debut DESC";
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE membre_id = '" . $membre_id . "' ORDER BY date_ajout DESC";
 			$resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Jeux");
 		}
@@ -101,6 +101,10 @@
 
         public function desactiverJeu($id) {
             return $this->modifierChamp($id, "jeux_actif", 0);
+		}
+		
+		public function activerJeu($id) {
+            return $this->modifierChamp($id, "jeux_actif", 1);
         }
         
     }

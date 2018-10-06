@@ -11,68 +11,31 @@
 if(isset($_SESSION["id"]))
 {
 ?>
-  <h1 class="text-center my-3">Adminstration: gestion des jeux</h1>
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
-<?php
-}
-?>
+  <div class="container">
+    <h1 class="text-center my-3">Gestion des jeux à <?=$_SESSION['nomComplet']?></h1>
+    <div class="row">
+      <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
+        <div class="col-md-4">
+          <div class="card cardjeux shadow p-3 mb-5 bg-white rounded">
+            <img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeux"][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                  <?php if($donnees['jeux'][$i]->getJeuxActif()){ ?>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='index.php?Jeux&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Désacativer</button>
+                  <?php } else { ?>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='index.php?Jeux&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId() ?>'">Activer</button>
+                  <?php } ?>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+<?php } else { ?>
+<h2 class="text-center my-5 py-5">Vous devez vous connecter pour acceder à cette page</h2>
+<?php } ?>
