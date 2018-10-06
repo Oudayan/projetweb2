@@ -283,7 +283,7 @@ class ControleurJeux extends BaseControleur
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
 
-        $donnees['trois'] = $modeleJeux->lireDerniersTrois();
+        $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
         foreach($donnees['trois'] as $derniers ){
             if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
                 $donnees['imagesTrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());

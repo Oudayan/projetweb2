@@ -90,16 +90,12 @@
 
 
                 </div>
-            </div>
-
-
-        </nav>
-        <script>
+                 <script>
             $("#cart").on("click", function () {
-                $(".shopping-cart").fadeToggle("fast");
+                $("#shopping-cart").fadeToggle("fast");
             });
         </script>
-        <div class="container">
+        <div class="container container-shopping- hidden" id="shopping-cart">
             <div class="shopping-cart">
                 <table class="table table-striped">
                     <?php
@@ -128,9 +124,14 @@
                         </tr>
                     <?php } ?>
                 </table>
-                <a href="#" class="button">Checkout</a>
+                <a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Check-out</a>
             </div> <!--end shopping-cart -->
         </div> <!--end container -->
+            </div>
+
+
+        </nav>
+       
         <!-- Modal -->
         <div class="modal fade" id="modal-login" role="dialog">
             <div class="modal-dialog">
@@ -164,16 +165,4 @@
                 </div>
             </div>
         </div>
-        <!--        <div id="page-wrap">-->
-        <!--            <div id="title-chat">-->
-        <!--                <p>Chat</p>-->
-        <!--                <button class="minimize">▼</button>-->
-        <!--            </div>-->
-        <!--            <p id="name-area"></p>-->
-        <!--            <div id="chat-wrap"><div id="chat-area"></div></div>-->
-        <!--            <form id="send-message-area">-->
-        <!--                <p style="color:#000;">Votre message: </p>-->
-        <!--                <textarea id="sendie" maxlength = '100' ></textarea>-->
-        <!--            </form>-->
 
-        <!--        </div>-->

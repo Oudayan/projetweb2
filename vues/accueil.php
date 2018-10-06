@@ -105,6 +105,7 @@
                             </a>
                             <div class="card-body">
                                 <p class="card-text"><?= $donnees['derniers'][$i]->getTitre() ?></p>
+                                
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['derniers'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>

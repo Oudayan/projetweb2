@@ -217,9 +217,10 @@ position: relative;
 
 
 
-.container {
+.container-shopping-cart {
     margin: auto;
-    width: 80%;
+    width: 100%;
+ 
 }
 
 .shopping-cart-items{
@@ -244,52 +245,53 @@ position: relative;
     float: right;
     background: white;
     max-width: 520px;
-    position: relative;
+    position: fixed;
     border-radius: 3px;
     padding: 20px;
+    z-index: 2;
+    border: solid transparent;
+    border-color: #6c757d;
+} 
 
 
-    .shopping-cart-header {
-        border-bottom: 1px solid #E8E8E8;
-        padding-bottom: 15px;
-
-        .shopping-cart-total {
-            float: right;
-        }
-    }
-
-    .shopping-cart-items {
-        padding-top: 20px;
-
-        li {
-            margin-bottom: 18px;
-        }
-
-        img {
-            float: left;
-            margin-right: 12px;
-        }
-
-        .item-name {
-            display: block;
-            padding-top: 10px;
-            font-size: 16px;
-        }
-
-        .item-price {
-            color: #6394F8;
-            margin-right: 8px;
-        }
-
-        .item-quantity {
-            color: #ABB0BE;
-        }
-        .totalCart{
-            float: right;
-        }
-    }
-
+.shopping-cart-header {
+    border-bottom: 1px solid #E8E8E8;
+    padding-bottom: 15px;
 }
+.shopping-cart-total {
+    float: right;
+}
+
+.shopping-cart-items {
+    padding-top: 20px;
+}
+.shopping-cart-items li {
+    margin-bottom: 18px;
+}
+
+.shopping-cart-items img {
+    float: left;
+    margin-right: 12px;
+}
+
+.shopping-cart-items .item-name {
+    display: block;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+.shopping-cart-items .item-price {
+    color: #6394F8;
+    margin-right: 8px;
+}
+
+.shopping-cart-items .item-quantity {
+    color: #ABB0BE;
+}
+.shopping-cart-items .totalCart{
+    float: right;
+}
+
 
 .shopping-cart:after {
     bottom: 100%;
@@ -300,7 +302,7 @@ position: relative;
     width: 0;
     position: absolute;
     pointer-events: none;
-    border-bottom-color: white;
+    border-bottom-color: #6c757d;
     border-width: 8px;
     margin-left: -8px;
 }
