@@ -19,7 +19,7 @@
                     </div>
                     <div class="col-md-3">
                         <select name="transaction" id="transaction" class="form-control mx-sm-3" style="width: 100%">
-                            <option value='-1' selected>Je cherche un jeux à ...</option>
+                            <option value='' selected>Je cherche un jeux à ...</option>
                             <option value="0" <?php if ($_SESSION["rechercher"]["transaction"] == '0') echo 'selected'; ?>>Vendre</option>
                             <option value="1" <?php if ($_SESSION["rechercher"]["transaction"] == '1') echo 'selected'; ?>>Louer</option>
                         </select>
