@@ -5,7 +5,7 @@
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
 <!-- * @details   Cette vue permettre voir les détails de chaque jeux-->
-<input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : ""?>"/>
+
 <div class="container pt-3">
     <div class="row">
         <!-- Image principale du jeu -->
@@ -96,7 +96,7 @@
                         <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
                         <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
                         <input type="hidden" id="destinataire_id" value="<?=($donnees["membre"]->getMembreId())?>" />
-                        <a>Catégorie<?= count($donnees['categoriesJeu']) > 1 ? "s" : "" ?> :</a>
+                        <p>Catégorie<?= count($donnees['categoriesJeu']) > 1 ? "s" : "" ?> :
                         <?php
                             for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
                             {
@@ -108,7 +108,7 @@
                                 }
                             }
                         ?>
-                        <br /><br />
+                        </p>
                         <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     </form>
                     <!-- fin de formulario -->
@@ -119,14 +119,10 @@
                     <!-- <div id="fcontacto" class="contacter-annoceur mx-auto hidden"> -->
                         <div class="contacter-annoceur mx-auto">
                             <div>
-                                <p>
-                                    <input name="sujet" id="sujet" type="text" size="22" tabindex="1" placeholder="Subjet... (*)" />
-                                </p>
+                                <p><input name="sujet" id="sujet" type="text" size="22" tabindex="1" placeholder="Subjet... (*)" /></p>
                             </div>
                             <div>
-                                <p>
-                                    <textarea name="message" id="message" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea>
-                                </p>
+                                <p><textarea name="message" id="message" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea></p>
                             </div>
                             <p>
                             <div class="alert alert-danger hidden" role="alert">
@@ -134,7 +130,6 @@
                             </div>
                                 <button id="envoyer-contacter">Envoyer Message <i class="fa fa-paper-plane"></i></button>
                             </p>
-
                         </div>
                     </div>
                     <script>
@@ -146,6 +141,7 @@
                                     message: 'seuls les membres inscrits peuvent contacter un autre membre!',
                                     type: 'warning',
                                     position: 'top-center'
+
                                     });
                             }
                         });
@@ -182,19 +178,14 @@
                     </div> -->
                 <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
-                        <span><?= $donnees['nbCommentaires'][0] ?> avis</span>
-                        <!-- <i class="fa fa-star"></i>
+                        4 avis
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i> -->
-                        <?php if($donnees["jeu"]->getEvaluationGlobale() >= 0) { ?>
-                            <span class="score"><span style="width: <?= ($donnees["jeu"]->getEvaluationGlobale() / 5) * 100 ?>%"></span></span>
-                            (<?= round($donnees["jeu"]->getEvaluationGlobale(), 2); ?>&nbsp;/&nbsp;5) 
-                        <?php } else { ?>
-                            <span class="text-muted"> Jeu non évalué </span>
-                        <?php } ?>
-                        <a class="pull-right" href="#avis"> Voir les avis </a>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        (4/5)
+                        <a class="pull-right" href="#avis">Voir les avis</a>
                     </div>
                     <?php if(isset($_SESSION['id'])){
                         if($_SESSION['id'] == $donnees["jeu"]->getMembreId() || $_SESSION["type"] == 2 || $_SESSION["type"] == 3){ ?>
@@ -228,11 +219,12 @@
                 <div class="card-header bg-secondary text-white text-uppercase"><i class="fa fa-comment"></i> Avis</div>
                 <div class="card-body">
                     <div class="review">
-                        <?php for($i = 0; $i < count($donnees['commentaires'])-1; $i++) { ?>
-                            <p><i class='fas fa-calendar-alt'></i> <?= $donnees['commentaires'][$i]->getDateCommentaire() ?></p>
-                            <p>Par : <?= $donnees['commentaires']['membres'][$i]->getPrenom() . " " .$donnees['commentaires']['membres'][$i]->getNom() ?></p>
-                            <p><?= $donnees['commentaires'][$i]->getCommentaire() ?></p>
-                            <div class="col-6">
+                        <?php for($i = 0; $i < count($donnees['commentaires'])-1; $i++){
+                                echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaires'][$i]->getDateCommentaire() . "</p>";  
+                                echo "<p>" ."Par : " .$donnees['commentaires']['membres'][$i]->getPrenom() ." " .$donnees['commentaires']['membres'][$i]->getNom() . "</p>"; 
+                                echo "<p>" . $donnees['commentaires'][$i]->getCommentaire() . "</p>";
+                            ?>
+                            <div class="col-6 text-center text-right my-3">
                                 Évaluation&nbsp;:&nbsp;<?= round($donnees["commentaires"][$i]->getEvaluation(), 2); ?>&nbsp;/&nbsp;5
                                 <br><span class="score"><span style="width: <?= ($donnees["commentaires"][$i]->getEvaluation() / 5) * 100 ?>%"></span></span>
                             </div>
@@ -244,6 +236,7 @@
         </div>
     </div>
 </div>
+
 <script>
 
     // Enlève le dernier " > " qui sépare les différentes catégories d'un jeu dans la page "jeux.php"

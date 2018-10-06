@@ -91,6 +91,8 @@ class ControleurMembres extends BaseControleur
                                     $_SESSION["id"] = $donnees->getMembreId();
                                     $_SESSION["courriel"] = $params["courriel"];
                                     $_SESSION["type"] = $donnees->getTypeUtilisateur();
+                                    $_SESSION["cart"] = [];
+                                    $_SESSION["cartImages"] = [];
 //                                    $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
                                     $_SESSION['prenom'] = $donnees->getPrenom();
                                     $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
@@ -133,9 +135,31 @@ class ControleurMembres extends BaseControleur
                         unset($_SESSION["msg"]);
                         setcookie("msg", null, -1, '/');
                     }
+                     if (isset($_SESSION["cart"])) {
+                        unset($_SESSION["cart"]);
+                        setcookie("cart", null, -1, '/');
+                    }
+                    if (isset($_SESSION["cartImages"])) {
+                        unset($_SESSION["cartImages"]);
+                        setcookie("cartImages", null, -1, '/');
+                    }
                     header("location:index.php");
                     break;
-
+                case "acheter" :
+                    if (isset($params['jeux_id']))
+                    {
+                        $jeuxAchete = $modeleJeux->lireJeuParId($params['jeux_id']);
+                        array_push($_SESSION["cart"], $jeuxAchete);
+                        $imageJeuxAchete = $modeleImages->lireImagesParJeuxId($params["jeux_id"]);
+                        array_push($_SESSION["cartImages"], $imageJeuxAchete);
+                        echo sizeof($_SESSION["cart"]);
+                    }
+                    else
+                    {
+                        $_SESSION['msg'] ="Remplissez les produit...";
+                        var_dump($_SESSION['msg']);
+                    }
+                    break;
 
                 default:
                     trigger_error($params["action"] . " Action invalide.");
