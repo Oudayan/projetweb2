@@ -34,25 +34,19 @@
 
     <body>
         <nav class="navbar navbar-expand-md navbar-dark sticky-top" id="navheader">
-            <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar12">
+            <div class="container"> 
+                <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar12">
                     <span class="navbar-toggler-icon" ></span>
                 </button>
                 <a href="index.php?Jeux&action=derniers"><img src="images/logo.png" height="60" class="logo" title="GameXchange" alt="GameXchange Logo"></a>
-
-                <div class="collapse navbar-collapse" id="navbar12"> <a class="navbar-brand d-none d-md-block" href="#">
-                    </a>
+                <div class="collapse navbar-collapse" id="navbar12"> 
+                    <a class="navbar-brand d-none d-md-block" href="#"></a>
                     <ul class="navbar-nav mx-auto">
-
                         <li id="annoce" class="nav-item <?= !isset($_SESSION["courriel"]) ? "hidden" : "" ?>"><a href='index.php?Jeux&action=formAjoutJeux'class="nav-link">Annoncer</a></li>
-
-
-
                     </ul>
-
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item <?= !isset($_SESSION["courriel"]) ? "hidden" : "" ?>"> <a class="nav-link" href="index.php?Messagerie&action=afficherMessagerie">Messagerie</a></li>
                     </ul>
-
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item"> <a class="nav-link" href="index.php?Jeux&action=rechercherJeux">Chercher</a></li>
                     </ul>
@@ -63,15 +57,13 @@
                                 }
                                 ?></a>
                         </li>
-
-<?php if (isset($_SESSION["courriel"])) { ?>
+                    <?php if (isset($_SESSION["courriel"])) { ?>
                             <a href="index.php?Membres&action=logout" id="btn-logout" class="btn navbar-btn text-white btn-primary">
                                 <i class="far fa-user-circle"></i> Se déconnecter</a>
-<?php } else { ?>
+                    <?php } else { ?>
                             <a id="btn-login" class="btn navbar-btn text-white btn-secondary">
                                 <i class="far fa-user-circle"></i> Se connecter</a>
-<?php } ?>
-
+                    <?php } ?>
                         </li>
 
                         <li class="toggle-item">

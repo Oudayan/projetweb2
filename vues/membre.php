@@ -13,6 +13,7 @@ if(isset($_SESSION["id"]))
 ?>
   <div class="container">
     <h1 class="text-center my-3">Gestion des jeux à <?=$_SESSION['nomComplet']?></h1>
+    <hr>
     <div class="row">
       <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
         <div class="col-md-4">
