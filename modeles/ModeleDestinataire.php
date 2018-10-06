@@ -25,9 +25,8 @@ class ModeleDestinataire extends BaseDAO {
         $resultat = $this->lireTous();
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Destinataire');
     }
-
+    
     public function sauvegarde(Destinataire $unDestinataire) {
-//        var_dump($unMessage);
         $sql = "INSERT INTO " . $this->lireNomTable() . "( membre_id ,msg_id) VALUES ( ?, ?)";
         $donnees = array(
             $unDestinataire->getMembre_Id(),

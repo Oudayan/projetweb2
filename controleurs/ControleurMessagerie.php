@@ -32,8 +32,8 @@ class ControleurMessagerie extends BaseControleur
                     if (isset($_SESSION["id"]))
                     {
                         $donnees['messages'] = "";
-                        $donnees['messages'] = $modeleMessagerie->obtenirTousParMembre_Id($_SESSION["id"]);
-
+                        $donnees['messagesEnvoyes'] = $modeleMessagerie->obtenirTousEnvoyeParMembre_Id($_SESSION["id"]);
+                        $donnees['messagesRecu'] = $modeleMessagerie->obtenirTousRecuParMembre_Id($_SESSION["id"]);
                     /*  foreach ($donnees['sujet'] as $sujet){
                             $donnees['sujet']['messagerie'][] = $modeleMembres->obtenirParId($sujet->getMembreId());
                         }*/
@@ -57,23 +57,18 @@ class ControleurMessagerie extends BaseControleur
                     if (isset($params['membre_id']) && isset($params['destinataire_id']) && isset($params['sujet']) && isset($params['message']))
                     {
                         (string)$date = date("Y-m-d");
-                        // $jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= ""
                         $message = new Messagerie(null, $params['membre_id'], $_POST['sujet'],  $_POST['message'] , $date, true);
                         $msg_id = $modeleMessagerie->sauvegarde($message);
                         $destinataire = new Destinataire($_POST['destinataire_id'], $msg_id);
                         $modeleDestinataire->sauvegarde($destinataire);
                         echo "success";
 
-                        //  var_dump($_POST);
                         $donnees['messages'] = $modeleMessagerie->obtenirTousParMembre_Id($_SESSION["id"]);
-                        // if (isset($params['msg_id']) && isset($params['sujet']) && isset($params['message']))
                         if (isset($_POST['msg_id']) && isset($_POST['sujet']) && isset($_POST['message']))
                         {
                             (string)$date = date("Y-m-d");
-                            // $jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= ""
                             $message = new Messagerie($_POST['msg_id'], $_SESSION["id"], $_POST['sujet'],  $_POST['message'] ,   $date, true);
                             $id = $modeleMessagerie->sauvegarde($message);
-                            //var_dump($message, "ID = " . $id);
                         }
                         $this->afficherVues("messagerie", $donnees);
                     }
