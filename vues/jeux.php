@@ -139,16 +139,14 @@
                     <script>
                         $( "#button-contacter-annoceur" ).click(function() {
                             if($("#membre_id").val() != ""){
-                               $( "#fcontacto" ).show();   
+                                $( "#fcontacto" ).show();   
                             }else{
                                 bootoast.toast({
                                     message: 'seuls les membres inscrits peuvent contacter un autre membre!',
                                     type: 'warning',
                                     position: 'top-center'
-
                                     });
                             }
-                             
                         });
                         $( "#envoyer-contacter" ).click(function() {
                             if($("#sujet").val() == "" || $("#message").val() == ""){
@@ -166,36 +164,38 @@
                                     message : $("#message").val()
                                 }
                             });
-                              request.done(function (response, textStatus, jqXHR){
-                                  bootoast.toast({
+                            request.done(function (response, textStatus, jqXHR){
+                                bootoast.toast({
                                     message: 'message envoyé correctement!',
                                     type: 'success',
                                     position: 'top-center'
-
                                     });
-
-                                 $( "#fcontacto" ).hide(); 
+                                $( "#fcontacto" ).hide(); 
                             });
                             }
                         });
                     </script>
                 <!-- fin de formulario -->
-
                     <div class="avis-etoiles p-3 mb-2 ">
-                        4 avis
+                        <span><?= $donnees['nbCommentaires'][0] ?> avis</span>
+                        <!-- <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        (4/5)
-                        <a class="pull-right" href="#avis">Voir les avis</a>
+                        <i class="fa fa-star"></i> -->
+                        <?php if($donnees["jeu"]->getEvaluationGlobale() >= 0) { ?>
+                            <span class="score"><span style="width: <?= ($donnees["jeu"]->getEvaluationGlobale() / 5) * 100 ?>%"></span></span>
+                            (<?= round($donnees["jeu"]->getEvaluationGlobale(), 2); ?>&nbsp;/&nbsp;5) 
+                        <?php } else { ?>
+                            <span class="text-muted"> Jeu non évalué </span>
+                        <?php } ?>
+                        <a class="pull-right" href="#avis"> Voir les avis </a>
                     </div>
                     <?php if(isset($_SESSION['id']) && $_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
                         <!-- Mensagerie -->
-                        <div class="contacter-annoceur mx-auto">
+                        <!-- <div class="contacter-annoceur mx-auto">
                             <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
-                        </div>
+                        </div> -->
                         <a class="btn btn-success btn-lg btn-block text-uppercase text-white">
                             <i class="fa fa-shopping-cart"></i> Ajouter au panier
                         </a>
@@ -224,15 +224,11 @@
                 <div class="card-header bg-secondary text-white text-uppercase"><i class="fa fa-comment"></i> Avis</div>
                 <div class="card-body">
                     <div class="review">
-                        <?php
-                            
-                            for($i = 0; $i < count($donnees['commentaires'])-1; $i++)
-                            {
-                                echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaires'][$i]->getDateCommentaire() . "</p>";  
-                                echo "<p>" ."Par : " .$donnees['commentaires']['membres'][$i]->getPrenom() ." " .$donnees['commentaires']['membres'][$i]->getNom() . "</p>"; 
-                                echo "<p>" . $donnees['commentaires'][$i]->getCommentaire() . "</p>";
-                            ?>
-                            <div class="col-6 text-center text-right my-3">
+                        <?php for($i = 0; $i < count($donnees['commentaires'])-1; $i++) { ?>
+                            <p><i class='fas fa-calendar-alt'></i> <?= $donnees['commentaires'][$i]->getDateCommentaire() ?></p>
+                            <p>Par : <?= $donnees['commentaires']['membres'][$i]->getPrenom() . " " .$donnees['commentaires']['membres'][$i]->getNom() ?></p>
+                            <p><?= $donnees['commentaires'][$i]->getCommentaire() ?></p>
+                            <div class="col-6">
                                 Évaluation&nbsp;:&nbsp;<?= round($donnees["commentaires"][$i]->getEvaluation(), 2); ?>&nbsp;/&nbsp;5
                                 <br><span class="score"><span style="width: <?= ($donnees["commentaires"][$i]->getEvaluation() / 5) * 100 ?>%"></span></span>
                             </div>
@@ -244,7 +240,6 @@
         </div>
     </div>
 </div>
-
 <script>
 
     // Enlève le dernier " > " qui sépare les différentes catégories d'un jeu dans la page "jeux.php"
