@@ -129,13 +129,13 @@ if(isset($_SESSION['id']))
                 <?php //var_dump($donnees['images']); ?>
                 </pre> -->
                 <div id="groupeImages"class="form-group row">
-                    <div id="imageBox1" class="col-md-6 col-xl-3">
-                        <label class="text-center">Image 1</label><br>
+                    <div id="imageBox1" class="col-md-6 col-xl-3 shadow p-3 mb-5 bg-white rounded">
+                        <h5 class="text-center">Image 1</h5>
                         <div id="image1">
                             <?php
                                 if(isset($donnees['images'][0])) {
                                     echo "<input type='text' id='inputImage1' name='cheminsImages[]' value='" .  $donnees['images'][0]->getCheminPhoto() . "' hidden />";
-                                    echo "<img src='" . $donnees['images'][0]->getCheminPhoto() . "' class='img-fluid'>";
+                                    echo "<img src='" . $donnees['images'][0]->getCheminPhoto() . "' class='img-thumbnail'>";
                                 }
                                 else {
                                     echo "<input type='text' id='inputImage1' name='cheminsImages[]' hidden />";
@@ -143,17 +143,21 @@ if(isset($_SESSION['id']))
                             ?>
                         </div>
                         <div class='d-flex flex-wrap justify-content-center'>
-                            <input type="file" id="upload1" class="ml-5" onchange="upload(this, 1)"/>
-                            <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(1)">Effacer</button>
+                            <input type="file" id="upload1" class="ml-5 mt-2 mt-2" onchange="upload(this, 1)"/>
+                            <button type='button' class='btn btn-outline-danger btn-sm my-2  invisible' onclick="deleteImage(1, <?= isset($donnees['images'][0]) ? $donnees['images'][0]->getPhotoJeuxId() : '' ?>)">Effacer</button>
                         </div>
                     </div> 
-                    <div id="imageBox2" class="col-md-6 col-xl-3 <?= isset($donnees['images'][0]) ? '' : 'invisible' ?>">
-                        <label class="text-center">Image 2</label><br>
+                    <div id="imageBox2" class="col-md-6 col-xl-3 shadow p-3 mb-5 bg-white rounded <?= isset($donnees['images'][0]) ? '' : 'invisible' ?>">
+                        <!-- <div class="d-flex justify-content-center">
+                            <label class="text-center">Image 2</label>
+                        </div>
+                        <br> -->
+                        <h5 class="text-center">Image 2</h5>
                         <div id="image2">
                             <?php
                                 if(isset($donnees['images'][1])) {
                                     echo "<input type='text' id='inputImage2' name='cheminsImages[]' value='" .  $donnees['images'][1]->getCheminPhoto() . "' hidden />";
-                                    echo "<img src='" . $donnees['images'][1]->getCheminPhoto() . "' class='img-fluid'>";
+                                    echo "<img src='" . $donnees['images'][1]->getCheminPhoto() . "' class='img-thumbnail'>";
                                 }
                                 else {
                                     echo "<input type='text' id='inputImage2' name='cheminsImages[]' hidden />";
@@ -161,17 +165,17 @@ if(isset($_SESSION['id']))
                             ?>
                         </div>
                         <div class='d-flex flex-wrap justify-content-center'>
-                            <input type="file" id="upload2" class="ml-5" onchange="upload(this, 2)">
-                            <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(2)">Effacer</button>
+                            <input type="file" id="upload2" class="ml-5 mt-2 mt-2" onchange="upload(this, 2)">
+                            <button type='button' class='btn btn-outline-danger btn-sm my-2 invisible' onclick="deleteImage(2, <?= isset($donnees['images'][1]) ? $donnees['images'][1]->getPhotoJeuxId() : '' ?>)">Effacer</button>
                         </div>
                     </div>
-                    <div id="imageBox3" class="col-md-6 col-xl-3 <?= isset($donnees['images'][1]) ? '' : 'invisible' ?>">
-                        <label class="text-center">Image 3</label><br>
+                    <div id="imageBox3" class="col-md-6 col-xl-3 shadow p-3 mb-5 bg-white rounded <?= isset($donnees['images'][1]) ? '' : 'invisible' ?>">
+                        <h5 class="text-center">Image 3</h5>
                         <div id="image3">
                             <?php
                                 if(isset($donnees['images'][2])) {
                                     echo "<input type='text' id='inputImage3'name='cheminsImages[]' value='" .  $donnees['images'][2]->getCheminPhoto() . "' hidden />";
-                                    echo "<img src='" . $donnees['images'][2]->getCheminPhoto() . "' class='img-fluid'>";
+                                    echo "<img src='" . $donnees['images'][2]->getCheminPhoto() . "' class='img-thumbnail '>";
                                 }
                                 else {
                                     echo "<input type='text' id='inputImage3' name='cheminsImages[]' hidden />";
@@ -179,17 +183,17 @@ if(isset($_SESSION['id']))
                             ?>
                         </div>
                         <div class='d-flex flex-wrap justify-content-center'>
-                            <input type="file" id="upload3" class="ml-5" onchange="upload(this, 3)">
-                            <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(3)">Effacer</button>
+                            <input type="file" id="upload3" class="ml-5 mt-2 mt-2" onchange="upload(this, 3)">
+                            <button type='button' class='btn btn-outline-danger btn-sm my-2 invisible' onclick="deleteImage(3, <?= isset($donnees['images'][2]) ? $donnees['images'][2]->getPhotoJeuxId() : '' ?>)">Effacer</button>
                         </div>
                     </div>
-                    <div id="imageBox4" class="col-md-6 col-xl-3 <?= isset($donnees['images'][2]) ? '' : 'invisible' ?>">
-                        <label class="text-center">Image 4</label><br>
+                    <div id="imageBox4" class="col-md-6 col-xl-3 shadow p-3 mb-5 bg-white rounded <?= isset($donnees['images'][2]) ? '' : 'invisible' ?>">
+                        <h5 class="text-center">Image 4</h5>
                         <div id="image4">
                             <?php
                                 if(isset($donnees['images'][3])) {
                                     echo "<input type='text' id='inputImage4' name='cheminsImages[]' value='" .  $donnees['images'][3]->getCheminPhoto() . "' hidden />";
-                                    echo "<img src='" . $donnees['images'][3]->getCheminPhoto() . "' class='img-fluid'>";
+                                    echo "<img src='" . $donnees['images'][3]->getCheminPhoto() . "' class='img-thumbnail'>";
                                 }
                                 else {
                                     echo "<input type='text' id='inputImage4' name='cheminsImages[]' hidden />";
@@ -197,8 +201,8 @@ if(isset($_SESSION['id']))
                             ?>
                         </div>
                         <div class='d-flex flex-wrap justify-content-center'>
-                            <input type="file" id="upload4" class="ml-5" onchange="upload(this, 4)">
-                            <button type='button' class='btn btn-outline-danger btn-sm mt-2 invisible' onclick="deleteImage(4)">Effacer</button>
+                            <input type="file" id="upload4" class="ml-5 mt-2" onchange="upload(this, 4)">
+                            <button type='button' class='btn btn-outline-danger btn-sm my-2 invisible' onclick="deleteImage(4, <?= isset($donnees['images'][3]) ? $donnees['images'][3]->getPhotoJeuxId() : '' ?>)">Effacer</button>
                         </div>
                     </div>
                 </div>
@@ -241,38 +245,37 @@ else{
                 success: function(data) {
                     $('#image' + id).html(data);
                     $('#imageBox' + (id + 1)).removeClass("invisible");
+                    updateDeleteButtons();
                 }
             });
-
         };
-
     }; 
 
-    function deleteImage(id){
+    function deleteImage(id, photoJeuxId){
         var cheminImage = $('#inputImage' + id).val();
+        var formData = new FormData();
+        formData.append('files[]', cheminImage);
         console.log(cheminImage);
         if (cheminImage) {
 
             $.ajax({
-                url: "index.php?Images&action=deleteFichierImage&Id=" + id ,
+                url: "index.php?Images&action=deleteFichierImage&Id=" + id + "&photoJeuxId=" + photoJeuxId,
                 method: "POST",
-                data: {
-                    idd: id,
-                    path: cheminImage
-                },
+                data: formData,
+                processData: false,
+                contentType: false,
                 dataType:"html",
                 success: function(data) {
                     $('#image' + id).html(data);
-                    $('#image' + (id + 1)).removeClass("invisible");
+                    $('#image' + (id + 1)).addClass("invisible");
+                    updateDeleteButtons();
                 }
             });
-
         };
-
     }; 
 
 
-    var updateDelete = function() {
+    var updateDeleteButtons = function() {
         var cheminsImages = $("[id^=inputImage]");
         var boutonsEffacer = $('.btn-outline-danger'); 
         for(var i = 0; i < cheminsImages.length; i++){
@@ -285,12 +288,12 @@ else{
     };
 
     $('#groupeImages').ready(function(){
-        updateDelete();
+        updateDeleteButtons();
     });
 
-    $('#groupeImages').mouseover(function(){
-        updateDelete();
-    });
+    // $('#groupeImages').mouseover(function(){
+    //     updateDeleteButtons();
+    // });
     //console.log($("[id^=inputImage]"));
   
 </script>

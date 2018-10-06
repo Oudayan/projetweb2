@@ -54,28 +54,17 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "afficherJeux" :
-                    if(isset($params["JeuxId"]))
-                    {
-                        $this->afficherVues("accueil", $donnees);
-                    }
+                    $this->afficherAccueil();
                     break;
 
                 case "derniers" :
-
-                    $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-                    $donnees['images'] = $modeleImages->lireDerniersImages();
-
-
-                    $this->afficherVues("accueil", $donnees);
-                    
+                    $this->afficherAccueil();
                     break;
                 
                 case "formAjoutJeux":
 
                     $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
                     $donnees['categories'] = $modeleCategories->lireToutesCategories();
-                    // $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId(2);
-                    // $donnees['jeu'] = $modeleJeux->lireJeuParId(2);
                     
                     $this->afficherVues("ajoutJeux", $donnees);
                     
@@ -182,16 +171,37 @@ class ControleurJeux extends BaseControleur
                     $this->filtrerJeux($params);
                     break;
 
+                case "resetRecherche":
+                    unset($_SESSION['recherche']);
+                    $this->filtrerJeux($params);
+                    break;
+                
+                case "gererMesJeux":
+                    $this->afficherJeuxMembres();
+                    break; 
+                
+                case "desactiverJeu":
+                    if(isset($params['jeux_id'])){
+                        $modeleJeux->desactiverJeu($params['jeux_id']);
+                    }
+                    $this->afficherJeuxMembres();    
+                    break;
+
+                case "activerJeu":
+                    if(isset($params['jeux_id'])){
+                        $modeleJeux->activerJeu($params['jeux_id']);
+                    }
+                    $this->afficherJeuxMembres();    
+                    break;
+
                 default :
-                    $this->afficherVues("accueil", $donnees);
+                    $this->afficherAccueil();
                     break;
             }
         }
         else
         {
-            $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-            $donnees['images'] = $modeleImages->lireDerniersImages();
-            $this->afficherVues("accueil", $donnees);
+            $this->afficherAccueil();
         }
 
     }
@@ -210,35 +220,55 @@ class ControleurJeux extends BaseControleur
         $filtre = "jeux_actif = true AND jeux_valide = true";
 
         if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
+            $_SESSION["rechercher"]["plateforme"] = $params["plateforme"];
+
             $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = " . $params["plateforme"];
         }
 
         if (isset($params["titre"]) && ($params['titre'] !== '')) {
+            $_SESSION["rechercher"]["titre"] = $params["titre"];
+
             $filtre .= ($filtre == "" ? "" : " AND ") . "j.titre LIKE '%" . $params["titre"] . "%'";
         }
+        else {
+            $_SESSION["rechercher"]["titre"] = '';
+        }
 
-        if (isset($params["categories"])) {
-            $counter = 0;
-            $categories = $modeleCategories->lireToutesCategories();
-            for ($i = 0; $i <= count($categories); $i++) {
-                if (isset($params["categories"][$i])) {
-                    $counter++;
-                    if ($counter == 1) {
-                        $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params["categories"][$i];
-                    }
-                    else {
-                        $filtre .= (" OR ") . "c.categorie_id = " . $params["categories"][$i];
-                    }
+        $counter = 0;
+        $categories = $modeleCategories->lireToutesCategories();
+        for ($i = 0; $i <= count($categories); $i++) {
+            $cat = "categories" . $i;
+            if (isset($params[$cat])) {
+//                    var_dump($cat);
+                $_SESSION["rechercher"][$cat] = "checked";
+
+                $counter++;
+                if ($counter == 1) {
+                    $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params[$cat];
+                }
+                else {
+                    $filtre .= (" OR ") . "c.categorie_id = " . $params[$cat];
                 }
             }
-            if ($counter > 0) {
-                $filtre .= ")";
+            else {
+                $_SESSION["rechercher"][$cat] = "";
             }
         }
+        if ($counter > 0) {
+            $filtre .= ")";
+        }
+
 
         if (isset($params["transaction"]) && ($params["transaction"] !== '')) {
+            $_SESSION["rechercher"]["transaction"] = $params["transaction"];
+
             $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
         }
+        else {
+            $_SESSION["rechercher"]["transaction"] = '-1';
+        }
+
+
 
         $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
@@ -247,5 +277,58 @@ class ControleurJeux extends BaseControleur
         $this->afficherVues("rechercher", $donnees);
 
     }
+
+    public function afficherAccueil(){
+
+        $modeleJeux = $this->lireDAO("Jeux");
+        $modeleImages = $this->lireDAO("Images");
+
+        $donnees['trois'] = $modeleJeux->lireDerniersTrois();
+        foreach($donnees['trois'] as $derniers ){
+            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
+                $donnees['imagesTrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
+            }
+            else {
+                $donnees['imagesTrois'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
+            }
+        }
+
+        $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+        foreach($donnees['derniers'] as $derniers ){
+            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
+                $donnees['images'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
+            }
+            else {
+                $donnees['images'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
+            }
+        }
+   
+        $this->afficherVues("accueil", $donnees);
+
+    }
+
+    public function afficherJeuxMembres(){
+        if(isset($_SESSION["id"]))
+        {
+            $modeleJeux = $this->lireDAO("Jeux");
+            $modeleImages = $this->lireDAO("Images");
+    
+            $donnees['jeux'] = $modeleJeux->lireJeuxParMembre($_SESSION["id"]);
+            foreach($donnees['jeux'] as $jeu ){
+                if ($modeleImages->lireImageParJeuxId($jeu->getJeuxId())) {
+                    $donnees['images'][] = $modeleImages->lireImageParJeuxId($jeu->getJeuxId());
+                }
+                else {
+                    $donnees['images'][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
+                }
+            }
+        }
+        else
+        {
+            $donnees['erreur'] = "Vous devez vous connecter pour acceder à cette page";
+        }
+        $this->afficherVues("membre", $donnees);
+    }
+
 
 }

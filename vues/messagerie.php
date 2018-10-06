@@ -39,45 +39,45 @@ $messagesRecu = $donnees["messagesRecu"];
                                         <p><?= $message->getMessage(); ?></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" id="close1" class="btn btn-secondary hidden" data-dismiss="modal">Close</button>
-                                        <button type="button" id="close2" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="buttonRepondre">Répondre</button>
+                                        <button type="button" id="close1<?= $message->getMsg_Id(); ?>" class="btn btn-secondary hidden" data-dismiss="modal">Close</button>
+                                        <button type="button" id="close2<?= $message->getMsg_Id(); ?>" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="buttonRepondre<?= $message->getMsg_Id(); ?>">Répondre</button>
 
                                     </div>
-                                    <div id="fcontacto" class="contacter-annoceur mx-auto hidden">
+                                    <div id="fcontacto<?= $message->getMsg_Id(); ?>" class="contacter-annoceur mx-auto hidden">
                                         <div class="contacter-annoceur mx-auto">
                                             <div class="hidden">
                                                 <p>
-                                                    <input name="sujet" id="sujet" type="text" size="22" value="Re: <?= $message->getSujet(); ?>" tabindex="1" />
+                                                    <input name="sujet" id="sujet<?= $message->getMsg_Id(); ?>" type="text" size="22" value="Re: <?= $message->getSujet(); ?>" tabindex="1" />
                                                 </p>
                                             </div>
                                             <div>
                                                 <p>
-                                                    <textarea name="message" id="message" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea>
+                                                    <textarea name="message" id="message<?= $message->getMsg_Id(); ?>" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea>
                                                 </p>
                                             </div>
                                             <p>
                                             <div class="alert alert-danger hidden" role="alert">
                                                 (*) Champs requis
                                             </div>
-                                            <button id="envoyer-contacter">Envoyer Message <i class="fa fa-paper-plane"></i></button>
+                                            <button id="envoyer-contacter<?= $message->getMsg_Id(); ?>">Envoyer Message <i class="fa fa-paper-plane"></i></button>
                                             </p>
 
                                         </div>
                                     </div>
                                     </br>
                                     <script>
-                                        $("#buttonRepondre").click(function () {
-                                            $("#fcontacto").show();
+                                        $("#buttonRepondre<?= $message->getMsg_Id(); ?>").click(function () {
+                                            $("#fcontacto<?= $message->getMsg_Id(); ?>").show();
                                         });
-                                        $("#close1").click(function () {
+                                        $("#close1<?= $message->getMsg_Id(); ?>").click(function () {
                                             location.reload();
                                         });
                                         $(".close").click(function () {
                                             location.reload();
                                         });
-                                        $("#envoyer-contacter").click(function () {
-                                            if ($("#sujet").val() == "" || $("#message").val() == "") {
+                                        $("#envoyer-contacter<?= $message->getMsg_Id(); ?>").click(function () {
+                                            if ($("#sujet<?= $message->getMsg_Id(); ?>").val() == "" || $("#message<?= $message->getMsg_Id(); ?>").val() == "") {
                                                 $(".alert").show();
                                                 $(".alert").alert();
                                             } else {
@@ -88,8 +88,8 @@ $messagesRecu = $donnees["messagesRecu"];
                                                     data: {
                                                         membre_id: $("#membre_id").val(),
                                                         destinataire_id: $("#destinataire_id<?= $message->getMsg_Id(); ?>").val(),
-                                                        sujet: $("#sujet").val(),
-                                                        message: $("#message").val()
+                                                        sujet: $("#sujet<?= $message->getMsg_Id(); ?>").val(),
+                                                        message: $("#message<?= $message->getMsg_Id(); ?>").val()
                                                     }
                                                 });
                                                 request.done(function (response, textStatus, jqXHR) {
@@ -99,10 +99,10 @@ $messagesRecu = $donnees["messagesRecu"];
                                                         position: 'top-center'
 
                                                     });
-                                                    $("#close1").show();
-                                                    $("#close2").hide();
+                                                    $("#close1<?= $message->getMsg_Id(); ?>").show();
+                                                    $("#close2<?= $message->getMsg_Id(); ?>").hide();
                                                     
-                                                    $("#fcontacto").hide();
+                                                    $("#fcontacto<?= $message->getMsg_Id(); ?>").hide();
                                                 });
                                             }
                                         });
