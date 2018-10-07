@@ -8,22 +8,24 @@
  * @details Cette classe définit pour les achat
  */
 
-    class achat {
+    class Achat {
         //Atributs
         private $achat_id;
         private $type_paiement_id;
         private $membre_id;
         private $jeux_id;
         private $date_achat;
+        private $transaction_id;
 
         // Constructeur
-        public function __construct($achat_id = 0, $type_paiement_id= "", $membre_id = 0, $jeux_id = 0, $date_achat = "")
+        public function __construct($achat_id = 0, $type_paiement_id= 0, $membre_id = 0, $jeux_id = 0, $date_achat = "", $transaction_id = "")
         {
             $this->setAchatId($achat_id);
             $this->setTypePaiementId($type_paiement_id); 
             $this->setMembreId($membre_id);
             $this->setJeuxId($jeux_id);
             $this->setDateAchat($date_achat);
+            $this->setTransactionAchat($transaction_id);
         }
 
         //SETTERS
@@ -68,7 +70,7 @@
          */
         public function setTypePaiementId($type_paiement_id){
             if (is_string($type_paiement_id) && trim($type_paiement_id) != ""){
-                $this->type_paiement_id = $$type_paiement_id;
+                $this->type_paiement_id = $type_paiement_id;
             }
         }
 
@@ -82,6 +84,19 @@
                 $this->date_achat = $date_achat;
             }
         }
+        
+        
+        /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Categorie
+         * @param       [string] $transaction_id ,  le id d'un transaction
+         * @return      [object]
+         */
+        public function setTransactionAchat($transaction_id){
+            if (is_string($transaction_id) && trim($transaction_id) != ""){
+                $this->transaction_id = $transaction_id;
+            }
+        }
+        
 
         // GETTERS
 
@@ -114,7 +129,17 @@
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe achat
-         * @param       [string] $type_paiement_id ,  le type de paiement efectue 
+         * @param       [string] $transaction_id ,  la transaction de un achat 
+         * @return      [object]
+         */
+        public function getTransactionId(){
+            return $this->transaction_id;
+        }
+        
+        
+          /**
+         * @brief       Permet de définir en lecture l'attribut de la classe achat
+         * @param       [numeric] type_paiement_id ,  le type de paiement efectue 
          * @return      [object]
          */
         public function getTypePaiementId(){

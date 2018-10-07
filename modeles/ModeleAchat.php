@@ -32,9 +32,9 @@ class ModeleAchat extends BaseDAO
     public function obtenirParId($membre_id)
     {
         $resultat = $this->lire($membre_id);
-        $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Messagerie');
-        $unMembre = $resultat->fetch();
-        return $unMembre;
+        $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Achat');
+        $unAchat = $resultat->fetch();
+        return $unAchat;
     }
 
 
@@ -91,19 +91,21 @@ class ModeleAchat extends BaseDAO
      * @param   [string] $membre_id
      * @param   [string] $jeux_id
      * @param   [string] $date_achat
+     * @param   [string] $transaction_id
      * @return  [array]
      */
 
     public function sauvegarde(Achat $unAchat)
     {
 
-        $sql = "INSERT INTO " . $this->lireNomTable() . "( achat_id, type_paiement_id, membre_id, jeux_id, date_achat) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO " . $this->lireNomTable() . "( achat_id, type_paiement_id, membre_id, jeux_id, date_achat, transaction_id) VALUES (?, ?, ?, ?, ?, ?)";
         $donnees = array(
             $unAchat->getAchatId(),
             $unAchat->getTypePaiementId(),
             $unAchat->getMembreId(),
             $unAchat->getJeuxId(),
-            $unAchat->getDateAchat());
+            $unAchat->getDateAchat(),
+            $unAchat->getTransactionId());
         return $this->requete($sql, $donnees);
     }
 

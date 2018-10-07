@@ -115,8 +115,6 @@
                     <!-- Mensagerie -->
                     <button type="button" id="button-contacter-annoceur" class="btn btn-outline-dark" data-toggle="collapse" data-target="#fcontact" aria-expanded="false" aria-controls="fcontact">Contacter annoceur <i class="fas fa-envelope"></i></button>
                     <div id="fcontact" class="contacter-annoceur collapse mx-auto">
-                    <!-- <button id="button-contacter-annoceur">Contacter annoceur <i class="fas fa-envelope"></i></button> -->
-                    <!-- <div id="fcontacto" class="contacter-annoceur mx-auto hidden"> -->
                         <div class="contacter-annoceur mx-auto">
                             <div>
                                 <p><input name="sujet" id="sujet" type="text" size="22" tabindex="1" placeholder="Subjet... (*)" /></p>
@@ -135,7 +133,7 @@
                     <script>
                         $( "#button-contacter-annoceur" ).click(function() {
                             if($("#membre_id").val() != ""){
-                                $( "#fcontacto" ).show();   
+                                $( "#fcontact" ).show();   
                             }else{
                                 bootoast.toast({
                                     message: 'seuls les membres inscrits peuvent contacter un autre membre!',
@@ -143,6 +141,7 @@
                                     position: 'top-center'
 
                                     });
+                                $("#envoyer-contacter").prop("disabled",true);
                             }
                         });
                         $( "#envoyer-contacter" ).click(function() {
@@ -167,7 +166,7 @@
                                     type: 'success',
                                     position: 'top-center'
                                     });
-                                $( "#fcontacto" ).hide(); 
+                                $( "#fcontact" ).hide(); 
                             });
                             }
                         });
@@ -192,9 +191,10 @@
                         <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeu"]->getJeuxId() ?>" class="btn btn-primary btn-lg btn-block text-uppercase text-white">Modifier ce jeu</a>
                         <?php } 
                         if(isset($_SESSION['id']) && $_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
-                            <a class="btn btn-success btn-lg btn-block text-uppercase text-white"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
+                            <a class="btn btn-success btn-lg btn-block text-uppercase text-white" onclick="AcheterJeux('<?= $donnees["jeu"]->getJeuxId() ?>')"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
                         <?php } 
                     } else { ?>
+                            <button class="btn btn-success btn-lg btn-block text-uppercase text-white" disabled><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
                         <p class="text-success text-center">Seuls les membres inscrits peuvent ajouter un jeu au panier!</p>
                     <?php } ?>
                 </div>
@@ -247,45 +247,5 @@
 
 </script>
 
-<!--Debut du Mesenger -->
-<?php
-
-if(isset($_POST['c_envoyer'])){
-
-
-    if(isset($_POST['nom'])){
-        $nom = $_POST['nom'];
-    }
-    if(isset($_POST['email'])){
-        $email = $_POST['email'];
-    }
-    if(isset($_POST['telephone'])){
-        $telephone = $_POST['telephone'];
-    }
-    if(isset($_POST['messenger'])){
-        $messenger = $_POST['messenger'];
-    }
-    // Si quelque ligne a plus de 70 caracteres
-    $messenger = wordwrap($messenger, 70, "\r\n");
-
-
-
-    $msj = "De: ".$nom."\r\n";
-    $msj .= "Email: ".$email."\r\n";
-    $msj .= "Date: ".date("d-m-Y H:i:s")."\r\n";
-    $msj .= "Telephone: ".$telephone."\r\n\n\n\n";
-    $msj .= "Messenger: ".$messenger;
-
-
-    /***** Envoy avec la function MAIL de php *****/
-      
-    mail('jansylopez@gmail.com', 'Sujeto:Testing le Formulaire de contact...', $msj);
-
-}
-//else die("L'accès direct à ce fichier n'est pas autorisé.");
-
-    
-    
-?>
 
 

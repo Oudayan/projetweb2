@@ -219,10 +219,10 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 }
 
 .shopping-cart {
-    margin: 20px 0;
+    margin: 20px 500px;
     float: right;
     background: white;
-    max-width: 520px;
+    width: 620px;
     position: fixed;
     border-radius: 3px;
     padding: 20px;
@@ -230,6 +230,18 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
     border: solid transparent;
     border-color: #6c757d;
 } 
+
+.table-panier th{
+    text-align: center;
+}
+.table-panier td{
+    text-align: center;
+}
+
+.table-panier .totalPanier{
+    text-align: right;
+}
+
 
 
 .shopping-cart-header {
