@@ -73,12 +73,14 @@ class ControleurMembres extends BaseControleur
 
                         // comparer les mot de passe sont pareile.
                         if ($params["mot_de_passe"] == $params["confirm_mdp"]) {
-
-                            $enregistrement["Membre"] = new Membres($params['membre_id'], $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], $params['membre_valide'], $params['membre_actif']);
-                            $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
+                            
+                            $membre = new Membres($params['membre_id'], $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], $params['membre_valide'], $params['membre_actif']);
+                            $_SESSION['prenom'] = $params["prenom"];
+                            $_SESSION['nomComplet'] = $params["prenom"] . " " . $params["nom"];
+                            $succes = $modeleMembres->sauvegarde($membre);
 
                             $_SESSION["msg"] = "Vous avez devenu membre de notre site";
-//                        header("location:index.php");
+
                         } else {
                             $_SESSION["msg"] = " Champ requis Le mot de passe de confirmation est différent du mot de passe saisi ";
                         }
