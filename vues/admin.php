@@ -39,7 +39,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) {
                 <?php foreach ($donnees['membres'] as $membre) { ?>
                 <tr>
                     <td><?= $membre->getMembreId(); ?></td>
-                    <td><?= ($_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $membre->getTypeUtilisateur() == 1) || $_SESSION["id"] == $membre->getMembreId()  ? '<a href="index.php?Membres&action=afficherMembre&membre_id=' . $membre->getMembreId() . '">' . $membre->getCourriel() . '</a>'  :  $membre->getCourriel())  ?></td>
+                    <td><?= ($_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $membre->getTypeUtilisateur() == 1) || $_SESSION["id"] == $membre->getMembreId()  ? '<a href="index.php?Membres&action=formModifierMembre&membreId=' . $membre->getMembreId() . '">' . $membre->getCourriel() . '</a>'  :  $membre->getCourriel())  ?></td>
                     <td><?= $membre->getPrenom() . ' ' . $membre->getNom(); ?></td>
 
                     <td><?php

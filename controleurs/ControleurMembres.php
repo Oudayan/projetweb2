@@ -45,20 +45,42 @@ class ControleurMembres extends BaseControleur
 
                 break;
 
+                case "formAjoutMembre":
+                    $donnees = $this->troisDerniers($donnees);
+                    $this->afficherVues("ajoutMembre", $donnees);
+
+                break;
+
+                case "formModifierMembre":
+                    if(isset($_SESSION['id']))
+                    {
+                        if(isset($params['membreId']) && ($_SESSION['type'] == 2 || $_SESSION['type'] == 3))
+                        {
+                            $donnees['membre'] = $modeleMembres->obtenirParId($params['membreId']);
+                        }
+                        else 
+                        {
+                            $donnees['membre'] = $modeleMembres->obtenirParId($_SESSION['id']);
+                        } 
+                        $donnees = $this->troisDerniers($donnees);
+                        $this->afficherVues("ajoutMembre", $donnees);
+                    }
+
+                break;
+
                 case "enregistrerMembre" :
-
-                    var_dump($params);
-
-                    if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"]) && $params["confirm_mdp"]) {
+                    if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"]) && $params["confirm_mdp"] && $params['type_utilisateur_id'] && $params['membre_id'] && $params['membre_valide'] && $params['membre_actif']) {
 
                         // comparer les mot de passe sont pareile.
                         if ($params["mot_de_passe"] == $params["confirm_mdp"]) {
-
-                            $enregistrement["Membre"] = new Membres(null, $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], false, true);
-                            $succes = $modeleMembres->sauvegarde($enregistrement["Membre"]);
+                            
+                            $membre = new Membres($params['membre_id'], $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], $params['membre_valide'], $params['membre_actif']);
+                            $_SESSION['prenom'] = $params["prenom"];
+                            $_SESSION['nomComplet'] = $params["prenom"] . " " . $params["nom"];
+                            $succes = $modeleMembres->sauvegarde($membre);
 
                             $_SESSION["msg"] = "Vous avez devenu membre de notre site";
-//                        header("location:index.php");
+
                         } else {
                             $_SESSION["msg"] = " Champ requis Le mot de passe de confirmation est différent du mot de passe saisi ";
                         }
@@ -73,16 +95,10 @@ class ControleurMembres extends BaseControleur
 //
                 case "verifierLogin" :
                     {
-                       
 //                        echo $params["courriel"];
-                        
-
-//
                         if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
                             $modeleMembres = $this->lireDAO("Membres");
                             $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
-
-
 
                             if ($donnees) {
                                 // Comparaison entre les données reçues et ceux de la BD
@@ -96,7 +112,14 @@ class ControleurMembres extends BaseControleur
 //                                    $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
                                     $_SESSION['prenom'] = $donnees->getPrenom();
                                     $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
-
+                                    var_dump($_SESSION);
+                                    if($_SESSION["type"] =='1'){
+                                        header("location:index.php?Jeux&action=gererMesJeux");
+                                    }else if ($_SESSION["type"] == '2' || $_SESSION["type"] == '3') {
+                                        header("location:index.php?Admin&action=afficherMembres");
+                                    } else {
+                                        header("location:index.php?Jeux&action=rechercherJeux");
+                                    }            
                                 }
                             } else {
 //                                var_dump("Le mot de passe ou le courriel ne sont pas corrects");
@@ -105,17 +128,7 @@ class ControleurMembres extends BaseControleur
                         } else {
                             $_SESSION["msg"] = "Veuillez remplir le courriel et le mot de passe!";
                         }
-
-
-                        if($_SESSION["type"] =='1'){
-                            header("location:index.php?Jeux&action=gererMesJeux");
-                        }elseif ($_SESSION["type"] == '2' || $_SESSION["type"] == '3') {
-                            header("location:index.php?Admin&action=afficherMembres");
-                        } else {
-                            header("location:index.php");
-                        }
-
-//                        header("location:index.php");
+                        // header("location:index.php");
                     }
                     break;
 
@@ -154,5 +167,20 @@ class ControleurMembres extends BaseControleur
         } else {
             var_dump("No");
         }
+    }
+
+    public function troisDerniers($donnees){
+        $modeleJeux = $this->lireDAO("Jeux");
+        $modeleImages = $this->lireDAO("Images");
+        $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
+        foreach($donnees['trois'] as $derniers ){
+            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
+                $donnees['imagesTrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
+            }
+            else {
+                $donnees['imagesTrois'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
+            }
+        }
+        return $donnees;
     }
 }

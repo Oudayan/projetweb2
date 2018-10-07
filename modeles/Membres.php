@@ -171,7 +171,7 @@ class Membres
 
     public function setMembreValide($membre_valide)
     {
-        if (is_bool($membre_valide)) {
+        if (is_numeric($membre_valide)) {
             $this->membre_valide = $membre_valide;
         }
     }
@@ -185,7 +185,7 @@ class Membres
 
     public function setMembreActif($membre_actif)
     {
-        if (is_bool($membre_actif)) {
+        if (is_numeric($membre_actif)) {
             $this->membre_actif = $membre_actif;
         }
     }

@@ -10,7 +10,7 @@
 //                        echo '<a class="mt-5">Bienvenu(e). Vous êtes connecté ! </a></div>';
                         echo '<button class="btn btn-success mt-5 disabled">Bienvenu(e). Vous êtes connecté(e) !</button></div>';
                     } else {
-                        echo '<button id="btn-inscription" type="button" class="btn btn-outline-danger mt-5" data-toggle="modal" data-target="#modal-inscription">S\'INSCRIRE MAINTENANT !</button></div>';
+                        echo '<a href="index.php?Membres&action=formAjoutMembre" id="btn-inscription" class="btn btn-outline-danger mt-5">S\'INSCRIRE MAINTENANT !</a></div>';
                     }
                     ?>
                     <!--Affichage la message -->
@@ -71,19 +71,48 @@
                 </div>
 
                 <div class="col-md-6 p-0">
-                    <div class="carousel slide" data-ride="carousel" data-interval="3000">
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <img src="images/01.jpg" alt="premier slide" class="d-block img-fluid w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block img-fluid w-100" alt="image-jeu" src="images/02.jpg" data-holder-rendered="true">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block img-fluid w-100" alt="image-jeu" src="images/03.jpg" data-holder-rendered="true">
-                            </div>
-                        </div>
+                <div id="carouselTrois" class="carousel slide" data-ride="carousel" data-interval='3000'>
+                    <ol class="carousel-indicators">
+                        <?php
+                        for($i = 0; $i < count($donnees['imagesTrois']); $i++)
+                        {
+                            if($i == 0)
+                            {
+                                echo "<li data-target='#carouselTrois' data-slide-to='" . $i . "' class='active'></li>";
+                            }
+                            else
+                            {
+                                echo "<li data-target='#carouselTrois' data-slide-to='" . $i . "'></li>";
+                            }
+                        }
+                        ?>
+                    </ol>
+                    <div class="carousel-inner">
+                        <?php
+                        for($i = 0; $i < count($donnees['imagesTrois']); $i++)
+                        {
+                            if($i == 0)
+                            {
+                                echo '<div class="carousel-item active">';
+                            }
+                            else
+                            {
+                                echo '<div class="carousel-item">';
+                            }
+                            echo '<img class="d-block w-100" src="' . $donnees['imagesTrois'][$i]->getCheminPhoto() . '" alt="' . $donnees["trois"][$i]->getTitre() . '">';
+                            echo '</div>';
+                        }
+                        ?>
                     </div>
+                    <a class="carousel-control-prev" href="#carouselTrois" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselTrois" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
                 </div>
             </div>
         </div>
