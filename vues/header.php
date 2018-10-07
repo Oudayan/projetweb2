@@ -32,8 +32,9 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     </head>
 
-    <body>
+    <body> 
         <input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : "" ?>"/>
+        <input type="hidden" id="quantitePanier" value="<?= isset($_SESSION["cart"]) ? sizeof($_SESSION["cart"]) : 0 ?>"/>
         <nav class="navbar navbar-expand-md navbar-dark sticky-top" id="navheader">
             <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar12">
                     <span class="navbar-toggler-icon" ></span>
@@ -90,48 +91,55 @@
 
 
                 </div>
-                 <script>
-            $("#cart").on("click", function () {
-                $("#shopping-cart").fadeToggle("fast");
-            });
-        </script>
-        <div class="container container-shopping- hidden" id="shopping-cart">
+
+            </div>
+
+
+        </nav>
+        <div class="container container-shopping-cart hidden" id="shopping-cart">
             <div class="shopping-cart">
-                <table class="table table-striped">
+                <table class="table table-striped table-panier">
                     <?php
                     if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
                         $i = 0;
+                        $total = 0;
                         foreach ($_SESSION["cart"] as $jeux) {
                             ?>
 
-                            <tr>
+                            <tr id="jeuxAchete<?= $jeux->getJeuxId() ?>">
                                 <td class="text-center">
                                     <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $jeux->getJeuxId() ?>"  class="img-thumbnail" >
-                                        <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i][0]->getCheminPhoto() ?>" alt="Card image cap">
+                                        <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i] ?>" alt="Card image cap">
                                     </a>
                                 </td>
                                 <td class="text-center"><?= $jeux->getTitre() ?></td>
                                 <td class="text-center">x1</td>
                                 <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
-                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                                </td>
                             </tr>
                             <?php
+                            $i++;
+                            $total = $total + $jeux->getPrix();
                         }
+                        ?>
+                        <tr>
+                            <td class="totalPanier" colspan="3">Total</td>
+                            <td><?= $total ?> $CAD</td>
+                            <td></td>
+                        </tr>
+                        <?php
                     } else {
                         ?>
                         <tr>
                             <td colspan="5"><strong>le panier est vide</strong></td>
                         </tr>
-                    <?php } ?>
+<?php } ?>
                 </table>
-                <a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Check-out</a>
+                <a href="index.php?Achat&action=afficherPanier" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Check-out</a>
             </div> <!--end shopping-cart -->
         </div> <!--end container -->
-            </div>
-
-
-        </nav>
-       
         <!-- Modal -->
         <div class="modal fade" id="modal-login" role="dialog">
             <div class="modal-dialog">
@@ -166,3 +174,58 @@
             </div>
         </div>
 
+        <script>
+            $("#cart").on("click", function () {
+                if ($("#quantitePanier").val() > 0) {
+                    $("#shopping-cart").fadeToggle("fast");
+                }
+            });
+            function supprimerJeuxCart(id) {
+                bootoast.toast({
+                    message: 'Jeux supprimee correctement!',
+                    type: 'success',
+                    position: 'top-center'
+
+                });
+                request = $.ajax({
+                    url: "index.php?achat&action=supprimer",
+                    type: "post",
+                    data: {
+                        jeux_id: id
+                    }
+                });
+                request.done(function (response) {
+
+                    location.reload();
+                });
+            }
+            function AcheterJeux(id) {
+                if ($("#membre_id").val() != "") {
+                    bootoast.toast({
+                        message: 'Jeux Ajoutee correctement!',
+                        type: 'success',
+                        position: 'top-center'
+
+                    });
+                    request = $.ajax({
+                        url: "index.php?achat&action=acheter",
+                        type: "post",
+                        data: {
+                            jeux_id: id
+                        }
+                    });
+                    request.done(function (response) {
+
+                        location.reload();
+
+                    });
+                } else {
+                    bootoast.toast({
+                        message: 'Seuls les membres inscrits peuvent acheter/louer un jeux!',
+                        type: 'warning',
+                        position: 'top-center'
+
+                    });
+                }
+            }
+        </script>

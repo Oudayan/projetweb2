@@ -147,22 +147,7 @@ class ControleurMembres extends BaseControleur
                     }
                     header("location:index.php");
                     break;
-                case "acheter" :
-                    if (isset($params['jeux_id']))
-                    {
-                        $jeuxAchete = $modeleJeux->lireJeuParId($params['jeux_id']);
-                        array_push($_SESSION["cart"], $jeuxAchete);
-                        $imageJeuxAchete = $modeleImages->lireImagesParJeuxId($params["jeux_id"]);
-                        array_push($_SESSION["cartImages"], $imageJeuxAchete);
-                        echo sizeof($_SESSION["cart"]);
-                    }
-                    else
-                    {
-                        $_SESSION['msg'] ="Remplissez les produit...";
-                        var_dump($_SESSION['msg']);
-                    }
-                    break;
-
+              
                 default:
                     trigger_error($params["action"] . " Action invalide.");
             }

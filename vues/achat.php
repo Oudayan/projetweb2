@@ -1,140 +1,138 @@
+<div class="container">
+    <div id="panierDiv">
+        <h1>Panier</h1>
+        <table class="table table-striped table-panier">
+            <tr>
+                <th colspan="2">Jeux</th>
+                <th>Quantite</th>
+                <th>Prix</th>
+                <th></th>
+            </tr>
+            <?php
+            if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
+                $i = 0;
+                $total = 0;
+                foreach ($_SESSION["cart"] as $jeux) {
+                    ?>
+
+                    <tr id="jeuxAchete<?= $jeux->getJeuxId() ?>">
+                        <td class="text-center">
+                            <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $jeux->getJeuxId() ?>"  class="img-thumbnail" >
+                                <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i] ?>" alt="Card image cap">
+                            </a>
+                        </td>
+                        <td class="text-center"><?= $jeux->getTitre() ?></td>
+                        <td class="text-center">x1</td>
+                        <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
+                        <td class="text-center">
+                            <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
+                        </td>
+                    </tr>
+                    <?php
+                    $i++;
+                    $total = $total + $jeux->getPrix();
+                }
+                ?>
+                <tr>
+                    <td class="totalPanier" colspan="3">Total</td>
+                    <td><?= $total ?> $CAD</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="5">
 
 
-<!-- navbar -->
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
- 
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="productos.php">Sistemas Web</a>
-        </div>
- 
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li <?php echo $page_title=="Products" ? "class='active'" : ""; ?> >
-                    <a href="productos.php">Productos</a>
-                </li>
-                <li <?php echo $page_title=="Cart" ? "class='active'" : ""; ?> >
-                    <a href="carro.php">
-                        <?php
-                        // query to count all product in cart
-                        $query = "SELECT count(*) FROM cart_items WHERE user=1";
- 
-                        // prepare query statement
-                        $stmt = $con->prepare( $query );
- 
-                        // execute query
-                        $stmt->execute();
- 
-                        // get row value
-                        $rows = $stmt->fetch(PDO::FETCH_NUM);
- 
-                        // return count
-                        $cart_count=$rows[0];
-                        ?>
-                        Carrito <span class="badge" id="comparison-count"><?php echo $cart_count; ?></span>
-                    </a>
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
- 
+
+                        <div id="paypal-button-container"></div>
+                        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+                        <script>
+                            // Render the PayPal button
+                            paypal.Button.render({
+                                // Set your environment
+                                env: 'sandbox', // sandbox | production
+
+                                // Specify the style of the button
+                                style: {
+                                    layout: 'vertical', // horizontal | vertical
+                                    size: 'medium', // medium | large | responsive
+                                    shape: 'rect', // pill | rect
+                                    color: 'gold'       // gold | blue | silver | white | black
+                                },
+
+                                // Specify allowed and disallowed funding sources
+                                //
+                                // Options:
+                                // - paypal.FUNDING.CARD
+                                // - paypal.FUNDING.CREDIT
+                                // - paypal.FUNDING.ELV
+                                funding: {
+                                    allowed: [
+                                        paypal.FUNDING.CARD,
+                                        paypal.FUNDING.CREDIT
+                                    ],
+                                    disallowed: []
+                                },
+
+                                // PayPal Client IDs - replace with your own
+                                // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+                                client: {
+                                    sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+                                    production: '<insert production client id>'
+                                },
+
+                                payment: function (data, actions) {
+                                    return actions.payment.create({
+                                        payment: {
+                                            transactions: [
+                                                {
+                                                    amount: {
+                                                        total: '<?= $total ?>',
+                                                        currency: 'CAD'
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    });
+                                },
+
+                                onAuthorize: function (data, actions) {
+                                    return actions.payment.execute()
+                                            .then(function (resp) {
+                                                $("#transId").text(resp["id"]);
+                                                request = $.ajax({
+                                                    url: "index.php?achat&action=payerPanier",
+                                                    type: "post",
+                                                    data: {
+                                                        transaction_id: resp["id"]
+                                                    }
+                                                });
+                                                request.done(function (response) {
+                                                    $("#thanks").show();
+                                                    $("#panierDiv").hide();
+                                                    $("#quantitePanier").val(0);
+                                                    $("#cartQuantity").val(0);
+                                                });
+                                            });
+                                }
+                            }, '#paypal-button-container');
+                        </script>
+
+
+
+
+                    </td>
+                </tr>
+                <?php
+            } else {
+                ?>
+                <tr>
+                    <td colspan="5"><strong>le panier est vide</strong></td>
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
+    <div id="thanks" class="hidden">
+        <h1>Merci.</h1>
+        <p>Votre transaction avec identifiant <span id="transId" style="color: blue;"></span> a été traitée correctement.</p>
     </div>
 </div>
-<!-- /navbar -->
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-<!-- navbar -->
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
- 
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="productos.php">Sistemas Web</a>
-        </div>
- 
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li <?php echo $page_title=="Products" ? "class='active'" : ""; ?> >
-                    <a href="productos.php">Productos</a>
-                </li>
-                <li <?php echo $page_title=="Cart" ? "class='active'" : ""; ?> >
-                    <a href="carro.php">
-                        <?php
-                        // query to count all product in cart
-                        $query = "SELECT count(*) FROM cart_items WHERE user=1";
- 
-                        // prepare query statement
-                        $stmt = $con->prepare( $query );
- 
-                        // execute query
-                        $stmt->execute();
- 
-                        // get row value
-                        $rows = $stmt->fetch(PDO::FETCH_NUM);
- 
-                        // return count
-                        $cart_count=$rows[0];
-                        ?>
-                        Carrito <span class="badge" id="comparison-count"><?php echo $cart_count; ?></span>
-                    </a>
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
- 
-    </div>
-</div>
-<!-- /navbar -->
