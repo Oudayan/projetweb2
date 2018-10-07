@@ -28,22 +28,25 @@
                     <a href="index.php?Jeux&action=derniers"><img src="images/logo.png" height="60" class="logo" title="GameXchange" alt="GameXchange Logo"></a>
                     <div class="collapse navbar-collapse" id="navbar12"> 
                         <!-- <a class="navbar-brand d-none d-md-block" href="#"></a> -->
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"><a href="index.php?Jeux&action=rechercherJeux" class="nav-link">Rechercher</a></li>
+                        </ul>
                         <?php if(isset($_SESSION["id"])){ ?>
                             <ul class="navbar-nav mx-auto">
-                                <li class="nav-item"><a href="index.php?Messagerie&action=afficherMessagerie" class="nav-link" >Messagerie</a></li>
+                                <li id="annoce" class="nav-item"><a href="index.php?Jeux&action=gererMesJeux" class="nav-link">Gérer mes&nbsp;jeux</a></li>
                             </ul>
                             <ul class="navbar-nav mx-auto">
-                                <li id="annoce" class="nav-item"><a href="index.php?Jeux&action=gererMesJeux" class="nav-link">Gérer mes&nbsp;jeux</a></li>
+                                <li class="nav-item"><a href="index.php?Membres&action=formModifierMembre" class="nav-link">Gérer mon&nbsp;profil</a></li>
                             </ul>
                             <?php if($_SESSION["type"] == 2 || $_SESSION["type"] == 3){ ?>
                                 <ul class="navbar-nav mx-auto">
                                     <li id="annoce" class="nav-item"><a href="index.php?Admin&action=afficherMembres" class="nav-link">Admin</a></li>
                                 </ul>
-                            <?php }
-                        } ?>
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a href="index.php?Jeux&action=rechercherJeux" class="nav-link">Rechercher</a></li>
-                        </ul>
+                            <?php } ?>
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item"><a href="index.php?Messagerie&action=afficherMessagerie" class="nav-link" >Messagerie</a></li>
+                            </ul>
+                        <?php } ?>
                         <ul class="navbar-nav">
                             <li class="nav-item">
                             <?php if (isset($_SESSION["id"])) {
@@ -133,7 +136,7 @@
                                     <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required value="pacman_2018">
                                 </div>
                                 <div class="checkbox">
-                                    <label><input type="checkbox" value="" checked>  Se souvenir de moi></label>
+                                    <label><input type="checkbox" value="" checked>  Se souvenir de moi</label>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
                                 <div class="pt-2">
