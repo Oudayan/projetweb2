@@ -105,12 +105,6 @@ class ControleurMembres extends BaseControleur
                                 $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
                                 $_SESSION['prenom'] = $donnees->getPrenom();
                                 $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
-                                if($_SESSION["type"] == 1){
-                                    header("location:index.php?Jeux&action=gererMesJeux");
-                                }
-                                if($_SESSION["type"] == 2 || $_SESSION["type"] == 3) {
-                                    header("location:index.php?Admin&action=afficherMembres");
-                                }
                             }
                             else
                             {
@@ -126,8 +120,19 @@ class ControleurMembres extends BaseControleur
                     {
                         $_SESSION["msg"] = "Veuillez remplir le courriel et le mot de passe !";
                     }
-                    header("location:index.php");
-                    break;
+                    // Redirection selon type de membre
+                    if(isset($_SESSION["type"]) && $_SESSION["type"] == 1){
+                        header("location:index.php?Jeux&action=gererMesJeux");
+                    }
+                    else if(isset($_SESSION["type"]) && ($_SESSION["type"] == 2 || $_SESSION["type"] == 3)) {
+                        header("location:index.php?Admin&action=afficherMembres");
+                    }
+                    else
+                    {
+                        header("location:index.php");
+                    } 
+
+        break;
 
                 case  "logout":
                     if (isset($_SESSION["id"])) {
