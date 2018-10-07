@@ -42,13 +42,11 @@ class ControleurMembres extends BaseControleur
                     $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
                     $donnees['images'] = $modeleImages->lireDerniersImages();
                     $this->afficherVues("accueil", $donnees);
-
                 break;
 
                 case "formAjoutMembre":
                     $donnees = $this->troisDerniers($donnees);
                     $this->afficherVues("ajoutMembre", $donnees);
-
                 break;
 
                 case "formModifierMembre":
@@ -65,74 +63,72 @@ class ControleurMembres extends BaseControleur
                         $donnees = $this->troisDerniers($donnees);
                         $this->afficherVues("ajoutMembre", $donnees);
                     }
-
                 break;
 
                 case "enregistrerMembre" :
                     if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"]) && $params["confirm_mdp"] && $params['type_utilisateur_id'] && $params['membre_id'] && $params['membre_valide'] && $params['membre_actif']) {
-
                         // comparer les mot de passe sont pareile.
-                        if ($params["mot_de_passe"] == $params["confirm_mdp"]) {
-                            
+                        if($params["mot_de_passe"] == $params["confirm_mdp"])
+                        {
                             $membre = new Membres($params['membre_id'], $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], $params['membre_valide'], $params['membre_actif']);
                             $_SESSION['prenom'] = $params["prenom"];
                             $_SESSION['nomComplet'] = $params["prenom"] . " " . $params["nom"];
-                            $succes = $modeleMembres->sauvegarde($membre);
-
-                            $_SESSION["msg"] = "Vous avez devenu membre de notre site";
-
-                        } else {
-                            $_SESSION["msg"] = " Champ requis Le mot de passe de confirmation est différent du mot de passe saisi ";
+                            $id = $modeleMembres->sauvegarde($membre);
+                            $_SESSION["msg"] = "Vous êtes maintenant membre de notre site !";
                         }
-                    } else {
-
+                        else
+                        {
+                            $_SESSION["msg"] = "Champ requis. Le mot de passe de confirmation est différent du mot de passe saisi.";
+                        }
+                    }
+                    else
+                    {
                         $_SESSION["msg"] = "Remplissez tous les champs...";
-//                        $this->afficherVues("ajouteUnMembre");
+                        // $this->afficherVues("ajouteUnMembre");
                     }
                     header("location:index.php");
-
                     break;
-//
+
                 case "verifierLogin" :
-                    {
-//                        echo $params["courriel"];
-                        if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
-                            $modeleMembres = $this->lireDAO("Membres");
-                            $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
-
-                            if ($donnees) {
-                                // Comparaison entre les données reçues et ceux de la BD
-//                                if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == md5($params["mot_de_passe"] )) {
-                                if ($donnees->getCourriel() == $params["courriel"] && $donnees->getMotDePasse() == $params["mot_de_passe"]) {
-                                    $_SESSION["id"] = $donnees->getMembreId();
-                                    $_SESSION["courriel"] = $params["courriel"];
-                                    $_SESSION["type"] = $donnees->getTypeUtilisateur();
-                                    $_SESSION["cart"] = [];
-                                    $_SESSION["cartImages"] = [];
-//                                    $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
-                                    $_SESSION['prenom'] = $donnees->getPrenom();
-                                    $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
-                                    var_dump($_SESSION);
-                                    if($_SESSION["type"] =='1'){
-                                        header("location:index.php?Jeux&action=gererMesJeux");
-                                    }else if ($_SESSION["type"] == '2' || $_SESSION["type"] == '3') {
-                                        header("location:index.php?Admin&action=afficherMembres");
-                                    } else {
-                                        header("location:index.php?Jeux&action=rechercherJeux");
-                                    }            
+                    if (isset($params["courriel"]) && isset($params["mot_de_passe"])) {
+                        $modeleMembres = $this->lireDAO("Membres");
+                        $donnees = $modeleMembres->obtenirParCourriel($params["courriel"]);
+                        if ($donnees) {
+                            // Comparaison entre les données reçues et ceux de la BD
+                            // if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == md5($params["mot_de_passe"] )) {
+                            if ($donnees->getCourriel() == $params["courriel"] && $donnees->getMotDePasse() == $params["mot_de_passe"]) {
+                                $_SESSION["id"] = $donnees->getMembreId();
+                                $_SESSION["courriel"] = $params["courriel"];
+                                $_SESSION["type"] = $donnees->getTypeUtilisateur();
+                                $_SESSION["cart"] = [];
+                                $_SESSION["cartImages"] = [];
+                                $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
+                                $_SESSION['prenom'] = $donnees->getPrenom();
+                                $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
+                                if($_SESSION["type"] == 1){
+                                    header("location:index.php?Jeux&action=gererMesJeux");
                                 }
-                            } else {
-//                                var_dump("Le mot de passe ou le courriel ne sont pas corrects");
-                                $_SESSION["msg"] = "Le courriel ou le mot de passe ne sont pas corrects";
+                                if($_SESSION["type"] == 2 || $_SESSION["type"] == 3) {
+                                    header("location:index.php?Admin&action=afficherMembres");
+                                }
                             }
-                        } else {
-                            $_SESSION["msg"] = "Veuillez remplir le courriel et le mot de passe!";
+                            else
+                            {
+                                $_SESSION["msg"] = "Le courriel ou le mot de passe ne sont pas corrects.";
+                            }
                         }
-                        // header("location:index.php");
+                        else
+                        {
+                            $_SESSION["msg"] = "Ce courriel n'existe pas dans la base de données.";
+                        }
                     }
+                    else
+                    {
+                        $_SESSION["msg"] = "Veuillez remplir le courriel et le mot de passe !";
+                    }
+                    header("location:index.php");
                     break;
 
-               
                 case  "logout":
                     if (isset($_SESSION["id"])) {
                         unset($_SESSION["id"]);
@@ -150,7 +146,7 @@ class ControleurMembres extends BaseControleur
                         unset($_SESSION["msg"]);
                         setcookie("msg", null, -1, '/');
                     }
-                     if (isset($_SESSION["cart"])) {
+                    if (isset($_SESSION["cart"])) {
                         unset($_SESSION["cart"]);
                         setcookie("cart", null, -1, '/');
                     }
@@ -160,7 +156,7 @@ class ControleurMembres extends BaseControleur
                     }
                     header("location:index.php");
                     break;
-              
+
                 default:
                     trigger_error($params["action"] . " Action invalide.");
             }

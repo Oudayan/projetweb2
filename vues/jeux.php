@@ -177,13 +177,18 @@
                     </div> -->
                 <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
-                        4 avis
+                        <?= $donnees['nbCommentaires'][0] ?>&nbsp;avis&nbsp;
+                        <!-- <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        (4/5)
+                        <i class="fa fa-star"></i> -->
+                        <?php if($donnees["jeu"]->getEvaluationGlobale() >= 0){ ?>
+                            <span class="score"><span style="width: <?= ($donnees["jeu"]->getEvaluationGlobale() / 5) * 100 ?>%"></span></span>
+                            (<?= round($donnees["jeu"]->getEvaluationGlobale(), 2) ?>&nbsp;/&nbsp;5)
+                        <?php } else { ?>
+                            <span>Jeu non évalué</span>
+                        <?php } ?>
                         <a class="pull-right" href="#avis">Voir les avis</a>
                     </div>
                     <?php if(isset($_SESSION['id'])){
@@ -191,7 +196,7 @@
                         <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeu"]->getJeuxId() ?>" class="btn btn-primary btn-lg btn-block text-uppercase text-white">Modifier ce jeu</a>
                         <?php } 
                         if(isset($_SESSION['id']) && $_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
-                            <a class="btn btn-success btn-lg btn-block text-uppercase text-white" onclick="AcheterJeux('<?= $donnees["jeu"]->getJeuxId() ?>')"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
+                            <a class="btn btn-success btn-lg btn-block text-uppercase text-white" onclick="AcheterJeux('<?= $donnees['jeu']->getJeuxId() ?>')"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
                         <?php } 
                     } else { ?>
                             <button class="btn btn-success btn-lg btn-block text-uppercase text-white" disabled><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>

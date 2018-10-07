@@ -148,6 +148,9 @@
                     </div>
                 </div>
             </div>
+            <?php if(isset($_SESSION["msg"]) && $_SESSION["msg"] != ""){
+                echo '<p class="text-warning text-center">' . $_SESSION["msg"] . '</p>';
+            } ?>
         </header>
 
         <script>

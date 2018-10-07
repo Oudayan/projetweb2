@@ -185,7 +185,7 @@ class ControleurJeux extends BaseControleur
     }
 
 
-    public function filtrerJeux(array $params)
+    private function filtrerJeux(array $params)
     {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
@@ -243,32 +243,32 @@ class ControleurJeux extends BaseControleur
         }
 
         $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
-        $donnees = $this->chercherImages($donnees, $donnees['jeux']);      
+        $donnees = $this->chercherImages($donnees);      
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
         $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
         $this->afficherVues("rechercher", $donnees);
     }
 
 
-    public function afficherAccueil()
+    private function afficherAccueil()
     {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
         $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
-        $donnees = $this->chercherImages($donnees, $donnees['trois'], "Trois");
+        $donnees = $this->chercherImages($donnees, "trois", "Trois");
         $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-        $donnees = $this->chercherImages($donnees, $donnees['derniers']);
+        $donnees = $this->chercherImages($donnees, "derniers");
         $this->afficherVues("accueil", $donnees);
     }
 
 
-    public function afficherJeuxMembres()
+    private function afficherJeuxMembres()
     {
         if(isset($_SESSION["id"]))
         {
             $modeleJeux = $this->lireDAO("Jeux");
             $donnees['jeux'] = $modeleJeux->lireJeuxParMembre($_SESSION["id"]);
-            $donnees = $this->chercherImages($donnees, $donnees['jeux']);
+            $donnees = $this->chercherImages($donnees);
         }
         else
         {
@@ -278,10 +278,10 @@ class ControleurJeux extends BaseControleur
     }
 
 
-    public function chercherImages($donnees, $jeux, $images = "")
+    private function chercherImages($donnees, $jeux = "jeux", $images = "")
     {
         $modeleImages = $this->lireDAO("Images");
-        foreach($jeux as $jeu)
+        foreach($donnees[$jeux] as $jeu)
         {
             if ($modeleImages->lireImageParJeuxId($jeu->getJeuxId()))
             {

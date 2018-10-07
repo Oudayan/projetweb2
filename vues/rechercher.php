@@ -58,7 +58,7 @@
             <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow cardjeux">
-                    <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>"><img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap">
+                    <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>"><img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap"></a>
                     <div class="card-body">
                         <p class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></p>
                         <div class="d-flex justify-content-between align-items-center">
