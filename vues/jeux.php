@@ -133,7 +133,7 @@
                     <script>
                         $( "#button-contacter-annoceur" ).click(function() {
                             if($("#membre_id").val() != ""){
-                                $( "#fcontact" ).show();   
+                                //$( "#fcontact" ).show();   
                             }else{
                                 bootoast.toast({
                                     message: 'seuls les membres inscrits peuvent contacter un autre membre!',

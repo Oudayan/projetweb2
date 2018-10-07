@@ -25,9 +25,7 @@ class ControleurJeux extends BaseControleur
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
-        
         $donnees["erreur"] = "";
-
         if (isset($params["action"]))
         {
             switch($params["action"])
@@ -60,14 +58,11 @@ class ControleurJeux extends BaseControleur
                 case "derniers" :
                     $this->afficherAccueil();
                     break;
-                
-                case "formAjoutJeux":
 
+                case "formAjoutJeux":
                     $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-                    $donnees['categories'] = $modeleCategories->lireToutesCategories();
-                    
+                    $donnees['categories'] = $modeleCategories->lireToutesCategories();  
                     $this->afficherVues("ajoutJeux", $donnees);
-                    
                     break;
 
                 case "formModifierJeux":
@@ -83,15 +78,10 @@ class ControleurJeux extends BaseControleur
                     {
                         $donnees["erreur"] = "Ce jeu n'existe pas.";
                     }
-
                     $this->afficherVues("ajoutJeux", $donnees);
-                    
                     break;
 
                 case "enregistrerJeux":
-
-                    //var_dump($params); 
-
                     if (isset($params['jeux_id']) && isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
                     {
                         (string)$date = date("Y-m-d H:i");  
@@ -138,9 +128,6 @@ class ControleurJeux extends BaseControleur
                                 }
                             }
                         }
-
-                        // var_dump($jeu, "ID = " . $id);
-
                         //Sauvegarder les categories de jeu
                         $modeleCategoriesJeux->effacerCategoriesParJeuxId($jeux_id);
                         for($i=0; $i < count($params['categorie']); $i++)
@@ -150,21 +137,12 @@ class ControleurJeux extends BaseControleur
                             //var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
                             $modeleCategoriesJeux->sauvegarderCategoriesJeu($cat);
                         }
-
                     }
-
                     else
                     {
                         $_SESSION['msg'] ="Remplissez tous les champs...";
-                        // $this->afficherVues("maPage", $donnees);
-                        var_dump("bla");
                     }
-
-                    // $donnees['jeux'] = $$modeleJeux->sauvegarderJeux();
-                    // $donnees['categoriesJeu'] = $modeleCategoriesJeux->sauvegarderCategoriesJeu();
-                    // $this->afficherVues("maPage", $donnees);
                     $this->filtrerJeux($params);
-
                     break;
 
                 case "rechercherJeux":
@@ -175,11 +153,11 @@ class ControleurJeux extends BaseControleur
                     unset($_SESSION['recherche']);
                     $this->filtrerJeux($params);
                     break;
-                
+
                 case "gererMesJeux":
                     $this->afficherJeuxMembres();
                     break; 
-                
+
                 case "desactiverJeu":
                     if(isset($params['jeux_id'])){
                         $modeleJeux->desactiverJeu($params['jeux_id']);
@@ -206,8 +184,9 @@ class ControleurJeux extends BaseControleur
 
     }
 
-    public function filtrerJeux(array $params) {
 
+    public function filtrerJeux(array $params)
+    {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
         $modeleMembres = $this->lireDAO("Membres");
@@ -271,7 +250,8 @@ class ControleurJeux extends BaseControleur
     }
 
 
-    public function afficherAccueil(){
+    public function afficherAccueil()
+    {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
         $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
@@ -282,7 +262,8 @@ class ControleurJeux extends BaseControleur
     }
 
 
-    public function afficherJeuxMembres(){
+    public function afficherJeuxMembres()
+    {
         if(isset($_SESSION["id"]))
         {
             $modeleJeux = $this->lireDAO("Jeux");
