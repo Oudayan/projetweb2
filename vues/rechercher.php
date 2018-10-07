@@ -55,38 +55,23 @@
 <div class="py-2 bg-light">
     <div class="container">
         <div class="row">
-
-            <?php
-        
-                $modeleImages = $this->lireDAO("Images");
-
-             for ($i = 0; $i < count($donnees['jeux']); $i++) {
-
-
-                 echo    '<div class="col-md-4">';
-                 echo        '<div class="card mb-4 box-shadow cardjeux">';                 
-                 $images[$i] = $modeleImages->lireImageParJeuxId($donnees['jeux'][$i]->getJeuxId());
-                 if ($images[$i]) {
-                 echo            '<img class="card-img-top" src="' . $images[$i]->getCheminPhoto() .'" alt="Card image cap">';
-                }
-                 else {
-                 echo            '<img class="card-img-top" src="images/image_defaut.png" alt="Card image cap">';
-                }
-                 echo            '<div class="card-body">';
-                 echo                '<p class="card-text">' . $donnees['jeux'][$i]->getTitre() . '</p>';
-                 echo                '<div class="d-flex justify-content-between align-items-center">';
-                 echo                    '<div class="btn-group">';
-                 echo                        '<button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href=\'index.php?Jeux&action=afficherJeu&JeuxId=' . $donnees['jeux'][$i]->getJeuxId() . ' \' ">Détails</button>';
-                 echo                        '<button type="button" class="btn btn-sm btn-outline-secondary">' . ($donnees["jeux"][$i]->getLocation() == 1 ? "Louer" : "Acheter") . '</button>';
-                 echo                    '</div>';
-                 echo                    '<small class="text-muted">Prix : ' . $donnees['jeux'][$i]->getPrix() . ' $CAD</small>';
-                 echo                '</div>';
-                 echo           '</div>';
-                 echo        '</div>';
-                 echo    '</div>';
-
-             }
-            ?>
+            <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow cardjeux">
+                    <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>"><img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary"><?= $donnees["jeux"][$i]->getLocation() == 1 ? "Louer" : "Acheter" ?></a>
+                            </div>
+                            <small class="text-muted">Prix : <?= round($donnees['jeux'][$i]->getPrix(), 2) ?> $CAD</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
         </div>
     </div>
 

@@ -187,7 +187,7 @@ class ControleurMembres extends BaseControleur
     public function troisDerniers($donnees){
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
-        $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
+        $donnees['trois'] = $modeleJeux->lireDerniersJeux(12);
         foreach($donnees['trois'] as $derniers ){
             if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
                 $donnees['imagesTrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());

@@ -227,7 +227,6 @@ class ControleurJeux extends BaseControleur
 
         if (isset($params["titre"]) && ($params['titre'] !== '')) {
             $_SESSION["rechercher"]["titre"] = $params["titre"];
-
             $filtre .= ($filtre == "" ? "" : " AND ") . "j.titre LIKE '%" . $params["titre"] . "%'";
         }
         else {
@@ -239,9 +238,7 @@ class ControleurJeux extends BaseControleur
         for ($i = 0; $i <= count($categories); $i++) {
             $cat = "categories" . $i;
             if (isset($params[$cat])) {
-//                    var_dump($cat);
                 $_SESSION["rechercher"][$cat] = "checked";
-
                 $counter++;
                 if ($counter == 1) {
                     $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params[$cat];
@@ -258,70 +255,39 @@ class ControleurJeux extends BaseControleur
             $filtre .= ")";
         }
 
-
         if (isset($params["transaction"]) && ($params["transaction"] !== '')) {
             $_SESSION["rechercher"]["transaction"] = $params["transaction"];
-
             $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
         }
         else {
             $_SESSION["rechercher"]["transaction"] = '-1';
         }
 
-
-
         $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
+        $donnees = $this->chercherImages($donnees, $donnees['jeux']);      
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
         $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-        
         $this->afficherVues("rechercher", $donnees);
-
     }
+
 
     public function afficherAccueil(){
-
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
-
         $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
-        foreach($donnees['trois'] as $derniers ){
-            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
-                $donnees['imagesTrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
-            }
-            else {
-                $donnees['imagesTrois'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
-            }
-        }
-
+        $donnees = $this->chercherImages($donnees, $donnees['trois'], "Trois");
         $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-        foreach($donnees['derniers'] as $derniers ){
-            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
-                $donnees['images'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
-            }
-            else {
-                $donnees['images'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
-            }
-        }
-   
+        $donnees = $this->chercherImages($donnees, $donnees['derniers']);
         $this->afficherVues("accueil", $donnees);
-
     }
+
 
     public function afficherJeuxMembres(){
         if(isset($_SESSION["id"]))
         {
             $modeleJeux = $this->lireDAO("Jeux");
-            $modeleImages = $this->lireDAO("Images");
-    
             $donnees['jeux'] = $modeleJeux->lireJeuxParMembre($_SESSION["id"]);
-            foreach($donnees['jeux'] as $jeu ){
-                if ($modeleImages->lireImageParJeuxId($jeu->getJeuxId())) {
-                    $donnees['images'][] = $modeleImages->lireImageParJeuxId($jeu->getJeuxId());
-                }
-                else {
-                    $donnees['images'][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
-                }
-            }
+            $donnees = $this->chercherImages($donnees, $donnees['jeux']);
         }
         else
         {
@@ -330,5 +296,22 @@ class ControleurJeux extends BaseControleur
         $this->afficherVues("membre", $donnees);
     }
 
+
+    public function chercherImages($donnees, $jeux, $images = "")
+    {
+        $modeleImages = $this->lireDAO("Images");
+        foreach($jeux as $jeu)
+        {
+            if ($modeleImages->lireImageParJeuxId($jeu->getJeuxId()))
+            {
+                $donnees['images' . $images][] = $modeleImages->lireImageParJeuxId($jeu->getJeuxId());
+            }
+            else
+            {
+                $donnees['images' . $images][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
+            }
+        }
+        return $donnees;
+    }
 
 }

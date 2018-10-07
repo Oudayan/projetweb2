@@ -24,7 +24,7 @@ if(isset($_SESSION["id"]))
       <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
         <div class="col-md-4">
           <div class="card cardjeux shadow p-3 mb-5 bg-white rounded">
-            <img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap">
+          <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>"><img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap"></a>
             <div class="card-body">
               <p class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></p>
               <div class="d-flex justify-content-between align-items-center">
