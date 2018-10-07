@@ -122,32 +122,25 @@
         <div class="container">
             <h1 class="text-center bg-info mt-2">NOUVEAUTÉS</h1>
             <div class="row">
-                <?php
-                $counter = count($donnees['derniers']);
-
-                for ($i = 0; $i <= $counter - 1; $i++) {
-                    ?>
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow cardjeux">
-                            <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['derniers'][$i]->getJeuxId() ?>">
-                                <img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap">
-                            </a>
-                            <div class="card-body">
-                                <p class="card-text"><?= $donnees['derniers'][$i]->getTitre() ?></p>
-
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['derniers'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="AcheterJeux('<?= $donnees['derniers'][$i]->getJeuxId() ?>')"><?= ($donnees["derniers"][$i]->getLocation() == 1 ? "Louer" : "Acheter") ?></button>
-                                    </div>
-                                    <small class="text-muted">Prix : <?= $donnees['derniers'][$i]->getPrix() ?> $CAD</small>
+                <?php for($i = 0; $i < count($donnees['derniers']); $i++){ ?>
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow cardjeux">
+                        <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['derniers'][$i]->getJeuxId() ?>">
+                            <img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap">
+                        </a>
+                        <div class="card-body">
+                            <p class="card-text"><?= $donnees['derniers'][$i]->getTitre() ?></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['derniers'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="AcheterJeux('<?= $donnees['derniers'][$i]->getJeuxId() ?>')"><?= ($donnees["derniers"][$i]->getLocation() == 1 ? "Louer" : "Acheter") ?></button>
                                 </div>
+                                <small class="text-muted">Prix : <?= $donnees['derniers'][$i]->getPrix() ?> $CAD</small>
                             </div>
                         </div>
                     </div>
-                    <?php
-                }
-                ?>
+                </div>
+                <?php } ?>
             </div>
         </div>
 
