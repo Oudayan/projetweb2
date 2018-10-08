@@ -9,19 +9,19 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
     <div class="d-flex container">
 
         <div class="nav flex-column nav-pills m-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+            <a class="nav-link active" id="membres-tab" data-toggle="pill" href="#membres" role="tab"
                aria-controls="v-pills-home" aria-selected="true">Gérer les membres</a>
-            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+            <a class="nav-link" id="jeux-tab" data-toggle="pill" href="#jeux" role="tab"
                aria-controls="v-pills-profile" aria-selected="false">Gérer les jeux</a>
-            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+            <a class="nav-link" id="transactions-tab" data-toggle="pill" href="#transactions" role="tab"
                aria-controls="v-pills-messages" aria-selected="false">Gérer les transactions</a>
-            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+            <a class="nav-link" id="menus-tab" data-toggle="pill" href="#menus" role="tab"
                aria-controls="v-pills-settings" aria-selected="false">Gérer les menus</a>
         </div>
 
         <div class="tab-content" id="v-pills-tabContent m-1">
             <!--Tableau gérer les membres-->
-            <div class="tab-pane fade show active  table-responsive" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <div class="tab-pane fade show active  table-responsive" id="membres" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <table class="table table-hover ">
                     <thead class="thead-dark">
                     <tr>
@@ -77,7 +77,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
             </div>
 
             <!--Tableau gérer les jeux-->
-            <div class="tab-pane fade show active  table-responsive" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <div class="tab-pane fade table-responsive" id="jeux" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <table class="table table-hover ">
                     <thead class="thead-primary">
                     <tr>
@@ -129,9 +129,9 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
             </div>
 
             <!--Tableau gérer les transactions-->
-            <div class="tab-pane fade show active  table-responsive" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+            <div class="tab-pane fade table-responsive" id="transactions" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                 <!--Tableau de location-->
-               <h2 class="text-center">Locations</h2>
+                <h2 class="text-center">Locations</h2>
                 <table class="table table-hover ">
                     <thead class="thead-primary">
                     <tr>
@@ -194,7 +194,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
             </div>
 
             <!--Tableau gérer les menus-->
-            <div class="tab-pane fade show active  table-responsive" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <div class="tab-pane fade table-responsive" id="menus" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 
             </div>
         </div>

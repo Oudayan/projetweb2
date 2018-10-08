@@ -168,7 +168,7 @@ class ControleurAdmin extends BaseControleur
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
         $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
 
-        var_dump($donnees);
+//        var_dump($donnees);
 
         $this->afficherVues("admin", $donnees);
     }
