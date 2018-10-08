@@ -40,7 +40,7 @@
                             </ul>
                             <?php if($_SESSION["type"] == 2 || $_SESSION["type"] == 3){ ?>
                                 <ul class="navbar-nav mx-auto">
-                                    <li id="annoce" class="nav-item"><a href="index.php?Admin&action=afficherMembres" class="nav-link">Admin</a></li>
+                                    <li id="annoce" class="nav-item"><a href="index.php?Admin&action=afficherAdmin" class="nav-link">Admin</a></li>
                                 </ul>
                             <?php } ?>
                             <ul class="navbar-nav mx-auto">

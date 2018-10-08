@@ -9,19 +9,19 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
     <div class="d-flex container">
 
         <div class="nav flex-column nav-pills m-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="membres-tab" data-toggle="pill" href="#membres" role="tab"
+            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 1 ? "active": "" ?>" id="membres-tab" data-toggle="pill" href="#membres" role="tab"
                aria-controls="v-pills-home" aria-selected="true">Gérer les membres</a>
-            <a class="nav-link" id="jeux-tab" data-toggle="pill" href="#jeux" role="tab"
+            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 2 ? "active": "" ?>" id="jeux-tab" data-toggle="pill" href="#jeux" role="tab"
                aria-controls="v-pills-profile" aria-selected="false">Gérer les jeux</a>
-            <a class="nav-link" id="transactions-tab" data-toggle="pill" href="#transactions" role="tab"
+            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 3 ? "active": "" ?>" id="transactions-tab" data-toggle="pill" href="#transactions" role="tab"
                aria-controls="v-pills-messages" aria-selected="false">Gérer les transactions</a>
-            <a class="nav-link" id="menus-tab" data-toggle="pill" href="#menus" role="tab"
+            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 4 ? "active": "" ?>" id="menus-tab" data-toggle="pill" href="#menus" role="tab"
                aria-controls="v-pills-settings" aria-selected="false">Gérer les menus</a>
         </div>
 
         <div class="tab-content" id="v-pills-tabContent m-1">
             <!--Tableau gérer les membres-->
-            <div class="tab-pane fade show active  table-responsive" id="membres" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <div class="tab-pane fade <?= $donnees['tab'] == 1 ? "show active": "" ?> table-responsive" id="membres" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <table class="table table-hover ">
                     <thead class="thead-dark">
                     <tr>
@@ -77,7 +77,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
             </div>
 
             <!--Tableau gérer les jeux-->
-            <div class="tab-pane fade table-responsive" id="jeux" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <div class="tab-pane fade <?= $donnees['tab'] == 2 ? "show active": "" ?> table-responsive" id="jeux" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <table class="table table-hover ">
                     <thead class="thead-primary">
                     <tr>
@@ -109,7 +109,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
                                        class="btn btn-outline-success m-1">Valider</a>
                                 </td>
                             <?php }
-                            if ($donnees['jeux'][$i]->getJeuxActif() ) { ?>
+                            if ($donnees['jeux'][$i]->getJeuxBanni() == 0 ) { ?>
                                 <td>
                                     <a href="index.php?Admin&action=bannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
                                        class="btn btn-outline-danger m-1">Bannir</a>
@@ -117,7 +117,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
                             <?php }
                             else { ?>
                                 <td>
-                                    <a href="index.php?Admin&action=reactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
+                                    <a href="index.php?Admin&action=debannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
                                        class="btn btn-outline-warning m-1">Dé-bannir</a>
                                 </td>
                             <?php } ?>
@@ -129,7 +129,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
             </div>
 
             <!--Tableau gérer les transactions-->
-            <div class="tab-pane fade table-responsive" id="transactions" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+            <div class="tab-pane fade <?= $donnees['tab'] == 3 ? "show active": "" ?> table-responsive" id="transactions" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                 <!--Tableau de location-->
                 <h2 class="text-center">Locations</h2>
                 <table class="table table-hover ">
@@ -194,7 +194,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
             </div>
 
             <!--Tableau gérer les menus-->
-            <div class="tab-pane fade table-responsive" id="menus" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <div class="tab-pane fade <?= $donnees['tab'] == 4 ? "show active": "" ?> table-responsive" id="menus" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 
             </div>
         </div>

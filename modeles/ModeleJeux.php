@@ -95,6 +95,13 @@ class ModeleJeux extends BaseDAO {
         return $this->modifierChamp($id, "jeux_actif", 1);
     }
 
+    public function bannirJeu($id) {
+        return $this->modifierChamp($id, "jeux_banni", 1);
+    }
+
+    public function debannirJeu($id) {
+        return $this->modifierChamp($id, "jeux_banni", 0);
+    }
 }
 
 ?>
