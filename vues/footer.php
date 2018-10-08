@@ -9,10 +9,10 @@
                     <div class="p-4 col-md-3">
                         <h2 class="mb-4 text-secondary">Plan du site</h2>
                         <ul class="list-unstyled">
-                            <li class="text-white">Accueil</li>
+                            <li class="text-white"><a href="index.php?Jeux&action=derniers" class="pied-page">Accueil</a></li>
                             <li class="text-white">À propos</li>
-                            <li class="text-white">S'inscrire</li>
-                            <li class="text-white">Se connecter</li>
+                            <li class="text-white"><a href="index.php?Membres&action=formAjoutMembre" class="pied-page">S'inscrire</a></li>
+                            <li class="text-white"><a>Se connecter</a></li>
                         </ul>
                     </div>
                     <div class="p-4 col-md-3">
@@ -41,8 +41,15 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="d-flex justify-content-end col-12">
+                        <a href="#" class="pied-page"><i class="fas fa-arrow-alt-circle-up haute-de-page"></i></a>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12 mt-3">
-                        <p class="text-center text-white">2018 © GameXchange.ca</p>
+                        <a href="#top">
+                            <p class="text-center text-white">2018 © GameXchange.ca</p>
+                        </a>
                     </div>
                 </div>
             </div>

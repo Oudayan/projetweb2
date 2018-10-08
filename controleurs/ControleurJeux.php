@@ -84,9 +84,34 @@ class ControleurJeux extends BaseControleur
                 case "enregistrerJeux":
                     if (isset($params['jeux_id']) && isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
                     {
+                        if(isset($params['valide']))
+                        {
+                            $valide =  $params['valide'];
+                        }
+                        else
+                        {
+                            $valide = 0;
+                        }
+                        if(isset($params['actif']))
+                        {
+                            $actif =  $params['actif'];
+                        }
+                        else
+                        {
+                            $actif = 1;
+                        }
+                        if(isset($params['banni']))
+                        {
+                            $banni =  $params['banni'];
+                        }
+                        else
+                        {
+                            $banni = 0;
+                        }
                         (string)$date = date("Y-m-d H:i");  
-                        // $jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= ""
-                        $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], 1, 1, $params["description"], -1);
+                        //$jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = 0, $jeux_actif = 1, $jeux_banni = 0, $description = "", $evaluation_globale= ""                        
+                            
+                        $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], $valide, $actif, $banni, $params["description"], -1);
                         $jeux_id = $modeleJeux->sauvegarderJeux($jeu);
                         if(isset($params['cheminsImages']))
                         {
