@@ -20,12 +20,13 @@
         private $location;
         private $jeux_valide;
         private $jeux_actif;
+        private $jeux_banni;
         private $description;
         private $evaluation_globale;
 
         // Constructeur
 
-        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = false, $jeux_actif = true, $description = "", $evaluation_globale= "")
+        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = 0, $jeux_actif = 1, $jeux_banni = 0, $description = "", $evaluation_globale= "")
         {
            $this->setJeuxId($jeux_id);
            $this->setPlateformeId($plateforme_id);
@@ -37,6 +38,7 @@
            $this->setLocation($location);
            $this->setJeuxValide($jeux_valide);
            $this->setJeuxActif($jeux_actif);
+           $this->setJeuxBanni($jeux_banni);
            $this->setDescription($description);
            $this->setEvaluationGlobale($evaluation_globale);
         }
@@ -162,6 +164,19 @@
         public function setJeuxActif($jeux_actif){
             if(is_numeric($jeux_actif)){
                 $this->jeux_actif = $jeux_actif;
+            }
+        }
+
+        /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Jeux
+         * 
+         * @param       [bool] $jeux_banni, indique si un jeu est ou pas banni
+         * @return      [object]
+         */
+
+        public function setJeuxBanni($jeux_banni){
+            if(is_numeric($jeux_banni)){
+                $this->jeux_banni = $jeux_banni;
             }
         }
 
@@ -297,12 +312,23 @@
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Jeux
          *
-         * @param       [bool] $jeux_actif, le jeu est ou pas acatif
+         * @param       [bool] $jeux_actif, le jeu est ou pas actif
          * @return      [object]
          */
 
         public function getJeuxActif(){
             return $this->jeux_actif;
+        }
+
+        /**
+         * @brief       Permet de définir en lecture l'attribut de la classe Jeux
+         *
+         * @param       [bool] $jeux_banni, le jeu est ou pas banni
+         * @return      [object]
+         */
+
+        public function getJeuxBanni(){
+            return $this->jeux_banni;
         }
 
         /**

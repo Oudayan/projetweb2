@@ -28,12 +28,16 @@ if(isset($_SESSION['id']))
         } 
         $plateforme_id = $donnees['jeu']->getPlateformeId();
         $description = $donnees['jeu']->getDescription();
-
+        $actif = $donnees['jeu']->getJeuxActif();
+        $valide = $donnees['jeu']->getJeuxValide();
+        $banni = $donnees['jeu']->getJeuxBanni();
     }
     else
     {
         $membre = $_SESSION['id'];
         $titre = $prix = $concepteur = $location = $vendre = $plateforme_id = $description = "";
+        $actif = 1;
+        $valide = $banni = 0;
     }
 
     //var_dump($donnees['categoriesJeu']);
@@ -126,6 +130,11 @@ if(isset($_SESSION['id']))
                         <textarea name="description" rows="8" cols="60"><?=$description?></textarea>
                     </div> 
                 </div>
+                <input type="hidden" name="actif" id="actif" value="<?= $actif ?>">
+                <?php if($_SESSION['type'] == 2 || $_SESSION['type'] == 3){ ?>
+                    <input type="hidden" name="valide" id="valide" value="<?= $valide ?>">
+                    <input type="hidden" name="banni" id="banni" value="<?= $banni ?>">
+                <?php } ?>
                 <hr>
                 <!-- <pre>
                 <?php //var_dump($donnees['images']); ?>

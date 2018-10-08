@@ -39,7 +39,7 @@ class ModeleJeux extends BaseDAO {
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }
 
-    public function filtreJeux($filtre = 'jeux_actif = true AND jeux_valide = true', $ordre = 'prix DESC') {
+    public function filtreJeux($filtre = 'jeux_actif = 1 AND jeux_valide = 1 AND jeux_banni = 0', $ordre = 'prix DESC') {
         $sql = "SELECT DISTINCT j.jeux_id, j.plateforme_id,j.membre_id, j.titre, j.prix, j.date_ajout, j.concepteur, j.location, j.jeux_valide, j.jeux_actif, j.description, j.evaluation_globale FROM " . $this->lireNomTable() . " j JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id JOIN categorie c ON c.categorie_id = cj.categorie_id WHERE " . $filtre . " GROUP BY j.jeux_id ORDER BY " . $ordre;
         $resultat = $this->requete($sql);
 //			var_dump($resultat);
@@ -63,16 +63,17 @@ class ModeleJeux extends BaseDAO {
             $jeu->getLocation(),
             $jeu->getJeuxValide(),
             $jeu->getJeuxActif(),
+            $jeu->getJeuxBanni(),
             $jeu->getDescription(),
             $jeu->getEvaluationGlobale(),
             $jeu->getJeuxId()
         );
         // var_dump($jeu->getJeuxId() && $this->lire($jeu->getJeuxId())->fetch());
         if ($jeu->getJeuxId() && $this->lire($jeu->getJeuxId())->fetch()) {
-            $sql = "UPDATE " . $this->lireNomTable() . " SET plateforme_id=?, membre_id=?, titre=?, prix=?, date_ajout=?, concepteur=?, location=?, jeux_valide=?, jeux_actif=?, description=?, evaluation_globale=? WHERE jeux_id=?";
+            $sql = "UPDATE " . $this->lireNomTable() . " SET plateforme_id=?, membre_id=?, titre=?, prix=?, date_ajout=?, concepteur=?, location=?, jeux_valide=?, jeux_actif=?, jeux_banni=?, description=?, evaluation_globale=? WHERE jeux_id=?";
         } else {
             $id = array_pop($donnees);
-            $sql = "INSERT INTO " . $this->lireNomTable() . "(plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, description, evaluation_globale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO " . $this->lireNomTable() . "(plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, jeux_banni, description, evaluation_globale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
         // var_dump($donnees);
         $this->requete($sql, $donnees);
