@@ -52,8 +52,8 @@ class ControleurAdmin extends BaseControleur
 
             switch ($params["action"]) {
 
-                case "afficherMembres" :
-                    $this->afficherAdmin();
+                case "afficherAdmin" :
+                    $this->afficherAdmin(1);
                     break;
 
                 case "validerMembre" :
@@ -61,7 +61,7 @@ class ControleurAdmin extends BaseControleur
 //                        echo $params['membre_id'];
                         $modeleMembres->validerMembre($params['membre_id']);
                     }
-                    $this->afficherAdmin();
+                    $this->afficherAdmin(1);
                     break;
 
                 case "bannirMembre" :
@@ -69,7 +69,7 @@ class ControleurAdmin extends BaseControleur
 //                        echo $params['membre_id'];
                         $modeleMembres->bannirMembre($params['membre_id']);
                     }
-                    $this->afficherAdmin();
+                    $this->afficherAdmin(1);
                     break;
 
                 case "reactiverMembre" :
@@ -77,7 +77,7 @@ class ControleurAdmin extends BaseControleur
 //                        echo $params['membre_id'];
                         $modeleMembres->reactiverMembre($params['membre_id']);
                     }
-                    $this->afficherAdmin();
+                    $this->afficherAdmin(1);
                     break;
 
                 case "promouvoirMembre" :
@@ -85,7 +85,7 @@ class ControleurAdmin extends BaseControleur
 //                        echo $params['membre_id'];
                         $modeleMembres->promouvoirMembre($params['membre_id']);
                     }
-                    $this->afficherAdmin();
+                    $this->afficherAdmin(1);
 
                     break;
 
@@ -94,31 +94,33 @@ class ControleurAdmin extends BaseControleur
 //                        echo $params['membre_id'];
                         $modeleMembres->demouvoirMembre($params['membre_id']);
                     }
-                    $this->afficherAdmin();
+
+                    $this->afficherAdmin(1);
                     break;
 
 //------------- Admin jeux------------------------------------------------------------------------------------------
                 case "validerJeu" :
                     if (isset($params['jeux_id'])) {//
-                        $modeleMembres->validerJeu($params['jeux_id']);
+                        $modeleJeux->validerJeu($params['jeux_id']);
                     }
-                    $this->afficherAdmin();
+
+                    $this->afficherAdmin(2);
                     break;
 
-                case "bannirMembre" :
-                    if (isset($params['membre_id'])) {
-//                        echo $params['membre_id'];
-                        $modeleMembres->bannirMembre($params['membre_id']);
+                case "bannirJeu" :
+                    if (isset($params['jeux_id'])) {
+                        $modeleJeux->bannirJeu($params['jeux_id']);
                     }
-                    $this->afficherAdmin();
+
+                    $this->afficherAdmin(2);
                     break;
 
-                case "reactiverMembre" :
-                    if (isset($params['membre_id'])) {
-//                        echo $params['membre_id'];
-                        $modeleMembres->reactiverMembre($params['membre_id']);
+                case "debannirJeu" :
+                    if (isset($params['jeux_id'])) {
+                        $modeleJeux->debannirJeu($params['jeux_id']);
                     }
-                    $this->afficherAdmin();
+
+                    $this->afficherAdmin(2);
                     break;
 
                 default:
@@ -129,7 +131,7 @@ class ControleurAdmin extends BaseControleur
         }
     }
 
-    public function afficherAdmin()
+    public function afficherAdmin($tab = 1)
     {
 
         $modeleJeux = $this->lireDAO("Jeux");
@@ -140,7 +142,7 @@ class ControleurAdmin extends BaseControleur
         $modeleAchat = $this->lireDao("Achat");
         $modeleTypePaiement = $this->lireDao("TypePaiement");
 
-
+        $donnees["tab"] = $tab;
         $donnees['membres'] = $modeleMembres->obtenirTous();
         $donnees['jeux'] = $modeleJeux->lireTousLesJeux();
         $donnees = $this->chercherImages($donnees);
