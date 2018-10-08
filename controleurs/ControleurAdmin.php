@@ -27,6 +27,26 @@ class ControleurAdmin extends BaseControleur
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
+        $modeleAdmin= $this->lireDao("Admin");
+
+        $modeleLocation= $this->lireDao("Location");
+
+
+        /**
+         *  test begin
+         */
+
+//        http://www.projet.com/projetweb2/index.php?Admin&action=afficherLocation#v-pills-settings
+//
+//
+//        $donnees['location'] = $modeleLocation->lireDetaileLocation();
+//        var_dump($donnees);
+
+
+        /**
+         * test fin
+         */
+
 
         $donnees["erreur"] = "";
         $_SESSION["msg"]="";
@@ -69,6 +89,7 @@ class ControleurAdmin extends BaseControleur
                         $modeleMembres->promouvoirMembre($params['membre_id']);
                     }
                     $this->afficherAdmin();
+
                     break;
 
                 case "demouvoirMembre" :
@@ -77,6 +98,11 @@ class ControleurAdmin extends BaseControleur
                         $modeleMembres->demouvoirMembre($params['membre_id']);
                     }
                     $this->afficherAdmin();
+                    break;
+
+//------------- Admin location------------------------------------------------------------------------------------------
+                case "afficherLocation" :
+                    $this->afficherLocation();
                     break;
 
                 default:
@@ -94,4 +120,51 @@ class ControleurAdmin extends BaseControleur
         $this->afficherVues("admin", $donnees);
     }
 
+    public function afficherLocation() {
+       $modeleLocation = $this->lireDao("Location");
+       $donnees['location'] = $modeleLocation->lireDetaileLocation();
+       $this->afficherVues("admin", $donnees);
+    }
 }
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
