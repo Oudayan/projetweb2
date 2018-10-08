@@ -125,6 +125,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
 
             </div>
         </div>
+
     </div>
 
 <?php else : ?>

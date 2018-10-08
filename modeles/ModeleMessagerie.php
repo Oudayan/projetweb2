@@ -74,17 +74,26 @@ class ModeleMessagerie extends BaseDAO
      * @details Méthode qui obtiens tous les informations enregistrées dans la BD de tous les messages
      */
 
-    public function obtenirTousParMembre_Id($membre_id)
+    public function obtenirTousEnvoyeParMembre_Id($membre_id)
     {
         $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE membre_id = " . $membre_id . " ORDER BY msg_date DESC";
         $resultat = $this->requete($sql);
-        //$resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Messagerie');
-        //return $resultat->fetchAll();
-        //var_dump($resultat);
         return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Messagerie");
     }
 
+/**
+     * @brief   Méthode pour obtenir tous les messages dans la BD
+     * @details Méthode qui obtiens tous les informations enregistrées dans la BD de tous les messages
+     */
 
+    public function obtenirTousRecuParMembre_Id($membre_id)
+    {
+        $sql = "SELECT m.msg_id, m.membre_id, m.sujet, m.message, m.msg_date, m.msg_actif FROM " . $this->lireNomTable() . 
+                " m INNER JOIN destinataire d On d.msg_id = m.msg_id ".
+                " WHERE d.membre_id = " . $membre_id . " ORDER BY msg_date DESC";
+        $resultat = $this->requete($sql);
+        return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Messagerie");
+    }
 
     /**
      * @brief   Méthode pour enregistrer un nouveau membre dans la bd
@@ -100,7 +109,7 @@ class ModeleMessagerie extends BaseDAO
 
     public function sauvegarde(Messagerie $unMessage)
     {
-//        var_dump($unMessage);
+
         $sql = "INSERT INTO " . $this->lireNomTable() . "( msg_id, membre_id, sujet, message, msg_date, msg_actif) VALUES (?,?,?, ?, ?, ?)";
         $donnees = array(
             $unMessage->getMsg_Id(),

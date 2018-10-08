@@ -73,12 +73,11 @@ class ControleurImages extends BaseControleur
                 
                 break;
                 case "deleteFichierImage" :
-                    var_dump($params);
-                    $fichier = $_POST['files'][0];
-                    $solo = strstr($fichier,"/images/");
-                    $solo1 = ".." . $solo ;
-                    var_dump($solo1);
-                                unlink($solo1);
+                    // var_dump($params);
+                    $fichier = $params['files'][0];
+                    $solo = RACINE . strstr($fichier,"images/");
+                    // var_dump($solo);
+                    unlink($solo);
                 
                     /* var_dump($_FILES["files"]["name"]);
                     var_dump($_FILES["files"]["type"]);

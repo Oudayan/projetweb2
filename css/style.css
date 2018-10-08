@@ -95,38 +95,38 @@
 }
 
 /*.navbar ul {*/
-  /*display: flex;*/
-  /*width: 100%;*/
-  /*list-style: none;*/
-  /*justify-content: space-between;*/
-  /*align-items: center;*/
+/*display: flex;*/
+/*width: 100%;*/
+/*list-style: none;*/
+/*justify-content: space-between;*/
+/*align-items: center;*/
 /*}*/
 /*.navbar ul li {*/
-  /*width: 100%;*/
+/*width: 100%;*/
 /*}*/
 /*.navbar ul li.logo {*/
-  /*margin-right: auto;*/
+/*margin-right: auto;*/
 /*}*/
 /*.navbar ul li form {display: flex;}*/
 /*.navbar ul li form .form-control {min-width: 200px;}*/
 
 /*.navbar ul .toggle-item {*/
-  /*display: none;*/
-  /*position: absolute;*/
-  /*right: 20px;*/
-  /*width: 30px;*/
-  /*top: 20px;*/
+/*display: none;*/
+/*position: absolute;*/
+/*right: 20px;*/
+/*width: 30px;*/
+/*top: 20px;*/
 /*}*/
 /*.navbar ul .toggle-item .bar {*/
-  /*width: 35px;*/
-  /*height: 2px;*/
-  /*background: #fff;*/
+/*width: 35px;*/
+/*height: 2px;*/
+/*background: #fff;*/
 /*}*/
 /*.navbar ul .toggle-item .bar-center {*/
-  /*width: 35px;*/
-  /*height: 2px;*/
-  /*background: #fff;*/
-  /*margin: 10px 0;*/
+/*width: 35px;*/
+/*height: 2px;*/
+/*background: #fff;*/
+/*margin: 10px 0;*/
 /*}*/
 
 /* Évaluations 
@@ -134,26 +134,27 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 */
 
 .score {
+    box-sizing: border-box;
     display: inline-block;
     font-family: Wingdings;
-    font-size: 25px;
+    font-size: 20px;
     color: #ccc;
     position: relative;
+    word-wrap: normal;
 }
 
 .score::before,
-.score span::before {
+.score span::before{
     content: "\2605\2605\2605\2605\2605";
     display: block;
 }
 
 .score span {
+    color: gold;
     position: absolute;
     top: 0;
     left: 0;
     overflow: hidden;
-    color: #e98d34;
-    text-shadow: 1px 1px 3px #666;
 }
 
 .hidden{
@@ -161,22 +162,150 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 }
 
 
-/*vues/message.php Chunliang le 26/09/2018*/
+.list-message{
+    list-style: none;
+}
 
-@media screen and (max-width: 1200px) {
-  .navbar ul .toggle-item {
+.list-message b{
+    text-align: left;
+    float:  left;
+}
+
+.list-message li{
+    width: 100%;
+}
+
+.list-message li a{
+    background-color: gray;
+}
+.modal-body{
+    font-size: 20px;
+}
+
+/** asd*/
+.img-thumbnail img{
+    width: 64px;
+}
+
+/*asd*/
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+
+
+.container-shopping-cart {
+    margin: auto;
+    width: 100%;
+ 
+}
+
+.shopping-cart-items{
+    list-style: none;
+}
+
+.badge {
+    background-color: #6394F8;
+    border-radius: 10px;
+    color: white;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1;
+    padding: 3px 7px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.shopping-cart {
+    margin: 20px 500px;
+    float: right;
+    background: white;
+    width: 620px;
+    position: fixed;
+    border-radius: 3px;
+    padding: 20px;
+    z-index: 2;
+    border: solid transparent;
+    border-color: #6c757d;
+} 
+
+.table-panier th{
+    text-align: center;
+}
+.table-panier td{
+    text-align: center;
+}
+
+.table-panier .totalPanier{
+    text-align: right;
+}
+
+
+
+.shopping-cart-header {
+    border-bottom: 1px solid #E8E8E8;
+    padding-bottom: 15px;
+}
+.shopping-cart-total {
+    float: right;
+}
+
+.shopping-cart-items {
+    padding-top: 20px;
+}
+.shopping-cart-items li {
+    margin-bottom: 18px;
+}
+
+.shopping-cart-items img {
+    float: left;
+    margin-right: 12px;
+}
+
+.shopping-cart-items .item-name {
     display: block;
-  }
-  .navbar ul li.item {
-    display: none;
-  }
+    padding-top: 10px;
+    font-size: 16px;
 }
 
-/* mesenger */
-
-#spam{display:none;}
-
-c_msg{
-    display:none;
+.shopping-cart-items .item-price {
+    color: #6394F8;
+    margin-right: 8px;
 }
 
+.shopping-cart-items .item-quantity {
+    color: #ABB0BE;
+}
+.shopping-cart-items .totalCart{
+    float: right;
+}
+
+
+.shopping-cart:after {
+    bottom: 100%;
+    left: 89%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #6c757d;
+    border-width: 8px;
+    margin-left: -8px;
+}
+
+.cart-icon {
+    color: #515783;
+    font-size: 24px;
+    margin-right: 7px;
+    float: left;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}

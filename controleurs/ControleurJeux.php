@@ -25,9 +25,7 @@ class ControleurJeux extends BaseControleur
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
-        
         $donnees["erreur"] = "";
-
         if (isset($params["action"]))
         {
             switch($params["action"])
@@ -41,7 +39,7 @@ class ControleurJeux extends BaseControleur
                         $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeu']->getPlateformeId());
                         $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
                         $donnees['commentaires'] = $modeleCommentaireJeux->toutObtenirParIdJeuxId($params["JeuxId"]);
-                        // $donnees['commentaires'] = $modeleCommentaireJeux->lireCommentaireParJeuxId($params["JeuxId"]);
+                        $donnees['nbCommentaires'] = $modeleCommentaireJeux->nbEvaluationsParJeu($params["JeuxId"]);
                         foreach ($donnees['commentaires'] as $commentaire){
                             $donnees['commentaires']['membres'][] = $modeleMembres->obtenirParId($commentaire->getMembreId());
                         }
@@ -60,14 +58,11 @@ class ControleurJeux extends BaseControleur
                 case "derniers" :
                     $this->afficherAccueil();
                     break;
-                
-                case "formAjoutJeux":
 
+                case "formAjoutJeux":
                     $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-                    $donnees['categories'] = $modeleCategories->lireToutesCategories();
-                    
+                    $donnees['categories'] = $modeleCategories->lireToutesCategories();  
                     $this->afficherVues("ajoutJeux", $donnees);
-                    
                     break;
 
                 case "formModifierJeux":
@@ -83,15 +78,10 @@ class ControleurJeux extends BaseControleur
                     {
                         $donnees["erreur"] = "Ce jeu n'existe pas.";
                     }
-
                     $this->afficherVues("ajoutJeux", $donnees);
-                    
                     break;
 
                 case "enregistrerJeux":
-
-                    //var_dump($params); 
-
                     if (isset($params['jeux_id']) && isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
                     {
                         (string)$date = date("Y-m-d H:i");  
@@ -138,9 +128,6 @@ class ControleurJeux extends BaseControleur
                                 }
                             }
                         }
-
-                        // var_dump($jeu, "ID = " . $id);
-
                         //Sauvegarder les categories de jeu
                         $modeleCategoriesJeux->effacerCategoriesParJeuxId($jeux_id);
                         for($i=0; $i < count($params['categorie']); $i++)
@@ -150,25 +137,39 @@ class ControleurJeux extends BaseControleur
                             //var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
                             $modeleCategoriesJeux->sauvegarderCategoriesJeu($cat);
                         }
-
                     }
-
                     else
                     {
                         $_SESSION['msg'] ="Remplissez tous les champs...";
-                        // $this->afficherVues("maPage", $donnees);
-                        var_dump("bla");
                     }
-
-                    // $donnees['jeux'] = $$modeleJeux->sauvegarderJeux();
-                    // $donnees['categoriesJeu'] = $modeleCategoriesJeux->sauvegarderCategoriesJeu();
-                    // $this->afficherVues("maPage", $donnees);
                     $this->filtrerJeux($params);
-
                     break;
 
                 case "rechercherJeux":
                     $this->filtrerJeux($params);
+                    break;
+
+                case "resetRecherche":
+                    unset($_SESSION['recherche']);
+                    $this->filtrerJeux($params);
+                    break;
+
+                case "gererMesJeux":
+                    $this->afficherJeuxMembres();
+                    break; 
+
+                case "desactiverJeu":
+                    if(isset($params['jeux_id'])){
+                        $modeleJeux->desactiverJeu($params['jeux_id']);
+                    }
+                    $this->afficherJeuxMembres();    
+                    break;
+
+                case "activerJeu":
+                    if(isset($params['jeux_id'])){
+                        $modeleJeux->activerJeu($params['jeux_id']);
+                    }
+                    $this->afficherJeuxMembres();    
                     break;
 
                 default :
@@ -183,8 +184,9 @@ class ControleurJeux extends BaseControleur
 
     }
 
-    public function filtrerJeux(array $params) {
 
+    private function filtrerJeux(array $params)
+    {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
         $modeleMembres = $this->lireDAO("Membres");
@@ -197,73 +199,100 @@ class ControleurJeux extends BaseControleur
         $filtre = "jeux_actif = true AND jeux_valide = true";
 
         if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
+            $_SESSION["rechercher"]["plateforme"] = $params["plateforme"];
+
             $filtre .= ($filtre == "" ? "" : " AND ") . "plateforme_id = " . $params["plateforme"];
         }
 
         if (isset($params["titre"]) && ($params['titre'] !== '')) {
+            $_SESSION["rechercher"]["titre"] = $params["titre"];
             $filtre .= ($filtre == "" ? "" : " AND ") . "j.titre LIKE '%" . $params["titre"] . "%'";
         }
+        else {
+            $_SESSION["rechercher"]["titre"] = '';
+        }
 
-        if (isset($params["categories"])) {
-            $counter = 0;
-            $categories = $modeleCategories->lireToutesCategories();
-            for ($i = 0; $i <= count($categories); $i++) {
-                if (isset($params["categories"][$i])) {
-                    $counter++;
-                    if ($counter == 1) {
-                        $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params["categories"][$i];
-                    }
-                    else {
-                        $filtre .= (" OR ") . "c.categorie_id = " . $params["categories"][$i];
-                    }
+        $counter = 0;
+        $categories = $modeleCategories->lireToutesCategories();
+        for ($i = 0; $i <= count($categories); $i++) {
+            $cat = "categories" . $i;
+            if (isset($params[$cat])) {
+                $_SESSION["rechercher"][$cat] = "checked";
+                $counter++;
+                if ($counter == 1) {
+                    $filtre .= ($filtre == "" ? "(" : " AND (") . "c.categorie_id = " . $params[$cat];
+                }
+                else {
+                    $filtre .= (" OR ") . "c.categorie_id = " . $params[$cat];
                 }
             }
-            if ($counter > 0) {
-                $filtre .= ")";
+            else {
+                $_SESSION["rechercher"][$cat] = "";
             }
+        }
+        if ($counter > 0) {
+            $filtre .= ")";
         }
 
         if (isset($params["transaction"]) && ($params["transaction"] !== '')) {
+            $_SESSION["rechercher"]["transaction"] = $params["transaction"];
             $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
+        }
+        else {
+            $_SESSION["rechercher"]["transaction"] = '-1';
         }
 
         $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
+        $donnees = $this->chercherImages($donnees);      
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
         $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-        
         $this->afficherVues("rechercher", $donnees);
-
     }
 
-    public function afficherAccueil(){
 
+    private function afficherAccueil()
+    {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
-
-        $donnees['trois'] = $modeleJeux->lireDerniersTrois();
-        foreach($donnees['trois'] as $derniers ){
-            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
-                $donnees['imagesTrois'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
-            }
-            else {
-                $donnees['imagesTrois'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
-            }
-        }
-
+        $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
+        $donnees = $this->chercherImages($donnees, "trois", "Trois");
         $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
-        foreach($donnees['derniers'] as $derniers ){
-            if ($modeleImages->lireImageParJeuxId($derniers->getJeuxId())) {
-                $donnees['images'][] = $modeleImages->lireImageParJeuxId($derniers->getJeuxId());
-            }
-            else {
-                $donnees['images'][] = new Images(0, $derniers->getJeuxId(), 'images/image_defaut.png');
-            }
-        }
-   
+        $donnees = $this->chercherImages($donnees, "derniers");
         $this->afficherVues("accueil", $donnees);
-
     }
 
 
+    private function afficherJeuxMembres()
+    {
+        if(isset($_SESSION["id"]))
+        {
+            $modeleJeux = $this->lireDAO("Jeux");
+            $donnees['jeux'] = $modeleJeux->lireJeuxParMembre($_SESSION["id"]);
+            $donnees = $this->chercherImages($donnees);
+        }
+        else
+        {
+            $donnees['erreur'] = "Vous devez vous connecter pour acceder à cette page";
+        }
+        $this->afficherVues("membre", $donnees);
+    }
+
+
+    private function chercherImages($donnees, $jeux = "jeux", $images = "")
+    {
+        $modeleImages = $this->lireDAO("Images");
+        foreach($donnees[$jeux] as $jeu)
+        {
+            if ($modeleImages->lireImageParJeuxId($jeu->getJeuxId()))
+            {
+                $donnees['images' . $images][] = $modeleImages->lireImageParJeuxId($jeu->getJeuxId());
+            }
+            else
+            {
+                $donnees['images' . $images][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
+            }
+        }
+        return $donnees;
+    }
 
 }
