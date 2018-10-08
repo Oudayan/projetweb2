@@ -64,8 +64,3 @@
 
     </body> <!-- from header.php -->
 </html> <!-- from header.php -->
-<!-- <script>
-$("#Top").click(function(){
- scroll(0,0);
-});
-</script> -->

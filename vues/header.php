@@ -155,7 +155,7 @@
                 echo '<h5 class="text-warning text-center mt-1">' . $_SESSION["msg"] . '</h5>';
             } ?>
         </header>
-
+        <main> <!-- fini dans footer.php -->
         <script>
             $("#cart").on("click", function () {
                 if ($("#quantitePanier").val() > 0) {
