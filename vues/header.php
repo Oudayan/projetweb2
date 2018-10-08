@@ -152,7 +152,7 @@
                 </div>
             </div>
             <?php if(isset($_SESSION["msg"]) && $_SESSION["msg"] != ""){
-                echo '<p class="text-warning text-center">' . $_SESSION["msg"] . '</p>';
+                echo '<h5 class="text-warning text-center mt-1">' . $_SESSION["msg"] . '</h5>';
             } ?>
         </header>
 
