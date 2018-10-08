@@ -29,7 +29,6 @@
             INNER JOIN	type_paiement tp ON tp.type_paiement_id = l.type_paiement_id";
             $resultat = $this->requete($sql);
 			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Location");
-
         }
 //
 //		public function lireLocationsParProprietaire($id_proprietaire) {
