@@ -97,7 +97,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
                             <td>
                                 <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>'><?= $donnees['jeux'][$i]->getTitre() ?></a>
                             </td>
-                            <td><img src="<?= $donnees['images'][$i]->getCheminPhoto(); ?>" class="img-thumbnail"></td>
+                            <td><img src="<?= $donnees['images'][$i]->getCheminPhoto(); ?>" class="img-thumbnail miniature"></td>
                             <td><?= $donnees['membreJeu'][$i]->getPrenom() . ' ' . $donnees['membreJeu'][$i]->getNom() ?></td>
 
 
