@@ -34,8 +34,7 @@ class ModeleJeux extends BaseDAO {
     }
 
     public function lireTousLesJeux() {
-        $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
-        $resultat = $this->requete($sql);
+        $resultat = $this->lireTous();
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }
 

@@ -22,6 +22,12 @@ class ModeleAchat extends BaseDAO
         return "achat";
     }
 
+
+    public function lireTousLesAchats() {
+        $resultat = $this->lireTous();
+        return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Achat");
+    }
+
     /**
      * @brief   Méthode pour aller chercher un membre
      * @details Méthode que permets aller chercher un message en utilisant son membre_id

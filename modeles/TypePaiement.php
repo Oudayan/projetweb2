@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    TypePaiement.php
- * @author  Jansy Loepz
+ * @author  Jansy Loepz, Chunliang
  * @version 1.0
  * @date    Septembre 2018
  * @brief   Définit la classe Categorie
@@ -61,7 +61,7 @@
          * @return      [string]
          */
         public function getTypePaiement() {
-            return $this->TypePaiement;
+            return $this->type_paiement;
         }
 
     }

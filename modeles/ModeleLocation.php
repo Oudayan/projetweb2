@@ -14,22 +14,27 @@
 		public function lireNomTable() {
 			return "location";
 		}
-        
+
+        public function lireToutesLesLocations() {
+            $resultat = $this->lireTous();
+            return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Location");
+        }
+
 		public function lireLocationParId($id) {
             $resultat = $this->lire($id);
 			$resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Location');
 			return $resultat->fetch();
 		}
 
-		public function lireDetaileLocation() {
-
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " l 
-            INNER JOIN  jeux j ON j.jeux_id = l.jeux_id
-            INNER JOIN	membre m ON M.membre_id = l.membre_id
-            INNER JOIN	type_paiement tp ON tp.type_paiement_id = l.type_paiement_id";
-            $resultat = $this->requete($sql);
-			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Location");
-        }
+//		public function lireDetaileLocation() {
+//
+//            $sql = "SELECT * FROM " . $this->lireNomTable() . " l
+//            INNER JOIN  jeux j ON j.jeux_id = l.jeux_id
+//            INNER JOIN	membre m ON M.membre_id = l.membre_id
+//            INNER JOIN	type_paiement tp ON tp.type_paiement_id = l.type_paiement_id";
+//            $resultat = $this->requete($sql);
+//			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Location");
+//        }
 //
 //		public function lireLocationsParProprietaire($id_proprietaire) {
 //            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE id_proprietaire = '" . $id_proprietaire . "' ORDER BY date_debut DESC" ;
@@ -55,11 +60,7 @@
 //			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Location");
 //		}
 //
-        public function lireToutesLocation() {
-            $resultat = $this->lireTous();
-            $desLocations = $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Location");
-            return $desLocations;
-        }
+
 //
 //		public function sauvegarderLocation(Location $location) {
 //			if ($location->lireIdLocation() && $this->lire($location->lireIdLocation())->fetch()) {

@@ -1,4 +1,3 @@
-
 <?php
 /**
  * @file      ControleurMembres.php
@@ -27,9 +26,7 @@ class ControleurAdmin extends BaseControleur
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
-        $modeleAdmin= $this->lireDao("Admin");
-
-        $modeleLocation= $this->lireDao("Location");
+        $modeleLocation = $this->lireDao("Location");
 
 
         /**
@@ -49,7 +46,7 @@ class ControleurAdmin extends BaseControleur
 
 
         $donnees["erreur"] = "";
-        $_SESSION["msg"]="";
+        $_SESSION["msg"] = "";
 
         if (isset($params["action"])) {
 
@@ -57,7 +54,7 @@ class ControleurAdmin extends BaseControleur
 
                 case "afficherMembres" :
                     $this->afficherAdmin();
-                break;
+                    break;
 
                 case "validerMembre" :
                     if (isset($params['membre_id'])) {
@@ -65,7 +62,7 @@ class ControleurAdmin extends BaseControleur
                         $modeleMembres->validerMembre($params['membre_id']);
                     }
                     $this->afficherAdmin();
-                break;
+                    break;
 
                 case "bannirMembre" :
                     if (isset($params['membre_id'])) {
@@ -100,9 +97,28 @@ class ControleurAdmin extends BaseControleur
                     $this->afficherAdmin();
                     break;
 
-//------------- Admin location------------------------------------------------------------------------------------------
-                case "afficherLocation" :
-                    $this->afficherLocation();
+//------------- Admin jeux------------------------------------------------------------------------------------------
+                case "validerJeu" :
+                    if (isset($params['jeux_id'])) {//
+                        $modeleMembres->validerJeu($params['jeux_id']);
+                    }
+                    $this->afficherAdmin();
+                    break;
+
+                case "bannirMembre" :
+                    if (isset($params['membre_id'])) {
+//                        echo $params['membre_id'];
+                        $modeleMembres->bannirMembre($params['membre_id']);
+                    }
+                    $this->afficherAdmin();
+                    break;
+
+                case "reactiverMembre" :
+                    if (isset($params['membre_id'])) {
+//                        echo $params['membre_id'];
+                        $modeleMembres->reactiverMembre($params['membre_id']);
+                    }
+                    $this->afficherAdmin();
                     break;
 
                 default:
@@ -113,20 +129,63 @@ class ControleurAdmin extends BaseControleur
         }
     }
 
-    public function afficherAdmin() {
+    public function afficherAdmin()
+    {
+
+        $modeleJeux = $this->lireDAO("Jeux");
+        $modelePlateformes = $this->lireDAO("Plateformes");
+        $modeleCategories = $this->lireDAO("Categories");
         $modeleMembres = $this->lireDAO("Membres");
+        $modeleLocation = $this->lireDao("Location");
+        $modeleAchat = $this->lireDao("Achat");
+        $modeleTypePaiement = $this->lireDao("TypePaiement");
+
 
         $donnees['membres'] = $modeleMembres->obtenirTous();
+        $donnees['jeux'] = $modeleJeux->lireTousLesJeux();
+        $donnees = $this->chercherImages($donnees);
+        foreach ($donnees['jeux'] as $jeu) {
+            $donnees['membreJeu'][] = $modeleMembres->obtenirParId($jeu->getMembreId());
+        }
+
+
+        $donnees['locations'] = $modeleLocation->lireToutesLesLocations();
+        for ($i = 0; $i < count($donnees['locations']); $i++) {
+            $donnees['membreLocation'][$i] = $modeleMembres->obtenirParId($donnees['locations'][$i]->getMembreId());
+            $donnees['jeuLocation'][$i] = $modeleJeux->lireJeuParId($donnees['locations'][$i]->getJeuxId());
+            $donnees['proprietaireJeuLocation'][$i] = $modeleMembres->obtenirParId($donnees['jeuLocation'][$i]->getMembreId());
+            $donnees['typePaiementLocation'][$i] = $modeleTypePaiement->lireTypePaiementParId($donnees['locations'][$i]->getTypePaiementId());
+        }
+
+        $donnees['achats'] = $modeleAchat->lireTousLesAchats();
+        for ($i = 0; $i < count($donnees['achats']); $i++) {
+            $donnees['membreAchat'][$i] = $modeleMembres->obtenirParId($donnees['achats'][$i]->getMembreId());
+            $donnees['jeuAchat'][$i] = $modeleJeux->lireJeuParId($donnees['achats'][$i]->getJeuxId());
+            $donnees['proprietaireJeuAchat'][$i] = $modeleMembres->obtenirParId($donnees['jeuAchat'][$i]->getMembreId());
+            $donnees['typePaiementAchat'][$i] = $modeleTypePaiement->lireTypePaiementParId($donnees['achats'][$i]->getTypePaiementId());
+        }
+
+        $donnees['categories'] = $modeleCategories->lireToutesCategories();
+        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+
+        var_dump($donnees);
+
         $this->afficherVues("admin", $donnees);
     }
 
-    public function afficherLocation() {
-       $modeleLocation = $this->lireDao("Location");
-       $donnees['location'] = $modeleLocation->lireDetaileLocation();
-       $this->afficherVues("admin", $donnees);
+    private function chercherImages($donnees, $jeux = "jeux", $images = "")
+    {
+        $modeleImages = $this->lireDAO("Images");
+        foreach ($donnees[$jeux] as $jeu) {
+            if ($modeleImages->lireImageParJeuxId($jeu->getJeuxId())) {
+                $donnees['images' . $images][] = $modeleImages->lireImageParJeuxId($jeu->getJeuxId());
+            } else {
+                $donnees['images' . $images][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
+            }
+        }
+        return $donnees;
     }
 }
-
 
 
 ?>

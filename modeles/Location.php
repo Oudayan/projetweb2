@@ -25,12 +25,12 @@ class Location
     public function __construct($location_id = null, $type_paiement_id = "", $membre_id = "", $jeux_id = "", $date_debut = "", $date_retour = "")
     {
 
-        $this->setIdLocation($location_id);
-        $this->setIdJeux($jeux_id);
-        $this->setIdTypePaiement($type_paiement_id);
-        $this->setIdLocataire($membre_id);
+        $this->setLocationId($location_id);
+        $this->setJeuxId($jeux_id);
+        $this->setTypePaiementId($type_paiement_id);
+        $this->setMembreId($membre_id);
         $this->setDateDebut($date_debut);
-        $this->setDateFin($date_retour);
+        $this->setDateRetour($date_retour);
     }
 
     // "SETTERS"
@@ -40,7 +40,7 @@ class Location
      * @param      [numeric]  $location_id  numéro d'identifiant de la location
      * @return     [object]
      */
-    public function setIdLocation($location_id)
+    public function setLocationId($location_id)
     {
         if (is_numeric($location_id) && trim($location_id) != "") {
             $this->location_id = $location_id;
@@ -52,7 +52,7 @@ class Location
      * @param      [numeric]  $jeux_id  numéro d'identifiant du jeux
      * @return     [object]
      */
-    public function setIdJeux($jeux_id)
+    public function setJeuxId($jeux_id)
     {
         if (is_numeric($jeux_id) && trim($jeux_id) != "") {
             $this->jeux_id = $jeux_id;
@@ -65,7 +65,7 @@ class Location
      * @param       [numeric] $type_paiement_id , l'id du type du paiement
      * @return      [object]
      */
-    public function setIdTypePaiement($type_paiement_id)
+    public function setTypePaiementId($type_paiement_id)
     {
         if (is_string($type_paiement_id) && trim($type_paiement_id) != "") {
             $this->type_paiement_id = $type_paiement_id;
@@ -77,7 +77,7 @@ class Location
      * @param      [string]  $membre_id     identifiant du locataire
      * @return     [object]
      */
-    public function setIdLocataire($membre_id)
+    public function setMembreId($membre_id)
     {
         if (is_string($membre_id) && trim($membre_id) != "") {
             $this->membre_id = $membre_id;
@@ -101,7 +101,7 @@ class Location
      * @param      [string]  $date_retour     identifiant de la date de fin de la location
      * @return     [object]
      */
-    public function setDateFin($date_retour)
+    public function setDateRetour($date_retour)
     {
         if (is_string($date_retour) && trim($date_retour) != "") {
             $this->date_retour = $date_retour;
@@ -116,7 +116,7 @@ class Location
      * @param      [numeric]  $location_id  numéro d'identifiant de la location
      * @return     [object]
      */
-    public function getIdLocation()
+    public function getLocationId()
     {
         return $this->location_id;
     }
@@ -126,7 +126,7 @@ class Location
      * @param      [numeric]  $jeux_id  numéro d'identifiant du jeux
      * @return     [object]
      */
-    public function getIdJeux()
+    public function getJeuxId()
     {
         return $this->jeux_id;
     }
@@ -137,7 +137,7 @@ class Location
      * @param      [string]  $membre_id     identifiant du locataire
      * @return     [object]
      */
-    public function getIdLocataire()
+    public function getMembreId()
     {
         return $this->membre_id;
     }
@@ -147,7 +147,7 @@ class Location
      * @param      [string]  $membre_id     identifiant du locataire
      * @return     [object]
      */
-    public function getIdTypePaiement()
+    public function getTypePaiementId()
     {
         return $this->type_paiement_id;
     }
@@ -167,7 +167,7 @@ class Location
      * @param      [string]  $date_retour     identifiant de la date de fin de la location
      * @return     [object]
      */
-    public function getDateFin()
+    public function getDateRetour()
     {
         return $this->date_retour;
     }
