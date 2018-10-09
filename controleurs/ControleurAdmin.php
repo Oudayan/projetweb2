@@ -103,7 +103,20 @@ class ControleurAdmin extends BaseControleur
                     if (isset($params['jeux_id'])) {//
                         $modeleJeux->validerJeu($params['jeux_id']);
                     }
+                    $this->afficherAdmin(2);
+                    break;
 
+                case "activerJeu" :
+                    if (isset($params['jeux_id'])) {
+                        $modeleJeux->activerJeu($params['jeux_id']);
+                    }
+                    $this->afficherAdmin(2);
+                    break;
+
+                case "desactiverJeu" :
+                    if (isset($params['jeux_id'])) {
+                        $modeleJeux->desactiverJeu($params['jeux_id']);
+                    }
                     $this->afficherAdmin(2);
                     break;
 
@@ -111,7 +124,6 @@ class ControleurAdmin extends BaseControleur
                     if (isset($params['jeux_id'])) {
                         $modeleJeux->bannirJeu($params['jeux_id']);
                     }
-
                     $this->afficherAdmin(2);
                     break;
 
@@ -119,7 +131,6 @@ class ControleurAdmin extends BaseControleur
                     if (isset($params['jeux_id'])) {
                         $modeleJeux->debannirJeu($params['jeux_id']);
                     }
-
                     $this->afficherAdmin(2);
                     break;
 
