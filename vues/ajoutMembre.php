@@ -10,26 +10,21 @@
                 <?php
                     if(isset($donnees['membre'])){
                         $id = $donnees['membre']->getMembreId();
-                        $type =  $donnees['membre']->getTypeUtilisateur();
                         $courriel = $donnees['membre']->getCourriel();
                         $mdp = $donnees['membre']->getMotDePasse();
                         $nom = $donnees['membre']->getNom();
                         $prenom = $donnees['membre']->getPrenom();
                         $adresse = $donnees['membre']->getAdresse();
                         $telephone = $donnees['membre']->getTelephone();
-                        $valide = $donnees['membre']->getMembreValide();
-                        $actif = $donnees['membre']->getMembreActif();
                     }
                     else
                     {
-                        $id = $valide = 0;
+                        $id = 0;
                         $courriel = $mdp = $nom = $prenom = $adresse = $telephone = "";
-                        $type = $actif = 1;
                     }
                 ?>
                 <form action="index.php?Membres&action=enregistrerMembre" method="POST">
                     <input type="text" hidden name="membre_id" value="<?=$id?>">
-                    <input type="text" hidden name="type_utilisateur_id" value="<?=$type?>">
                     <div class="form-group">
                         <label for="email">Courriel :</label><span> *</span>
                         <input type="email" class="form-control" id="email" name="courriel" value="<?=$courriel?>">
@@ -58,8 +53,6 @@
                         <label for="telephone">Téléphone:</label>
                         <input type="text" class="form-control" id="telephone" name="telephone" value="<?=$telephone?>"> 
                     </div>
-                    <input type="text" hidden name="membre_valide" value="<?=$valide?>">
-                    <input type="text" hidden name="membre_actif" value="<?=$actif?>">
                     <button type="submit" class="btn btn-primary"><?= isset($donnees['membre']) ? "Modifier" : "S'inscrire"?></button>
                 </form>
             </div>
