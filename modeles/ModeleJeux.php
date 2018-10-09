@@ -15,7 +15,7 @@ class ModeleJeux extends BaseDAO {
         return "jeux";
     }
 
-    public function lireJeuParId($id = 3) {
+    public function lireJeuParId($id) {
         $resultat = $this->lire($id);
         $resultat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Jeux');
         return $resultat->fetch();
@@ -28,7 +28,7 @@ class ModeleJeux extends BaseDAO {
     }
 
     public function lireDerniersJeux($nombreJeux = 9) {
-        $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true ORDER BY jeux_id DESC LIMIT " . $nombreJeux;
+        $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = 1 AND jeux_valide = 1 AND jeux_banni = 0 ORDER BY jeux_id DESC LIMIT " . $nombreJeux;
         $resultat = $this->requete($sql);
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }

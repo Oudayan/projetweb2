@@ -53,12 +53,11 @@ class ControleurAdmin extends BaseControleur
             switch ($params["action"]) {
 
                 case "afficherAdmin" :
-                    $this->afficherAdmin(1);
+                    $this->afficherAdmin();
                     break;
 
                 case "validerMembre" :
                     if (isset($params['membre_id'])) {
-//                        echo $params['membre_id'];
                         $modeleMembres->validerMembre($params['membre_id']);
                     }
                     $this->afficherAdmin(1);
@@ -66,7 +65,6 @@ class ControleurAdmin extends BaseControleur
 
                 case "bannirMembre" :
                     if (isset($params['membre_id'])) {
-//                        echo $params['membre_id'];
                         $modeleMembres->bannirMembre($params['membre_id']);
                     }
                     $this->afficherAdmin(1);
@@ -74,7 +72,6 @@ class ControleurAdmin extends BaseControleur
 
                 case "reactiverMembre" :
                     if (isset($params['membre_id'])) {
-//                        echo $params['membre_id'];
                         $modeleMembres->reactiverMembre($params['membre_id']);
                     }
                     $this->afficherAdmin(1);
@@ -82,7 +79,6 @@ class ControleurAdmin extends BaseControleur
 
                 case "promouvoirMembre" :
                     if (isset($params['membre_id'])) {
-//                        echo $params['membre_id'];
                         $modeleMembres->promouvoirMembre($params['membre_id']);
                     }
                     $this->afficherAdmin(1);
@@ -91,7 +87,6 @@ class ControleurAdmin extends BaseControleur
 
                 case "demouvoirMembre" :
                     if (isset($params['membre_id'])) {
-//                        echo $params['membre_id'];
                         $modeleMembres->demouvoirMembre($params['membre_id']);
                     }
 
@@ -135,7 +130,7 @@ class ControleurAdmin extends BaseControleur
                     break;
 
                 default:
-                    trigger_error($params["action"] . " Action invalide.");
+                $this->afficherAdmin();
             }
         } else {
             header("location:index.php");
@@ -145,7 +140,6 @@ class ControleurAdmin extends BaseControleur
 
     public function afficherAdmin($tab = 1)
     {
-
         $modeleJeux = $this->lireDAO("Jeux");
         $modelePlateformes = $this->lireDAO("Plateformes");
         $modeleCategories = $this->lireDAO("Categories");
@@ -156,13 +150,14 @@ class ControleurAdmin extends BaseControleur
 
         $donnees["tab"] = $tab;
         $donnees['membres'] = $modeleMembres->obtenirTous();
+        foreach ($donnees['membres'] as $membre) {
+            $donnees['typeMembre'][] = $modeleMembres->obtenirRole($membre->getTypeUtilisateur());
+        }
         $donnees['jeux'] = $modeleJeux->lireTousLesJeux();
         $donnees = $this->chercherImages($donnees);
         foreach ($donnees['jeux'] as $jeu) {
             $donnees['membreJeu'][] = $modeleMembres->obtenirParId($jeu->getMembreId());
         }
-
-
         $donnees['locations'] = $modeleLocation->lireToutesLesLocations();
         for ($i = 0; $i < count($donnees['locations']); $i++) {
             $donnees['membreLocation'][$i] = $modeleMembres->obtenirParId($donnees['locations'][$i]->getMembreId());
@@ -170,7 +165,6 @@ class ControleurAdmin extends BaseControleur
             $donnees['proprietaireJeuLocation'][$i] = $modeleMembres->obtenirParId($donnees['jeuLocation'][$i]->getMembreId());
             $donnees['typePaiementLocation'][$i] = $modeleTypePaiement->lireTypePaiementParId($donnees['locations'][$i]->getTypePaiementId());
         }
-
         $donnees['achats'] = $modeleAchat->lireTousLesAchats();
         for ($i = 0; $i < count($donnees['achats']); $i++) {
             $donnees['membreAchat'][$i] = $modeleMembres->obtenirParId($donnees['achats'][$i]->getMembreId());
@@ -178,12 +172,11 @@ class ControleurAdmin extends BaseControleur
             $donnees['proprietaireJeuAchat'][$i] = $modeleMembres->obtenirParId($donnees['jeuAchat'][$i]->getMembreId());
             $donnees['typePaiementAchat'][$i] = $modeleTypePaiement->lireTypePaiementParId($donnees['achats'][$i]->getTypePaiementId());
         }
-
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
         $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-
-//        var_dump($donnees);
-
+        // echo "<pre>";
+        // var_dump($donnees);
+        // echo "</pre>";
         $this->afficherVues("admin", $donnees);
     }
 

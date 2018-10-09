@@ -221,7 +221,7 @@ class ControleurJeux extends BaseControleur
         $modeleCategories = $this->lireDAO("Categories");
 
         //  Construction de la requête SQL
-        $filtre = "jeux_actif = true AND jeux_valide = true";
+        $filtre = "jeux_valide = 1 AND jeux_actif = 1 AND jeux_banni = 0";
 
         if (isset($params["plateforme"]) && ($params['plateforme'] !== '')) {
             $_SESSION["rechercher"]["plateforme"] = $params["plateforme"];

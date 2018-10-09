@@ -172,9 +172,6 @@ class ModeleMembres extends BaseDAO
 
 
 
-
-
-
     /**
      * @brief   Méthode pour obtenir le rôle de utilisateur
      * @details Méthode qui obtiens un nom pour tous les type de l'utilisateur
@@ -185,18 +182,14 @@ class ModeleMembres extends BaseDAO
     {
         switch ($role) {
             case '1':
-                echo 'Membre';
-                break;
+                return 'Membre';
             case '2':
-                echo 'Administrateur';
-                break;
+                return 'Administrateur';
             case '3':
-                echo 'Super administrateur';
-                break;
+                return 'Super administrateur';
             default:
-                echo '';
+                return false;
         }
-        return $role;
     }
 
 }
