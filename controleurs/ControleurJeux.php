@@ -204,7 +204,7 @@ class ControleurJeux extends BaseControleur
     private function filtrerJeux(array $params)
     {
         $modeleJeux = $this->lireDAO("Jeux");
-        $modeleImages = $this->lireDAO("Images");
+        $modeleLocation = $this->lireDAO("Location");
         $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
@@ -228,10 +228,19 @@ class ControleurJeux extends BaseControleur
             $_SESSION["rechercher"]["titre"] = '';
         }
 
-        if (isset($params["transaction"]) && ($params['transaction'] == '1')) {
+        if (isset($params["datesLocation"]) && $params['datesLocation'] !== '' && isset($params["transaction"]) && $params["transaction"] == 1) {
             $_SESSION["rechercher"]["datesLocation"] = $params["datesLocation"];
-            $filtre .= ($filtre == "" ? "" : " AND ") . "l.date_retour > '" . $params["datesLocation"] . "'";
-            var_dump($params["datesLocation"]);
+            $dates = explode(" au ", $params["datesLocation"]);
+
+//            $dispos = $modeleLocation->lireToutesLesLocations();
+//            foreach ($dispos AS $dispo){
+//                if (strtotime($dates[0]) >= strtotime($dispo->getDateDebut()) && strtotime($dates[1]) <= strtotime($dispo->getDateRetour())) {
+//                    $disponible = true;
+//                }
+//            }
+//            WHERE (date_debut >= '2018-10-15') OR (date_retour <= '2018-10-16')
+            $filtre .= ($filtre == "" ? "" : " AND ") . " (l.date_debut >= '" . $dates[0] . "' OR l.date_retour <= '" . $dates[1] . "')";
+//            var_dump($dates);
         }
 //        else {
 //            $_SESSION["rechercher"]["datesLocation"] = '';
@@ -239,9 +248,11 @@ class ControleurJeux extends BaseControleur
 
         $counter = 0;
         $categories = $modeleCategories->lireToutesCategories();
+        $catFlag = 0;
         for ($i = 0; $i <= count($categories); $i++) {
             $cat = "categories" . $i;
             if (isset($params[$cat])) {
+                $catFlag = 1;
                 $_SESSION["rechercher"][$cat] = "checked";
                 $counter++;
                 if ($counter == 1) {
@@ -258,17 +269,30 @@ class ControleurJeux extends BaseControleur
         if ($counter > 0) {
             $filtre .= ")";
         }
+        if ($catFlag) {
+            $donnees["catShow"] = " show ";
+        }
+        else
+        {
+            $donnees["catShow"] = "";
+        }
 
-        if (isset($params["transaction"]) && ($params["transaction"] !== '')) {
+        if (isset($params["transaction"]) && ($params["transaction"] != '')) {
             $_SESSION["rechercher"]["transaction"] = $params["transaction"];
-            $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
+            $filtre .= ($filtre == "" ? "" : " AND ") . "location = " . $params["transaction"];
+            if($params["transaction"] == 1) {
+                $donnees['jeux'] = $modeleJeux->filtreJeux($filtre, ", l.date_debut, l.date_retour");
+            }
+            else {
+                $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
+            }
         }
         else {
             $_SESSION["rechercher"]["transaction"] = '-1';
+            $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
         }
 
-        $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
-        $donnees = $this->chercherImages($donnees);      
+        $donnees = $this->chercherImages($donnees);
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
         $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
         $this->afficherVues("rechercher", $donnees);

@@ -28,7 +28,7 @@ class ModeleJeux extends BaseDAO {
     }
 
     public function lireDerniersJeux($nombreJeux = 9) {
-        $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true ORDER BY jeux_id DESC LIMIT " . $nombreJeux;
+        $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_actif = 1 AND jeux_valide = 1 AND jeux_banni = 0 ORDER BY jeux_id DESC LIMIT " . $nombreJeux;
         $resultat = $this->requete($sql);
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }
@@ -38,10 +38,10 @@ class ModeleJeux extends BaseDAO {
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }
 
-    public function filtreJeux($filtre = 'jeux_actif = 1 AND jeux_valide = 1 AND jeux_banni = 0', $ordre = 'prix DESC') {
-        $sql = "SELECT DISTINCT j.jeux_id, j.plateforme_id,j.membre_id, j.titre, j.prix, j.date_ajout, j.concepteur, j.location, j.jeux_valide, j.jeux_actif, j.description, j.evaluation_globale FROM " . $this->lireNomTable() . " j JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id JOIN categorie c ON c.categorie_id = cj.categorie_id JOIN location l ON l.jeux_id = j.jeux_id WHERE " . $filtre . " GROUP BY j.jeux_id ORDER BY " . $ordre;
+    public function filtreJeux($filtre = 'jeux_actif = 1 AND jeux_valide = 1 AND jeux_banni = 0', $champs = "", $ordre = 'prix DESC') {
+        $sql = "SELECT DISTINCT j.jeux_id, j.plateforme_id,j.membre_id, j.titre, j.prix, j.date_ajout, j.concepteur, j.location, j.jeux_valide, j.jeux_actif, j.description, j.evaluation_globale" . $champs . " FROM " . $this->lireNomTable() . " j LEFT JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id LEFT JOIN categorie c ON c.categorie_id = cj.categorie_id LEFT JOIN location l ON l.jeux_id = j.jeux_id WHERE " . $filtre . " ORDER BY " . $ordre;
         $resultat = $this->requete($sql);
-			var_dump($resultat);
+//			var_dump($resultat);
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }
 

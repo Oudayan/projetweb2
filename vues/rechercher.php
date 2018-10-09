@@ -18,13 +18,6 @@
                     </select>
                 </div>
                 <div class="col-sm">
-                    <select name="transaction" class="form-control mb-2" id="transaction" onchange="afficherCal()" style="width: 100%">
-                        <option value='' selected>Je cherche un jeux à ...</option>
-                        <option value="0" <?php if ($_SESSION["rechercher"]["transaction"] == '0') echo 'selected'; ?>>Vendre</option>
-                        <option value="1" <?php if ($_SESSION["rechercher"]["transaction"] == '1') echo 'selected'; ?>>Louer</option>
-                    </select>
-                </div>
-                <div class="col-sm">
                     <select name="prix" id="prix" class="form-control mb-2" style="width: 100%">
                         <option value="">Prix - Jusqu'à ...</option>
                         <option value="10" <?php if ($_SESSION["rechercher"]["prix"] == '10') echo 'selected'; ?>>CDN$ 10</option>
@@ -37,7 +30,14 @@
                     </select>
                 </div>
                 <div class="col-sm">
-                    <input style="width: 100%; display: none" type="text" id="datesLocation" name="datesLocation" class="form-control" value="<?= isset($_SESSION["rechercher"]['datesLocation']) ? $_SESSION["rechercher"]['datesLocation'] : '' ?>">
+                    <select name="transaction" class="form-control mb-2" id="transaction" onchange="afficherCal()" style="width: 100%">
+                        <option value='' selected>Je cherche un jeux à ...</option>
+                        <option value="0" <?php if ($_SESSION["rechercher"]["transaction"] == '0') echo 'selected'; ?>>Vendre</option>
+                        <option value="1" <?php if ($_SESSION["rechercher"]["transaction"] == '1') echo 'selected'; ?>>Louer</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <input style="width: 100%; display: none" type="text" id="datesLocation" name="datesLocation" class="form-control mb-2" value="<?= isset($_SESSION["rechercher"]['datesLocation']) ? $_SESSION["rechercher"]['datesLocation'] : '' ?>">
                 </div>
             </div>
         </div>
@@ -48,13 +48,13 @@
             <div class="row">
                 <div class="pb-2">
                     <button type="button" class="btn btn-info ml-3" data-toggle="collapse" data-target="#categories">Catégories</button></div>
-                <div id="categories" class="collapse">
+                <div id="categories" class="collapse<?= isset($donnees["catShow"]) ? $donnees["catShow"] : "" ?>">
                 <div class="d-flex flex-wrap justify-content-between my-2">
                     <?php
                     $counter = count($donnees['categories']);
 
                     for ($i = 0; $i < $counter; $i++) { ?>
-                        <div class="col-lg-3">
+                        <div class="col-6 col-md-4 col-lg-3">
                             <input type="checkbox" value="'<?= $donnees['categories'][$i]->getCategorieId() ?>'" name=categories<?= $donnees['categories'][$i]->getCategorieId() - 1 ?> <?= isset($_SESSION["rechercher"]['categories' . $i]) ? $_SESSION["rechercher"]['categories' . $i] : '' ?>> <a style="color: whitesmoke"> <?= $donnees['categories'][$i]->getCategorie() ?></a>
                         </div>
                     <?php } ?>
@@ -69,10 +69,11 @@
             <div class="row">
                 <div class="col-sm pb-2"><input name="titre" id="titre" type="text" class="form-control" placeholder="Chercher par mot-clé" style="width: 100%" value="<?= isset($_SESSION["rechercher"]['titre']) ? $_SESSION["rechercher"]['titre'] : '' ?>">
                 </div>
+                <div class="col-sm mb-2"><a style="width: 100%" href="index.php?Jeux&action=resetRecherche" class="btn btn-danger">Reset recherche</a>
+                </div>
                 <div class="col-sm mb-2"><input style="width: 100%" type="submit" value="Chercher" class="btn btn-success" >
                 </div>
-                <div class="col-sm mb-2"><a style="width: 100%" href="index.php?Jeux&action=resetRecherche" class="btn btn-warning">Reset recherche</a>
-                </div>
+
             </div>
         </div>
     </form>
@@ -106,15 +107,15 @@
 
 <script>
     $('#datesLocation').daterangepicker({
-        // "showDropdowns": true,
-        // "autoApply": true,
-        // "dateLimit": {
-        //     "months": 3
-        // },
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 2018,
-        maxYear: parseInt(moment().format('YYYY'),10),
+        "showDropdowns": true,
+        "autoApply": true,
+        "dateLimit": {
+            "months": 3
+        },
+        // singleDatePicker: true,
+        // showDropdowns: true,
+        // minYear: 2018,
+        // maxYear: parseInt(moment().format('YYYY'),10),
         "locale": {
             "direction": "ltr",
             "format": "YYYY-MM-DD",
@@ -175,7 +176,7 @@
         else {
             cal.style.display = 'none';
             // cal.value = '';
-            
+
         }
     }
 
