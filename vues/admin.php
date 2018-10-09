@@ -109,30 +109,32 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
                                        class="btn btn-outline-success m-1">Valider</a>
                                 </td>
                             <?php }
-                            if ($donnees['jeux'][$i]->getJeuxActif() == 0 ) { ?>
+                             else {
+                                if ($donnees['jeux'][$i]->getJeuxActif() == 0 ) { ?>
+                                    <td>
+                                        <a href="index.php?Admin&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
+                                           class="btn btn-outline-primary m-1">Activer</a>
+                                    </td>
+                                <?php }
+                                else { ?>
+                                    <td>
+                                        <a href="index.php?Admin&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
+                                           class="btn btn-outline-info m-1">Désactiver</a>
+                                    </td>
+                                <?php }
+                                if ($donnees['jeux'][$i]->getJeuxBanni() == 0 ) { ?>
                                 <td>
-                                    <a href="index.php?Admin&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
-                                       class="btn btn-outline-primary m-1">Activer</a>
+                                    <a href="index.php?Admin&action=bannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
+                                       class="btn btn-outline-danger m-1">Bannir</a>
                                 </td>
-                            <?php }
-                            else { ?>
+                                <?php }
+                                else { ?>
                                 <td>
-                                    <a href="index.php?Admin&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
-                                       class="btn btn-outline-info m-1">Désactiver</a>
+                                    <a href="index.php?Admin&action=debannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
+                                       class="btn btn-outline-warning m-1">Dé-bannir</a>
                                 </td>
-                            <?php }
-                            if ($donnees['jeux'][$i]->getJeuxBanni() == 0 ) { ?>
-                            <td>
-                                <a href="index.php?Admin&action=bannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
-                                   class="btn btn-outline-danger m-1">Bannir</a>
-                            </td>
-                            <?php }
-                            else { ?>
-                            <td>
-                                <a href="index.php?Admin&action=debannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
-                                   class="btn btn-outline-warning m-1">Dé-bannir</a>
-                            </td>
-                            <?php } ?>
+                                <?php }
+                             } ?>
                         </tr>
                     <?php endfor; ?>
 
