@@ -25,7 +25,7 @@ class Membres
 
     // Constructeur
 
-    public function __construct($membre_id = null, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = false, $membre_actif = true)
+    public function __construct($membre_id = 0, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = 0, $membre_actif = 1)
     {
         $this->setMembreId($membre_id);
         $this->setTypeUtilisateur($type_utilisateur_id);
@@ -62,7 +62,7 @@ class Membres
      */
     public function setTypeUtilisateur($type_utilisateur_id)
     {
-        if (is_string($type_utilisateur_id) && trim($type_utilisateur_id) != "") {
+        if (is_numeric($type_utilisateur_id) && trim($type_utilisateur_id) != "") {
             $this->type_utilisateur_id = $type_utilisateur_id;
         }
     }
