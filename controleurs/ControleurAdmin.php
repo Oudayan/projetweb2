@@ -138,7 +138,8 @@ class ControleurAdmin extends BaseControleur
                     trigger_error($params["action"] . " Action invalide.");
             }
         } else {
-            var_dump("No");
+            header("location:index.php");
+
         }
     }
 

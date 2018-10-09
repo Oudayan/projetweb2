@@ -9,19 +9,24 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
     <div class="d-flex container">
 
         <div class="nav flex-column nav-pills m-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 1 ? "active": "" ?>" id="membres-tab" data-toggle="pill" href="#membres" role="tab"
+            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 1 ? "active" : "" ?>" id="membres-tab"
+               data-toggle="pill" href="#membres" role="tab"
                aria-controls="v-pills-home" aria-selected="true">Gérer les membres</a>
-            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 2 ? "active": "" ?>" id="jeux-tab" data-toggle="pill" href="#jeux" role="tab"
+            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 2 ? "active" : "" ?>" id="jeux-tab"
+               data-toggle="pill" href="#jeux" role="tab"
                aria-controls="v-pills-profile" aria-selected="false">Gérer les jeux</a>
-            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 3 ? "active": "" ?>" id="transactions-tab" data-toggle="pill" href="#transactions" role="tab"
+            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 3 ? "active" : "" ?>"
+               id="transactions-tab" data-toggle="pill" href="#transactions" role="tab"
                aria-controls="v-pills-messages" aria-selected="false">Gérer les transactions</a>
-            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 4 ? "active": "" ?>" id="menus-tab" data-toggle="pill" href="#menus" role="tab"
+            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 4 ? "active" : "" ?>" id="menus-tab"
+               data-toggle="pill" href="#menus" role="tab"
                aria-controls="v-pills-settings" aria-selected="false">Gérer les menus</a>
         </div>
 
         <div class="tab-content" id="v-pills-tabContent m-1">
             <!--Tableau gérer les membres-->
-            <div class="tab-pane fade <?= $donnees['tab'] == 1 ? "show active": "" ?> table-responsive" id="membres" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <div class="tab-pane fade <?= $donnees['tab'] == 1 ? "show active" : "" ?> table-responsive" id="membres"
+                 role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <table class="table table-hover ">
                     <thead class="thead-dark">
                     <tr>
@@ -33,51 +38,54 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($donnees['membres'] as $membre) {
-                        if ($membre->getTypeUtilisateur() != 3 || ($membre->getTypeUtilisateur() == 3 && $_SESSION["type"] == 3)) { ?>
+                    <?php foreach ($donnees['membres'] as $membre) :
+                        if ($membre->getTypeUtilisateur() != 3 || ($membre->getTypeUtilisateur() == 3 && $_SESSION["type"] == 3)) : ?>
                             <tr class="<?= $membre->getMembreActif() ? "" : "text-danger" ?> <?= $membre->getTypeUtilisateur() == 1 ? "" : "text-success" ?>">
                                 <td><?= $membre->getMembreId(); ?></td>
                                 <td><?= ($_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $membre->getTypeUtilisateur() == 1) || $_SESSION["id"] == $membre->getMembreId() ? '<a href="index.php?Membres&action=formModifierMembre&membreId=' . $membre->getMembreId() . '">' . $membre->getPrenom() . ' ' . $membre->getNom() . '</a>' : $membre->getPrenom() . ' ' . $membre->getNom()) ?></td>
                                 <td><?= $membre->getCourriel() ?></td>
-                                <td><?php
-                                    $modeleMembres = $this->lireDAO("Membres");
-                                    $modeleMembres->obtenirRole($membre->getTypeUtilisateur());
+                                <td>
+                                    <?php
+                                        $modeleMembres = $this->lireDAO("Membres");
+                                        $modeleMembres->obtenirRole($membre->getTypeUtilisateur());
                                     ?>
                                 </td>
-                                <?php if (!$membre->getMembreValide()) { ?>
+
+                                <?php if (!$membre->getMembreValide()) : ?>
                                     <td>
                                         <a href="index.php?Admin&action=validerMembre&membre_id=<?= $membre->getMembreId(); ?>"
                                            class="btn btn-outline-success m-1">Valider</a></td>
-                                <?php }
-                                if ($membre->getMembreValide() && $membre->getTypeUtilisateur() != 3 && $membre->getMembreActif() && ($_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $membre->getTypeUtilisateur() == 1))) { ?>
+                                <?php endif;
+                                if ($membre->getMembreValide() && $membre->getTypeUtilisateur() != 3 && $membre->getMembreActif() && ($_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $membre->getTypeUtilisateur() == 1))) : ?>
                                     <td>
                                         <a href="index.php?Admin&action=bannirMembre&membre_id=<?= $membre->getMembreId(); ?>"
                                            class="btn btn-outline-danger m-1">Bannir</a></td>
-                                <?php }
-                                if (!$membre->getMembreActif()) { ?>
+                                <?php endif;
+                                if (!$membre->getMembreActif()) : ?>
                                     <td>
                                         <a href="index.php?Admin&action=reactiverMembre&membre_id=<?= $membre->getMembreId(); ?>"
                                            class="btn btn-outline-warning m-1">Dé-bannir</a></td>
-                                <?php }
-                                if ($membre->getTypeUtilisateur() == 1 && $_SESSION["type"] == 3 && $membre->getMembreActif() && $membre->getMembreValide()) { ?>
+                                <?php endif;
+                                if ($membre->getTypeUtilisateur() == 1 && $_SESSION["type"] == 3 && $membre->getMembreActif() && $membre->getMembreValide()) :?>
                                     <td>
                                         <a href="index.php?Admin&action=promouvoirMembre&membre_id=<?= $membre->getMembreId(); ?>"
                                            class="btn btn-outline-primary m-1">Promouvoir</a></td>
-                                <?php }
-                                if ($_SESSION["type"] == 3 && $membre->getTypeUtilisateur() == 2) { ?>
+                                <?php endif;
+                                if ($_SESSION["type"] == 3 && $membre->getTypeUtilisateur() == 2) : ?>
                                     <td>
                                         <a href="index.php?Admin&action=demouvoirMembre&membre_id=<?= $membre->getMembreId(); ?>"
                                            class="btn btn-outline-info m-1">Rétrograder</a></td>
-                                <?php } ?>
+                                <?php endif; ?>
                             </tr>
-                        <?php }
-                    } ?>
+                        <?php endif;
+                    endforeach; ?>
                     </tbody>
                 </table>
             </div>
 
             <!--Tableau gérer les jeux-->
-            <div class="tab-pane fade <?= $donnees['tab'] == 2 ? "show active": "" ?> table-responsive" id="jeux" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <div class="tab-pane fade <?= $donnees['tab'] == 2 ? "show active" : "" ?> table-responsive" id="jeux"
+                 role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <table class="table table-hover ">
                     <thead class="thead-primary">
                     <tr>
@@ -97,44 +105,43 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
                             <td>
                                 <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>'><?= $donnees['jeux'][$i]->getTitre() ?></a>
                             </td>
-                            <td><img src="<?= $donnees['images'][$i]->getCheminPhoto(); ?>" class="img-thumbnail miniature"></td>
+                            <td><img src="<?= $donnees['images'][$i]->getCheminPhoto(); ?>"
+                                     class="img-thumbnail miniature"></td>
                             <td><?= $donnees['membreJeu'][$i]->getPrenom() . ' ' . $donnees['membreJeu'][$i]->getNom() ?></td>
 
 
                             <td><?= $donnees['jeux'][$i]->getDateAjout(); ?> </td>
 
-                            <?php if (!$donnees['jeux'][$i]->getJeuxValide()) { ?>
+                            <?php if (!$donnees['jeux'][$i]->getJeuxValide()) : ?>
                                 <td>
                                     <a href="index.php?Admin&action=validerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
                                        class="btn btn-outline-success m-1">Valider</a>
                                 </td>
-                            <?php }
-                             else {
-                                if ($donnees['jeux'][$i]->getJeuxActif() == 0 ) { ?>
+                            <?php else :
+                                if ($donnees['jeux'][$i]->getJeuxActif() == 0) : ?>
                                     <td>
                                         <a href="index.php?Admin&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
                                            class="btn btn-outline-primary m-1">Activer</a>
                                     </td>
-                                <?php }
-                                else { ?>
+                                <?php else : ?>
                                     <td>
                                         <a href="index.php?Admin&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
                                            class="btn btn-outline-info m-1">Désactiver</a>
                                     </td>
-                                <?php }
-                                if ($donnees['jeux'][$i]->getJeuxBanni() == 0 ) { ?>
-                                <td>
-                                    <a href="index.php?Admin&action=bannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
-                                       class="btn btn-outline-danger m-1">Bannir</a>
-                                </td>
-                                <?php }
-                                else { ?>
-                                <td>
-                                    <a href="index.php?Admin&action=debannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
-                                       class="btn btn-outline-warning m-1">Dé-bannir</a>
-                                </td>
-                                <?php }
-                             } ?>
+                                <?php endif;
+
+                                if ($donnees['jeux'][$i]->getJeuxBanni() == 0) : ?>
+                                    <td>
+                                        <a href="index.php?Admin&action=bannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
+                                           class="btn btn-outline-danger m-1">Bannir</a>
+                                    </td>
+                                <?php else : ?>
+                                    <td>
+                                        <a href="index.php?Admin&action=debannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>"
+                                           class="btn btn-outline-warning m-1">Dé-bannir</a>
+                                    </td>
+                                <?php endif;
+                            endif; ?>
                         </tr>
                     <?php endfor; ?>
 
@@ -143,7 +150,8 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
             </div>
 
             <!--Tableau gérer les transactions-->
-            <div class="tab-pane fade <?= $donnees['tab'] == 3 ? "show active": "" ?> table-responsive" id="transactions" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+            <div class="tab-pane fade <?= $donnees['tab'] == 3 ? "show active" : "" ?> table-responsive"
+                 id="transactions" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                 <!--Tableau de location-->
                 <h2 class="text-center">Locations</h2>
                 <table class="table table-hover ">
@@ -156,7 +164,6 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
                         <th scope="col">Paiement</th>
                         <th scope="col">Date début</th>
                         <th scope="col">Date retour</th>
-
                     </tr>
                     </thead>
 
@@ -176,6 +183,7 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
                     <?php endfor; ?>
                     </tbody>
                 </table>
+
                 <!--Tableau d`achat-->
                 <h2 class="text-center">Achats</h2>
                 <table class="table table-hover ">
@@ -208,7 +216,8 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
             </div>
 
             <!--Tableau gérer les menus-->
-            <div class="tab-pane fade <?= $donnees['tab'] == 4 ? "show active": "" ?> table-responsive" id="menus" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <div class="tab-pane fade <?= $donnees['tab'] == 4 ? "show active" : "" ?> table-responsive" id="menus"
+                 role="tabpanel" aria-labelledby="v-pills-settings-tab">
 
             </div>
         </div>
