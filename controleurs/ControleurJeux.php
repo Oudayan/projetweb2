@@ -237,6 +237,15 @@ class ControleurJeux extends BaseControleur
             $_SESSION["rechercher"]["titre"] = '';
         }
 
+        if (isset($params["transaction"]) && ($params['transaction'] == '1')) {
+            $_SESSION["rechercher"]["datesLocation"] = $params["datesLocation"];
+            $filtre .= ($filtre == "" ? "" : " AND ") . "l.date_retour > '" . $params["datesLocation"] . "'";
+            var_dump($params["datesLocation"]);
+        }
+//        else {
+//            $_SESSION["rechercher"]["datesLocation"] = '';
+//        }
+
         $counter = 0;
         $categories = $modeleCategories->lireToutesCategories();
         for ($i = 0; $i <= count($categories); $i++) {
