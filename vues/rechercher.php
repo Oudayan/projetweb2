@@ -20,13 +20,13 @@
                 <div class="col-sm">
                     <select name="prix" id="prix" class="form-control mb-2" style="width: 100%">
                         <option value="">Prix - Jusqu'à ...</option>
-                        <option value="10" <?php if ($_SESSION["rechercher"]["prix"] == '10') echo 'selected'; ?>>CDN$ 10</option>
-                        <option value="25" <?php if ($_SESSION["rechercher"]["prix"] == '25') echo 'selected'; ?>>CDN$ 25</option>
-                        <option value="35" <?php if ($_SESSION["rechercher"]["prix"] == '35') echo 'selected'; ?>>CDN$ 35</option>
-                        <option value="50" <?php if ($_SESSION["rechercher"]["prix"] == '50') echo 'selected'; ?>>CDN$ 50</option>
-                        <option value="70" <?php if ($_SESSION["rechercher"]["prix"] == '70') echo 'selected'; ?>>CDN$ 70</option>
-                        <option value="90" <?php if ($_SESSION["rechercher"]["prix"] == '90') echo 'selected'; ?>>CDN$ 80</option>
-                        <option value="1000" <?php if ($_SESSION["rechercher"]["prix"] == '1000') echo 'selected'; ?>>Tous les prix</option>
+                        <option value="10" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '10' ?  'selected' : "" ?>>CDN$ 10</option>
+                        <option value="25" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '25' ?  'selected' : "" ?>>CDN$ 25</option>
+                        <option value="35" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '35' ?  'selected' : "" ?>>CDN$ 35</option>
+                        <option value="50" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '50' ?  'selected' : "" ?>>CDN$ 50</option>
+                        <option value="70" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '70' ?  'selected' : "" ?>>CDN$ 70</option>
+                        <option value="90" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '90' ?  'selected' : "" ?>>CDN$ 80</option>
+                        <option value="1000000" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '1000000' ?  'selected' : "" ?>>Tous les prix</option>
                     </select>
                 </div>
                 <div class="col-sm">
@@ -150,15 +150,7 @@
             ],
             "firstDay": 1
         },
-        // Si la disponibilité dateDebut est assignée en $_SESSION et qu'elle dépasse ou est égale à la date d'aujourd'hui, mettre cette date comme date minimum, sinon la date minimum est égale à aujourd'hui
-<!--        --><?//= (isset($_SESSION['disponibilite']['dateDebut']) && strtotime($_SESSION['disponibilite']['dateDebut']) >= date("Y-m-d") ? '"minDate": "' . $_SESSION['disponibilite']['dateDebut'] . '", ' : '"minDate": new Date(), ') ?>
-//        // Si la disponibilité dateFin est assignée en $_SESSION, mettre cette date comme date maximum, sinon, pas de date maximum
-//        <?//= (isset($_SESSION['disponibilite']['dateFin'])) ? '"maxDate": "' . $_SESSION['disponibilite']['dateFin'] . '", ' : '') ?>
-//        // Si la date de début du formulaire recherche est assigné en $_SESSION, mettre cette date comme date de début de la sélection, sinon à la date d'aujourd'hui
-//        <?//= (isset($_SESSION['recherche']['debutLocation']) ? '"startDate": "' . $_SESSION['recherche']['debutLocation'] . '", ' : ' "startDate": "' . strtotime(date("Y-m-d")) . '", ' ?>
-//        // Si la date de fin du formulaire recherche est assigné en $_SESSION, mettre cette date comme date de fin de la sélection, sinon à la date de demain
-//        <?//= (isset($_SESSION['recherche']['finLocation']) ? '"endDate": "' . $_SESSION['recherche']['finLocation'] . '", ' : '"endDate": "' . strtotime(date("Y-m-d") + 1 day) . '", ' ?>
-//        "applyClass": "btn-orange"
+
     }, function(start, end, label) {
         console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
     });

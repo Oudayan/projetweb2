@@ -228,6 +228,14 @@ class ControleurJeux extends BaseControleur
             $_SESSION["rechercher"]["titre"] = '';
         }
 
+        if (isset($params["prix"]) && ($params['prix'] !== '')) {
+            $_SESSION["rechercher"]["prix"] = $params["prix"];
+            $filtre .= ($filtre == "" ? "" : " AND ") . "j.prix <= '" . $params["prix"] . "'";
+        }
+        else {
+            $_SESSION["rechercher"]["prix"] = '';
+        }
+
         if (isset($params["datesLocation"]) && $params['datesLocation'] !== '' && isset($params["transaction"]) && $params["transaction"] == 1) {
             $_SESSION["rechercher"]["datesLocation"] = $params["datesLocation"];
             $dates = explode(" au ", $params["datesLocation"]);
