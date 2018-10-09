@@ -1,58 +1,85 @@
-<nav class="navbar navbar-expand-md bg-secondary navbar-dark">
+<div id="barre-recherche" class="bg-dark">
+    <form class="form-inline" action="index.php?Jeux&action=rechercherJeux" method="post">
+
+<!--Par Plateforme, Transaction, Évaluation et Calendrier-->
+
     <div class="container">
-        <div class="row">
-
-            <form class="form-inline justify-content-center" action="index.php?Jeux&action=rechercherJeux" method="post">
-
-                <div class="row" >
-                    <div class="col-md-3">
-                        <select name="plateforme" id="plateforme" class="form-control mx-sm-3" style="width: 100%">
-                            <option value="">Plateforme</option>
-                            <?php
-                            $counter = count($donnees['plateforme']);
-
-                            for ($i = 0; $i <= $counter -1; $i++) {
-                                echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="transaction" id="transaction" class="form-control mx-sm-3" style="width: 100%">
-                            <option value='' selected>Je cherche un jeux à ...</option>
-                            <option value="0" <?php if ($_SESSION["rechercher"]["transaction"] == '0') echo 'selected'; ?>>Vendre</option>
-                            <option value="1" <?php if ($_SESSION["rechercher"]["transaction"] == '1') echo 'selected'; ?>>Louer</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-control mx-sm-3" style="width: 100%">
-                            <option>Évaluation</option>
-                            <option>Pas encore fonctionnel</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <input name="titre" id="titre" type="text" class="form-control" placeholder="Chercher par mot-clé" style="width: 100%" value="<?= isset($_SESSION["rechercher"]['titre']) ? $_SESSION["rechercher"]['titre'] : '' ?>">
-                    </div>
-
-                    <div class="d-flex flex-wrap justify-content-between ml-3 my-3">
+            <div class="row mt-2">
+                <div class="col-sm">
+                    <select name="plateforme" id="plateforme" class="form-control mb-2" style="width: 100%">
+                        <option value="">Plateforme</option>
                         <?php
-                            $counter = count($donnees['categories']);
+                        $counter = count($donnees['plateforme']);
 
-                            for ($i = 0; $i < $counter; $i++) { ?>
-                                <div class="col-lg-3">
-                                <input  type="checkbox" value="'<?= $donnees['categories'][$i]->getCategorieId() ?>'" name=categories<?= $donnees['categories'][$i]->getCategorieId() - 1 ?> <?= isset($_SESSION["rechercher"]['categories' . $i]) ? $_SESSION["rechercher"]['categories' . $i] : '' ?>> <?= $donnees['categories'][$i]->getCategorie() ?>
-                                </div>
-                            <?php } ?>
-                    </div>
-                    <input type="text" name="datesLocation" id="datesLocation">
-                    <button type="submit" class="btn btn-success ml-4">Chercher</button>
-                    <a href="index.php?Jeux&action=resetRecherche" class="btn btn-warning ml-4">Reset recherche</a>
-            </form>
+                        for ($i = 0; $i <= $counter -1; $i++) {
+                            echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <select name="prix" id="prix" class="form-control mb-2" style="width: 100%">
+                        <option value="">Prix - Jusqu'à ...</option>
+                        <option value="10" <?php if ($_SESSION["rechercher"]["prix"] == '10') echo 'selected'; ?>>CDN$ 10</option>
+                        <option value="25" <?php if ($_SESSION["rechercher"]["prix"] == '25') echo 'selected'; ?>>CDN$ 25</option>
+                        <option value="35" <?php if ($_SESSION["rechercher"]["prix"] == '35') echo 'selected'; ?>>CDN$ 35</option>
+                        <option value="50" <?php if ($_SESSION["rechercher"]["prix"] == '50') echo 'selected'; ?>>CDN$ 50</option>
+                        <option value="70" <?php if ($_SESSION["rechercher"]["prix"] == '70') echo 'selected'; ?>>CDN$ 70</option>
+                        <option value="90" <?php if ($_SESSION["rechercher"]["prix"] == '90') echo 'selected'; ?>>CDN$ 80</option>
+                        <option value="1000" <?php if ($_SESSION["rechercher"]["prix"] == '1000') echo 'selected'; ?>>Tous les prix</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <select name="transaction" class="form-control mb-2" id="transaction" onchange="afficherCal()" style="width: 100%">
+                        <option value='' selected>Je cherche un jeux à ...</option>
+                        <option value="0" <?php if ($_SESSION["rechercher"]["transaction"] == '0') echo 'selected'; ?>>Vendre</option>
+                        <option value="1" <?php if ($_SESSION["rechercher"]["transaction"] == '1') echo 'selected'; ?>>Louer</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <input style="width: 100%; display: none" type="text" id="datesLocation" name="datesLocation" class="form-control mb-2" value="<?= isset($_SESSION["rechercher"]['datesLocation']) ? $_SESSION["rechercher"]['datesLocation'] : '' ?>">
+                </div>
+            </div>
         </div>
-    </div>
-</nav>
 
-<div class="py-2 bg-light">
+<!--Par Catégorie-->
+
+        <div class="container">
+            <div class="row">
+                <div class="pb-2">
+                    <button type="button" class="btn btn-info ml-3" data-toggle="collapse" data-target="#categories">Catégories</button></div>
+                <div id="categories" class="collapse<?= isset($donnees["catShow"]) ? $donnees["catShow"] : "" ?>">
+                <div class="d-flex flex-wrap justify-content-between my-2">
+                    <?php
+                    $counter = count($donnees['categories']);
+
+                    for ($i = 0; $i < $counter; $i++) { ?>
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <input type="checkbox" value="'<?= $donnees['categories'][$i]->getCategorieId() ?>'" name=categories<?= $donnees['categories'][$i]->getCategorieId() - 1 ?> <?= isset($_SESSION["rechercher"]['categories' . $i]) ? $_SESSION["rechercher"]['categories' . $i] : '' ?>> <a style="color: whitesmoke"> <?= $donnees['categories'][$i]->getCategorie() ?></a>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+           </div>
+        </div>
+
+<!--Par mot clé et buttons recherche et reset-->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm pb-2"><input name="titre" id="titre" type="text" class="form-control" placeholder="Chercher par mot-clé" style="width: 100%" value="<?= isset($_SESSION["rechercher"]['titre']) ? $_SESSION["rechercher"]['titre'] : '' ?>">
+                </div>
+                <div class="col-sm mb-2"><a style="width: 100%" href="index.php?Jeux&action=resetRecherche" class="btn btn-danger">Reset recherche</a>
+                </div>
+                <div class="col-sm mb-2"><input style="width: 100%" type="submit" value="Chercher" class="btn btn-success" >
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="py-2">
     <div class="container">
         <div class="row">
             <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
@@ -71,7 +98,9 @@
                     </div>
                 </div>
             </div>
+
             <?php } ?>
+
         </div>
     </div>
 
@@ -83,10 +112,14 @@
         "dateLimit": {
             "months": 3
         },
+        // singleDatePicker: true,
+        // showDropdowns: true,
+        // minYear: 2018,
+        // maxYear: parseInt(moment().format('YYYY'),10),
         "locale": {
             "direction": "ltr",
             "format": "YYYY-MM-DD",
-            "separator": "  au  ",
+            "separator": " au ",
             "applyLabel": "Sélectionner",
             "cancelLabel": "Annuler",
             "fromLabel": "Du",
@@ -129,5 +162,37 @@
     }, function(start, end, label) {
         console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
     });
+
+
+    // Affichage et masquage du champs de calendrier selon option de transaction
+
+    let cal = document.getElementById("datesLocation");
+
+    function afficherCal() {
+        let louer = document.getElementById("transaction").value;
+        if (louer == '1') {
+            cal.style.display = 'block';
+        }
+        else {
+            cal.style.display = 'none';
+            // cal.value = '';
+
+        }
+    }
+
+    window.addEventListener('load', function () {
+
+        let louer = document.getElementById("transaction").value;
+        if (louer == '1') {
+            cal.style.display = 'block';
+        }
+        else {
+            cal.style.display = 'none';
+            // cal.value = '';
+        }
+
+    });
 </script>
+
+
 
