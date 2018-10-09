@@ -1,6 +1,6 @@
 <?php
 
-if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
+if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 2)){ ?>
     <h1 class="text-center my-3">Adminstration</h1>
     <div class="d-flex container">
 
@@ -164,6 +164,6 @@ if ($_SESSION["type"] == 3 || $_SESSION["type"] == 2) : ?>
 
     </div>
 
-<?php else : ?>
-    <h3 class='text-center my-5'>Vous n`avez pas droit d`acceder à cette page!!!</h3>
-<?php endif; ?>
+<?php } else { ?>
+    <h3 class='text-center my-5'>Vous n'avez pas droit d'acceder à cette page!!!</h3>
+<?php } ?>

@@ -35,10 +35,6 @@ class ControleurMembres extends BaseControleur
 
             switch ($params["action"]) {
 
-//                case "ajouterUnMembre": // Tourner a la page de la formulaire de s`inscrire
-//                    $this->afficherVues("ajouteUnMembre");
-//                    break;
-
                 case "afficherMembre":
                     $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
                     $donnees['images'] = $modeleImages->lireDerniersImages();
@@ -67,15 +63,21 @@ class ControleurMembres extends BaseControleur
                 break;
 
                 case "enregistrerMembre" :
-                    if (isset($params["nom"]) && isset($params["prenom"]) && isset($params["mot_de_passe"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params["courriel"]) && $params["confirm_mdp"] && $params['type_utilisateur_id'] && $params['membre_id'] && $params['membre_valide'] && $params['membre_actif']) {
+                    // echo "<pre>";
+                    // var_dump($params);
+                    // echo "</pre>";
+                    if ($params['membre_id'] && $params['type_utilisateur_id'] && isset($params["courriel"]) && isset($params["mot_de_passe"]) && $params["confirm_mdp"] && isset($params["nom"]) && isset($params["prenom"]) && isset($params["adresse"]) && isset($params["telephone"]) && $params['membre_valide'] && $params['membre_actif']) {
                         // comparer les mot de passe sont pareile.
                         if($params["mot_de_passe"] == $params["confirm_mdp"])
                         {
                             $membre = new Membres($params['membre_id'], $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], $params['membre_valide'], $params['membre_actif']);
-                            $_SESSION['prenom'] = $params["prenom"];
-                            $_SESSION['nomComplet'] = $params["prenom"] . " " . $params["nom"];
+                            if($_SESSION['id'] == $params['membre_id']){
+                                $_SESSION['prenom'] = $params["prenom"];
+                                $_SESSION['nomComplet'] = $params["prenom"] . " " . $params["nom"];
+                            }
+                            // Sauvegarde de l'objet $membre
                             $id = $modeleMembres->sauvegarde($membre);
-                            $_SESSION["msg"] = "Vous êtes maintenant membre de notre site !";
+                            $_SESSION["msg"] = "Votre profil est enregistré !";
                         }
                         else
                         {
@@ -98,14 +100,25 @@ class ControleurMembres extends BaseControleur
                             // Comparaison entre les données reçues et ceux de la BD
                             // if ($donnees->getCourriel() == $params["courriel"]  && $donnees->getMotDePasse() == md5($params["mot_de_passe"] )) {
                             if ($donnees->getCourriel() == $params["courriel"] && $donnees->getMotDePasse() == $params["mot_de_passe"]) {
-                                $_SESSION["id"] = $donnees->getMembreId();
-                                $_SESSION["courriel"] = $params["courriel"];
-                                $_SESSION["type"] = $donnees->getTypeUtilisateur();
-                                $_SESSION["cart"] = [];
-                                $_SESSION["cartImages"] = [];
-                                $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
-                                $_SESSION['prenom'] = $donnees->getPrenom();
-                                $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
+                                if($donnees->getMembreValide() == 1 ){
+                                    if($donnees->getMembreActif() == 1 ){
+                                        $_SESSION["id"] = $donnees->getMembreId();
+                                        $_SESSION["courriel"] = $params["courriel"];
+                                        $_SESSION["type"] = $donnees->getTypeUtilisateur();
+                                        $_SESSION["cart"] = [];
+                                        $_SESSION["cartImages"] = [];
+                                        $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
+                                        $_SESSION['prenom'] = $donnees->getPrenom();
+                                        $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
+                                    }
+                                    else{
+                                        $_SESSION["msg"] = "Vous êtes présentement bannis du site. Veuillez contacter l'administrateur pour plus de détails.";
+                                    }
+                                }
+                                else
+                                {
+                                    $_SESSION["msg"] = "Votre compte n'est pas encore activé. Vous serez contacté par l'administrateur quand votre compte sera validé.";
+                                }
                             }
                             else
                             {
@@ -131,9 +144,8 @@ class ControleurMembres extends BaseControleur
                     else
                     {
                         header("location:index.php");
-                    } 
-
-        break;
+                    }
+                    break;
 
                 case  "logout":
                     if (isset($_SESSION["id"])) {
@@ -164,10 +176,10 @@ class ControleurMembres extends BaseControleur
                     break;
 
                 default:
-                    trigger_error($params["action"] . " Action invalide.");
+                    header("location:index.php");
             }
         } else {
-            var_dump("No");
+            header("location:index.php");
         }
     }
 

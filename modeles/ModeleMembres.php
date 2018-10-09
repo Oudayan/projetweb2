@@ -33,8 +33,7 @@ class ModeleMembres extends BaseDAO
     {
         $resultat = $this->lire($membre_id);
         $resultat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Membres');
-        $unMembre = $resultat->fetch();
-        return $unMembre;
+        return $resultat->fetch();
     }
 
 
@@ -49,8 +48,7 @@ class ModeleMembres extends BaseDAO
     {
         $resultat = $this->lire($courriel,'courriel');
         $resultat->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Membres');
-        $unMembre = $resultat->fetch();
-        return $unMembre;
+        return $resultat->fetch();
     }
 
     /**
@@ -62,10 +60,8 @@ class ModeleMembres extends BaseDAO
     public function obtenirTous()
     {
         $resultat = $this->lireTous();
-        $desMembres = $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Membres");
-        return $desMembres;
+        return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Membres");
     }
-
 
     /**
      * @brief   Méthode pour enregistrer un nouveau membre dans la bd
@@ -104,7 +100,6 @@ class ModeleMembres extends BaseDAO
             $id = array_pop($donnees);
             $sql = "INSERT INTO " . $this->lireNomTable() . " (type_utilisateur_id, nom, prenom, mot_de_passe, adresse, telephone, courriel, membre_valide, membre_actif) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
-        
         $this->requete($sql, $donnees);
         return $unMembre->getMembreId() > 0 ? $unMembre->getMembreId() : $this->bd->lastInsertId();
     }
@@ -118,7 +113,7 @@ class ModeleMembres extends BaseDAO
 
     public function validerMembre($id)
     {
-        return $this->modifierChamp($id,'membre_valide',1);
+        return $this->modifierChamp($id, 'membre_valide', 1);
     }
 
     /**
@@ -130,7 +125,7 @@ class ModeleMembres extends BaseDAO
 
     public function bannirMembre($id)
     {
-        return $this->modifierChamp($id,'membre_actif',0);
+        return $this->modifierChamp($id, 'membre_actif', 0);
     }
 
     /**
@@ -142,7 +137,7 @@ class ModeleMembres extends BaseDAO
 
     public function reactiverMembre($id)
     {
-        return $this->modifierChamp($id,'membre_actif',1);
+        return $this->modifierChamp($id, 'membre_actif', 1);
     }
 
 
@@ -155,7 +150,7 @@ class ModeleMembres extends BaseDAO
 
     public function promouvoirMembre($id)
     {
-        return $this->modifierChamp($id,'type_utilisateur_id',2);
+        return $this->modifierChamp($id, 'type_utilisateur_id', 2);
     }
 
     /**
@@ -167,10 +162,8 @@ class ModeleMembres extends BaseDAO
 
     public function demouvoirMembre($id)
     {
-        return $this->modifierChamp($id,'type_utilisateur_id',1);
+        return $this->modifierChamp($id, 'type_utilisateur_id', 1);
     }
-
-
 
     /**
      * @brief   Méthode pour obtenir le rôle de utilisateur

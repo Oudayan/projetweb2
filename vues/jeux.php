@@ -179,11 +179,6 @@
                 <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
                         <?= $donnees['nbCommentaires'][0] ?>&nbsp;avis&nbsp;
-                        <!-- <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i> -->
                         <?php if($donnees["jeu"]->getEvaluationGlobale() >= 0){ ?>
                             <span class="score"><span style="width: <?= ($donnees["jeu"]->getEvaluationGlobale() / 5) * 100 ?>%"></span></span>
                             (<?= round($donnees["jeu"]->getEvaluationGlobale(), 2) ?>&nbsp;/&nbsp;5)

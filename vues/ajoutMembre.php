@@ -23,8 +23,8 @@
                     else
                     {
                         $id = $valide = 0;
-                        $type = $courriel = $mdp = $nom = $prenom = $adresse = $telephone = "";
-                        $actif = 1;
+                        $courriel = $mdp = $nom = $prenom = $adresse = $telephone = "";
+                        $type = $actif = 1;
                     }
                 ?>
                 <form action="index.php?Membres&action=enregistrerMembre" method="POST">
@@ -50,7 +50,6 @@
                         <label for="prenom">Prénom:</label>
                         <input type="text" class="form-control" id="prenom" name="prenom" value="<?=$prenom?>">
                     </div>
-
                     <div class="form-group">
                         <label for="adresse">Adresse:</label>
                         <input type="text" class="form-control" id="adresse" name="adresse" value="<?=$adresse?>">
@@ -63,8 +62,6 @@
                     <input type="text" hidden name="membre_actif" value="<?=$actif?>">
                     <button type="submit" class="btn btn-primary"><?= isset($donnees['membre']) ? "Modifier" : "S'inscrire"?></button>
                 </form>
-
-
             </div>
             <div class="col-md-6 p-0 mt-5">
                 <div id="carouselTrois" class="carousel slide" data-ride="carousel">
