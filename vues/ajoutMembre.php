@@ -47,13 +47,14 @@
                     </div>
                     <div class="form-group">
                         <label for="adresse">Adresse:</label>
-                        <input type="text" class="form-control" id="adresse" name="adresse" value="<?=$adresse?>">
+                        <input type="text" class="form-control" id="adresse" name="adresse" value="<?=$adresse?>" placeholder="Entrez une adresse">
                     </div>
                     <div class="form-group">
                         <label for="telephone">Téléphone:</label>
                         <input type="text" class="form-control" id="telephone" name="telephone" value="<?=$telephone?>"> 
                     </div>
-                    <button type="submit" class="btn btn-primary" id="btnValidation"><?= isset($donnees['membre']) ? "Modifier" : "S'inscrire"?></button>
+                    <button type="submit" class="btn btn-primary" id="btnValidation" disabled><?= isset($donnees['membre']) ? "Modifier" : "S'inscrire"?></button>
+                    <!-- <input type="submit" class="btn btn-primary" id="btnValidation" value="<?= isset($donnees['membre']) ? "Modifier" : "S'inscrire"?>"> -->
                 </form>
             </div>
             <div class="col-md-6 p-0 mt-5">
@@ -105,56 +106,25 @@
 </div>
 
 <script>
+    $('#formMembre').on('mouseover',function(){
+        var courrielReg = /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i;
+        var pwd = /.+/g;
+        var nameReg = /^([a-zA-Z'àáâéèêíôóúùüûçÀÁÂÉÈÍÓÔÙÚÛÜÇ\s-]{1,30})$/g;
+        var adresseReg = /^[a-zA-Z0-9\s,'-]*$/g;
+        var telephone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
-//   var Elements = {
-//     courriel: {
-//       reg: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-//       error: "Courriel pas valide.",
-//     },
+        var courriel = $('#email').val();
+        var mdp = $('#pwd').val();
+        var cmdp = $('#confimerMotDePasse').val();
+        var nom = $('#nom').val();
+        var prenom = $('#prenom').val();
+        var adresse = $('#adresse').val();
+        var telephone = $('#telephone').val();
 
-//     mot_de_passe: {
-//       reg: /.+/g,
-//       error: "Mot de passe pas valide.",
-//     },
-
-//     confirm_mdp: {
-//       reg: /.+/g,
-//       error: "Mot de passe pas valide.",
-//     },
-
-//     nom: {
-//       reg: /^([a-zA-Z'àáâéèêíôóúùüûçÀÁÂÉÈÍÓÔÙÚÛÜÇ\s-]{1,30})$/g,
-//       require: true,
-//       error: "Nom pas valide.",
-//     },
-
-//     prenom: {
-//       reg: /^([a-zA-Z'àáâéèêíôóúùüûçÀÁÂÉÈÍÓÔÙÚÛÜÇ\s-]{1,30})$/g,
-//       require: true,
-//       error: "Prenom pas valide.",
-//     },
-
-//     adresse: {
-//       reg: /^[a-zA-Z0-9\s,'-]*$/g,
-//       require: true,
-//       error: "Adresse pas valide.",
-//     },
-   
-//     telephone: {
-//       reg: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
-//       error: "Numéro de téléphone pas valide.",
-//     },
-//   };
-var courrielReg = /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i;
-
-
-var courriel = $('#email').val();
-var mdp = $('#pwd').val();
-var cmdp = $('#confimerMotDePasse').val();
-var nom = $('#nom').val();
-var prenom = $('#prenom').val();
-var adresse = $('#adresse').val();
-var telephone = $('#telephone').val();
-
-
+        if (courriel = "" || mdp == "" || cmdp == "" || nom == "" || prenom == "" || adresse == "" || telephone == ""){
+        $('#btnValidation').prop('disabled', true);
+        }else{
+        $('#btnValidation').prop('disabled', false);
+    }
+    });
 </script>
