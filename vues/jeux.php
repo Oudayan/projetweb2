@@ -58,12 +58,14 @@
                 <div class="card-body">
                     <p class="jeu-titre"><?=($donnees["jeu"]->getTitre())?></p>
                     <hr>
-                    <p class="row">
-                        <span class="col-md-6">Transaction : <?=($donnees["jeu"]->getLocation() == 1 ? "Location" : "À vendre") ?></span>
-                        <?php if($donnees["jeu"]->getLocation() == 1){ ?>
-                            <span class="col-md-6 mt-2 date-form"><input style="width: 100%" type="text" id="datesLocation" name="datesLocation" class="form-control mb-2" value="<?= isset($_SESSION["rechercher"]['datesLocation']) ? $_SESSION["rechercher"]['datesLocation'] : '' ?>"></span>
-                        <?php } ?>
-                    </p>
+                    <?php if($donnees["jeu"]->getLocation() == 0){ ?>
+                        <h5 class="my-3">Jeu à vendre</h5>
+                    <?php } else { ?>
+                        <p class="date-form">
+                            <h5 class="my-2">Dates de location:</h5>
+                            <input style="width: 100%" type="text" id="datesLocation" name="datesLocation" class="form-control my-2" value="<?= isset($_SESSION["rechercher"]['datesLocation']) ? $_SESSION["rechercher"]['datesLocation'] : '' ?>">
+                        </p>
+                    <?php } ?>
                     <p>Plateforme :
                     <?php
                         if ($donnees["jeu"]->getPlateformeId() == 1 ) {
