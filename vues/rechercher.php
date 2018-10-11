@@ -7,7 +7,7 @@
             <div class="row mt-2">
                 <div class="col-sm">
                     <select name="plateforme" id="plateforme" class="form-control mb-2" style="width: 100%">
-                        <option value="">Plateforme</option>
+                        <option value="" selected>Plateforme</option>
                         <?php
                         for ($i = 0; $i < count($donnees['plateforme']); $i++) { ?>
                             <option value="<?=  $donnees['plateforme'][$i]->getPlateformeId() ?>" <?= isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? "selected" : "" ?>><?=  $donnees['plateforme'][$i]->getPlateforme() ?></option>
