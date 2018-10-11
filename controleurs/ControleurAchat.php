@@ -72,7 +72,6 @@ class ControleurAchat extends BaseControleur {
                                 $dates = explode(" au ", $params['dates']);
                                 if ($dates[0] <= $dates[1]) {
                                     // Vérifier si le jeu est disponible
-                                    $_SESSION["test"] = "date debut avannt date retour";
                                     $locations = $modeleLocation->lireLocationsParJeuxId($params["JeuxId"]);
                                     $disponible = true;
                                     foreach ($locations as $location) {
@@ -85,7 +84,6 @@ class ControleurAchat extends BaseControleur {
                                         $dateD = strtotime($dates[0]);
                                         $datediff = $dateR - $dateD;
                                         $quantite = floor($datediff / (60 * 60 * 24)) + 1;
-                                        $_SESSION["test"] = $quantite;
                                         $this->addToCart($jeu, $quantite);
                                     }
                                     else {
@@ -128,7 +126,9 @@ class ControleurAchat extends BaseControleur {
                                 array_splice($_SESSION["cart"], $i, 1);
                                 array_splice($_SESSION["cartImages"], $i, 1);
                                 array_splice($_SESSION["quantite"], $i, 1);
+                                $_SESSION["prixTotal"] -= $_SESSION["prix"];
                                 array_splice($_SESSION["prix"], $i, 1);
+                                array_splice($_SESSION["datesLocation"], $i, 1);
                                 break;
                             }
                             $i++;
@@ -162,9 +162,9 @@ class ControleurAchat extends BaseControleur {
             $_SESSION['cartImages'][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
         }
         // Ajouter la quantité et prix et le prix total au panier
-        $_SESSION["quantite"][] = "test" + $quantite;
-        $prix = number_format($jeu->getPrix() * $quantite, 2);
-        $_SESSION["prix"] = "test" + $prix;
+        $prix = $jeu->getPrix() * $quantite;
+        $_SESSION["quantite"][] = $quantite;
+        $_SESSION["prix"][] = $prix;
         $_SESSION["prixTotal"] += $prix;
         echo sizeof($_SESSION["cart"]);
     }

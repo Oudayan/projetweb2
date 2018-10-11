@@ -66,7 +66,7 @@
                                 <button id="cart" class="btn btn-info btn-block dropdown-toggle text-uppercase text-white m-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-shopping-cart"> <span class="badge" id="cartQuantity"><?= isset($_SESSION["cart"]) ? sizeof($_SESSION["cart"]) : "0" ?></span></i>
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-right container container-shopping-cart" id="shopping-cart">
+                                <div class="dropdown-menu dropdown-menu-right container" id="shopping-cart">
                                     <div class="shopping-cart">
                                         <table class="table table-striped table-panier">
                                         <?php if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
@@ -80,19 +80,19 @@
                                                         </a>
                                                     </td>
                                                     <td class="text-center"><?= $jeux->getTitre() ?></td>
-                                                    <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
+                                                    <td class="text-center"><?= number_format($jeux->getPrix(), 2) ?> $CAD</td>
                                                     <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
+                                                    <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> $CAD</td>
                                                     <td class="text-center">
                                                         <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                                                     </td>
                                                 </tr>
                                                 <?php
                                                 $i++;
-                                                // $total = $total + $jeux->getPrix();
                                             } ?>
                                             <tr class="dropdown-item">
                                                 <td class="totalPanier" colspan="3">Total</td>
-                                                <td><?= $_SESSION["prixTotal"] ?> $CAD</td>
+                                                <td><?= number_format($_SESSION["prixTotal"], 2) ?> $CAD</td>
                                                 <td></td>
                                             </tr>
                                         <?php } else { ?>
