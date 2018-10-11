@@ -9,14 +9,10 @@
                     <select name="plateforme" id="plateforme" class="form-control mb-2" style="width: 100%">
                         <option value="">Plateforme</option>
                         <?php
-                        $counter = count($donnees['plateforme']);
-
-                        for ($i = 0; $i <= $counter -1; $i++) {
-//                            echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
-                            echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() . '" ' . isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? 'selected' : \"\" . '">"  $donnees['plateforme'][$i]->getPlateforme() .'</option>';
-
-                        }
-                        ?>
+//                        echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
+                        for ($i = 0; $i < count($donnees['plateforme']); $i++) { ?>
+                            <option value="<?=  $donnees['plateforme'][$i]->getPlateformeId() ?>" <?= isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? "selected" : "" ?>><?=  $donnees['plateforme'][$i]->getPlateforme() ?></option>
+                        <?php } ?>
                     </select>
                 </div>
                 <div class="col-sm">
