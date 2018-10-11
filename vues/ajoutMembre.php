@@ -296,31 +296,31 @@
         }
 
     }else{
-        $('#email').keyup(function(){
+        $('#email').blur(function(){
             chkEmail();
         });
 
-        $('#pwd').keyup(function(){
+        $('#pwd').blur(function(){
             chkPwd(); 
         });
 
-        $('#confimerMotDePasse').keyup(function(){
+        $('#confimerMotDePasse').blur(function(){
             chkCpwd();
         });
 
-        $('#nom').keyup(function(){
+        $('#nom').blur(function(){
             chkNom();
         });
 
-        $('#prenom').keyup(function(){
+        $('#prenom').blur(function(){
             chkPrenom();   
         });
 
-        $('#adresse').keyup(function(){
+        $('#adresse').blur(function(){
             chkAdresse(); 
         });
 
-        $('#telephone').keyup(function(){
+        $('#telephone').blur(function(){
             chkPhone();    
         });   
     }
