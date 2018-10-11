@@ -219,7 +219,7 @@
     $('#adresse').keyup(function(){
         
         var adresse = $('#adresse').val();
-        var adresseReg = /^[a-zA-Z0-9\s,'-]*$/g;
+        var adresseReg = /^[a-zA-Z0-9\s,\.'-]*$/g;
         if( adresse == ""){
             adresseChk = false;
             $('#adresse').attr("placeholder", "Entrez votre adresse");
