@@ -82,7 +82,6 @@
                                                     <td class="text-center"><?= $jeux->getTitre() ?></td>
                                                     <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
                                                     <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
-                                                    <td class="text-center"> = <?= isset($_SESSION["prix"][$i]) ? $_SESSION["prix"][$i] : $jeux->getPrix() ?> $CAD</td>
                                                     <td class="text-center">
                                                         <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                                                     </td>
