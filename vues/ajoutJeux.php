@@ -59,7 +59,7 @@ if(isset($_SESSION['id']))
                 <div class="form-group row">
                     <div class="col-lg-4">
                         <label for="pwd">Titre :</label>
-                        <input type="text" class="form-control" id="titre" name="titre" value="<?=$titre?>"> 
+                        <input type="text" class="form-control" id="titre" name="titre" value="<?=$titre?>" placeholder=""> 
                     </div>
                     
                     <div class="col-lg-4">
@@ -221,15 +221,9 @@ else{
 ?>
 <script>
     function upload(input, id){
-        // console.log(input.files[0].name);
-        // console.log(input.id[0]);
-        // for(i=0;i<20;i++){
+        
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            /* reader.onload = function (e) {
-                $('#photo'+input.id)
-                    .attr('src', e.target.result);
-            }; */
             formData = new FormData();
             formData.append('files[]', input.files[0]);  
             $.ajax({
@@ -238,7 +232,6 @@ else{
                 data: formData,
                 processData: false,
                 contentType: false,
-                // async: false,
                 dataType:"html",
                 success: function(data) {
                     $('#image' + id).html(data);
@@ -277,10 +270,8 @@ else{
         var cheminsImages = $("[id^=inputImage]");
         var boutonsEffacer = $('.btn-outline-danger'); 
         for(var i = 0; i < cheminsImages.length; i++){
-            //console.log(cheminsImages[i].value);
             if(cheminsImages[i].value != ""){
                 $(boutonsEffacer[i]).removeClass("invisible")
-                //console.log(boutonsEffacer[i]);
             }
         }
     };
@@ -288,10 +279,4 @@ else{
     $('#groupeImages').ready(function(){
         updateDeleteButtons();
     });
-
-    // $('#groupeImages').mouseover(function(){
-    //     updateDeleteButtons();
-    // });
-    //console.log($("[id^=inputImage]"));
-  
 </script>
