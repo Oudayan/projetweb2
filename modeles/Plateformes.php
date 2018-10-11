@@ -20,7 +20,6 @@
         {
            $this->setPlateformeId($plateforme);
            $this->setPlateforme($plateforme_id);
-           
 
         }
 

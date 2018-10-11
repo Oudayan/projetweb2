@@ -26,23 +26,8 @@ class ControleurAdmin extends BaseControleur
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
+        $modelePlatformes = $this->lireDAO("Platformes");
         $modeleLocation = $this->lireDao("Location");
-
-
-        /**
-         *  test begin
-         */
-
-//        http://www.projet.com/projetweb2/index.php?Admin&action=afficherLocation#v-pills-settings
-//
-//
-//        $donnees['location'] = $modeleLocation->lireDetaileLocation();
-//        var_dump($donnees);
-
-
-        /**
-         * test fin
-         */
 
 
         $donnees["erreur"] = "";
@@ -129,8 +114,31 @@ class ControleurAdmin extends BaseControleur
                     $this->afficherAdmin(2);
                     break;
 
+//--------------Admin gérer les menus--------------------------------------------------------------------------
+                case "sauvegarderCategorie" :
+                    if (isset($params['categorie_id']) && isset($params['categorie']) && isset($_SESSION["id"]) && ($_SESSION["type"] == 2 || $_SESSION["type"] == 3)) {
+                        $uneCategorie = new Categories($params['categorie_id'], $params['categorie']);
+                        $modeleCategories->sauvegarder($uneCategorie);
+                    }
+                    else {
+                        $_SESSION["msg"] = "Remplissez tous les champs...";
+                    }
+                    $this->afficherAdmin(4);
+                    break;
+
+                case "sauvegarderPlatforme" :
+                    if (isset($params['platforme_id']) && isset($params['platforme']) && isset($_SESSION["id"]) && ($_SESSION["type"] == 2 || $_SESSION["type"] == 3)) {
+                        $unePlatforme = new Plateformes($params['platforme_id'], $params['platforme']);
+                        $modelePlatformes->sauvegarder($unePlatforme);
+                    }
+                    else {
+                        $_SESSION["msg"] = "Remplissez tous les champs...";
+                    }
+                    $this->afficherAdmin(4);
+                    break;
+
                 default:
-                $this->afficherAdmin();
+                    $this->afficherAdmin();
             }
         } else {
             header("location:index.php");
@@ -172,11 +180,15 @@ class ControleurAdmin extends BaseControleur
             $donnees['proprietaireJeuAchat'][$i] = $modeleMembres->obtenirParId($donnees['jeuAchat'][$i]->getMembreId());
             $donnees['typePaiementAchat'][$i] = $modeleTypePaiement->lireTypePaiementParId($donnees['achats'][$i]->getTypePaiementId());
         }
+
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
         $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-        // echo "<pre>";
-        // var_dump($donnees);
-        // echo "</pre>";
+
+
+//         echo "<pre>";
+////         var_dump($donnees);
+//         var_dump($donnees['categories']);
+//         echo "</pre>";
         $this->afficherVues("admin", $donnees);
     }
 
