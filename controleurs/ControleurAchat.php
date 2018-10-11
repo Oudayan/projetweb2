@@ -126,7 +126,7 @@ class ControleurAchat extends BaseControleur {
                                 array_splice($_SESSION["cart"], $i, 1);
                                 array_splice($_SESSION["cartImages"], $i, 1);
                                 array_splice($_SESSION["quantite"], $i, 1);
-                                $_SESSION["prixTotal"] -= $_SESSION["prix"];
+                                $_SESSION["prixTotal"] -= $_SESSION["prix"][$i];
                                 array_splice($_SESSION["prix"], $i, 1);
                                 array_splice($_SESSION["datesLocation"], $i, 1);
                                 break;
