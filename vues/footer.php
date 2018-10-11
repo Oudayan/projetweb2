@@ -22,7 +22,7 @@
                                 <i class="fas d-inline mr-3 text-secondary fa-phone"></i>(514) 555 555 5555</a>
                         </p>
                         <p>
-                            <a href="mailto:courriel@courriel.ca" class="text-white">
+                            <a href="#" class="text-white">
                                 <i class="fas d-inline mr-3 text-secondary fa-envelope"></i>contact@gamexchange.ca</a>
                         </p>
                         <p>
@@ -34,7 +34,7 @@
                         <form>
                             <fieldset class="form-group text-white">
                                 <label>Abonnez-vous à la news-letter et recevez nos nouvelles.</label>
-                                <input type="email" class="form-control" placeholder="Courriel">
+                                <input type="email" class="form-control" placeholder="">
                             </fieldset>
                             <button type="submit" class="btn btn-outline-secondary">S'abonner</button>
                         </form>

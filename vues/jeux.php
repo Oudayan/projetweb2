@@ -172,9 +172,6 @@
                         });
                     </script>
                     <!--fin Mensagerie -->
-                    
-                    </div> 
-                <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
                         <?= $donnees['nbCommentaires'][0] ?>&nbsp;avis&nbsp;
                         <?php if($donnees["jeu"]->getEvaluationGlobale() >= 0){ ?>
