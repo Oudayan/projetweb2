@@ -311,6 +311,8 @@ class ControleurJeux extends BaseControleur
     {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
+        $modelePlateformes = $this->lireDAO("Plateformes");
+        $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
         $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
         $donnees = $this->chercherImages($donnees, "trois", "Trois");
         $donnees['derniers'] = $modeleJeux->lireDerniersJeux();

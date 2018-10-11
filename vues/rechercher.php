@@ -78,7 +78,10 @@
         </div>
     </form>
 </div>
-
+<?php
+//
+//var_dump($donnees['jeux'][0]->getPlateformeId());
+//?>
 <div class="py-2">
     <div class="container">
         <div class="row">
@@ -88,6 +91,32 @@
                     <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>"><img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap"></a>
                     <div class="card-body">
                         <p class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></p>
+                        <?php
+                        if ($donnees["jeux"][$i]->getPlateformeId() == 1 ) {
+                            echo '<p title="Playstation 4" class="fab fa-playstation"></p> Playstation 4';
+                        }
+                        else if ($donnees["jeux"][$i]->getPlateformeId() == 2 ) {
+                            echo '<p title="Xbox One" class="fab fa-xbox"></p> Xbox One';
+                        }
+                        else if ($donnees["jeux"][$i]->getPlateformeId() == 3 ) {
+                            echo '<p title="Nintendo Wii U" class="fab fa-nintendo-switch"></p> Nintendo Wii U';
+                        }
+                        else if ($donnees["jeux"][$i]->getPlateformeId() == 4 ) {
+                            echo '<p title="Windows" class="fab fa-windows"></p> Windows';
+                        }
+                        else if ($donnees["jeux"][$i]->getPlateformeId() == 5 ) {
+                            echo '<p title="Playstation 3" class="fab fa-playstation"></p> Playstation 3';
+                        }
+                        else if ($donnees["jeux"][$i]->getPlateformeId() == 6 ) {
+                            echo '<p title="Xbox 360" class="fab fa-xbox"></p> Xbox 360';
+                        }
+                        else if ($donnees["jeux"][$i]->getPlateformeId() == 7 ) {
+                            echo '<p title="Nintendo Switch" class="fab fa-nintendo-switch"></p> Nintendo Switch';
+                        }
+                        else if ($donnees["jeux"][$i]->getPlateformeId() == 8 ) {
+                            echo '<p title="Playstation Vita" class="fab fa-playstation"></p> Playstation Vita';
+                        }
+                        ?>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>
