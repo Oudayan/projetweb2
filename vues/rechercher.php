@@ -12,7 +12,9 @@
                         $counter = count($donnees['plateforme']);
 
                         for ($i = 0; $i <= $counter -1; $i++) {
-                            echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
+//                            echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
+                            echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() . '" ' . isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? 'selected' : \"\" . '">"  $donnees['plateforme'][$i]->getPlateforme() .'</option>';
+
                         }
                         ?>
                     </select>
@@ -52,7 +54,6 @@
                 <div class="d-flex flex-wrap justify-content-between my-2">
                     <?php
                     $counter = count($donnees['categories']);
-
                     for ($i = 0; $i < $counter; $i++) { ?>
                         <div class="col-6 col-md-4 col-lg-3">
                             <input type="checkbox" value="'<?= $donnees['categories'][$i]->getCategorieId() ?>'" name=categories<?= $donnees['categories'][$i]->getCategorieId() - 1 ?> <?= isset($_SESSION["rechercher"]['categories' . $i]) ? $_SESSION["rechercher"]['categories' . $i] : '' ?>> <a style="color: whitesmoke"> <?= $donnees['categories'][$i]->getCategorie() ?></a>
@@ -78,10 +79,6 @@
         </div>
     </form>
 </div>
-<?php
-//
-//var_dump($donnees['jeux'][0]->getPlateformeId());
-//?>
 <div class="py-2">
     <div class="container">
         <div class="row">
