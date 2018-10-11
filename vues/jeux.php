@@ -5,7 +5,6 @@
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
 <!-- * @details   Cette vue permettre voir les détails de chaque jeux-->
-
 <div class="container pt-3">
     <div class="row">
         <!-- Image principale du jeu -->
@@ -14,9 +13,7 @@
                 <div class="card-body">
                     <div id="carouselImagesJeu" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <?php
-
-                            for($i = 0; $i < count($donnees['images']); $i++)
+                            <?php for($i = 0; $i < count($donnees['images']); $i++)
                             {
                                 if($i == 0)
                                 {
@@ -26,12 +23,10 @@
                                 {
                                     echo "<li data-target='#carouselImagesJeu' data-slide-to='" . $i . "'></li>";
                                 }
-                            }
-                            ?>
+                            } ?>
                         </ol>
                         <div class="carousel-inner">
-                            <?php
-                            for($i = 0; $i < count($donnees['images']); $i++)
+                            <?php for($i = 0; $i < count($donnees['images']); $i++)
                             {
                                 if($i == 0)
                                 {
@@ -43,8 +38,7 @@
                                 }
                                 echo '<img class="d-block w-100" src="' . $donnees['images'][$i]->getCheminPhoto() . '" alt="' . $donnees["jeu"]->getTitre() . '">';
                                 echo '</div>';
-                            }
-                            ?>
+                            } ?>
                         </div>
                         <a class="carousel-control-prev" href="#carouselImagesJeu" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -64,55 +58,60 @@
                 <div class="card-body">
                     <p class="jeu-titre"><?=($donnees["jeu"]->getTitre())?></p>
                     <hr>
-                        <p>Transaction : <?=($donnees["jeu"]->getLocation() == 1 ? "Location" : "À vendre") ?></p>
-                        <p>Plateforme :
-                        <?php
-                            if ($donnees["jeu"]->getPlateformeId() == 1 ) {
-                                echo '<i title="Playstation 4" class="fab fa-playstation"></i> Playstation 4';
-                            }
-                            else if ($donnees["jeu"]->getPlateformeId() == 2 ) {
-                                echo '<i title="Xbox One" class="fab fa-xbox"></i> Xbox One';
-                            }
-                            else if ($donnees["jeu"]->getPlateformeId() == 3 ) {
-                                echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i> Nintendo Wii U';
-                            }
-                            else if ($donnees["jeu"]->getPlateformeId() == 4 ) {
-                                echo '<i title="Windows" class="fab fa-windows"></i> Windows';
-                            }
-                            else if ($donnees["jeu"]->getPlateformeId() == 5 ) {
-                                echo '<i title="Playstation 3" class="fab fa-playstation"></i> Playstation 3';
-                            }
-                            else if ($donnees["jeu"]->getPlateformeId() == 6 ) {
-                                echo '<i title="Xbox 360" class="fab fa-xbox"></i> Xbox 360';
-                            }
-                            else if ($donnees["jeu"]->getPlateformeId() == 7 ) {
-                                echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i> Nintendo Switch';
-                            }
-                            else if ($donnees["jeu"]->getPlateformeId() == 8 ) {
-                                echo '<i title="Playstation Vita" class="fab fa-playstation"></i> Playstation Vita';
-                            }
-                        ?>
+                    <?php if($donnees["jeu"]->getLocation() == 0){ ?>
+                        <h5 class="my-3">Jeu à vendre</h5>
+                    <?php } else { ?>
+                        <p class="date-form">
+                            <h5 class="my-2">Dates de location:</h5>
+                            <input style="width: 100%" type="text" id="datesLocation" name="datesLocation" class="form-control my-2" value="<?= isset($_SESSION["rechercher"]['datesLocation']) ? $_SESSION["rechercher"]['datesLocation'] : '' ?>">
                         </p>
-                        <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
-                        <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
-                        <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
-                        <input type="hidden" id="destinataire_id" value="<?=($donnees["membre"]->getMembreId())?>" />
-                        <p>Catégorie<?= count($donnees['categoriesJeu']) > 1 ? "s" : "" ?> :
-                        <?php
-                            for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
-                            {
-                                if (count($donnees['categoriesJeu']) > 1 ) {
-                                    echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .' <span class="cat-symbol"><i class="fas fa-angle-right"></i></span> </a>';
-                                }
-                                else {
-                                    echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .'</a>';
-                                }
+                    <?php } ?>
+                    <p>Plateforme :
+                    <?php
+                        if ($donnees["jeu"]->getPlateformeId() == 1 ) {
+                            echo '<i title="Playstation 4" class="fab fa-playstation"></i> Playstation 4';
+                        }
+                        else if ($donnees["jeu"]->getPlateformeId() == 2 ) {
+                            echo '<i title="Xbox One" class="fab fa-xbox"></i> Xbox One';
+                        }
+                        else if ($donnees["jeu"]->getPlateformeId() == 3 ) {
+                            echo '<i title="Nintendo Wii U" class="fab fa-nintendo-switch"></i> Nintendo Wii U';
+                        }
+                        else if ($donnees["jeu"]->getPlateformeId() == 4 ) {
+                            echo '<i title="Windows" class="fab fa-windows"></i> Windows';
+                        }
+                        else if ($donnees["jeu"]->getPlateformeId() == 5 ) {
+                            echo '<i title="Playstation 3" class="fab fa-playstation"></i> Playstation 3';
+                        }
+                        else if ($donnees["jeu"]->getPlateformeId() == 6 ) {
+                            echo '<i title="Xbox 360" class="fab fa-xbox"></i> Xbox 360';
+                        }
+                        else if ($donnees["jeu"]->getPlateformeId() == 7 ) {
+                            echo '<i title="Nintendo Switch" class="fab fa-nintendo-switch"></i> Nintendo Switch';
+                        }
+                        else if ($donnees["jeu"]->getPlateformeId() == 8 ) {
+                            echo '<i title="Playstation Vita" class="fab fa-playstation"></i> Playstation Vita';
+                        }
+                    ?>
+                    </p>
+                    <p>Concepteur : <?=($donnees["jeu"]->getConcepteur())?></p>
+                    <p>Date de ajout : <?=($donnees["jeu"]->getDateAjout())?></p>
+                    <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
+                    <input type="hidden" id="destinataire_id" value="<?=($donnees["membre"]->getMembreId())?>" />
+                    <p>Catégorie<?= count($donnees['categoriesJeu']) > 1 ? "s" : "" ?> :
+                    <?php
+                        for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
+                        {
+                            if (count($donnees['categoriesJeu']) > 1 ) {
+                                echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .' <span class="cat-symbol"><i class="fas fa-angle-right"></i></span> </a>';
                             }
-                        ?>
-                        </p>
-                        <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
-                    </form>
-                    <!-- fin de formulario -->
+                            else {
+                                echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .'</a>';
+                            }
+                        }
+                    ?>
+                    </p>
+                    <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     <!-- Mensagerie -->
                     <button type="button" id="button-contacter-annoceur" class="btn btn-outline-dark" data-toggle="collapse" data-target="#fcontact" aria-expanded="false" aria-controls="fcontact">Contacter annoceur <i class="fas fa-envelope"></i></button>
                     <div id="fcontact" class="contacter-annoceur collapse mx-auto">
@@ -172,11 +171,7 @@
                             }
                         });
                     </script>
-                    <!-- Mensagerie -->
-                    <!-- <div class="contacter-annoceur mx-auto">
-                        <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
-                    </div> -->
-                <!-- fin de formulario -->
+                    <!--fin Mensagerie -->
                     <div class="avis-etoiles p-3 mb-2 ">
                         <?= $donnees['nbCommentaires'][0] ?>&nbsp;avis&nbsp;
                         <?php if($donnees["jeu"]->getEvaluationGlobale() >= 0){ ?>
@@ -246,7 +241,98 @@
     let catDiv2 = (catDiv.length -1);                            // Declare la variable carDiv2 qui contient l'index du dernier élément du HTML Collection "catDiv"
     catDiv[catDiv2].style.display = "none";                      // Cache le dernier élément du HTML Collection en utilisant "display = none"
 
+
+    $('#datesLocation').daterangepicker({
+        "minYear": new Date().getFullYear(),
+        <?= (isset($_SESSION['disponibilite']['dateDebut']) && strtotime($_SESSION['disponibilite']['dateDebut']) >= date("Y-m-d") ? '"minDate": "' . $_SESSION['disponibilite']['dateDebut'] . '", ' : '"minDate": new Date(), ') ?>
+        
+        "showDropdowns": true,
+        "autoApply": true,
+        "locale": {
+            "direction": "ltr",
+            "format": "YYYY-MM-DD",
+            "separator": " au ",
+            "applyLabel": "Sélectionner",
+            "cancelLabel": "Annuler",
+            "fromLabel": "Du",
+            "toLabel": "Au",
+            "customRangeLabel": "Sur mesure",
+            "daysOfWeek": [
+                "Di",
+                "Lu",
+                "Ma",
+                "Me",
+                "Je",
+                "Ve",
+                "Sa"
+            ],
+            "monthNames": [
+                "Janvier",
+                "Février",
+                "Mars",
+                "Avril",
+                "Mai",
+                "Juin",
+                "Juillet",
+                "Août",
+                "Septembre",
+                "Octobre",
+                "Novembre",
+                "Décembre"
+            ],
+            "firstDay": 1
+        },
+        "opens": "left",
+    }, function(start, end, label) {
+        console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+    });
+
+    // $('#datesLocation').data('daterangepicker').setStartDate('03/01/2018');
+    // $('#datesLocation').data('daterangepicker').setEndDate('03/31/2018');
+
+
+    $("#datesLocation").click(function(){
+        desactiverDatesCal();
+    });
+
+    $(".daterangepicker").mousemove(function(){
+            desactiverDatesCal();
+    });
+
+    function desactiverDatesCal() {
+        var nonDispos = <?= isset($donnees['nonDispos']) ? $donnees['nonDispos'] : "" ?>;
+        // console.log(nonDispos);
+        var cal1Year = Number($(".daterangepicker .left .yearselect").val());
+        var cal1Month = Number($(".daterangepicker .left .monthselect").val()) + 1;
+        var cal1Cells = $(".daterangepicker .left td");
+        // console.log(cal1Year, cal1Month);
+        // console.log(cal1Cells);
+        var cal2Year = Number($(".daterangepicker .right .yearselect").val());
+        var cal2Month = Number($(".daterangepicker .right .monthselect").val()) + 1;
+        var cal2Cells = $(".daterangepicker .right td");
+        // console.log(cal2Year, cal2Month);
+        // console.log(cal2Cells);
+        for (var i=0; i<nonDispos.length; i++) {
+            var date = nonDispos[i].split("-");
+            if (date[0] == cal1Year && date[1] == cal1Month) {
+                for (var j=0; j<cal1Cells.length; j++) {
+                    if (cal1Cells[j].innerHTML == Number(date[2])) {
+                        cal1Cells[j].classList.remove("active", "start-date", "active", "end-date", "in-range", "available")
+                        cal1Cells[j].classList.add("off", "disabled");
+                    }
+                }
+            }
+            if (date[0] == cal2Year && date[1] == cal2Month) {
+                for (var j=0; j<cal2Cells.length; j++) {
+                    if (cal2Cells[j].innerHTML == Number(date[2])) {
+                        cal2Cells[j].classList.remove("active", "start-date", "active", "end-date", "in-range", "available")
+                        cal2Cells[j].classList.add("off", "disabled");
+                    }
+                }
+            }
+        }
+    }
+
+
 </script>
-
-
 

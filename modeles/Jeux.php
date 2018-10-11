@@ -28,19 +28,19 @@
 
         public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = 0, $jeux_actif = 1, $jeux_banni = 0, $description = "", $evaluation_globale= "")
         {
-           $this->setJeuxId($jeux_id);
-           $this->setPlateformeId($plateforme_id);
-           $this->setMembreId($membre_id);
-           $this->setTitre($titre);
-           $this->setPrix($prix);
-           $this->setDateAjout($date_ajout);
-           $this->setConcepteur($concepteur);
-           $this->setLocation($location);
-           $this->setJeuxValide($jeux_valide);
-           $this->setJeuxActif($jeux_actif);
-           $this->setJeuxBanni($jeux_banni);
-           $this->setDescription($description);
-           $this->setEvaluationGlobale($evaluation_globale);
+            $this->setJeuxId($jeux_id);
+            $this->setPlateformeId($plateforme_id);
+            $this->setMembreId($membre_id);
+            $this->setTitre($titre);
+            $this->setPrix($prix);
+            $this->setDateAjout($date_ajout);
+            $this->setConcepteur($concepteur);
+            $this->setLocation($location);
+            $this->setJeuxValide($jeux_valide);
+            $this->setJeuxActif($jeux_actif);
+            $this->setJeuxBanni($jeux_banni);
+            $this->setDescription($description);
+            $this->setEvaluationGlobale($evaluation_globale);
         }
 
         //SETTERS
