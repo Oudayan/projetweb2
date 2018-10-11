@@ -4,6 +4,7 @@ p, span, th, td, a, li, input, button {
 h1, h3, h3, h4 {
     font-family: 'Montserrat', sans-serif;
 }
+
 .cardjeux
 {
     border-bottom: 5px solid #536dca;
@@ -350,3 +351,4 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
     background-size: cover;
     background-attachment: fixed;
 }
+

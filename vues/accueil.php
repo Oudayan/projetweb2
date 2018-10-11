@@ -121,7 +121,7 @@
     </div>
     <div class="bg-light">
         <div class="container">
-            <h1 class="text-center bg-info mt-2">NOUVEAUTÉS</h1>
+            <h1 class="text-center mt-2 bg-info">NOUVEAUTÉS</h1>
             <div class="row">
                 <?php for($i = 0; $i < count($donnees['derniers']); $i++){ ?>
                 <div class="col-md-4">
