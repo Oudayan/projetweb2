@@ -83,7 +83,7 @@
                         </a>
                         <div class="card-body">
                             <h6 class="card-text"><?= $donnees['derniers'][$i]->getTitre() ?></h6>
-                            <div class="pt-4">
+                            <div class="pt-2">
                                 <?php
                                 if ($donnees["derniers"][$i]->getPlateformeId() == 1 ) {
                                     echo '<p title="Playstation 4" class="fab fa-playstation"></p> Playstation 4';
@@ -111,7 +111,7 @@
                                 }
                                 ?>
                             </div>
-                            <div class="d-flex justify-content-between align-items-around mt-4">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <h6><?= ($donnees["derniers"][$i]->getLocation() == 1 ? "À Louer" : "À vendre") ?></h6>
                                     <!-- <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['derniers'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a> -->
@@ -122,7 +122,9 @@
                         </div>
                     </div>
                 </div>
+
                 <?php }?>
+
             </div>
         </div>
 
