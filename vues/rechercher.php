@@ -9,7 +9,6 @@
                     <select name="plateforme" id="plateforme" class="form-control mb-2" style="width: 100%">
                         <option value="">Plateforme</option>
                         <?php
-//                        echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
                         for ($i = 0; $i < count($donnees['plateforme']); $i++) { ?>
                             <option value="<?=  $donnees['plateforme'][$i]->getPlateformeId() ?>" <?= isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? "selected" : "" ?>><?=  $donnees['plateforme'][$i]->getPlateforme() ?></option>
                         <?php } ?>
@@ -129,15 +128,13 @@
 
 <script>
     $('#datesLocation').daterangepicker({
+        "minYear": new Date().getFullYear(),
+        "minDate": new Date(),
         "showDropdowns": true,
         "autoApply": true,
         "dateLimit": {
             "months": 3
         },
-        // singleDatePicker: true,
-        // showDropdowns: true,
-        // minYear: 2018,
-        // maxYear: parseInt(moment().format('YYYY'),10),
         "locale": {
             "direction": "ltr",
             "format": "YYYY-MM-DD",
