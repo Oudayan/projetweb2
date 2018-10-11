@@ -69,42 +69,41 @@
                                 <div class="dropdown-menu dropdown-menu-right container container-shopping-cart" id="shopping-cart">
                                     <div class="shopping-cart">
                                         <table class="table table-striped table-panier">
-                                        <?php
-                                        if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
+                                        <?php if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
                                             $i = 0;
                                             $total = 0;
                                             foreach ($_SESSION["cart"] as $jeux) { ?>
                                                 <tr id="jeuxAchete<?= $jeux->getJeuxId() ?>" class="dropdown-item">
                                                     <td class="text-center">
                                                         <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $jeux->getJeuxId() ?>"  class="img-thumbnail" >
-                                                            <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i] ?>" alt="Card image cap">
+                                                            <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i]->getCheminPhoto() ?>" alt="Card image cap">
                                                         </a>
                                                     </td>
                                                     <td class="text-center"><?= $jeux->getTitre() ?></td>
-                                                    <td class="text-center">x1</td>
                                                     <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
+                                                    <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
                                                     <td class="text-center">
                                                         <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                                                     </td>
                                                 </tr>
                                                 <?php
                                                 $i++;
-                                                $total = $total + $jeux->getPrix();
+                                                // $total = $total + $jeux->getPrix();
                                             } ?>
-                                        <tr class="dropdown-item">
-                                            <td class="totalPanier" colspan="3">Total</td>
-                                            <td><?= $total ?> $CAD</td>
-                                            <td></td>
-                                        </tr>
+                                            <tr class="dropdown-item">
+                                                <td class="totalPanier" colspan="3">Total</td>
+                                                <td><?= $_SESSION["prixTotal"] ?> $CAD</td>
+                                                <td></td>
+                                            </tr>
                                         <?php } else { ?>
-                                        <tr class="dropdown-item">
-                                            <td colspan="5"><strong>le panier est vide</strong></td>
-                                        </tr>
+                                            <tr class="dropdown-item">
+                                                <td colspan="5"><strong>le panier est vide</strong></td>
+                                            </tr>
                                         <?php } ?>
-                                        <tr class="dropdown-item">
-                                            <a href="index.php?Achat&action=afficherPanier" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Check-out</a>
-                                        </tr>
                                     </table>
+                                    <div class="dropdown-item">
+                                        <a href="index.php?Achat&action=afficherPanier" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Check-out</a>
+                                    </div>
                                 </div> <!--end shopping-cart -->
                             </li>
                             <li class="toggle-item">
@@ -155,6 +154,12 @@
                 echo '<h5 class="text-warning text-center mt-1">' . $_SESSION["msg"] . '</h5>';
             } ?>
         </header>
+        <?php
+            // echo "<pre>";
+            // var_dump($_SESSION["cart"], $_SESSION["cartImages"], $_SESSION["datesLocation"], $_SESSION["quantite"], $_SESSION["prix"], $_SESSION["prixTotal"]);
+            // var_dump($_SESSION["datesLocation"], $_SESSION["test"], $_SESSION["quantite"], $_SESSION["prix"], $_SESSION["prixTotal"]);
+            // echo "</pre>";
+        ?>
         <main> <!-- fini dans footer.php -->
         <script>
             $("#cart").on("click", function () {
@@ -179,7 +184,7 @@
                     location.reload();
                 });
             }
-            function AcheterJeux(id) {
+            function AjouterAuPanier(id) {
                 if ($("#membre_id").val() != "") {
                     bootoast.toast({
                         message: 'Jeux Ajoutee correctement!',
@@ -187,10 +192,11 @@
                         position: 'top-center'
                     });
                     request = $.ajax({
-                        url: "index.php?achat&action=acheter",
+                        url: "index.php?achat&action=ajouterAuPanier",
                         type: "post",
                         data: {
-                            jeux_id: id
+                            jeux_id: id,
+                            dates: $("#datesLocation").val() ? $("#datesLocation").val() : 1
                         }
                     });
                     request.done(function (response) {
