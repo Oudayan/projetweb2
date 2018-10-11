@@ -171,10 +171,9 @@
                             }
                         });
                     </script>
-                    <!-- Mensagerie -->
-                    <!-- <div class="contacter-annoceur mx-auto">
-                        <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
-                    </div> -->
+                    <!--fin Mensagerie -->
+                    
+                    </div> 
                 <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
                         <?= $donnees['nbCommentaires'][0] ?>&nbsp;avis&nbsp;
