@@ -26,7 +26,7 @@
 
         // Constructeur
 
-        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = 0, $jeux_actif = 1, $jeux_banni = 0, $description = "", $evaluation_globale= "")
+        public function __construct($jeux_id = 0, $plateforme_id = 1, $membre_id = 0, $titre = "", $prix = 0, $date_ajout = "", $concepteur = "", $location = 0, $jeux_valide = 0, $jeux_actif = 1, $jeux_banni = 0, $description = "", $evaluation_globale= -1)
         {
             $this->setJeuxId($jeux_id);
             $this->setPlateformeId($plateforme_id);
@@ -136,7 +136,7 @@
          */
 
         public function setLocation($location){
-            if(is_string($location) && trim($location) != ""){
+            if(is_numeric($location) && trim($location) != ""){
                 $this->location = $location;
             }
         }

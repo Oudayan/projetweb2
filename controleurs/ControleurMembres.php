@@ -127,6 +127,7 @@ class ControleurMembres extends BaseControleur
                                         $_SESSION["msg"] = "Bienvenue ! " . $donnees->getPrenom() . " ";
                                         $_SESSION['prenom'] = $donnees->getPrenom();
                                         $_SESSION['nomComplet'] = $donnees->getPrenom() . " " . $donnees->getNom();
+                                        $_SESSION["prixTotal"] = 0;
                                     }
                                     else{
                                         $_SESSION["msg"] = "Vous êtes présentement bannis du site. Veuillez contacter l'administrateur pour plus de détails.";
@@ -189,6 +190,23 @@ class ControleurMembres extends BaseControleur
                         unset($_SESSION["cartImages"]);
                         setcookie("cartImages", null, -1, '/');
                     }
+                    if (isset($_SESSION["quantite"])) {
+                        unset($_SESSION["quantite"]);
+                        setcookie("quantite", null, -1, '/');
+                    }
+                    if (isset($_SESSION["prix"])) {
+                        unset($_SESSION["prix"]);
+                        setcookie("prix", null, -1, '/');
+                    }
+                    if (isset($_SESSION["prixTotal"])) {
+                        unset($_SESSION["prixTotal"]);
+                        setcookie("prixTotal", null, -1, '/');
+                    }
+                    if (isset($_SESSION["datesLocation"])) {
+                        unset($_SESSION["datesLocation"]);
+                        setcookie("datesLocation", null, -1, '/');
+                    }
+                    unset($_SESSION);
                     header("location:index.php");
                     break;
 
