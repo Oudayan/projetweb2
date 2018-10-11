@@ -190,7 +190,7 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "resetRecherche":
-                    unset($_SESSION['recherche']);
+                    unset($_SESSION['rechercher']);
                     $this->filtrerJeux($params);
                     break;
 

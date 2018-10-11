@@ -11,7 +11,7 @@
                         <?php
 //                        echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
                         for ($i = 0; $i < count($donnees['plateforme']); $i++) { ?>
-                            <option value="<?=  $donnees['plateforme'][$i]->getPlateformeId() ?>" <?= isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? "selected" : "" ?>><?=  $donnees['plateforme'][$i]->getPlateforme() ?></option>
+                            <option value="<?=  $donnees['plateforme'][$i]->getPlateformeId() ?>" <?= isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? 'selected' : "" ?>><?=  $donnees['plateforme'][$i]->getPlateforme() ?></option>
                         <?php } ?>
                     </select>
                 </div>
