@@ -48,11 +48,11 @@
                             </ul>
                         <?php } ?>
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                            <?php if (isset($_SESSION["id"])) {
-                                //echo 'Bonjour, ' . $_SESSION["prenom"];
-                            } ?>
-                            </li>
+<!--                            <li class="nav-item">-->
+<!--                            --><?php //if (isset($_SESSION["id"])) {
+//                                //echo 'Bonjour, ' . $_SESSION["prenom"];
+//                            } ?>
+<!--                            </li>-->
                             <li class="nav-item mx-1">
                                 <?php if (isset($_SESSION["id"])) { ?>
                                     <a href="index.php?Membres&action=logout" id="btn-logout" class="btn btn-block navbar-btn text-white btn-primary m-1">

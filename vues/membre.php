@@ -17,7 +17,6 @@ if(isset($_SESSION["id"]))
     <!-- <li id="annoce" class="nav-item <?= !isset($_SESSION["courriel"]) ? "hidden" : "" ?>"><a href='index.php?Jeux&action=formAjoutJeux'class="nav-link">Annoncer</a></li> -->
     <div class="d-flex justify-content-around my-3">
       <a href="index.php?Jeux&action=formAjoutJeux"><button class="btn btn-outline-success btn-lg">Ajouter un&nbsp;jeu</button></a>
-      <a href="index.php?Membres&action=formModifierMembre"><button class="btn btn-outline-info btn-lg">Gérer mon profil</button></a>
     </div>
     <hr>
     <div class="row">

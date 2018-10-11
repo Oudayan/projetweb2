@@ -13,7 +13,6 @@ if(isset($_SESSION['id']))
 
     if(isset($donnees['jeu']))
     {
-        $membre = $donnees['jeu']->getMembreId();
         $titre = $donnees['jeu']->getTitre();
         $prix = $donnees['jeu']->getPrix();
         $concepteur = $donnees['jeu']->getConcepteur();
@@ -28,16 +27,10 @@ if(isset($_SESSION['id']))
         } 
         $plateforme_id = $donnees['jeu']->getPlateformeId();
         $description = $donnees['jeu']->getDescription();
-        $actif = $donnees['jeu']->getJeuxActif();
-        $valide = $donnees['jeu']->getJeuxValide();
-        $banni = $donnees['jeu']->getJeuxBanni();
     }
     else
     {
-        $membre = $_SESSION['id'];
         $titre = $prix = $concepteur = $location = $vendre = $plateforme_id = $description = "";
-        $actif = 1;
-        $valide = $banni = 0;
     }
 
     //var_dump($donnees['categoriesJeu']);
@@ -63,11 +56,10 @@ if(isset($_SESSION['id']))
             </div>
             <form action="index.php?Jeux&action=enregistrerJeux" method="POST">
                 <input type="hidden" name="jeux_id" id="jeux_id" value="<?= isset($donnees['jeu']) ? $donnees['jeu']->getJeuxId() : 0 ?>">
-                <input type="hidden" name="membre_id" id="membre_id" value="<?=$membre?>">
                 <div class="form-group row">
                     <div class="col-lg-4">
                         <label for="pwd">Titre :</label>
-                        <input type="text" class="form-control" id="titre" name="titre" value="<?=$titre?>"> 
+                        <input type="text" class="form-control" id="titre" name="titre" value="<?=$titre?>" placeholder=""> 
                     </div>
                     
                     <div class="col-lg-4">
@@ -130,11 +122,6 @@ if(isset($_SESSION['id']))
                         <textarea name="description" rows="8" cols="60"><?=$description?></textarea>
                     </div> 
                 </div>
-                <input type="hidden" name="actif" id="actif" value="<?= $actif ?>">
-                <?php if($_SESSION['type'] == 2 || $_SESSION['type'] == 3){ ?>
-                    <input type="hidden" name="valide" id="valide" value="<?= $valide ?>">
-                    <input type="hidden" name="banni" id="banni" value="<?= $banni ?>">
-                <?php } ?>
                 <hr>
                 <!-- <pre>
                 <?php //var_dump($donnees['images']); ?>
@@ -234,15 +221,9 @@ else{
 ?>
 <script>
     function upload(input, id){
-        // console.log(input.files[0].name);
-        // console.log(input.id[0]);
-        // for(i=0;i<20;i++){
+        
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            /* reader.onload = function (e) {
-                $('#photo'+input.id)
-                    .attr('src', e.target.result);
-            }; */
             formData = new FormData();
             formData.append('files[]', input.files[0]);  
             $.ajax({
@@ -251,7 +232,6 @@ else{
                 data: formData,
                 processData: false,
                 contentType: false,
-                // async: false,
                 dataType:"html",
                 success: function(data) {
                     $('#image' + id).html(data);
@@ -290,10 +270,8 @@ else{
         var cheminsImages = $("[id^=inputImage]");
         var boutonsEffacer = $('.btn-outline-danger'); 
         for(var i = 0; i < cheminsImages.length; i++){
-            //console.log(cheminsImages[i].value);
             if(cheminsImages[i].value != ""){
                 $(boutonsEffacer[i]).removeClass("invisible")
-                //console.log(boutonsEffacer[i]);
             }
         }
     };
@@ -301,10 +279,4 @@ else{
     $('#groupeImages').ready(function(){
         updateDeleteButtons();
     });
-
-    // $('#groupeImages').mouseover(function(){
-    //     updateDeleteButtons();
-    // });
-    //console.log($("[id^=inputImage]"));
-  
 </script>

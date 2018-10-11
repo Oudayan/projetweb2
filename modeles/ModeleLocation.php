@@ -26,6 +26,12 @@
 			return $resultat->fetch();
 		}
 
+        public function lireLocationsParJeuxId($id) {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE jeux_id = " . $id . " AND date_retour > NOW() ORDER BY date_debut ASC" ;
+			$resultat = $this->requete($sql);
+			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Location");
+        }
+
 //		public function lireDetaileLocation() {
 //
 //            $sql = "SELECT * FROM " . $this->lireNomTable() . " l

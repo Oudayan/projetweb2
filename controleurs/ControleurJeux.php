@@ -25,6 +25,7 @@ class ControleurJeux extends BaseControleur
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
+        $modeleLocation = $this->lireDAO("Location");
         $donnees["erreur"] = "";
         if (isset($params["action"]))
         {
@@ -40,9 +41,32 @@ class ControleurJeux extends BaseControleur
                         $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
                         $donnees['commentaires'] = $modeleCommentaireJeux->toutObtenirParIdJeuxId($params["JeuxId"]);
                         $donnees['nbCommentaires'] = $modeleCommentaireJeux->nbEvaluationsParJeu($params["JeuxId"]);
-                        foreach ($donnees['commentaires'] as $commentaire){
+                        foreach ($donnees['commentaires'] as $commentaire)
+                        {
                             $donnees['commentaires']['membres'][] = $modeleMembres->obtenirParId($commentaire->getMembreId());
                         }
+                        $locations = $modeleLocation->lireLocationsParJeuxId($params["JeuxId"]);
+                        
+                        $donnees['nonDispos'] = "['";
+                        $cnt = 0;
+                        foreach ($locations as $location)
+                        {
+                            $start = new DateTime($location->getDateDebut());
+                            $end = new DateTime($location->getDateRetour());
+                            while($start <= $end)
+                            {
+                                if($cnt == 0)
+                                {
+                                    $donnees['nonDispos'] .=  $start->format('Y-m-d');
+                                }
+                                else {
+                                    $donnees['nonDispos'] .= "', '" . $start->format('Y-m-d');
+                                }
+                                $cnt++;
+                                $start->add(new DateInterval('P1D')); 
+                            }
+                        }
+                        $donnees['nonDispos'] .= "']";
                     }
                     else
                     {
@@ -82,36 +106,27 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "enregistrerJeux":
-                    if (isset($params['jeux_id']) && isset($params['membre_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
+                    if (isset($params['jeux_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
                     {
-                        if(isset($params['valide']))
-                        {
-                            $valide =  $params['valide'];
+                        if (isset($params['jeux_id']) && $params['jeux_id'] > 0) {
+                            $jeuUpdadte = $modeleJeux->lireJeuParId($params['jeux_id']);
+                            $membre = $jeuUpdadte->getMembreId();
+                            $date = $jeuUpdadte->getDateAjout();
+                            $valide = $jeuUpdadte->getJeuxValide();
+                            $actif = $jeuUpdadte->getJeuxActif();
+                            $banni = $jeuUpdadte->getJeuxBanni();
                         }
                         else
                         {
+                            $membre = $_SESSION["id"];
+                            (string)$date = date("Y-m-d H:i"); 
                             $valide = 0;
-                        }
-                        if(isset($params['actif']))
-                        {
-                            $actif =  $params['actif'];
-                        }
-                        else
-                        {
                             $actif = 1;
-                        }
-                        if(isset($params['banni']))
-                        {
-                            $banni =  $params['banni'];
-                        }
-                        else
-                        {
                             $banni = 0;
                         }
-                        (string)$date = date("Y-m-d H:i");  
-                        //$jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = 0, $jeux_actif = 1, $jeux_banni = 0, $description = "", $evaluation_globale= ""                        
-                            
-                        $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $params["membre_id"], $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], $valide, $actif, $banni, $params["description"], -1);
+
+                        //$jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = 0, $jeux_actif = 1, $jeux_banni = 0, $description = "", $evaluation_globale= "")    
+                        $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $membre, $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], $valide, $actif, $banni, $params["description"], -1);
                         $jeux_id = $modeleJeux->sauvegarderJeux($jeu);
                         if(isset($params['cheminsImages']))
                         {
@@ -213,7 +228,7 @@ class ControleurJeux extends BaseControleur
     private function filtrerJeux(array $params)
     {
         $modeleJeux = $this->lireDAO("Jeux");
-        $modeleImages = $this->lireDAO("Images");
+        $modeleLocation = $this->lireDAO("Location");
         $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
@@ -237,11 +252,39 @@ class ControleurJeux extends BaseControleur
             $_SESSION["rechercher"]["titre"] = '';
         }
 
+        if (isset($params["prix"]) && ($params['prix'] !== '')) {
+            $_SESSION["rechercher"]["prix"] = $params["prix"];
+            $filtre .= ($filtre == "" ? "" : " AND ") . "j.prix <= '" . $params["prix"] . "'";
+        }
+        else {
+            $_SESSION["rechercher"]["prix"] = '';
+        }
+
+        if (isset($params["datesLocation"]) && $params['datesLocation'] !== '' && isset($params["transaction"]) && $params["transaction"] == 1) {
+            $_SESSION["rechercher"]["datesLocation"] = $params["datesLocation"];
+            $dates = explode(" au ", $params["datesLocation"]);
+
+//            $dispos = $modeleLocation->lireToutesLesLocations();
+//            foreach ($dispos AS $dispo){
+//                if (strtotime($dates[0]) >= strtotime($dispo->getDateDebut()) && strtotime($dates[1]) <= strtotime($dispo->getDateRetour())) {
+//                    $disponible = true;
+//                }
+//            }
+//            WHERE (date_debut >= '2018-10-15') OR (date_retour <= '2018-10-16')
+            $filtre .= ($filtre == "" ? "" : " AND ") . " (l.date_retour < '" . $dates[0] . "' OR l.date_debut > '" . $dates[1] . "')";
+//            var_dump($dates);
+        }
+//        else {
+//            $_SESSION["rechercher"]["datesLocation"] = '';
+//        }
+
         $counter = 0;
         $categories = $modeleCategories->lireToutesCategories();
+        $catFlag = 0;
         for ($i = 0; $i <= count($categories); $i++) {
             $cat = "categories" . $i;
             if (isset($params[$cat])) {
+                $catFlag = 1;
                 $_SESSION["rechercher"][$cat] = "checked";
                 $counter++;
                 if ($counter == 1) {
@@ -258,17 +301,31 @@ class ControleurJeux extends BaseControleur
         if ($counter > 0) {
             $filtre .= ")";
         }
+        if ($catFlag) {
+            $donnees["catShow"] = " show ";
+        }
+        else
+        {
+            $donnees["catShow"] = "";
+        }
 
-        if (isset($params["transaction"]) && ($params["transaction"] !== '')) {
+        $disponible = 0;
+        if (isset($params["transaction"]) && ($params["transaction"] != '')) {
             $_SESSION["rechercher"]["transaction"] = $params["transaction"];
-            $filtre .= ($filtre == "" ? "" : " AND ") . "location = '" . $params["transaction"] . "'";
+            $filtre .= ($filtre == "" ? "" : " AND ") . "location = " . $params["transaction"];
+            if($params["transaction"] == 1) {
+                $donnees['jeux'] = $modeleJeux->filtreJeux($filtre, ", l.date_debut, l.date_retour");
+            }
+            else {
+                $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
+            }
         }
         else {
             $_SESSION["rechercher"]["transaction"] = '-1';
+            $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
         }
 
-        $donnees['jeux'] = $modeleJeux->filtreJeux($filtre);
-        $donnees = $this->chercherImages($donnees);      
+        $donnees = $this->chercherImages($donnees);
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
         $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
         $this->afficherVues("rechercher", $donnees);
@@ -279,6 +336,8 @@ class ControleurJeux extends BaseControleur
     {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
+        $modelePlateformes = $this->lireDAO("Plateformes");
+        $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
         $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
         $donnees = $this->chercherImages($donnees, "trois", "Trois");
         $donnees['derniers'] = $modeleJeux->lireDerniersJeux();

@@ -66,12 +66,29 @@ class ControleurMembres extends BaseControleur
                     // echo "<pre>";
                     // var_dump($params);
                     // echo "</pre>";
-                    if ($params['membre_id'] && $params['type_utilisateur_id'] && isset($params["courriel"]) && isset($params["mot_de_passe"]) && $params["confirm_mdp"] && isset($params["nom"]) && isset($params["prenom"]) && isset($params["adresse"]) && isset($params["telephone"]) && $params['membre_valide'] && $params['membre_actif']) {
-                        // comparer les mot de passe sont pareile.
+                    // if (isset($params['membre_id']) && isset($params['type_utilisateur_id']) && isset($params["courriel"]) && isset($params["mot_de_passe"]) && $params["confirm_mdp"] && isset($params["nom"]) && isset($params["prenom"]) && isset($params["adresse"]) && isset($params["telephone"]) && isset($params['membre_valide']) && isset($params['membre_actif']))
+                    if (isset($params['membre_id']) && isset($params["courriel"]) && isset($params["mot_de_passe"]) && $params["confirm_mdp"] && isset($params["nom"]) && isset($params["prenom"]) && isset($params["adresse"]) && isset($params["telephone"]))
+                        {
+                        // Si une modification de membre, aller xhercher les valeurs de type_utilisateu_id, membre_valide & membre_actif
+                        if (isset($params['membre_id']) && $params['membre_id'] > 0) {
+                            $membreUpdate = $modeleMembres->obtenirParId($params['membre_id']);
+                            $type = $membreUpdate->getTypeUtilisateur();
+                            $valide = $membreUpdate->getMembreValide();
+                            $actif = $membreUpdate->getMembreActif();
+                        }
+                        else
+                        {
+                            // À faire: Vérification si le courriel existe déjà ans la BD
+                            $type = 1;
+                            $actif = 1;
+                            $valide = 0;
+                        }
+                        // comparer les mot de passe sont pareils.
                         if($params["mot_de_passe"] == $params["confirm_mdp"])
                         {
-                            $membre = new Membres($params['membre_id'], $params["type_utilisateur_id"], $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], $params['membre_valide'], $params['membre_actif']);
-                            if($_SESSION['id'] == $params['membre_id']){
+                            // $membre_id = 0, $type_utilisateur_id = 1, $nom = "", $prenom = "", $mot_de_passe = "", $adresse = "", $telephone = "", $courriel = "", $membre_valide = 0, $membre_actif = 1)
+                            $membre = new Membres($params['membre_id'], $type, $params["nom"], $params["prenom"], $params["mot_de_passe"], $params["adresse"], $params["telephone"], $params["courriel"], $valide, $actif);
+                            if(isset($_SESSION['id']) && $_SESSION['id'] == $params['membre_id']){
                                 $_SESSION['prenom'] = $params["prenom"];
                                 $_SESSION['nomComplet'] = $params["prenom"] . " " . $params["nom"];
                             }
