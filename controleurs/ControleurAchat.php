@@ -35,32 +35,43 @@ class ControleurAchat extends BaseControleur {
 
                 case "payerPanier" :
                     if (isset($_SESSION["id"]) && isset($_SESSION["cart"])) {
+                        $i = 0;
+                        if (isset($params['transaction_id'])) {
+                            $transId = $params['transaction_id'];
+                        } else {
+                            $transId = "Comptant";
+                        }
                         foreach ($_SESSION["cart"] as $jeux) {
                             if ($jeux->getLocation()) {
-                                if (isset($_SESSION["datesLocation"])) {
-                                    $dates = explode(" au ", $_SESSION["datesLocation"]);
+                                if (isset($_SESSION["datesLocation"][$i])) {
+                                    $dates = explode(" au ", $_SESSION["datesLocation"][$i]);
                                     // ($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_debut = "", $date_retour = "", $transaction_id = "")
-                                    $location = new Location(0, '3', $_SESSION["id"], $jeux->getJeuxId(), $dates[0], $dates[1], $params['transaction_id']);
-                                    $$modeleLocation->sauvegarde($location);
+                                    $location = new Location(0, '3', $_SESSION["id"], $jeux->getJeuxId(), $dates[0], $dates[1], $transId);
+                                    $modeleLocation->sauvegarde($location);
                                 }
                             } else {
                                 (string) $date = date("Y-m-d");
                                 // ($achat_id = 0, $type_paiement_id= 0, $membre_id = 0, $jeux_id = 0, $date_achat = "", $transaction_id = "")
-                                $achat = new Achat(0, '3', $_SESSION["id"], $jeux->getJeuxId(), $date, $params['transaction_id']);
+                                $achat = new Achat(0, '3', $_SESSION["id"], $jeux->getJeuxId(), $date, $transId);
                                 $modeleAchat->sauvegarde($achat);
                             }
+                            $i++;
                         }
                         $i = 0;
                         foreach ($_SESSION["cart"] as $jeux) {
                             array_splice($_SESSION["cart"], $i, 1);
                             array_splice($_SESSION["cartImages"], $i, 1);
                             array_splice($_SESSION["quantite"], $i, 1);
-                            $_SESSION["prixTotal"] -= $_SESSION["prix"][$i];
                             array_splice($_SESSION["prix"], $i, 1);
-                            array_splice($_SESSION["datesLocation"], $i, 1);
-                        $i++;
+                            if ($jeux->getLocation()) {
+                                array_splice($_SESSION["datesLocation"], $i, 1);
+                            }
+                            $_SESSION["prixTotal"] = 0;
+                            $i++;
                         }
-                        echo "success";
+                        //echo "success";
+                        $_SESSION['msg'] = "Succès!";
+                        $this->afficherVues("achat");
                     }
                     break;
 
