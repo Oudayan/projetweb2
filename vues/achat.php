@@ -5,7 +5,7 @@
             <tr>
                 <th colspan="2">Jeux</th>
                 <th>Prix</th>
-                <th>Quantite</th>
+                <th>Quantité</th>
                 <th>Sous-total</th>
                 <th></th>
             </tr>
@@ -114,7 +114,7 @@
                 </tr>
                 <?php } else { ?>
                 <tr>
-                    <td colspan="5"><strong>le panier est vide</strong></td>
+                    <td colspan="5"><strong>Le panier est vide</strong></td>
                 </tr>
             <?php } ?>
         </table>

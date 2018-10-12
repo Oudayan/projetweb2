@@ -26,33 +26,32 @@
                         <span class="navbar-toggler-icon" ></span>
                     </button>
                     <a href="index.php?Jeux&action=derniers"><img src="images/logo.png" height="60" class="logo" title="GameXchange" alt="GameXchange Logo"></a>
-                    <div class="collapse navbar-collapse" id="navbar12"> 
-                        <!-- <a class="navbar-brand d-none d-md-block" href="#"></a> -->
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a href="index.php?Jeux&action=rechercherJeux" class="nav-link">Rechercher</a></li>
-                        </ul>
+                    <div class="collapse navbar-collapse" id="navbar12">
                         <?php if(isset($_SESSION["id"])){ ?>
                             <ul class="navbar-nav mx-auto">
-                                <li id="annoce" class="nav-item"><a href="index.php?Jeux&action=gererMesJeux" class="nav-link">Gérer mes&nbsp;jeux</a></li>
+                                <a href="index.php?Jeux&action=gererMesJeux" class="btn text-white m-1">
+                                    <i class="fas fa-gamepad"></i> Mes Jeux</a>
                             </ul>
                             <ul class="navbar-nav mx-auto">
-                                <li class="nav-item"><a href="index.php?Membres&action=formModifierMembre" class="nav-link">Gérer mon&nbsp;profil</a></li>
+                                <a href="index.php?Membres&action=formModifierMembre" class="btn text-white m-1">
+                                    <i class="fas fa-user"></i> Mon Profil</a>
+                            </ul>
+                            <ul class="navbar-nav mx-auto">
+                                <a href="index.php?Messagerie&action=afficherMessagerie" class="btn text-white m-1">
+                                    <i class="fas fa-envelope-open"></i> Messagerie</a>
                             </ul>
                             <?php if($_SESSION["type"] == 2 || $_SESSION["type"] == 3){ ?>
                                 <ul class="navbar-nav mx-auto">
-                                    <li id="annoce" class="nav-item"><a href="index.php?Admin&action=afficherAdmin" class="nav-link">Admin</a></li>
+                                    <a href="index.php?Admin&action=afficherAdmin" class="btn text-white m-1">
+                                        <i class="fas fa-cogs"></i> Admin</a>
                                 </ul>
                             <?php } ?>
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item"><a href="index.php?Messagerie&action=afficherMessagerie" class="nav-link" >Messagerie</a></li>
-                            </ul>
                         <?php } ?>
+                        <ul class="navbar-nav mx-auto">
+                            <a href="index.php?Jeux&action=rechercherJeux" class="btn text-white m-1">
+                                <i class="fas fa-search"></i> Rechercher Jeux</a>
+                        </ul>
                         <ul class="navbar-nav">
-<!--                            <li class="nav-item">-->
-<!--                            --><?php //if (isset($_SESSION["id"])) {
-//                                //echo 'Bonjour, ' . $_SESSION["prenom"];
-//                            } ?>
-<!--                            </li>-->
                             <li class="nav-item mx-1">
                                 <?php if (isset($_SESSION["id"])) { ?>
                                     <a href="index.php?Membres&action=logout" id="btn-logout" class="btn btn-block navbar-btn text-white btn-primary m-1">
