@@ -174,7 +174,7 @@
                     position: 'top-center'
                 });
                 request = $.ajax({
-                    url: "index.php?achat&action=supprimer",
+                    url: "index.php?Achat&action=supprimer",
                     type: "post",
                     data: {
                         jeux_id: id
@@ -192,7 +192,7 @@
                         position: 'top-center'
                     });
                     request = $.ajax({
-                        url: "index.php?achat&action=ajouterAuPanier",
+                        url: "index.php?Achat&action=ajouterAuPanier",
                         type: "post",
                         data: {
                             jeux_id: id,

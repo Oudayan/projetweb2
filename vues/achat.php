@@ -35,10 +35,10 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td colspan="5"> <a href="index.php?achat&action=payerPanier" class="btn btn-primary">Payer comptant</a></td>
+                    <td colspan="5"> <a href="index.php?Achat&action=payerPanier" class="btn btn-primary">Payer comptant</a></td>
                 </tr>
                 <tr>
-                    <td colspan="5"> <a href="index.php?achat&action=payerPanier" class="btn btn-primary">Payer par chèque</a></td>
+                    <td colspan="5"> <a href="index.php?Achat&action=payerPanier" class="btn btn-primary">Payer par chèque</a></td>
                 </tr>
                 <tr>
                     <td colspan="5">

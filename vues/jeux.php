@@ -151,7 +151,7 @@
                             }else{
                                 $( ".alert" ).hide(); 
                                 request = $.ajax({
-                                url: "index.php?messagerie&action=formAjoutMessage",
+                                url: "index.php?Messagerie&action=formAjoutMessage",
                                 type: "post",
                                 data: { 
                                     membre_id : $("#membre_id").val(),

@@ -20,15 +20,10 @@ $messagesRecu = $donnees["messagesRecu"];
                         ?>
                         <li>
                             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?= $message->getMsg_Id(); ?>"> 
-                                <b><?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom(); ?> <?= $message->getMsg_Date(); ?>  <?= $message->getSujet(); ?></b></br>
+                                <b><?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom() ?> <?= $message->getMsg_Date(); ?>  <?= $message->getSujet(); ?></b><br/>
                                 <p><?= $message->getMessage(); ?></p>
                             </a>
                         </li>
-                        <?php
-                        $i++;
-                    //}
-                        ?>
-
                         <div class="modal fade" id="exampleModal<?= $message->getMsg_Id(); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <input type="hidden" id="destinataire_id<?= $message->getMsg_Id(); ?>" value="<?= $message->getMembre_Id(); ?>"/>
                             <div class="modal-dialog" role="document">
@@ -40,7 +35,7 @@ $messagesRecu = $donnees["messagesRecu"];
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><?= $message->getMembre_Id(); ?></p>
+                                        <p><?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom() ?></p>
                                         <p><?= $message->getMsg_Date(); ?></p>
                                         <p><?= $message->getMessage(); ?></p>
                                     </div>
@@ -71,7 +66,7 @@ $messagesRecu = $donnees["messagesRecu"];
 
                                         </div>
                                     </div>
-                                    </br>
+                                    <br />
                                     <script>
                                         $("#buttonRepondre<?= $message->getMsg_Id(); ?>").click(function () {
                                             $("#fcontacto<?= $message->getMsg_Id(); ?>").show();
@@ -89,7 +84,7 @@ $messagesRecu = $donnees["messagesRecu"];
                                             } else {
                                                 $(".alert").hide();
                                                 request = $.ajax({
-                                                    url: "index.php?messagerie&action=formAjoutMessage",
+                                                    url: "index.php?Messagerie&action=formAjoutMessage",
                                                     type: "post",
                                                     data: {
                                                         membre_id: $("#membre_id").val(),
@@ -116,8 +111,8 @@ $messagesRecu = $donnees["messagesRecu"];
                                 </div>
                             </div>
                         </div>
-
-                    <?php } ?>
+                        <?php $i++; 
+                    } ?>
                 </ul>
             </div>
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
