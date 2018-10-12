@@ -35,13 +35,13 @@ drop table if exists type_utilisateur;
 /*==============================================================*/
 create table `achat`
 (
-   `achat_id`             int not null auto_increment,
-   `type_paiement_id`     int not null,
-   `membre_id`            int not null,
-   `jeux_id`              int not null,
-   `date_achat`           datetime not null,
-   `transaction_id`       varchar(255),
-   primary key (achat_id)
+    `achat_id`             int not null auto_increment,
+    `type_paiement_id`     int not null,
+    `membre_id`            int not null,
+    `jeux_id`              int not null,
+    `date_achat`           datetime not null,
+    `transaction_id`       varchar(255),
+    primary key (achat_id)
 );
 
 /*==============================================================*/
@@ -49,9 +49,10 @@ create table `achat`
 /*==============================================================*/
 create table `categorie`
 (
-   `categorie_id`    int not null auto_increment,
-   `categorie`             varchar(255),
-   primary key (categorie_id)
+    `categorie_id`    int not null auto_increment,
+    `categorie`       varchar(255),
+    `categorie_active`  bool not null,
+    primary key (categorie_id)
 );
 
 /*==============================================================*/
@@ -59,9 +60,9 @@ create table `categorie`
 /*==============================================================*/
 create table `categorie_jeux`
 (
-   `jeux_id`         int not null,
-   `categorie_id`    int not null,
-   primary key (jeux_id, categorie_id)
+    `jeux_id`           int not null,
+    `categorie_id`      int not null,
+    primary key (jeux_id, categorie_id)
 );
 
 /*==============================================================*/
@@ -69,9 +70,9 @@ create table `categorie_jeux`
 /*==============================================================*/
 create table `destinataire`
 (
-   `membre_id`            int not null,
-   `msg_id`               int not null,
-   primary key (membre_id, msg_id)
+    `membre_id`            int not null,
+    `msg_id`               int not null,
+    primary key (membre_id, msg_id)
 );
 
 /*==============================================================*/
@@ -79,13 +80,14 @@ create table `destinataire`
 /*==============================================================*/
 create table commentaire_jeux
 (
-   `commentaire_jeux_id`  int not null auto_increment,
-   `jeux_id`              int not null,
-   `membre_id`            int not null,
-   `commentaire`          text not null,
-   `evaluation`           decimal(6,5),
-   `date_commentaire`     datetime not null,
-   primary key (commentaire_jeux_id)
+    `commentaire_jeux_id`  int not null auto_increment,
+    `jeux_id`              int not null,
+    `membre_id`            int not null,
+    `jeton`                varchar(255) not null,
+    `commentaire`          text,
+    `evaluation`           decimal(6,5),
+    `date_commentaire`     datetime,
+    primary key (commentaire_jeux_id)
 );
 
 /*==============================================================*/
@@ -93,20 +95,20 @@ create table commentaire_jeux
 /*==============================================================*/
 create table jeux
 (
-   `jeux_id`              int not null auto_increment,
-   `plateforme_id`        int not null,
-   `membre_id`            int not null,
-   `titre`                varchar(255) not null,
-   `prix`                 decimal(15,2) not null,
-   `date_ajout`           datetime not null,
-   `concepteur`           varchar(255) not null,
-   `location`             bool not null,
-   `jeux_valide`          bool not null,
-   `jeux_actif`           bool not null,
-   `jeux_banni`           bool not null,
-   `description`          text not null,
-   `evaluation_globale`    decimal(6,5),
-   primary key (jeux_id)
+    `jeux_id`              int not null auto_increment,
+    `plateforme_id`        int not null,
+    `membre_id`            int not null,
+    `titre`                varchar(255) not null,
+    `prix`                 decimal(15,2) not null,
+    `date_ajout`           datetime not null,
+    `concepteur`           varchar(255) not null,
+    `location`             bool not null,
+    `jeux_valide`          bool not null,
+    `jeux_actif`           bool not null,
+    `jeux_banni`           bool not null,
+    `description`          text not null,
+    `evaluation_globale`    decimal(6,5),
+    primary key (jeux_id)
 );
 
 /*==============================================================*/
@@ -114,14 +116,14 @@ create table jeux
 /*==============================================================*/
 create table location
 (
-   `location_id`          int not null auto_increment,
-   `type_paiement_id`     int not null,
-   `membre_id`            int not null,
-   `jeux_id`              int not null,
-   `date_debut`           datetime not null,
-   `date_retour`          datetime not null,
-   `transaction_id`       varchar(255),
-   primary key (location_id)
+    `location_id`          int not null auto_increment,
+    `type_paiement_id`     int not null,
+    `membre_id`            int not null,
+    `jeux_id`              int not null,
+    `date_debut`           datetime not null,
+    `date_retour`          datetime not null,
+    `transaction_id`       varchar(255),
+    primary key (location_id)
 );
 
 /*==============================================================*/
@@ -129,17 +131,17 @@ create table location
 /*==============================================================*/
 create table membre
 (
-   `membre_id`            int not null auto_increment,
-   `type_utilisateur_id`  int not null,
-   `nom`                  varchar(255) not null,
-   `prenom`               varchar(255) not null,
-   `mot_de_passe`         varchar(32) not null,
-   `adresse`              varchar(128) not null,
-   `telephone`            varchar(32) not null,
-   `courriel`             varchar(96) not null,
-   `membre_valide` tinyint(1) NOT NULL DEFAULT '0',
-   `membre_actif` tinyint(1) NOT NULL DEFAULT '1',
-   primary key (membre_id)
+    `membre_id`            int not null auto_increment,
+    `type_utilisateur_id`  int not null,
+    `nom`                  varchar(255) not null,
+    `prenom`               varchar(255) not null,
+    `mot_de_passe`         varchar(32) not null,
+    `adresse`              varchar(128) not null,
+    `telephone`            varchar(32) not null,
+    `courriel`             varchar(96) not null,
+    `membre_valide` tinyint(1) NOT NULL DEFAULT '0',
+    `membre_actif` tinyint(1) NOT NULL DEFAULT '1',
+    primary key (membre_id)
 );
 
 /*==============================================================*/
@@ -147,13 +149,13 @@ create table membre
 /*==============================================================*/
 create table messagerie
 (
-   `msg_id`               int not null auto_increment,
-   `membre_id`            int not null,
-   `sujet`                varchar(255) not null,
-   `message`              text not null,
-   `msg_date`             datetime not null,
-   `msg_actif`            bool not null,
-   primary key (msg_id)
+    `msg_id`               int not null auto_increment,
+    `membre_id`            int not null,
+    `sujet`                varchar(255) not null,
+    `message`              text not null,
+    `msg_date`             datetime not null,
+    `msg_actif`            bool not null,
+    primary key (msg_id)
 );
 
 /*==============================================================*/
@@ -161,10 +163,10 @@ create table messagerie
 /*==============================================================*/
 create table photo_jeux
 (
-   `photo_jeux_id`        int not null auto_increment,
-   `jeux_id`              int not null,
-   `chemin_photo`         varchar(255) not null,
-   primary key (photo_jeux_id)
+    `photo_jeux_id`        int not null auto_increment,
+    `jeux_id`              int not null,
+    `chemin_photo`         varchar(255) not null,
+    primary key (photo_jeux_id)
 );
 
 /*==============================================================*/
@@ -172,9 +174,10 @@ create table photo_jeux
 /*==============================================================*/
 create table plateforme
 (
-   `plateforme_id`       int not null auto_increment,
-   `plateforme`          varchar(255) not null,
-   primary key (plateforme_id)
+    `plateforme_id`       int not null auto_increment,
+    `plateforme`          varchar(255) not null,
+    `plateforme_active`   bool not null,
+    primary key (plateforme_id)
 );
 
 /*==============================================================*/
@@ -182,9 +185,9 @@ create table plateforme
 /*==============================================================*/
 create table type_paiement
 (
-   `type_paiement_id`     int not null auto_increment,
-   `type_paiement`        varchar(32),
-   primary key (type_paiement_id)
+    `type_paiement_id`     int not null auto_increment,
+    `type_paiement`        varchar(32),
+    primary key (type_paiement_id)
 );
 
 /*==============================================================*/
@@ -192,61 +195,61 @@ create table type_paiement
 /*==============================================================*/
 create table type_utilisateur
 (
-   `type_utilisateur_id`  int not null auto_increment,
-   `type_utilisateur`     varchar(32) not null,
-   primary key (type_utilisateur_id)
+    `type_utilisateur_id`  int not null auto_increment,
+    `type_utilisateur`     varchar(32) not null,
+    primary key (type_utilisateur_id)
 );
 
 alter table achat add constraint FK_assosier_achat foreign key (type_paiement_id)
-      references type_paiement (type_paiement_id) on delete restrict on update restrict;
+    references type_paiement (type_paiement_id) on delete restrict on update restrict;
 
 alter table achat add constraint FK_assosier_jeux foreign key (jeux_id)
-      references jeux (jeux_id) on delete restrict on update restrict;
+    references jeux (jeux_id) on delete restrict on update restrict;
 
 alter table achat add constraint FK_faire foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
+    references membre (membre_id) on delete restrict on update restrict;
 
 alter table categorie_jeux add constraint FK_categorie_jeux foreign key (jeux_id)
-      references jeux (jeux_id) on delete restrict on update restrict;
+    references jeux (jeux_id) on delete restrict on update restrict;
 
 alter table categorie_jeux add constraint FK_categorie_jeux2 foreign key (categorie_id)
-      references categorie (categorie_id) on delete restrict on update restrict;
+    references categorie (categorie_id) on delete restrict on update restrict;
 
 alter table destinataire add constraint FK_destinataire foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
+    references membre (membre_id) on delete restrict on update restrict;
 
 alter table destinataire add constraint FK_destinataire2 foreign key (msg_id)
-      references messagerie (msg_id) on delete restrict on update restrict;
+    references messagerie (msg_id) on delete restrict on update restrict;
 
 alter table commentaire_jeux add constraint FK_composer foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
+    references membre (membre_id) on delete restrict on update restrict;
 
 alter table commentaire_jeux add constraint FK_concerner foreign key (jeux_id)
-      references jeux (jeux_id) on delete restrict on update restrict;
+    references jeux (jeux_id) on delete restrict on update restrict;
 
 alter table jeux add constraint FK_avoir foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
+    references membre (membre_id) on delete restrict on update restrict;
 
 alter table jeux add constraint FK_classer foreign key (plateforme_id)
-      references plateforme (plateforme_id) on delete restrict on update restrict;
+    references plateforme (plateforme_id) on delete restrict on update restrict;
 
 alter table location add constraint FK_associer_louer foreign key (type_paiement_id)
-      references type_paiement (type_paiement_id) on delete restrict on update restrict;
+    references type_paiement (type_paiement_id) on delete restrict on update restrict;
 
 alter table location add constraint FK_assosier_jeux2 foreign key (jeux_id)
-      references jeux (jeux_id) on delete restrict on update restrict;
+    references jeux (jeux_id) on delete restrict on update restrict;
 
 alter table location add constraint FK_louer foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
+    references membre (membre_id) on delete restrict on update restrict;
 
 alter table membre add constraint FK_etre foreign key (type_utilisateur_id)
-      references type_utilisateur (type_utilisateur_id) on delete restrict on update restrict;
+    references type_utilisateur (type_utilisateur_id) on delete restrict on update restrict;
 
 alter table messagerie add constraint FK_assigner_emmeteur foreign key (membre_id)
-      references membre (membre_id) on delete restrict on update restrict;
+    references membre (membre_id) on delete restrict on update restrict;
 
 alter table photo_jeux add constraint FK_posseder foreign key (jeux_id)
-      references jeux (jeux_id) on delete restrict on update restrict;
+    references jeux (jeux_id) on delete restrict on update restrict;
 
 
 
@@ -295,15 +298,15 @@ INSERT INTO type_paiement VALUES
 -- Contenu de la table `plateforme`
 --
 
-INSERT INTO `plateforme` (`plateforme_id`, `plateforme`) VALUES
-(1, 'Playstation 4'),
-(2, 'Xbox One'),
-(3, 'Nintendo Wii U'),
-(4, 'Windows'),
-(5, 'Playstation 3'),
-(6, 'Xbox 360'),
-(7, 'Nintendo Switch'),
-(8, 'Playstation Vita');
+INSERT INTO `plateforme` (`plateforme_id`, `plateforme`, `plateforme_active`) VALUES
+(1, 'Playstation 4', 1),
+(2, 'Xbox One', 1),
+(3, 'Nintendo Wii U', 1),
+(4, 'Windows', 1),
+(5, 'Playstation 3', 1),
+(6, 'Xbox 360', 1),
+(7, 'Nintendo Switch', 1),
+(8, 'Playstation Vita', 1);
 
 
 
@@ -327,26 +330,26 @@ INSERT INTO `jeux` (`jeux_id`, `plateforme_id`, `membre_id`, `titre`, `prix`, `d
 --
 -- Contenu de la table `commentaire_jeux`
 --
-INSERT INTO `commentaire_jeux` (`commentaire_jeux_id`, `jeux_id`, `membre_id`, `commentaire`, `evaluation`, `date_commentaire`) VALUES
-(1, 1, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis et quam ut mattis. Ut eleifend bibendum magna, eu volutpat metus lacinia vel. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam gravida diam eu dictum interdum. Aliquam erat enim.', 4.02345, '2018-09-10 04:30:54'),
-(2, 1, 6, 'Maecenas ut facilisis ligula. Sed quis laoreet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas enim lorem, faucibus vitae ultrices sit amet, tincidunt.', 4.14588, '2018-09-13 04:30:54'),
-(3, 2, 1, 'Sed ac pulvinar ante, sit amet tristique elit. Sed pellentesque lacus sed sem scelerisque, id fringilla odio rutrum. Nullam fermentum feugiat sollicitudin. Donec ut lacus et mauris eleifend imperdiet nec vel erat. Ut ultricies lorem.', 4.00125, '2018-09-12 04:15:54'),
-(4, 2, 9, 'Nulla molestie nulla arcu, a dapibus lorem pulvinar ac. Phasellus libero ligula, finibus quis pulvinar a, tincidunt quis ligula. Etiam id tortor ac nunc elementum pretium. Quisque fringilla eros vel laoreet congue. Aliquam facilisis quis nibh lacinia aliquet. Sed quis.', 4.21547,'2018-09-15 11:35:23'),
-(5, 2, 5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut.', 4.56235, '2018-09-17 10:15:21'),
-(6, 3, 2, 'Sed varius dui nisl, eu efficitur ipsum feugiat sed. Nulla sed dui risus. Fusce euismod diam vel mi consectetur, sit amet lacinia quam auctor. Cras tincidunt consequat tellus ac feugiat. Curabitur rhoncus.', 3.98457, '2018-09-12 09:23:30'),
-(7, 3, 8, 'Maecenas tempor mauris et sem laoreet, ac fringilla velit accumsan. Nam quis tortor quis lorem dapibus porttitor a at odio. Integer elementum tincidunt cursus. Donec auctor sed quam sit amet ultricies. Vestibulum suscipit dolor nec pulvinar.', 4.25568, '2018-09-12 11:27:10'),
-(8, 4, 7, 'Aenean et nibh rutrum, ullamcorper tellus in, posuere urna. Nam aliquet nisl vitae sem gravida sodales. Vestibulum iaculis orci quam, in commodo felis eleifend id. Proin ac elit ultrices ex hendrerit bibendum. Sed lobortis ultricies turpis at ultricies. Cras et leo vel ante gravida aliquam.', 4.65984, '2018-09-13 01:15:20'),
-(9, 5, 10, 'Integer laoreet ornare lacus eu consequat. Maecenas facilisis tortor neque, lacinia lobortis lacus aliquam nec. Nulla nibh ligula, commodo id velit sit amet, varius tincidunt metus. Pellentesque ut urna condimentum, placerat ligula et, pharetra nibh. Nunc eu vehicula ipsum.', 3.54788, '2018-09-13 12:50:32'),
-(10, 5, 7, 'Sed auctor lobortis est, id convallis turpis condimentum quis. Sed consequat, sem eget scelerisque ullamcorper, dolor elit pretium lectus, eget blandit urna neque nec felis. Nunc convallis dui nec vehicula sodales. Maecenas mi enim, vestibulum.', 4.01452, '2018-09-17 08:44:32'),
-(11, 6, 5, 'Morbi ut ante enim. Praesent fringilla feugiat placerat. Donec imperdiet, nisl vel consequat ultricies, arcu neque congue sem, eget varius urna ligula ut massa. Nam sit amet erat hendrerit, lacinia ante sit amet, porttitor lorem. Integer imperdiet et sem nec.', 3.57841, '2018-09-14 11:22:52'),
-(12, 6, 1, 'Nam eu gravida ipsum. Vestibulum erat leo, efficitur a magna nec, lacinia pharetra nibh. Sed eget laoreet nibh, eget porttitor ipsum. Aenean id dui id dolor commodo fringilla. Mauris nulla lorem, suscipit eget.', 4.01452, '2018-09-15 04:22:15'),
-(13, 7, 2, 'Nam at nisi sit amet massa sagittis vestibulum sit amet eget augue. Pellentesque eget velit eu nunc iaculis sollicitudin eget eu elit. Praesent blandit ligula vitae tempor ultricies. Aliquam euismod, felis in tristique aliquet, nulla leo sagittis.', 4.00125, '2018-09-15 09:24:32'),
-(14, 8, 5, 'Duis magna lacus, posuere nec nisi at, malesuada hendrerit augue. Nunc ac eros accumsan, varius dolor vitae, sodales erat. Donec pellentesque molestie elit, quis ultricies erat rhoncus a. Sed commodo.', 4.10215, '2018-09-17 07:22:21'),
-(15, 8, 7, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tellus ligula, tincidunt nec dolor gravida, interdum hendrerit metus. Ut semper nibh lectus, vitae commodo neque placerat a. Maecenas at mauris.', 4.03024, '2018-09-19 09:23:12'),
-(16, 9, 3, 'Nunc fermentum eget nunc quis volutpat. Aliquam placerat auctor tempus. Pellentesque arcu lectus, vehicula at pulvinar et, laoreet eu ante. Aliquam sodales ante eu lobortis gravida. Phasellus id laoreet mauris. Mauris suscipit laoreet justo vel eleifend. Nulla ac.', 3.02565, '2018-09-17 09:44:30'),
-(17, 9, 6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra ut tortor id fringilla. Praesent a mattis risus, ut laoreet velit. Nunc dapibus imperdiet velit, sed hendrerit eros dictum ut. Fusce efficitur feugiat blandit.', 4.32144, '2018-09-19 02:24:33'),
-(18, 10, 4, 'Ut efficitur sodales egestas. Etiam non ipsum quis lorem mollis iaculis. Vivamus id nibh at lacus gravida aliquam nec ut nibh. Sed blandit massa et eros aliquet, eget ultrices leo ornare. Vestibulum egestas, sem eget rutrum tincidunt, dolor ex semper eros, sit.', 4.10123, '2018-09-18 10:06:24'),
-(19, 10, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dignissim orci pretium porta volutpat. Etiam at lorem nec nisl pellentesque rutrum vel quis nisi. Aliquam risus mauris, convallis ac vulputate ac, commodo a erat. Nunc at leo sit amet ligula ultrices porta. Nullam non urna accumsan.', 4.03325, '2018-09-20 11:16:15');
+INSERT INTO `commentaire_jeux` (`commentaire_jeux_id`, `jeux_id`, `membre_id`, `jeton`, `commentaire`, `evaluation`, `date_commentaire`) VALUES
+(1, 1, 3, 'f9bhsy32jd0n58djs3bail7m4', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis et quam ut mattis. Ut eleifend bibendum magna, eu volutpat metus lacinia vel. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam gravida diam eu dictum interdum. Aliquam erat enim.', 4.02345, '2018-09-10 04:30:54'),
+(2, 1, 6, 'os8ehb3ya6b4g0ng9qxafzv4i', 'Maecenas ut facilisis ligula. Sed quis laoreet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas enim lorem, faucibus vitae ultrices sit amet, tincidunt.', 4.14588, '2018-09-13 04:30:54'),
+(3, 2, 1, '4g01gqlse5r3ya6bwxta8zv2k', 'Sed ac pulvinar ante, sit amet tristique elit. Sed pellentesque lacus sed sem scelerisque, id fringilla odio rutrum. Nullam fermentum feugiat sollicitudin. Donec ut lacus et mauris eleifend imperdiet nec vel erat. Ut ultricies lorem.', 4.00125, '2018-09-12 04:15:54'),
+(4, 2, 9, 'r9yw2jd0n58djs3ta1huql7mp', 'Nulla molestie nulla arcu, a dapibus lorem pulvinar ac. Phasellus libero ligula, finibus quis pulvinar a, tincidunt quis ligula. Etiam id tortor ac nunc elementum pretium. Quisque fringilla eros vel laoreet congue. Aliquam facilisis quis nibh lacinia aliquet. Sed quis.', 4.21547,'2018-09-15 11:35:23'),
+(5, 2, 5, 'v8djs3bf9bh1sy2jd0n4il7mk', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut.', 4.56235, '2018-09-17 10:15:21'),
+(6, 3, 2, '2j1qy38dc0n5f9bhsi3baml7v', 'Sed varius dui nisl, eu efficitur ipsum feugiat sed. Nulla sed dui risus. Fusce euismod diam vel mi consectetur, sit amet lacinia quam auctor. Cras tincidunt consequat tellus ac feugiat. Curabitur rhoncus.', 3.98457, '2018-09-12 09:23:30'),
+(7, 3, 8, 'm6f9whqyv21d0n58djs3bxil7', 'Maecenas tempor mauris et sem laoreet, ac fringilla velit accumsan. Nam quis tortor quis lorem dapibus porttitor a at odio. Integer elementum tincidunt cursus. Donec auctor sed quam sit amet ultricies. Vestibulum suscipit dolor nec pulvinar.', 4.25568, '2018-09-12 11:27:10'),
+(8, 4, 7, 'j0n6xk8dilm4s3baf9bhsy2vu', 'Aenean et nibh rutrum, ullamcorper tellus in, posuere urna. Nam aliquet nisl vitae sem gravida sodales. Vestibulum iaculis orci quam, in commodo felis eleifend id. Proin ac elit ultrices ex hendrerit bibendum. Sed lobortis ultricies turpis at ultricies. Cras et leo vel ante gravida aliquam.', 4.65984, '2018-09-13 01:15:20'),
+(9, 5, 10, 'd0nv8zjf9bcsy3jil7m4s3ba6', 'Integer laoreet ornare lacus eu consequat. Maecenas facilisis tortor neque, lacinia lobortis lacus aliquam nec. Nulla nibh ligula, commodo id velit sit amet, varius tincidunt metus. Pellentesque ut urna condimentum, placerat ligula et, pharetra nibh. Nunc eu vehicula ipsum.', 3.54788, '2018-09-13 12:50:32'),
+(10, 5, 7, 'vf9bh2y3xd0n5rdjsb6ail7jp', 'Sed auctor lobortis est, id convallis turpis condimentum quis. Sed consequat, sem eget scelerisque ullamcorper, dolor elit pretium lectus, eget blandit urna neque nec felis. Nunc convallis dui nec vehicula sodales. Maecenas mi enim, vestibulum.', 4.01452, '2018-09-17 08:44:32'),
+(11, 6, 5, '0n5dx3bay8dwf9b2jl7m4hsz3', 'Morbi ut ante enim. Praesent fringilla feugiat placerat. Donec imperdiet, nisl vel consequat ultricies, arcu neque congue sem, eget varius urna ligula ut massa. Nam sit amet erat hendrerit, lacinia ante sit amet, porttitor lorem. Integer imperdiet et sem nec.', 3.57841, '2018-09-14 11:22:52'),
+(12, 6, 1, 'ydj3fs9bm2j3bad0nt8sil7qx', 'Nam eu gravida ipsum. Vestibulum erat leo, efficitur a magna nec, lacinia pharetra nibh. Sed eget laoreet nibh, eget porttitor ipsum. Aenean id dui id dolor commodo fringilla. Mauris nulla lorem, suscipit eget.', 4.01452, '2018-09-15 04:22:15'),
+(13, 7, 2, '1fw3od0n58djf9bh6ysal7m4', 'Nam at nisi sit amet massa sagittis vestibulum sit amet eget augue. Pellentesque eget velit eu nunc iaculis sollicitudin eget eu elit. Praesent blandit ligula vitae tempor ultricies. Aliquam euismod, felis in tristique aliquet, nulla leo sagittis.', 4.00125, '2018-09-15 09:24:32'),
+(14, 8, 5, 'h08s9b7jsxbn5iy3f2jdl7p4a', 'Duis magna lacus, posuere nec nisi at, malesuada hendrerit augue. Nunc ac eros accumsan, varius dolor vitae, sodales erat. Donec pellentesque molestie elit, quis ultricies erat rhoncus a. Sed commodo.', 4.10215, '2018-09-17 07:22:21'),
+(15, 8, 7, '0bw2jdil7m6un5ef9bhfy3gjc', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tellus ligula, tincidunt nec dolor gravida, interdum hendrerit metus. Ut semper nibh lectus, vitae commodo neque placerat a. Maecenas at mauris.', 4.03024, '2018-09-19 09:23:12'),
+(16, 9, 3, 'x2rh0n57jsf3cyd1b9pl3m4iz', 'Nunc fermentum eget nunc quis volutpat. Aliquam placerat auctor tempus. Pellentesque arcu lectus, vehicula at pulvinar et, laoreet eu ante. Aliquam sodales ante eu lobortis gravida. Phasellus id laoreet mauris. Mauris suscipit laoreet justo vel eleifend. Nulla ac.', 3.02565, '2018-09-17 09:44:30'),
+(17, 9, 6, 'gq32es3bf9uhi0n5dtjl7m5cw', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra ut tortor id fringilla. Praesent a mattis risus, ut laoreet velit. Nunc dapibus imperdiet velit, sed hendrerit eros dictum ut. Fusce efficitur feugiat blandit.', 4.32144, '2018-09-19 02:24:33'),
+(18, 10, 4, 'sl1b4h8dy4j9bil3mf2jd0nv8', 'Ut efficitur sodales egestas. Etiam non ipsum quis lorem mollis iaculis. Vivamus id nibh at lacus gravida aliquam nec ut nibh. Sed blandit massa et eros aliquet, eget ultrices leo ornare. Vestibulum egestas, sem eget rutrum tincidunt, dolor ex semper eros, sit.', 4.10123, '2018-09-18 10:06:24'),
+(19, 10, 1, 'hny5e7pl2jd02b8kf93ijs3cq', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dignissim orci pretium porta volutpat. Etiam at lorem nec nisl pellentesque rutrum vel quis nisi. Aliquam risus mauris, convallis ac vulputate ac, commodo a erat. Nunc at leo sit amet ligula ultrices porta. Nullam non urna accumsan.', 4.03325, '2018-09-20 11:16:15');
 
 
 --
@@ -361,19 +364,19 @@ INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `da
 -- Contenu de la table `categorie`
 --
 
-INSERT INTO `categorie` (`categorie_id`, `categorie`) VALUES
-(1, 'Action'),
-(2, 'Combat'),
-(3, 'Aventure'),
-(4, 'Sports'),
-(5, 'Course'),
-(6, 'Simulation'),
-(7, 'Stratégie'),
-(8, 'Plate-forme'),
-(9, 'Labyrinthe'),
-(10, 'Musique'),
-(11, 'FPS'),
-(12, 'RPG');
+INSERT INTO `categorie` (`categorie_id`, `categorie`, `categorie_active`) VALUES
+(1, 'Action', 1),
+(2, 'Combat', 1),
+(3, 'Aventure', 1),
+(4, 'Sports', 1),
+(5, 'Course', 1),
+(6, 'Simulation', 1),
+(7, 'Stratégie', 1),
+(8, 'Plate-forme', 1),
+(9, 'Labyrinthe', 1),
+(10, 'Musique', 1),
+(11, 'FPS', 1),
+(12, 'RPG', 1);
 
 
 --

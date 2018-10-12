@@ -13,16 +13,18 @@
         private $commentaire_jeux_id;
         private $jeux_id;
         private $membre_id;
+        private $jeton;
         private $commentaire;
         private $evaluation;
         private $date_commentaire;
 
         // Constructeur
-        public function __construct($commentaire_jeux_id = 0,$jeux_id = 0, $membre_id = 0, $commentaire= "", $evaluation = "", $date_commentaire = "")
+        public function __construct($commentaire_jeux_id = 0, $jeux_id = 0, $membre_id = 0, $jeton = "", $commentaire= "", $evaluation = 0, $date_commentaire = "")
         {
             $this->setCommentaireJeuxId($commentaire_jeux_id); 
             $this->setJeuxId($jeux_id);
             $this->setMembreId($membre_id);
+            $this->setJeton($jeton);
             $this->setCommentaire($commentaire);
             $this->setEvaluation($evaluation);
             $this->setDateCommentaire($date_commentaire);
@@ -43,7 +45,7 @@
 
         /**
          * @brief       Permet de définir en écriture l'attribut de la classe Commentaire de jeux
-         * @param       [numeric] $jeux_id , l'id du type de Commentaire de jeu
+         * @param       [numeric] $jeux_id , l'id du jeu du commentaire
          * @return      [object]
          */
         public function setJeuxId($jeux_id){
@@ -53,13 +55,24 @@
         }
 
         /**
-         * @brief       Permet de définir en écriture l'attribut de la classe Categorie
-         * @param       [numeric] $membre_id ,  l'id d'une Categorie
+         * @brief       Permet de définir en écriture l'attribut de la classe Commentaire de jeux
+         * @param       [numeric] $membre_id ,  l'id du membre qui a fait le commentaire de jeu
          * @return      [object]
          */
         public function setMembreId($membre_id){
-            if (is_string($membre_id) && trim($membre_id) != ""){
+            if (is_numeric($membre_id) && trim($membre_id) != ""){
                 $this->membre_id = $membre_id;
+            }
+        }
+
+        /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Commentaire de jeux
+         * @param       [string] $jeton , jeton unique du commentaire de jeu
+         * @return      [object]
+         */
+        public function setJeton($jeton){
+            if (is_string($jeton) && trim($jeton) != ""){
+                $this->jeton = $jeton;
             }
         }
 
@@ -80,7 +93,7 @@
          * @return      [object]
          */
         public function setEvaluation($evaluation){
-            if (is_string($evaluation) && trim($evaluation) != ""){
+            if (is_numeric($evaluation) && trim($evaluation) != ""){
                 $this->evaluation = $evaluation;
             }
         }
@@ -100,7 +113,7 @@
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Commentaire de jeux
-         * @param       [numeric] $commentaire_jeux_id ,  l'id du commentaire  de jeu
+         * @param       [numeric] $commentaire_jeux_id ,  l'id du commentaire de jeu
          * @return      [object]
          */
         public function getCommentaireJeuxId(){
@@ -109,7 +122,7 @@
 
         /**
          * @brief       Permet de définir en lecture l'attribut de la classe Commentaire de jeux
-         * @param       [numeric] $membre_id ,  l'id d'une Commentaire de jeu
+         * @param       [numeric] $jeux_id ,  l'id du jeu du commentaire
          * @return      [object]
          */
         public function getJeuxId(){
@@ -123,6 +136,15 @@
          */
         public function getMembreId(){
             return $this->membre_id;
+        }
+
+        /**
+         * @brief       Permet de définir en lecture l'attribut de la classe Commentaire de jeux
+         * @param       [string] $jeton ,  le jeton unique d'un commentaire de jeu
+         * @return      [object]
+         */
+        public function getJeton(){
+            return $this->jeton;
         }
 
         /**

@@ -15,7 +15,7 @@
 		public function lireNomTable() {
 			return "plateforme";
         }
-               
+
         public function lirePlateformeParId($id) {
             $resultat = $this->lire($id);
             $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Plateformes');
@@ -23,26 +23,49 @@
         }
 
         public function lireToutesPlateformes() {
-            $resultat = $this->lireTous();
-            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Plateformes');
+            // $resultat = $this->lireTous();
+            // return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Plateformes');
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY plateforme ASC";
+            $resultat = $this->requete($sql);
+            return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Plateformes");
         }
 
-        public function sauvegarder(Plateformes $unPlateforme)
+        public function lireToutesPlateformesActives() {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE plateforme_active = 1 ORDER BY plateforme ASC";
+            $resultat = $this->requete($sql);
+            return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Plateformes");
+        }
+
+        public function sauvegarder(Plateformes $plateforme)
         {
             $donnees = array(
-                $unPlateforme->getPlateforme(),
-                $unPlateforme->getPlateformeId()
+                $plateforme->getPlateforme(),
+                $plateforme->getPlateformeActive(),
+                $plateforme->getPlateformeId()
             );
 
-            if($unPlateforme->getPlateformeId() && $this->lire($unPlateforme->getPlateformeId())->fetch())
+            if($plateforme->getPlateformeId() && $this->lire($plateforme->getPlateformeId())->fetch())
             {
-                $sql = "UPDATE " . $this->lireNomTable() . " SET plateforme=? WHERE plateforme_id=?";
+                $sql = "UPDATE " . $this->lireNomTable() . " SET plateforme=?, plateforme_active=? WHERE plateforme_id=?";
             }
             else
             {
                 $id = array_pop($donnees);
-                $sql = "INSERT INTO " . $this->lireNomTable() . " (plateforme) VALUES (?)";
+                $sql = "INSERT INTO " . $this->lireNomTable() . " (plateforme, plateforme_active) VALUES (?, ?)";
             }
             $this->requete($sql, $donnees);
         }
+
+        public function effacerPlateforme($id) {
+            return $this->effacer($id);
+        }
+
+        public function desactiverPlateforme($id) {
+            return $this->modifierChamp($id, "plateforme_active", 0);
+        }
+
+        public function activerPlateforme($id) {
+            return $this->modifierChamp($id, "plateforme_active", 1);
+        }
+
     }

@@ -84,16 +84,16 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "formAjoutJeux":
-                    $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-                    $donnees['categories'] = $modeleCategories->lireToutesCategories();  
+                    $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformesActives();
+                    $donnees['categories'] = $modeleCategories->lireToutesCategoriesActives();  
                     $this->afficherVues("ajoutJeux", $donnees);
                     break;
 
                 case "formModifierJeux":
                     if (isset($params["JeuxId"]))
                     {
-                        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
-                        $donnees['categories'] = $modeleCategories->lireToutesCategories();
+                        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformesActives();
+                        $donnees['categories'] = $modeleCategories->lireToutesCategoriesActives();
                         $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
                         $donnees['jeu'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
                         $donnees = $this->chercherImages($donnees, "jeu");
@@ -279,7 +279,7 @@ class ControleurJeux extends BaseControleur
 //        }
 
         $counter = 0;
-        $categories = $modeleCategories->lireToutesCategories();
+        $categories = $modeleCategories->lireToutesCategoriesActives();
         $catFlag = 0;
         for ($i = 0; $i <= count($categories); $i++) {
             $cat = "categories" . $i;
@@ -326,8 +326,8 @@ class ControleurJeux extends BaseControleur
         }
 
         $donnees = $this->chercherImages($donnees);
-        $donnees['categories'] = $modeleCategories->lireToutesCategories();
-        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+        $donnees['categories'] = $modeleCategories->lireToutesCategoriesActives();
+        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformesActives();
         $this->afficherVues("rechercher", $donnees);
     }
 
@@ -337,7 +337,7 @@ class ControleurJeux extends BaseControleur
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleImages = $this->lireDAO("Images");
         $modelePlateformes = $this->lireDAO("Plateformes");
-        $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
+        $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformesActives();
         $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
         $donnees = $this->chercherImages($donnees, "trois", "Trois");
         $donnees['derniers'] = $modeleJeux->lireDerniersJeux();

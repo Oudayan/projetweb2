@@ -117,8 +117,8 @@ class ControleurAdmin extends BaseControleur
 //--------------Admin gérer les menus--------------------------------------------------------------------------
                 case "sauvegarderCategorie" :
                     if (isset($params['categorie_id']) && isset($params['categorie']) && isset($_SESSION["id"]) && ($_SESSION["type"] == 2 || $_SESSION["type"] == 3)) {
-                        $uneCategorie = new Categories($params['categorie_id'], $params['categorie']);
-                        $modeleCategories->sauvegarder($uneCategorie);
+                        $categorie = new Categories($params['categorie_id'], $params['categorie']);
+                        $modeleCategories->sauvegarder($categorie);
                     }
                     else {
                         $_SESSION["msg"] = "Remplissez tous les champs...";
@@ -126,13 +126,41 @@ class ControleurAdmin extends BaseControleur
                     $this->afficherAdmin(4);
                     break;
 
+                    case "desactiverCategorie":
+                    if(isset($params['categorie_id'])){
+                        $modeleCategories->desactiverCategorie($params['categorie_id']);
+                    }
+                    $this->afficherAdmin(4);
+                    break;
+
+                case "activerCategorie":
+                    if(isset($params['categorie_id'])){
+                        $modeleCategories->activerCategorie($params['categorie_id']);
+                    }
+                    $this->afficherAdmin(4);
+                    break;
+
                 case "sauvegarderPlateforme" :
                     if (isset($params['plateforme_id']) && isset($params['plateforme']) && isset($_SESSION["id"]) && ($_SESSION["type"] == 2 || $_SESSION["type"] == 3)) {
-                        $unePlatforme = new Plateformes($params['plateforme_id'], $params['plateforme']);
-                        $modelePlatformes->sauvegarder($unePlatforme);
+                        $plateforme = new Plateformes($params['plateforme_id'], $params['plateforme']);
+                        $modelePlatformes->sauvegarder($plateforme);
                     }
                     else {
                         $_SESSION["msg"] = "Remplissez tous les champs...";
+                    }
+                    $this->afficherAdmin(4);
+                    break;
+
+                case "desactiverPlateforme":
+                    if(isset($params['plateforme_id'])){
+                        $modelePlatformes->desactiverPlateforme($params['plateforme_id']);
+                    }
+                    $this->afficherAdmin(4);
+                    break;
+
+                case "activerPlateforme":
+                    if(isset($params['plateforme_id'])){
+                        $modelePlatformes->activerPlateforme($params['plateforme_id']);
                     }
                     $this->afficherAdmin(4);
                     break;

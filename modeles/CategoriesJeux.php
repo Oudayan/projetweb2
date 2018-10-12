@@ -13,13 +13,15 @@
         private $jeux_id;
         private $categorie_id;
         private $categorie;
+        private $categorie_active;
 
         // Constructeur
-        public function __construct($jeux_id = 0,$categorie_id = 0, $categorie = "")
+        public function __construct($jeux_id = 0,$categorie_id = 0, $categorie = "", $categorie_active = 1)
         {
             $this->setJeuxId($jeux_id); 
             $this->setCategorieId($categorie_id);
             $this->setCategorie($categorie);
+            $this->setCategorieActive($categorie_active);
         }
 
         //SETTERS
@@ -57,6 +59,17 @@
             }
         }
 
+        /**
+         * @brief       Permet de définir en écriture l'attribut de la classe Categorie
+         * @param       [numeric] $categorie_active, categorie active ou non
+         * @return      [object]
+         */
+        public function setCategorieActive($categorie_active) {
+            if (is_numeric($categorie_active) && trim($categorie_active) != "") {
+                $this->categorie_active = $categorie_active;
+            }
+        }
+
         // GETTERS
 
         /**
@@ -84,6 +97,15 @@
          */
         public function getCategorie(){
             return $this->categorie;
+        }
+
+        /**
+         * @brief       Permet de définir en lecture l'attribut de la classe Categorie
+         * @param       [numeric] $categorie_active,  le nom de la categorie
+         * @return      [object]
+         */
+        public function getCategorieActive() {
+            return $this->categorie_active;
         }
 
     }
