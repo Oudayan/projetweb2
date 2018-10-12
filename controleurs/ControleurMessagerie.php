@@ -20,7 +20,7 @@ class ControleurMessagerie extends BaseControleur
     {
         $modeleMessagerie = $this->lireDAO("Messagerie");
         $modeleDestinataire = $this->lireDAO("Destinataire");
-        $modeleJeux = $this->lireDAO("Membres");
+        $modeleMembre = $this->lireDAO("Membres");
 
         $donnees["erreur"] = "";
 
@@ -34,9 +34,11 @@ class ControleurMessagerie extends BaseControleur
                         $donnees['messages'] = "";
                         $donnees['messagesEnvoyes'] = $modeleMessagerie->obtenirTousEnvoyeParMembre_Id($_SESSION["id"]);
                         $donnees['messagesRecu'] = $modeleMessagerie->obtenirTousRecuParMembre_Id($_SESSION["id"]);
-                    /*  foreach ($donnees['sujet'] as $sujet){
-                            $donnees['sujet']['messagerie'][] = $modeleMembres->obtenirParId($sujet->getMembreId());
-                        }*/
+                        
+                        foreach($donnees['messagesRecu']as $recu){
+                            $donnees['expediteurs'][] = $modeleMembre->obtenirParId($recu->getMembre_Id());                  
+                        }
+                    
                     }
                     else
                     {

@@ -15,14 +15,19 @@ $messagesRecu = $donnees["messagesRecu"];
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <ul class="list-message">
                     <?php
+                    $i=0;
                     foreach ($messagesRecu as $message) {
                         ?>
                         <li>
                             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?= $message->getMsg_Id(); ?>"> 
-                                <b><?= $message->getMsg_Date(); ?>  <?= $message->getSujet(); ?></b></br>
+                                <b><?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom(); ?> <?= $message->getMsg_Date(); ?>  <?= $message->getSujet(); ?></b></br>
                                 <p><?= $message->getMessage(); ?></p>
                             </a>
                         </li>
+                        <?php
+                        $i++;
+                    //}
+                        ?>
 
                         <div class="modal fade" id="exampleModal<?= $message->getMsg_Id(); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <input type="hidden" id="destinataire_id<?= $message->getMsg_Id(); ?>" value="<?= $message->getMembre_Id(); ?>"/>
@@ -35,6 +40,7 @@ $messagesRecu = $donnees["messagesRecu"];
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <p><?= $message->getMembre_Id(); ?></p>
                                         <p><?= $message->getMsg_Date(); ?></p>
                                         <p><?= $message->getMessage(); ?></p>
                                     </div>
@@ -121,7 +127,7 @@ $messagesRecu = $donnees["messagesRecu"];
                         ?>
                         <li>
                             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?= $message->getMsg_Id(); ?>"> 
-                                <b><?= $message->getMsg_Date(); ?>  <?= $message->getSujet(); ?></b></br>
+                                <b><?= $message->getMembre_Id(); ?><?= $message->getMsg_Date(); ?>  <?= $message->getSujet(); ?></b></br>
                                 <p><?= $message->getMessage(); ?></p>
                             </a>
                         </li>
@@ -135,6 +141,7 @@ $messagesRecu = $donnees["messagesRecu"];
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <p><?= $message->getMembre_Id(); ?></p>
                                         <p><?= $message->getMsg_Date(); ?></p>
                                         <p> <?= $message->getMessage(); ?></p>
                                     </div>
