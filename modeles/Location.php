@@ -19,18 +19,19 @@ class Location
     private $jeux_id;
     private $date_debut;
     private $date_retour;
+    private $transaction_id;
 
 
     // Constructeur
-    public function __construct($location_id = null, $type_paiement_id = "", $membre_id = "", $jeux_id = "", $date_debut = "", $date_retour = "")
+    public function __construct($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_debut = "", $date_retour = "", $transaction_id = "")
     {
-
         $this->setLocationId($location_id);
-        $this->setJeuxId($jeux_id);
         $this->setTypePaiementId($type_paiement_id);
         $this->setMembreId($membre_id);
+        $this->setJeuxId($jeux_id);
         $this->setDateDebut($date_debut);
         $this->setDateRetour($date_retour);
+        $this->setTransactionId($transaction_id);
     }
 
     // "SETTERS"
@@ -48,18 +49,6 @@ class Location
     }
 
     /**
-     * @brief      Permet de définir en ecriture l'attribut de la classe Location
-     * @param      [numeric]  $jeux_id  numéro d'identifiant du jeux
-     * @return     [object]
-     */
-    public function setJeuxId($jeux_id)
-    {
-        if (is_numeric($jeux_id) && trim($jeux_id) != "") {
-            $this->jeux_id = $jeux_id;
-        }
-    }
-
-    /**
      * @brief       Permet de définir en écriture l'attribut de la classe Location
      *
      * @param       [numeric] $type_paiement_id , l'id du type du paiement
@@ -67,7 +56,7 @@ class Location
      */
     public function setTypePaiementId($type_paiement_id)
     {
-        if (is_string($type_paiement_id) && trim($type_paiement_id) != "") {
+        if (is_numeric($type_paiement_id) && trim($type_paiement_id) != "") {
             $this->type_paiement_id = $type_paiement_id;
         }
     }
@@ -79,8 +68,20 @@ class Location
      */
     public function setMembreId($membre_id)
     {
-        if (is_string($membre_id) && trim($membre_id) != "") {
+        if (is_numeric($membre_id) && trim($membre_id) != "") {
             $this->membre_id = $membre_id;
+        }
+    }
+
+    /**
+     * @brief      Permet de définir en ecriture l'attribut de la classe Location
+     * @param      [numeric]  $jeux_id  numéro d'identifiant du jeux
+     * @return     [object]
+     */
+    public function setJeuxId($jeux_id)
+    {
+        if (is_numeric($jeux_id) && trim($jeux_id) != "") {
+            $this->jeux_id = $jeux_id;
         }
     }
 
@@ -108,6 +109,16 @@ class Location
         }
     }
 
+    /**
+     * @brief       Permet de définir en écriture l'attribut de la classe Categorie
+     * @param       [string] $transaction_id ,  le id d'un transaction
+     * @return      [object]
+     */
+    public function setTransactionId($transaction_id){
+        if (is_string($transaction_id) && trim($transaction_id) != ""){
+            $this->transaction_id = $transaction_id;
+        }
+    }
 
 // "GETTERS"-----------------------------------------------------------------------
 
@@ -122,15 +133,14 @@ class Location
     }
 
     /**
-     * @brief      Permet de définir en lecture l'attribut de la classe Location
-     * @param      [numeric]  $jeux_id  numéro d'identifiant du jeux
+     * @brief      Permet de définir en lecture l'attribut de la classe Destinataire
+     * @param      [string]  $membre_id     identifiant du locataire
      * @return     [object]
      */
-    public function getJeuxId()
+    public function getTypePaiementId()
     {
-        return $this->jeux_id;
+        return $this->type_paiement_id;
     }
-
 
     /**
      * @brief      Permet de définir en lecture l'attribut de la classe Destinataire
@@ -143,13 +153,13 @@ class Location
     }
 
     /**
-     * @brief      Permet de définir en lecture l'attribut de la classe Destinataire
-     * @param      [string]  $membre_id     identifiant du locataire
+     * @brief      Permet de définir en lecture l'attribut de la classe Location
+     * @param      [numeric]  $jeux_id  numéro d'identifiant du jeux
      * @return     [object]
      */
-    public function getTypePaiementId()
+    public function getJeuxId()
     {
-        return $this->type_paiement_id;
+        return $this->jeux_id;
     }
 
     /**
@@ -171,4 +181,14 @@ class Location
     {
         return $this->date_retour;
     }
+
+    /**
+     * @brief       Permet de définir en lecture l'attribut de la classe achat
+     * @param       [string] $transaction_id ,  la transaction de un achat 
+     * @return      [object]
+     */
+    public function getTransactionId(){
+        return $this->transaction_id;
+    }
+        
 }

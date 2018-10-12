@@ -16,11 +16,10 @@
 
         // Constructeur
 
-        public function __construct($plateforme_id = 0, $plateforme = 0)
+        public function __construct($plateforme_id = 0, $plateforme = "")
         {
-           $this->setPlateformeId($plateforme);
-           $this->setPlateforme($plateforme_id);
-           
+           $this->setPlateformeId($plateforme_id);
+           $this->setPlateforme($plateforme);
 
         }
 
@@ -45,7 +44,7 @@
          * @return      [object]
          */
         public function setPlateforme($plateforme){
-            if (is_numeric($plateforme) && trim($plateforme) != ""){
+            if (is_string($plateforme) && trim($plateforme) != ""){
                 $this->plateforme = $plateforme;
             }
         }

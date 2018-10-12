@@ -25,7 +25,7 @@
             $this->setMembreId($membre_id);
             $this->setJeuxId($jeux_id);
             $this->setDateAchat($date_achat);
-            $this->setTransactionAchat($transaction_id);
+            $this->setTransactionId($transaction_id);
         }
 
         //SETTERS
@@ -91,12 +91,12 @@
          * @param       [string] $transaction_id ,  le id d'un transaction
          * @return      [object]
          */
-        public function setTransactionAchat($transaction_id){
+        public function setTransactionId($transaction_id){
             if (is_string($transaction_id) && trim($transaction_id) != ""){
                 $this->transaction_id = $transaction_id;
             }
         }
-        
+
 
         // GETTERS
 
@@ -127,16 +127,6 @@
             return $this->membre_id;
         }
 
-        /**
-         * @brief       Permet de définir en lecture l'attribut de la classe achat
-         * @param       [string] $transaction_id ,  la transaction de un achat 
-         * @return      [object]
-         */
-        public function getTransactionId(){
-            return $this->transaction_id;
-        }
-        
-        
           /**
          * @brief       Permet de définir en lecture l'attribut de la classe achat
          * @param       [numeric] type_paiement_id ,  le type de paiement efectue 
@@ -146,7 +136,6 @@
             return $this->type_paiement_id;
         }
 
-      
          /**
          * @brief       Permet de définir en lecture l'attribut de la classe achat
          * @param       [string] $date_achat ,  la date d'ajout dún achat
@@ -154,6 +143,15 @@
          */
         public function getDateAchat(){
             return $this->date_achat;
+        }
+
+        /**
+         * @brief       Permet de définir en lecture l'attribut de la classe achat
+         * @param       [string] $transaction_id ,  l'id e la rtansaction reçu ed paypal.
+         * @return      [object]
+         */
+        public function getTransactionId() {
+            return $this->transaction_id;
         }
 
     }

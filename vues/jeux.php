@@ -171,7 +171,11 @@
                             }
                         });
                     </script>
-                    <!--fin Mensagerie -->
+                    <!-- Mensagerie -->
+                    <!-- <div class="contacter-annoceur mx-auto">
+                        <a href="index.php?Messagerie&action=afficherMessagerie">Contacter annonceur</a> <i class="far fa-comments fa-2x"></i>
+                    </div> -->
+                <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
                         <?= $donnees['nbCommentaires'][0] ?>&nbsp;avis&nbsp;
                         <?php if($donnees["jeu"]->getEvaluationGlobale() >= 0){ ?>
@@ -187,7 +191,7 @@
                         <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeu"]->getJeuxId() ?>" class="btn btn-primary btn-lg btn-block text-uppercase text-white">Modifier ce jeu</a>
                         <?php } 
                         if(isset($_SESSION['id']) && $_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
-                            <a class="btn btn-success btn-lg btn-block text-uppercase text-white" onclick="AcheterJeux('<?= $donnees['jeu']->getJeuxId() ?>')"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
+                            <a class="btn btn-success btn-lg btn-block text-uppercase text-white" onclick="AjouterAuPanier('<?= $donnees['jeu']->getJeuxId() ?>')"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
                         <?php } 
                     } else { ?>
                             <button class="btn btn-success btn-lg btn-block text-uppercase text-white" disabled><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
@@ -235,7 +239,6 @@
 
 <script>
 
-    
     $('#datesLocation').daterangepicker({
         "minYear": new Date().getFullYear(),
         <?= (isset($_SESSION['disponibilite']['dateDebut']) && strtotime($_SESSION['disponibilite']['dateDebut']) >= date("Y-m-d") ? '"minDate": "' . $_SESSION['disponibilite']['dateDebut'] . '", ' : '"minDate": new Date(), ') ?>
@@ -284,13 +287,12 @@
     // $('#datesLocation').data('daterangepicker').setStartDate('03/01/2018');
     // $('#datesLocation').data('daterangepicker').setEndDate('03/31/2018');
 
-
     $("#datesLocation").click(function(){
         desactiverDatesCal();
     });
 
     $(".daterangepicker").mousemove(function(){
-            desactiverDatesCal();
+        desactiverDatesCal();
     });
 
     function desactiverDatesCal() {
@@ -326,12 +328,11 @@
             }
         }
     }
-// Enlève le dernier " > " qui sépare les différentes catégories d'un jeu dans la page "jeux.php"
 
+    // Enlève le dernier " > " qui sépare les différentes catégories d'un jeu dans la page "jeux.php"
     let catDiv = document.getElementsByClassName("cat-symbol");  // Trouve le span qui contient l'icone " > " qui sépare les catégories
     let catDiv2 = (catDiv.length -1);                            // Declare la variable carDiv2 qui contient l'index du dernier élément du HTML Collection "catDiv"
     catDiv[catDiv2].style.display = "none";                      // Cache le dernier élément du HTML Collection en utilisant "display = none"
-
 
 </script>
 

@@ -28,5 +28,22 @@
         }
 
 
-        
+        public function sauvegarder(Categories $unCategorie)
+        {
+            $donnees = array(
+                $unCategorie->getCategorie(),
+                $unCategorie->getCategorieId()
+            );
+
+            if($unCategorie->getCategorieId() && $this->lire($unCategorie->getCategorieId())->fetch())
+            {
+                $sql = "UPDATE " . $this->lireNomTable() . " SET categorie=? WHERE categorie_id=?";
+            }
+            else
+            {
+                $id = array_pop($donnees);
+                $sql = "INSERT INTO " . $this->lireNomTable() . " (categorie) VALUES (?)";
+            }
+            $this->requete($sql, $donnees);
+        }
     }

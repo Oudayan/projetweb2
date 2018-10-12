@@ -11,8 +11,8 @@
                         <ul class="list-unstyled">
                             <li class="text-white"><a href="index.php?Jeux&action=derniers" class="pied-page">Accueil</a></li>
                             <li class="text-white">À propos</li>
-                            <li class="text-white"><a href="index.php?Membres&action=formAjoutMembre" class="pied-page">S'inscrire</a></li>
-                            <li class="text-white"><a>Se connecter</a></li>
+<!--                            <li class="text-white"><a  class="pied-page">S'inscrire</a></li>-->
+                            <li class="text-white"><a href="index.php?Membres&action=formAjoutMembre" class="pied-page">Se connecter</a></li>
                         </ul>
                     </div>
                     <div class="p-4 col-md-3">
@@ -36,7 +36,7 @@
                                 <label>Abonnez-vous à la news-letter et recevez nos nouvelles.</label>
                                 <input type="email" class="form-control" placeholder="">
                             </fieldset>
-                            <button type="submit" class="btn btn-outline-secondary">S'abonner</button>
+                            <button id="news" type="submit" class="btn btn-outline-secondary">S'abonner</button>
                         </form>
                     </div>
                 </div>
@@ -64,3 +64,10 @@
 
     </body> <!-- from header.php -->
 </html> <!-- from header.php -->
+
+        <script>
+            let news = document.getElementById('news');
+            news.addEventListener('click', function () {
+               alert('MERCI! Vous-êtres incrit dans notre newsletter!');
+            });
+        </script>
