@@ -354,11 +354,9 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
 
 <script>
 
-
-    if($("#plateforme").length>0){
-        alert('je suis la');
-    }
-
+    // if($("#plateforme").length>0){
+    //     alert('je suis la');
+    // }
     function modifierCategorie(id, categorie) {
         $("input[type='number']").val(id);
         $("input:text").val(categorie);
