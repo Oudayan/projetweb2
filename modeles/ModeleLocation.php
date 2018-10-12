@@ -40,16 +40,17 @@
 				$location->getJeuxId(),
 				$location->getDateDebut(),
 				$location->getDateRetour(),
+				$location->getTransactionId(),
 				$location->getLocationId()
 			);
 			if($location->getLocationId() && $this->lire($location->getLocationId())->fetch())
 			{
-				$sql = "UPDATE " . $this->lireNomTable() . " SET type_paiement_id=?, membre_id=?, jeux_id=?, date_debut=?, date_retour=? WHERE location_id=?"; 
+				$sql = "UPDATE " . $this->lireNomTable() . " SET type_paiement_id=?, membre_id=?, jeux_id=?, date_debut=?, date_retour=?, transaction_id=? WHERE location_id=?"; 
 			}
 			else
 			{
 				$id = array_pop($donnees);
-				$sql = "INSERT INTO " . $this->lireNomTable() . " (type_paiement_id, membre_id, jeux_id, date_debut, date_retour) VALUES (?, ?, ?, ?, ?)";
+				$sql = "INSERT INTO " . $this->lireNomTable() . " (type_paiement_id, membre_id, jeux_id, date_debut, date_retour, transaction_id) VALUES (?, ?, ?, ?, ?, ?)";
 			}
 			$this->requete($sql, $donnees);
 			return $location->getLocationId() > 0 ? $location->getLocationId() : $this->bd->lastInsertId();

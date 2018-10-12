@@ -36,11 +36,11 @@ class ControleurAchat extends BaseControleur {
                 case "payerPanier" :
                     if (isset($_SESSION["id"]) && isset($_SESSION["cart"])) {
                         foreach ($_SESSION["cart"] as $jeux) {
-                            if ($jeux->getLocation() == 1) {
+                            if ($jeux->getLocation()) {
                                 if (isset($_SESSION["datesLocation"])) {
                                     $dates = explode(" au ", $_SESSION["datesLocation"]);
-                                    // ($location_id = 0, $type_paiement_id = "", $membre_id = "", $jeux_id = "", $date_debut = "", $date_retour = "")
-                                    $location = new Location(0, '3', $_SESSION["id"], $jeux->getJeuxId(), $dates[0], $dates[1]);
+                                    // ($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_debut = "", $date_retour = "", $transaction_id = "")
+                                    $location = new Location(0, '3', $_SESSION["id"], $jeux->getJeuxId(), $dates[0], $dates[1], $params['transaction_id']);
                                     $$modeleLocation->sauvegarde($location);
                                 }
                             } else {
@@ -54,7 +54,11 @@ class ControleurAchat extends BaseControleur {
                         foreach ($_SESSION["cart"] as $jeux) {
                             array_splice($_SESSION["cart"], $i, 1);
                             array_splice($_SESSION["cartImages"], $i, 1);
-                            $i++;
+                            array_splice($_SESSION["quantite"], $i, 1);
+                            $_SESSION["prixTotal"] -= $_SESSION["prix"][$i];
+                            array_splice($_SESSION["prix"], $i, 1);
+                            array_splice($_SESSION["datesLocation"], $i, 1);
+                        $i++;
                         }
                         echo "success";
                     }
@@ -126,7 +130,7 @@ class ControleurAchat extends BaseControleur {
                                 array_splice($_SESSION["cart"], $i, 1);
                                 array_splice($_SESSION["cartImages"], $i, 1);
                                 array_splice($_SESSION["quantite"], $i, 1);
-                                $_SESSION["prixTotal"] -= $_SESSION["prix"];
+                                $_SESSION["prixTotal"] -= $_SESSION["prix"][$i];
                                 array_splice($_SESSION["prix"], $i, 1);
                                 array_splice($_SESSION["datesLocation"], $i, 1);
                                 break;
