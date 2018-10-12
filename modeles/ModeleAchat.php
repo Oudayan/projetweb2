@@ -111,7 +111,8 @@ class ModeleAchat extends BaseDAO
             $unAchat->getMembreId(),
             $unAchat->getJeuxId(),
             $unAchat->getDateAchat(),
-            $unAchat->getTransactionId());
+            $unAchat->getTransactionId()
+        );
         return $this->requete($sql, $donnees);
     }
 
