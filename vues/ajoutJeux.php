@@ -69,7 +69,7 @@ if(isset($_SESSION['id']))
                     
                     <div class="col-lg-4">
                         <label for="pwd">Concepteur :</label>
-                        <input type="text" class="form-control" id="concepteur" name="concepteur" value="<?=$concepteur?>">
+                        <input type="text" class="form-control" id="concepteur" name="concepteur" value="<?=$concepteur?>" placeholder="">
                     </div>
                 </div>
                 <hr>
@@ -279,15 +279,55 @@ else{
     $('#groupeImages').ready(function(){
         updateDeleteButtons();
     });
-
-    var titre = $('#titre').val();
-    var prix = $('#prix').val();
-    var concepteur = $('#concepteur').val();
-    var description = $('#description').val();
+    
+    
     
     console.log(titre);
     console.log(prix);
     console.log(concepteur);
     console.log(description);
-    if ( titre == "")
+    function chkTitre(){
+        var titre = $('#titre').val();
+            if ( titre == ""){
+            $('#titre').attr("placeholder", "Entrez le titre de jeu");
+        }
+    }
+
+    function chkPrix(){
+        var prix = $('#prix').val();
+        if ( prix == ""){
+            $('#prix').attr("placeholder", "Entrez le prix de jeu");
+        }
+    }
+
+    function chkConcepteur(){
+        var concepteur = $('#concepteur').val();
+        if ( concepteur == ""){
+            $('#concepteur').attr("placeholder", "Entrez le concepteur de jeu");
+        }
+    }
+
+    function chkDescription(){
+        var description = $('#description').val();
+        if ( description == ""){
+            $('#description').attr("placeholder", "Entrez le description de jeu");
+        }
+    }
+    
+    $('#titre').blur(function(){
+        chkTitre();
+    });
+
+    $('#prix').blur(function(){
+        chkPrix();
+    });
+
+    $('#concepteur').blur(function(){
+        chkConcepteur();
+    });
+
+    $('#description').blur(function(){
+        chkDescription();
+    });
+
 </script>
