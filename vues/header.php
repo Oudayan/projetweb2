@@ -151,9 +151,10 @@
                     </div>
                 </div>
             </div>
-            <?php if(isset($_SESSION["msg"]) && $_SESSION["msg"] != ""){
-                echo '<h5 class="text-warning text-center mt-1">' . $_SESSION["msg"] . '</h5>';
-            } ?>
+<!--            chunliang le 11/10/2018 pour enlever le div d`erreur de message-->
+<!--            --><?php //if(isset($_SESSION["msg"]) && $_SESSION["msg"] != ""){
+//                echo '<h5 class="text-warning text-center mt-1">' . $_SESSION["msg"] . '</h5>';
+//            } ?>
         </header>
         <main> <!-- fini dans footer.php -->
         <script>

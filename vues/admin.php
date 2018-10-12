@@ -212,7 +212,7 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                                 </button>
                             </h2>
 
-                            <!-- Modal -->
+                            <!-- Modal categorie -->
                             <div class="modal fade" id="categorie" tabindex="-1" role="dialog"
                                  aria-labelledby="categorieLabel"
                                  aria-hidden="true">
@@ -281,6 +281,41 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                                     Ajouter
                                 </button>
                             </h2>
+
+                            <!-- Modal plateforme -->
+                            <div class="modal fade" id="plateforme" tabindex="-1" role="dialog"
+                                 aria-labelledby="plateformeLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Ajouter une plateforme</h5>
+                                            <button type="button" class="close " data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <form action="index.php?Admin&action=sauvegarderPlateforme" method="POST">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="modification">Nouvelle plateforme</label>
+                                                    <input type="text" id="plateforme" name="plateforme" value="">
+                                                    <input type="number" id="plateforme_id" name="plateforme_id" hidden
+                                                           value="0">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Fermer
+                                                </button>
+                                                <input type="submit" class="btn btn-primary" value="Enregistrer">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <table class="table table-hover ">
                                 <thead class="thead-dark">
                                 <tr>
@@ -290,14 +325,18 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php for ($i = 0;
-                                    $i < count($donnees['plateforme']);
+                                <?php for ($i = 0; $i < count($donnees['plateformes']);
                                     $i++): ?>
                                     <tr>
-                                        <td><?= $donnees['plateforme'][$i]->getPlateformeId() ?></td>
-                                        <td><?= $donnees['plateforme'][$i]->getPlateforme() ?></td>
-                                        <td><a href="" class="btn btn-outline-info m-1">Modifier</a>
-                                <?php endfor; ?>
+                                        <td><?= $donnees['plateformes'][$i]->getPlateformeId() ?></td>
+                                        <td><?= $donnees['plateformes'][$i]->getPlateforme() ?></td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-info ml-3" data-toggle="modal" data-target="#plateforme"
+                                                    onclick="modifierPlateforme(<?= $donnees['plateformes'][$i]->getPlateformeId() ?>, '<?= $donnees['plateformes'][$i]->getPlateforme() ?>')">
+                                                Modifier
+                                            </button>
+                                        </td>
+                                        <?php endfor; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -318,4 +357,10 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
         $("input[type='number']").val(id);
         $("input:text").val(categorie);
     }
+
+   function modifierPlateforme(id,plateforme) {
+       $("input[type='number']").next().val(id);
+       $("input:text").next().val(plateforme);
+    }
 </script>
+e

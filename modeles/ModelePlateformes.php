@@ -36,12 +36,12 @@
 
             if($unPlateforme->getPlateformeId() && $this->lire($unPlateforme->getPlateformeId())->fetch())
             {
-                $sql = "UPDATE " . $this->lireNomTable() . " SET platforme=? WHERE platforme_id=?";
+                $sql = "UPDATE " . $this->lireNomTable() . " SET plateforme=? WHERE plateforme_id=?";
             }
             else
             {
                 $id = array_pop($donnees);
-                $sql = "INSERT INTO " . $this->lireNomTable() . " (platforme) VALUES (?)";
+                $sql = "INSERT INTO " . $this->lireNomTable() . " (plateforme) VALUES (?)";
             }
             $this->requete($sql, $donnees);
         }

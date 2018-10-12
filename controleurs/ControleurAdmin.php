@@ -26,7 +26,7 @@ class ControleurAdmin extends BaseControleur
         $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
         $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
-        $modelePlatformes = $this->lireDAO("Platformes");
+        $modelePlatformes = $this->lireDAO("Plateformes");
         $modeleLocation = $this->lireDao("Location");
 
 
@@ -126,9 +126,10 @@ class ControleurAdmin extends BaseControleur
                     $this->afficherAdmin(4);
                     break;
 
-                case "sauvegarderPlatforme" :
-                    if (isset($params['platforme_id']) && isset($params['platforme']) && isset($_SESSION["id"]) && ($_SESSION["type"] == 2 || $_SESSION["type"] == 3)) {
-                        $unePlatforme = new Plateformes($params['platforme_id'], $params['platforme']);
+                case "sauvegarderPlateforme" :
+                    if (isset($params['plateforme_id']) && isset($params['plateforme']) && isset($_SESSION["id"]) && ($_SESSION["type"] == 2 || $_SESSION["type"] == 3)) {
+                        $unePlatforme = new Plateformes($params['plateforme_id'], $params['plateforme']);
+                        var_dump($unePlatforme);
                         $modelePlatformes->sauvegarder($unePlatforme);
                     }
                     else {
@@ -182,7 +183,7 @@ class ControleurAdmin extends BaseControleur
         }
 
         $donnees['categories'] = $modeleCategories->lireToutesCategories();
-        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformes();
+        $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformes();
 
 
 //         echo "<pre>";
