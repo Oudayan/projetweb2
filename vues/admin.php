@@ -284,8 +284,7 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
 
                             <!-- Modal plateforme -->
                             <div class="modal fade" id="plateforme" tabindex="-1" role="dialog"
-                                 aria-labelledby="plateformeLabel"
-                                 aria-hidden="true">
+                                 aria-labelledby="plateformeLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -299,10 +298,9 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                                         <form action="index.php?Admin&action=sauvegarderPlateforme" method="POST">
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label for="modification">Nouvelle plateforme</label>
+                                                    <label for="plateforme">Nouvelle plateforme</label>
                                                     <input type="text" id="plateforme" name="plateforme" value="">
-                                                    <input type="number" id="plateforme_id" name="plateforme_id" hidden
-                                                           value="0">
+                                                    <input type="number" id="plateforme_id" name="plateforme_id" hidden value="0">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -358,16 +356,16 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
     //     alert('je suis la');
     // }
     function modifierCategorie(id, categorie) {
-        $("input[type='number']").val(id);
-        $("input:text").val(categorie);
+        // $("input[type='number']").val(id);
+        // $("input:text").val(categorie);
+        $("#categorie input[type='number']").val(id);
+        $("#categorie input:text").val(categorie);
 
     }
 
-   function modifierPlateforme(id,plateforme) {
-
-       $("#plateforme").val(plateforme);
-
-       $("input[type='number']").next().val(id);
-       $("input:text").next().val(plateforme);
+    function modifierPlateforme(id, plateforme) {
+        $("#plateforme input[type='number']").val(id);
+        $("#plateforme input:text").val(plateforme);
     }
+
 </script>

@@ -129,7 +129,6 @@ class ControleurAdmin extends BaseControleur
                 case "sauvegarderPlateforme" :
                     if (isset($params['plateforme_id']) && isset($params['plateforme']) && isset($_SESSION["id"]) && ($_SESSION["type"] == 2 || $_SESSION["type"] == 3)) {
                         $unePlatforme = new Plateformes($params['plateforme_id'], $params['plateforme']);
-                        var_dump($unePlatforme);
                         $modelePlatformes->sauvegarder($unePlatforme);
                     }
                     else {
