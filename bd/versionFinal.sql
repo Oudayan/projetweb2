@@ -40,6 +40,7 @@ create table `achat`
    `membre_id`            int not null,
    `jeux_id`              int not null,
    `date_achat`           datetime not null,
+   `transaction_id`       varchar(255),
    primary key (achat_id)
 );
 
@@ -119,6 +120,7 @@ create table location
    `jeux_id`              int not null,
    `date_debut`           datetime not null,
    `date_retour`          datetime not null,
+   `transaction_id`       varchar(255),
    primary key (location_id)
 );
 
@@ -351,8 +353,8 @@ INSERT INTO `commentaire_jeux` (`commentaire_jeux_id`, `jeux_id`, `membre_id`, `
 -- Contenu de la table `achat`
 --
 
-INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `date_achat`) VALUES
-(1, 2, 1, 2, '2018-09-16 04:13:54');
+INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `date_achat`, `transaction_id`) VALUES
+(1, 2, 1, 2, '2018-09-16 04:13:54', NULL);
 
 
 
@@ -406,8 +408,8 @@ INSERT INTO `categorie_jeux` (`jeux_id`, `categorie_id`) VALUES
 -- Contenu de la table `location`
 --
 
-INSERT INTO `location` (`location_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `date_debut`, `date_retour`) VALUES
-(1, 2, 1, 1, '2018-09-10 09:15:54', '2018-09-16 04:13:54');
+INSERT INTO `location` (`location_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `date_debut`, `date_retour`, `transaction_id`) VALUES
+(1, 2, 1, 1, '2018-09-10 09:15:54', '2018-09-16 04:13:54', NULL);
 
 
 --
