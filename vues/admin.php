@@ -1,6 +1,4 @@
-<?php
-
-if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 2)) { ?>
+<?php if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 2)) { ?>
     <h1 class="text-center my-3">Adminstration</h1>
     <div class="d-flex container">
 
@@ -74,7 +72,7 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                         <th scope="col">Image</th>
                         <th scope="col">Titre</th>
                         <th scope="col">Propriétaire</th>
-                        <th scope="col">Date d'ajout</th>
+                        <th scope="col">Transaction</th>
                         <th class="text-center" colspan="3" scope="col">Opération</th>
                     </tr>
                     </thead>
@@ -90,22 +88,22 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                                 <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>'><?= $donnees['jeux'][$i]->getTitre() ?></a>
                             </td>
                             <td><?= $donnees['membreJeu'][$i]->getPrenom() . ' ' . $donnees['membreJeu'][$i]->getNom() ?></td>
-                            <td><?= $donnees['jeux'][$i]->getDateAjout(); ?></td>
+                            <td><?= $donnees['jeux'][$i]->getLocation() == 1 ? "Location" : "Vente" ?></td>
                             <?php if ($donnees['jeux'][$i]->getJeuxValide() == 0) { ?>
                                 <td>
                                     <a href="index.php?Admin&action=validerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-success m-1">Valider</a>
                                 </td>
                             <?php } else {
-                                if ($donnees['jeux'][$i]->getlocation() == 0) {
-                                    if ($donnees['jeux'][$i]->getJeuxActif() == 0) { ?>
-                                        <td>
-                                            <a href="index.php?Admin&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-success m-1">Activer</a>
-                                        </td>
-                                    <?php } else { ?>
-                                        <td>
-                                            <a href="index.php?Admin&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-info m-1">Désactiver</a>
-                                        </td>
-                                    <?php }
+                                if ($donnees['jeux'][$i]->getJeuxActif() == 0) { ?>
+                                    <td>
+                                        <a href="index.php?Admin&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-success m-1">Activer</a>
+                                    </td>
+                                <?php } else { ?>
+                                    <td>
+                                        <a href="index.php?Admin&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-info m-1">Désactiver</a>
+                                    </td>
+                                <?php }
+                                if ($donnees['jeux'][$i]->getlocation() == 1) {
                                     if ($donnees['jeux'][$i]->getJeuxBanni() == 0) { ?>
                                         <td>
                                             <a href="index.php?Admin&action=bannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-danger m-1">Bannir</a>
@@ -115,11 +113,13 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                                             <a href="index.php?Admin&action=debannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-warning m-1">Dé-bannir</a>
                                         </td>
                                     <?php }
-                                } else { ?>
+                                } else { 
+                                    if ($donnees['jeux'][$i]->getJeuxBanni() == 1) { ?>
                                     <td>
                                         <button type="button" class="btn btn-outline-success" disabled>Vendu</button>
                                     </td>
-                                <?php }
+                                    <?php }
+                                }
                             } ?>
                         </tr>
                     <?php } ?>
@@ -187,7 +187,7 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                                 <tr>
                                     <td><?= $donnees['achats'][$i]->getMembreId() ?></td>
                                     <td>
-                                        <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeuLocation'][$i]->getJeuxId() ?>'><?= $donnees['jeuLocation'][$i]->getTitre() ?></a>
+                                        <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeuAchat'][$i]->getJeuxId() ?>'><?= $donnees['jeuAchat'][$i]->getTitre() ?></a>
                                     </td>
                                     <td><?= $donnees['proprietaireJeuAchat'][$i]->getPrenom() . ' ' . $donnees['proprietaireJeuAchat'][$i]->getNom() ?></td>
                                     <td><?= $donnees['membreAchat'][$i]->getPrenom() . ' ' . $donnees['membreAchat'][$i]->getNom() ?></td>

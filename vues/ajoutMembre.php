@@ -1,4 +1,3 @@
-<?php?>
 <div class="py-5 text-white bg-form">
     <div class="container">
         <div class="row">
