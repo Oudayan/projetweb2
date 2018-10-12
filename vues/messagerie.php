@@ -5,6 +5,7 @@ $messagesRecu = $donnees["messagesRecu"];
 ?>
 <input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : ""?>"/>
 <div class="container">
+    <h1 class="text-center my-3">Messagerie</h1>
     <div class="h3 mt-5 mb-5" style="display:flex;">
 
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -19,17 +20,17 @@ $messagesRecu = $donnees["messagesRecu"];
                     foreach ($messagesRecu as $message) {
                         ?>
                         <li>
-                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?= $message->getMsg_Id(); ?>"> 
-                                <b><?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom() ?> <?= $message->getMsg_Date(); ?>  <?= $message->getSujet(); ?></b><br/>
+                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-recu<?= $message->getMsg_Id(); ?>"> 
+                                <b><?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom() ?><br><?= $message->getMsg_Date(); ?><br><?= $message->getSujet(); ?></b><br>
                                 <p><?= $message->getMessage(); ?></p>
                             </a>
                         </li>
-                        <div class="modal fade" id="exampleModal<?= $message->getMsg_Id(); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modal-recu<?= $message->getMsg_Id(); ?>" tabindex="-1" role="dialog" aria-labelledby="modal-recu<?= $message->getMsg_Id(); ?>Label" aria-hidden="true">
                             <input type="hidden" id="destinataire_id<?= $message->getMsg_Id(); ?>" value="<?= $message->getMembre_Id(); ?>"/>
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel"><?= $message->getSujet(); ?></h5>
+                                        <h5 class="modal-title" id="modal-recu<?= $message->getMsg_Id(); ?>Label"><?= $message->getSujet(); ?></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -121,22 +122,22 @@ $messagesRecu = $donnees["messagesRecu"];
                     foreach ($messagesEnvoyes as $message) {
                         ?>
                         <li>
-                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?= $message->getMsg_Id(); ?>"> 
-                                <b><?= $message->getMembre_Id(); ?><?= $message->getMsg_Date(); ?>  <?= $message->getSujet(); ?></b></br>
+                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-envoye<?= $message->getMsg_Id(); ?>"> 
+                                <b><?= $_SESSION['nomComplet']; ?><br><?= $message->getMsg_Date(); ?><br><?= $message->getSujet(); ?></b><br>
                                 <p><?= $message->getMessage(); ?></p>
                             </a>
                         </li>
-                        <div class="modal fade" id="exampleModal<?= $message->getMsg_Id(); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modal-envoye<?= $message->getMsg_Id(); ?>" tabindex="-1" role="dialog" aria-labelledby="modal-envoye<?= $message->getMsg_Id(); ?>Label" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel"><?= $message->getSujet(); ?></h5>
+                                        <h5 class="modal-title" id="modal-envoye<?= $message->getMsg_Id(); ?>Label"><?= $message->getSujet(); ?></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><?= $message->getMembre_Id(); ?></p>
+                                        <p><?= $_SESSION['nomComplet']; ?></p>
                                         <p><?= $message->getMsg_Date(); ?></p>
                                         <p> <?= $message->getMessage(); ?></p>
                                     </div>

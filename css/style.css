@@ -203,6 +203,7 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 
 
 .container-shopping-cart {
+    position: relative;
     margin: auto;
     width: 100%;
  
@@ -226,10 +227,13 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 }
 
 .shopping-cart {
-    margin: 20px 500px;
+    position: absolute;
+    /* margin: 20px 600px; */
+    top: 75px;
+    right: 0;
     float: right;
     background: white;
-    width: 620px;
+    width: auto;
     position: fixed;
     border-radius: 3px;
     padding: 20px;

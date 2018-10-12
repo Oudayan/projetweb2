@@ -48,8 +48,7 @@
                             <?php } ?>
                         <?php } ?>
                         <ul class="navbar-nav mx-auto">
-                            <a href="index.php?Jeux&action=rechercherJeux" class="btn text-white m-1">
-                                <i class="fas fa-search"></i> Rechercher Jeux</a>
+                            <a href="index.php?Jeux&action=rechercherJeux" class="btn text-white m-1"><i class="fas fa-search"></i> Rechercher Jeux</a>
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item mx-1">
@@ -61,11 +60,12 @@
                                         <i class="far fa-user-circle"></i> Se connecter</a>
                                 <?php } ?>
                             </li>
+                            <!-- Cart -->
                             <li class="nav-item mx-1">
                                 <button id="cart" class="btn btn-info btn-block dropdown-toggle text-uppercase text-white m-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-shopping-cart"> <span class="badge" id="cartQuantity"><?= isset($_SESSION["cart"]) ? sizeof($_SESSION["cart"]) : "0" ?></span></i>
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-right container" id="shopping-cart">
+                                <div class="dropdown-menu dropdown-menu-right container container-shopping-cart" id="shopping-cart">
                                     <div class="shopping-cart">
                                         <table class="table table-striped table-panier">
                                         <?php if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
@@ -103,8 +103,9 @@
                                     <div class="dropdown-item">
                                         <a href="index.php?Achat&action=afficherPanier" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Check-out</a>
                                     </div>
-                                </div> <!--end shopping-cart -->
+                                </div>
                             </li>
+                            <!--end shopping-cart -->
                             <li class="toggle-item">
                                 <div class="btn-toggle">
                                     <div class="bar"></div>

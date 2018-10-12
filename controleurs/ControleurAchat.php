@@ -54,6 +54,7 @@ class ControleurAchat extends BaseControleur {
                                 // ($achat_id = 0, $type_paiement_id= 0, $membre_id = 0, $jeux_id = 0, $date_achat = "", $transaction_id = "")
                                 $achat = new Achat(0, '3', $_SESSION["id"], $jeux->getJeuxId(), $date, $transId);
                                 $modeleAchat->sauvegarde($achat);
+                                $modeleJeux->bannirJeu($jeux->getJeuxId());
                             }
                             $i++;
                         }

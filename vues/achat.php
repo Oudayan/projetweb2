@@ -122,6 +122,9 @@
                 <tr>
                     <td colspan="5"><strong>Le panier est vide</strong></td>
                 </tr>
+                <tr>
+                    <td colspan="5"><a href="index.php?Jeux&action=rechercherJeux" class="btn btn-info m-5"><i class="fas fa-search"></i> Continuer à magasiner</a>
+                </tr>
             <?php } ?>
         </table>
     </div>
