@@ -74,6 +74,13 @@
         </div>
     </form>
 </div>
+
+    <?php
+        if(count($donnees['jeux']) == 0) {
+            echo '<h2 class="text-center my-4"> Aucun jeu trouvé! </h2>';
+    } else {
+    ?>
+
 <div class="py-2">
     <div class="container">
         <div class="row">
@@ -123,7 +130,7 @@
                 </div>
             </div>
 
-            <?php } ?>
+            <?php }} ?>
 
         </div>
     </div>
