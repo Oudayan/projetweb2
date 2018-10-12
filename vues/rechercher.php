@@ -46,17 +46,17 @@
                 <div class="pb-2">
                     <button type="button" class="btn btn-info ml-3" data-toggle="collapse" data-target="#categories">Catégories</button></div>
                 <div id="categories" class="collapse<?= isset($donnees["catShow"]) ? $donnees["catShow"] : "" ?>">
-                <div class="d-flex flex-wrap justify-content-between my-2">
-                    <?php
-                    $counter = count($donnees['categories']);
-                    for ($i = 0; $i < $counter; $i++) { ?>
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <input type="checkbox" value="'<?= $donnees['categories'][$i]->getCategorieId() ?>'" name=categories<?= $donnees['categories'][$i]->getCategorieId() - 1 ?> <?= isset($_SESSION["rechercher"]['categories' . $i]) ? $_SESSION["rechercher"]['categories' . $i] : '' ?>> <a style="color: whitesmoke"> <?= $donnees['categories'][$i]->getCategorie() ?></a>
-                        </div>
-                    <?php } ?>
+                    <div class="d-flex flex-wrap justify-content-between my-2">
+                        <?php
+                        $counter = count($donnees['categories']);
+                        for ($i = 0; $i < $counter; $i++) { ?>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <input type="checkbox" value="'<?= $donnees['categories'][$i]->getCategorieId() ?>'" name=categories<?= $donnees['categories'][$i]->getCategorieId() - 1 ?> <?= isset($_SESSION["rechercher"]['categories' . $i]) ? $_SESSION["rechercher"]['categories' . $i] : '' ?>> <a style="color: whitesmoke"> <?= $donnees['categories'][$i]->getCategorie() ?></a>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
-           </div>
         </div>
 
 <!--Par mot clé et buttons recherche et reset-->
@@ -69,7 +69,6 @@
                 </div>
                 <div class="col-sm mb-2"><input style="width: 100%" type="submit" value="Chercher" class="btn btn-success" >
                 </div>
-
             </div>
         </div>
     </form>
