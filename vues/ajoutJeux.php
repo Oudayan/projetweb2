@@ -94,7 +94,7 @@ if(isset($_SESSION['id']))
                             <?php
                             for($i = 0; $i < count($donnees['plateforme']); $i++)
                             {
-                                echo "<option value='". $donnees['plateforme'][$i]->getPlateformeId() . "' " . ($donnees['plateforme'][$i]->getPlateformeId() == $plateforme_id ? 'selected' : '') . ">" . $donnees['plateforme'][$i]->getPlateforme() . "</option>";
+                                echo "<option value='". $donnees['plateforme'][$i]->getPlateformeId() . "' " . ($donnees['plateforme'][$i]->getPlateformeId() == $plateforme_id ? 'selected' : '') . "id='plate'>" . $donnees['plateforme'][$i]->getPlateforme() . "</option>";
                             }
                             ?>
                         </select>
@@ -119,7 +119,7 @@ if(isset($_SESSION['id']))
                 <div class="form-group row">
                     <div class="col-lg-4">
                         <label>Description :</label>
-                        <textarea name="description" rows="8" cols="60"><?=$description?></textarea>
+                        <textarea id="description" name="description" rows="8" cols="60"><?=$description?></textarea>
                     </div> 
                 </div>
                 <hr>
@@ -279,4 +279,15 @@ else{
     $('#groupeImages').ready(function(){
         updateDeleteButtons();
     });
+
+    var titre = $('#titre').val();
+    var prix = $('#prix').val();
+    var concepteur = $('#concepteur').val();
+    var description = $('#description').val();
+    
+    console.log(titre);
+    console.log(prix);
+    console.log(concepteur);
+    console.log(description);
+    if ( titre == "")
 </script>
