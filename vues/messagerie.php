@@ -1,13 +1,7 @@
-
-<?php
-$messagesEnvoyes = $donnees["messagesEnvoyes"];
-$messagesRecu = $donnees["messagesRecu"];
-?>
-<input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : ""?>"/>
 <div class="container">
     <h1 class="text-center my-3">Messagerie</h1>
+    <input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : ""?>"/>
     <div class="h3 mt-5 mb-5" style="display:flex;">
-
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Messages</a>
             <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Envoyés</a>
@@ -15,9 +9,9 @@ $messagesRecu = $donnees["messagesRecu"];
         <div class="tab-content ml-3" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <ul class="list-message">
-                    <?php
+                <?php if (isset($donnees["messagesRecu"])) {
                     $i=0;
-                    foreach ($messagesRecu as $message) {
+                    foreach ($donnees["messagesRecu"] as $message) {
                         ?>
                         <li>
                             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-recu<?= $message->getMsg_Id(); ?>"> 
@@ -113,13 +107,14 @@ $messagesRecu = $donnees["messagesRecu"];
                             </div>
                         </div>
                         <?php $i++; 
-                    } ?>
+                    } 
+                } ?>
                 </ul>
             </div>
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                 <ul class="list-message">
-                    <?php
-                    foreach ($messagesEnvoyes as $message) {
+                <?php if (isset($donnees["messagesEnvoyes"])) {
+                    foreach ($donnees["messagesEnvoyes"] as $message) {
                         ?>
                         <li>
                             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-envoye<?= $message->getMsg_Id(); ?>"> 
@@ -147,8 +142,8 @@ $messagesRecu = $donnees["messagesRecu"];
                                 </div>
                             </div>
                         </div>
-
-                    <?php } ?>
+                    <?php }
+                } ?>
                 </ul>
             </div> 
         </div> 
