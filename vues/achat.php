@@ -4,45 +4,38 @@
         <table class="table table-striped table-panier">
             <tr>
                 <th colspan="2">Jeux</th>
-                <th>Quantite</th>
                 <th>Prix</th>
+                <th>Quantite</th>
+                <th>Sous-total</th>
                 <th></th>
             </tr>
             <?php
             if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
                 $i = 0;
-                $total = 0;
-                foreach ($_SESSION["cart"] as $jeux) {
-                    ?>
-
+                foreach ($_SESSION["cart"] as $jeux) { ?>
                     <tr id="jeuxAchete<?= $jeux->getJeuxId() ?>">
                         <td class="text-center">
                             <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $jeux->getJeuxId() ?>"  class="img-thumbnail" >
-                                <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i] ?>" alt="Card image cap">
+                                <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i]->getCheminPhoto() ?>" alt="Card image cap">
                             </a>
                         </td>
                         <td class="text-center"><?= $jeux->getTitre() ?></td>
-                        <td class="text-center">x1</td>
                         <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
+                        <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
+                        <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> $CAD</td>
                         <td class="text-center">
                             <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                         </td>
                     </tr>
-                    <?php
-                    $i++;
-                    $total = $total + $jeux->getPrix();
-                }
-                ?>
+                    <?php $i++;
+                } ?>
                 <tr>
                     <td class="totalPanier" colspan="3">Total</td>
-                    <td><?= $total ?> $CAD</td>
+                    <td><?= number_format($_SESSION["prixTotal"], 2) ?> $CAD</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="5">
-
-
-
                         <div id="paypal-button-container"></div>
                         <script src="https://www.paypalobjects.com/api/checkout.js"></script>
                         <script>
@@ -117,14 +110,9 @@
                             }, '#paypal-button-container');
                         </script>
 
-
-
-
                     </td>
                 </tr>
-                <?php
-            } else {
-                ?>
+                <?php } else { ?>
                 <tr>
                     <td colspan="5"><strong>le panier est vide</strong></td>
                 </tr>

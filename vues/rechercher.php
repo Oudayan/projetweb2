@@ -7,11 +7,10 @@
             <div class="row mt-2">
                 <div class="col-sm">
                     <select name="plateforme" id="plateforme" class="form-control mb-2" style="width: 100%">
-                        <option value="">Plateforme</option>
+                        <option value="" selected>Plateforme</option>
                         <?php
-//                        echo '<option value="'.  $donnees['plateforme'][$i]->getPlateformeId() .'">' . $donnees['plateforme'][$i]->getPlateforme() . '</option>';
                         for ($i = 0; $i < count($donnees['plateforme']); $i++) { ?>
-                            <option value="<?=  $donnees['plateforme'][$i]->getPlateformeId() ?>" <?= isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? "selected" : "" ?>><?=  $donnees['plateforme'][$i]->getPlateforme() ?></option>
+                            <option value="<?=  $donnees['plateforme'][$i]->getPlateformeId() ?>" <?= isset($_SESSION["rechercher"]["plateforme"]) && $_SESSION["rechercher"]["plateforme"] == $donnees['plateforme'][$i]->getPlateformeId() ? 'selected' : "" ?>><?=  $donnees['plateforme'][$i]->getPlateforme() ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -83,37 +82,40 @@
                 <div class="card mb-4 box-shadow cardjeux">
                     <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>"><img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap"></a>
                     <div class="card-body">
-                        <p class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></p>
-                        <?php
-                        if ($donnees["jeux"][$i]->getPlateformeId() == 1 ) {
-                            echo '<p title="Playstation 4" class="fab fa-playstation"></p> Playstation 4';
-                        }
-                        else if ($donnees["jeux"][$i]->getPlateformeId() == 2 ) {
-                            echo '<p title="Xbox One" class="fab fa-xbox"></p> Xbox One';
-                        }
-                        else if ($donnees["jeux"][$i]->getPlateformeId() == 3 ) {
-                            echo '<p title="Nintendo Wii U" class="fab fa-nintendo-switch"></p> Nintendo Wii U';
-                        }
-                        else if ($donnees["jeux"][$i]->getPlateformeId() == 4 ) {
-                            echo '<p title="Windows" class="fab fa-windows"></p> Windows';
-                        }
-                        else if ($donnees["jeux"][$i]->getPlateformeId() == 5 ) {
-                            echo '<p title="Playstation 3" class="fab fa-playstation"></p> Playstation 3';
-                        }
-                        else if ($donnees["jeux"][$i]->getPlateformeId() == 6 ) {
-                            echo '<p title="Xbox 360" class="fab fa-xbox"></p> Xbox 360';
-                        }
-                        else if ($donnees["jeux"][$i]->getPlateformeId() == 7 ) {
-                            echo '<p title="Nintendo Switch" class="fab fa-nintendo-switch"></p> Nintendo Switch';
-                        }
-                        else if ($donnees["jeux"][$i]->getPlateformeId() == 8 ) {
-                            echo '<p title="Playstation Vita" class="fab fa-playstation"></p> Playstation Vita';
-                        }
-                        ?>
+                        <h6 class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></h6>
+                        <div class="pt-2">
+                            <?php
+                            if ($donnees["jeux"][$i]->getPlateformeId() == 1 ) {
+                                echo '<p title="Playstation 4" class="fab fa-playstation"></p> Playstation 4';
+                            }
+                            else if ($donnees["jeux"][$i]->getPlateformeId() == 2 ) {
+                                echo '<p title="Xbox One" class="fab fa-xbox"></p> Xbox One';
+                            }
+                            else if ($donnees["jeux"][$i]->getPlateformeId() == 3 ) {
+                                echo '<p title="Nintendo Wii U" class="fab fa-nintendo-switch"></p> Nintendo Wii U';
+                            }
+                            else if ($donnees["jeux"][$i]->getPlateformeId() == 4 ) {
+                                echo '<p title="Windows" class="fab fa-windows"></p> Windows';
+                            }
+                            else if ($donnees["jeux"][$i]->getPlateformeId() == 5 ) {
+                                echo '<p title="Playstation 3" class="fab fa-playstation"></p> Playstation 3';
+                            }
+                            else if ($donnees["jeux"][$i]->getPlateformeId() == 6 ) {
+                                echo '<p title="Xbox 360" class="fab fa-xbox"></p> Xbox 360';
+                            }
+                            else if ($donnees["jeux"][$i]->getPlateformeId() == 7 ) {
+                                echo '<p title="Nintendo Switch" class="fab fa-nintendo-switch"></p> Nintendo Switch';
+                            }
+                            else if ($donnees["jeux"][$i]->getPlateformeId() == 8 ) {
+                                echo '<p title="Playstation Vita" class="fab fa-playstation"></p> Playstation Vita';
+                            }
+                            ?>
+                        </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary"><?= $donnees["jeux"][$i]->getLocation() == 1 ? "Louer" : "Acheter" ?></a>
+                                <h6><?= $donnees["jeux"][$i]->getLocation() == 1 ? "À louer" : "À vendre" ?></h6>
+                                <!-- <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary"><?= $donnees["jeux"][$i]->getLocation() == 1 ? "Louer" : "Acheter" ?></a> -->
                             </div>
                             <small class="text-muted">Prix : <?= round($donnees['jeux'][$i]->getPrix(), 2) ?> $CAD</small>
                         </div>
@@ -129,15 +131,13 @@
 
 <script>
     $('#datesLocation').daterangepicker({
+        "minYear": new Date().getFullYear(),
+        "minDate": new Date(),
         "showDropdowns": true,
         "autoApply": true,
         "dateLimit": {
             "months": 3
         },
-        // singleDatePicker: true,
-        // showDropdowns: true,
-        // minYear: 2018,
-        // maxYear: parseInt(moment().format('YYYY'),10),
         "locale": {
             "direction": "ltr",
             "format": "YYYY-MM-DD",

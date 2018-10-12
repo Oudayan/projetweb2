@@ -21,7 +21,7 @@
                     }
                 ?>
                 <form action="index.php?Membres&action=enregistrerMembre" method="POST" id="formMembre">
-                    <input type="text" hidden name="membre_id" value="<?=$id?>">
+                    <input type="text" hidden name="membre_id" id="membreId" value="<?=$id?>">
                     <div class="form-group">
                         <label for="email">Courriel :</label><span id="mailErreur" class="ml-2"></span>
                         <input type="email" class="form-control" id="email" name="courriel" value="<?=$courriel?>" placeholder="">
@@ -50,7 +50,9 @@
                         <label for="telephone">Téléphone:</label><small class="ml-2">xxx-xxx-xxxxx</small><span id="phoneErreur" class="ml-2"></span>
                         <input type="text" class="form-control" id="telephone" name="telephone" value="<?=$telephone?>" placeholder=""> 
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg" id="btnValidation" disabled><?= isset($donnees['membre']) ? "Modifier" : "S'inscrire"?></button>
+                    <div id="btnDiv" class="d-flex justify-content-start">
+                        <button type="submit" class="btn btn-primary btn-lg mt-4" id="btnValidation" disabled><?= isset($donnees['membre']) ? "Modifier" : "S'inscrire"?></button>
+                    </div>
                 </form>
             </div>
             <div class="col-md-6 p-0 carousel-membre">
@@ -102,6 +104,7 @@
 </div>
 
 <script>
+    var membre = $('#membreId').val();
     var courriel = $('#email').val();
     var mdp = $('#pwd').val();
     var cmdp = $('#confimerMotDePasse').val();
@@ -118,9 +121,7 @@
     var adresseChk = false;
     var telephoneChk = false;
     
-
-    $('#email').keyup(function(){
-        
+    function chkEmail(){
         var courriel = $('#email').val();
         var courrielReg = /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i;
         if( courriel == ""){
@@ -128,19 +129,22 @@
             $('#email').attr("placeholder", "Entrez votre courriel");
         }
         else if( !courrielReg.test(courriel)){
-            courrieChk = false;
+            
             $('#mailErreur').text("Insérer une vraie adresse courriel");
             $('#mailErreur').css('color', 'red');
+            courrieChk = false;
+        }
+        else if(courriel !="" && courrielReg.test(courriel) ){
+            $('#mailErreur').text("");
+            courrieChk = true;
         }
         else{
             $('#mailErreur').text("");
             courrieChk = true; 
         }
-        
-    });
+    }
 
-    $('#pwd').keyup(function(){
-        
+    function chkPwd(){
         var mdp = $('#pwd').val();
         var pwdReg = /.+/g;
         if( mdp == ""){
@@ -152,14 +156,17 @@
             $('#mdpErreur').text("Insérer une mot de passe");
             $('#mdpErreur').css('color', 'red');
         }
+        else if(mdp != "" && pwdReg.test(mdp)){
+            $('#mdpErreur').text("");
+            mdpChk = true; 
+        }
         else{
             $('#mdpErreur').text("");
             mdpChk = true; 
         }
-    });
+    }
 
-    $('#confimerMotDePasse').keyup(function(){
-        
+    function chkCpwd(){
         var mdp = $('#pwd').val();
         var cmdp = $('#confimerMotDePasse').val();
         var pwdReg = /.+/g;
@@ -172,16 +179,20 @@
             $('#cmdpErreur').text("Les mots de passes ne sont pas égaux");
             $('#cmdpErreur').css('color', 'red');
         }
+        else if(cmdp != "" && cmdp == mdp){
+            $('#cmdpErreur').text("");
+            cmdpChk = true; 
+        }
         else{
             $('#cmdpErreur').text("");
             cmdpChk = true; 
         }
-    });
+    }
 
-    $('#nom').keyup(function(){
-        
+    function chkNom(){
         var nom = $('#nom').val();
-        var nameReg = /^([a-zA-Z'àáâéèêíôóúùüûçÀÁÂÉÈÍÓÔÙÚÛÜÇ\s-]{1,30})$/g;
+        // var nameReg = /^([a-zA-Z'àáâéèêíôóúùüûçÀÁÂÉÈÍÓÔÙÚÛÜÇ\s-]{1,30})$/g;
+        var nameReg = /^([A-Z'ÀÁÂÉÈÍÓÔÙÚÛÜÇ]{1}[a-z'àáâéèêíôóúùüûç\s-]{1,30})$/g;
         if( nom == ""){
             nomChk = false;
             $('#nom').attr("placeholder", "Entrez votre nom");
@@ -191,16 +202,21 @@
             $('#nomErreur').text("Insérez un vrai nom");
             $('#nomErreur').css('color', 'red');
         }
+        else if(nom !="" && nameReg.test(nom)){
+            $('#nomErreur').text("");
+            nomChk = true; 
+        }
         else{
             $('#nomErreur').text("");
             nomChk = true; 
         }
-    });
+    }
 
-    $('#prenom').keyup(function(){
-        
+    function chkPrenom(){
         var prenom = $('#prenom').val();
-        var nameReg = /^([a-zA-Z'àáâéèêíôóúùüûçÀÁÂÉÈÍÓÔÙÚÛÜÇ\s-]{1,30})$/g;
+        // var nameReg = /^([a-zA-Z'àáâéèêíôóúùüûçÀÁÂÉÈÍÓÔÙÚÛÜÇ\s-]{1,30})$/g;
+        var nameReg = /^([A-Z'ÀÁÂÉÈÍÓÔÙÚÛÜÇ]{1}[a-z'àáâéèêíôóúùüûç\s-]{1,30})$/g;
+
         if( prenom == ""){
             prenomChk = false;
             $('#prenom').attr("placeholder", "Entrez votre prénom");
@@ -210,16 +226,20 @@
             $('#prenomErreur').text("Insérez un vrai prénom");
             $('#prenomErreur').css('color', 'red');
         }
+        else if(prenom != "" && nameReg.test(prenom)){
+            $('#prenomErreur').text("");
+            prenomChk = true; 
+        }
         else{
             $('#prenomErreur').text("");
             prenomChk = true; 
         }
-    });
+    }
 
-    $('#adresse').keyup(function(){
-        
+    function chkAdresse(){
         var adresse = $('#adresse').val();
-        var adresseReg = /^[a-zA-Z0-9\s,'-]*$/g;
+        // var adresseReg = /^[a-zA-Z'áàâäéèêëíìîïóòöôúùüûÁÀÄÂÉÈËÊÍÌÏÎÓÒÖÔÚÙÛÜ[0-9\s,\.\#'-]*$/g;
+        var adresseReg = /^[0-9\s,\.\#'-][a-zA-Z'áàâäéèêëíìîïóòöôúùüûÁÀÄÂÉÈËÊÍÌÏÎÓÒÖÔÚÙÛÜ[0-9\s,\.\#'-]*$/g
         if( adresse == ""){
             adresseChk = false;
             $('#adresse').attr("placeholder", "Entrez votre adresse");
@@ -229,14 +249,17 @@
             $('#adresseErreur').text("Insérez une vraie adresse");
             $('#adresseErreur').css('color', 'red');
         }
+        else if(adresse !="" && adresseReg.test(adresse)){
+            $('#adresseErreur').text("");
+            adresseChk = true;
+        }
         else{
             $('#adresseErreur').text("");
             adresseChk = true; 
         }
-    });
+    }
 
-    $('#telephone').keyup(function(){
-        
+    function chkPhone(){
         var telephone = $('#telephone').val();
         var telephoneReg = /^\(?([0-9]{3})\)?[-.]([0-9]{3})[-.]([0-9]{4})$/;
         if( telephone == ""){
@@ -248,17 +271,73 @@
             $('#phoneErreur').text("Insérez un vrai numéro de téléphone");
             $('#phoneErreur').css('color', 'red');
         }
+        else if(telephone !="" && telephoneReg.test(telephone)){
+            $('#phoneErreur').text("");
+            telephoneChk = true; 
+        }
         else{
             $('#phoneErreur').text("");
             telephoneChk = true; 
         }
-    });
+    }
 
-    $('body').on('mousemove',function(){
-        if (courrieChk = true && mdpChk == true && cmdpChk == true && nomChk == true && prenomChk == true && adresseChk == true && telephoneChk == true){
+    if( membre > 0 ){
+        chkEmail();
+        chkPwd();
+        chkCpwd();
+        chkNom();
+        chkPrenom();
+        chkAdresse();
+        chkPhone();
+        if (courrieChk == true && cmdpChk == true && nomChk == true && prenomChk == true && adresseChk == true && telephoneChk == true){
             $('#btnValidation').prop('disabled', false);
             }else{
             $('#btnValidation').prop('disabled', true);
         }
-    });
+
+    }else{
+        $('#email').blur(function(){
+            chkEmail();
+        });
+
+        $('#pwd').blur(function(){
+            chkPwd(); 
+        });
+
+        $('#confimerMotDePasse').blur(function(){
+            chkCpwd();
+        });
+
+        $('#nom').blur(function(){
+            chkNom();
+        });
+
+        $('#prenom').blur(function(){
+            chkPrenom();   
+        });
+
+        $('#adresse').blur(function(){
+            chkAdresse(); 
+        });
+
+        $('#telephone').blur(function(){
+            chkPhone();    
+        });   
+    }
+
+    $('#btnDiv').mousemove(function(){
+        chkEmail();
+        chkPwd();
+        chkCpwd();
+        chkNom();
+        chkPrenom();
+        chkAdresse();
+        chkPhone();
+
+        if (courrieChk == true && cmdpChk == true && nomChk == true && prenomChk == true && adresseChk == true && telephoneChk == true){
+            $('#btnValidation').prop('disabled', false);
+            }else{
+            $('#btnValidation').prop('disabled', true);
+        }
+    });  
 </script>

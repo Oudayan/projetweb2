@@ -34,7 +34,10 @@ class ModeleJeux extends BaseDAO {
     }
 
     public function lireTousLesJeux() {
-        $resultat = $this->lireTous();
+        // $resultat = $this->lireTous();
+        // return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
+        $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY jeux_id DESC";
+        $resultat = $this->requete($sql);
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }
 
