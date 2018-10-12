@@ -173,7 +173,7 @@ class ControleurJeux extends BaseControleur
                         for($i=0; $i < count($params['categorie']); $i++)
                         {
                             // $jeux_id = 0,$categorie_id = 0, $categorie = ""
-                            $cat = new CategoriesJeux($jeux_id, $params['categorie'][$i], "test");
+                            $cat = new CategoriesJeux($jeux_id, $params['categorie'][$i], "test", 1);
                             //var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
                             $modeleCategoriesJeux->sauvegarderCategoriesJeu($cat);
                         }

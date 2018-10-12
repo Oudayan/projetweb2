@@ -25,8 +25,8 @@
         public function sauvegarderCategoriesJeu(CategoriesJeux $categoriesJeux)
         {
             $donnees = array(
-                $categoriesJeux->getCategorieId(),
                 $categoriesJeux->getJeuxId(),
+                $categoriesJeux->getCategorieId(),
             );
             $sql = "INSERT INTO " . $this->lireNomTable() . "(jeux_id, categorie_id) VALUES (?, ?)";
             return $this->requete($sql, $donnees);

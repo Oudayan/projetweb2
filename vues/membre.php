@@ -8,9 +8,7 @@
  * @details   Cette page permettre gerer les jeux de chaque membre.
  */
 
-if(isset($_SESSION["id"]))
-{
-?>
+if (isset($_SESSION["id"])) { ?>
   <div class="container">
     <h1 class="text-center my-3">Gestion des jeux à <?=$_SESSION['nomComplet']?></h1>
     <hr>

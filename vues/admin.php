@@ -185,14 +185,14 @@
                             <tbody>
                             <?php for ($i = 0; $i < count($donnees['achats']); $i++)  : ?>
                                 <tr>
-                                    <td><?= $donnees['achats'][$i]->getMembreId() ?></td>
+                                    <td><?= $donnees['achats'][$i]->getAchatId() ?></td>
                                     <td>
                                         <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeuAchat'][$i]->getJeuxId() ?>'><?= $donnees['jeuAchat'][$i]->getTitre() ?></a>
                                     </td>
                                     <td><?= $donnees['proprietaireJeuAchat'][$i]->getPrenom() . ' ' . $donnees['proprietaireJeuAchat'][$i]->getNom() ?></td>
                                     <td><?= $donnees['membreAchat'][$i]->getPrenom() . ' ' . $donnees['membreAchat'][$i]->getNom() ?></td>
-                                    <td><?= $donnees['typePaiementLocation'][$i]->getTypePaiement() ?> </td>
-                                    <td><?= $donnees['achats'][$i]->getDateAchat(); ?> </td>
+                                    <td><?= $donnees['typePaiementAchat'][$i]->getTypePaiement() ?> </td>
+                                    <td><?= $donnees['achats'][$i]->getDateAchat() ?> </td>
                                 </tr>
                             <?php endfor; ?>
                             </tbody>

@@ -77,7 +77,6 @@ class ModeleJeux extends BaseDAO {
             $id = array_pop($donnees);
             $sql = "INSERT INTO " . $this->lireNomTable() . "(plateforme_id, membre_id, titre, prix, date_ajout, concepteur, location, jeux_valide, jeux_actif, jeux_banni, description, evaluation_globale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
-        // var_dump($donnees);
         $this->requete($sql, $donnees);
         return $jeu->getJeuxId() > 0 ? $jeu->getJeuxId() : $this->bd->lastInsertId();
     }
