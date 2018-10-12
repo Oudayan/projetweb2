@@ -235,13 +235,7 @@
 
 <script>
 
-    // Enlève le dernier " > " qui sépare les différentes catégories d'un jeu dans la page "jeux.php"
-
-    let catDiv = document.getElementsByClassName("cat-symbol");  // Trouve le span qui contient l'icone " > " qui sépare les catégories
-    let catDiv2 = (catDiv.length -1);                            // Declare la variable carDiv2 qui contient l'index du dernier élément du HTML Collection "catDiv"
-    catDiv[catDiv2].style.display = "none";                      // Cache le dernier élément du HTML Collection en utilisant "display = none"
-
-
+    
     $('#datesLocation').daterangepicker({
         "minYear": new Date().getFullYear(),
         <?= (isset($_SESSION['disponibilite']['dateDebut']) && strtotime($_SESSION['disponibilite']['dateDebut']) >= date("Y-m-d") ? '"minDate": "' . $_SESSION['disponibilite']['dateDebut'] . '", ' : '"minDate": new Date(), ') ?>
@@ -332,6 +326,11 @@
             }
         }
     }
+// Enlève le dernier " > " qui sépare les différentes catégories d'un jeu dans la page "jeux.php"
+
+    let catDiv = document.getElementsByClassName("cat-symbol");  // Trouve le span qui contient l'icone " > " qui sépare les catégories
+    let catDiv2 = (catDiv.length -1);                            // Declare la variable carDiv2 qui contient l'index du dernier élément du HTML Collection "catDiv"
+    catDiv[catDiv2].style.display = "none";                      // Cache le dernier élément du HTML Collection en utilisant "display = none"
 
 
 </script>

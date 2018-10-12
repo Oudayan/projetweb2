@@ -160,7 +160,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['derniers'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="AcheterJeux('<?= $donnees['derniers'][$i]->getJeuxId() ?>')"><?= ($donnees["derniers"][$i]->getLocation() == 1 ? "Louer" : "Acheter") ?></button>
+                                    <!-- <button type="button" class="btn btn-sm btn-outline-secondary" onclick="AcheterJeux('<?= $donnees['derniers'][$i]->getJeuxId() ?>')"><?= ($donnees["derniers"][$i]->getLocation() == 1 ? "Louer" : "Acheter") ?></button> -->
                                 </div>
                                 <small class="text-muted">Prix : <?= $donnees['derniers'][$i]->getPrix() ?> $CAD</small>
                             </div>
