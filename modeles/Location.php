@@ -19,10 +19,11 @@ class Location
     private $jeux_id;
     private $date_debut;
     private $date_retour;
+    private $transaction_id;
 
 
     // Constructeur
-    public function __construct($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_debut = "", $date_retour = "")
+    public function __construct($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_debut = "", $date_retour = "", $transaction_id = "")
     {
         $this->setLocationId($location_id);
         $this->setTypePaiementId($type_paiement_id);
@@ -30,6 +31,7 @@ class Location
         $this->setJeuxId($jeux_id);
         $this->setDateDebut($date_debut);
         $this->setDateRetour($date_retour);
+        $this->setTransactionId($transaction_id);
     }
 
     // "SETTERS"
@@ -107,6 +109,16 @@ class Location
         }
     }
 
+    /**
+     * @brief       Permet de définir en écriture l'attribut de la classe Categorie
+     * @param       [string] $transaction_id ,  le id d'un transaction
+     * @return      [object]
+     */
+    public function setTransactionId($transaction_id){
+        if (is_string($transaction_id) && trim($transaction_id) != ""){
+            $this->transaction_id = $transaction_id;
+        }
+    }
 
 // "GETTERS"-----------------------------------------------------------------------
 
@@ -169,4 +181,14 @@ class Location
     {
         return $this->date_retour;
     }
+
+    /**
+     * @brief       Permet de définir en lecture l'attribut de la classe achat
+     * @param       [string] $transaction_id ,  la transaction de un achat 
+     * @return      [object]
+     */
+    public function getTransactionId(){
+        return $this->transaction_id;
+    }
+        
 }
