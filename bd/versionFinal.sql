@@ -357,7 +357,6 @@ INSERT INTO `achat` (`achat_id`, `type_paiement_id`, `membre_id`, `jeux_id`, `da
 (1, 2, 1, 2, '2018-09-16 04:13:54', NULL);
 
 
-
 --
 -- Contenu de la table `categorie`
 --
