@@ -205,7 +205,7 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                  role="tabpanel" aria-labelledby="v-pills-settings-tab">
 
                 <div class="container mt-5">
-                    <div class="row align-items-start">
+                    <div class="row">
                     <!-- Catégories -->
                         <div class="col-lg-6">
                             <h2 class="text-center">Catégories
@@ -218,7 +218,7 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                             <!-- Modal categorie -->
                             <div class="modal fade" id="categorie" tabindex="-1" role="dialog"
                                  aria-labelledby="categorieLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Ajouter une catégorie</h5>
@@ -283,7 +283,7 @@ if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 
                             </h2>
                             <!-- Modal plateforme -->
                             <div class="modal fade" id="plateforme" tabindex="-1" role="dialog" aria-labelledby="plateformeLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Ajouter une plateforme</h5>
