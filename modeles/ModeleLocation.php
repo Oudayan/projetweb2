@@ -16,7 +16,7 @@
 		}
 
         public function lireToutesLesLocations() {
-            $resultat = $this->lireTous();
+            $resultat = $this->lireTous("DESC");
             return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Location");
         }
 
@@ -56,27 +56,17 @@
 			return $location->getLocationId() > 0 ? $location->getLocationId() : $this->bd->lastInsertId();
 		}
 
+		public function effacerLocation($id) {
+			return $this->effacer($id);
+		}
+
 //		public function lireDetaileLocation() {
-//
 //            $sql = "SELECT * FROM " . $this->lireNomTable() . " l
-//            INNER JOIN  jeux j ON j.jeux_id = l.jeux_id
-//            INNER JOIN	membre m ON M.membre_id = l.membre_id
-//            INNER JOIN	type_paiement tp ON tp.type_paiement_id = l.type_paiement_id";
+//            INNER JOIN jeux j ON j.jeux_id = l.jeux_id
+//            INNER JOIN membre m ON M.membre_id = l.membre_id
+//            INNER JOIN type_paiement tp ON tp.type_paiement_id = l.type_paiement_id";
 //            $resultat = $this->requete($sql);
 //			return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Location");
-//        }
-//
-//        public function effacerLocation($id) {
-//        	return $this->effacer($id);
-//        }
-//
-//        // $action = 0-À valider / 1-Accepté / 2-Refusé / 3-Expiré:
-//        public function validerLocation($id, $action) {
-//            return $this->modifierChamp($id, "valide", $action);
-//        }
-//
-//        public function bannirEvaluation($id) {
-//            return $this->modifierChamp($id, "e_banni", 1);
 //        }
 
     }

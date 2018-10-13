@@ -34,25 +34,15 @@ class ModeleJeux extends BaseDAO {
     }
 
     public function lireTousLesJeux() {
-        // $resultat = $this->lireTous();
-        // return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
-        $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY jeux_id DESC";
-        $resultat = $this->requete($sql);
+        $resultat = $this->lireTous("DESC");
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }
 
     public function filtreJeux($filtre = 'jeux_actif = 1 AND jeux_valide = 1 AND jeux_banni = 0', $champs = "", $ordre = 'prix DESC') {
         $sql = "SELECT DISTINCT j.jeux_id, j.plateforme_id,j.membre_id, j.titre, j.prix, j.date_ajout, j.concepteur, j.location, j.jeux_valide, j.jeux_actif, j.description, j.evaluation_globale" . $champs . " FROM " . $this->lireNomTable() . " j LEFT JOIN categorie_jeux cj ON j.jeux_id = cj.jeux_id LEFT JOIN categorie c ON c.categorie_id = cj.categorie_id LEFT JOIN location l ON l.jeux_id = j.jeux_id WHERE " . $filtre . " ORDER BY " . $ordre;
         $resultat = $this->requete($sql);
-//		var_dump($resultat);
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jeux");
     }
-
-//        public function lireTousIdsJeux() {
-//            $sql = "SELECT jeux_id FROM " . $this->lireNomTable() . " WHERE jeux_actif = true AND jeux_valide = true";
-//            $resultat = $this->requete($sql);
-//            return $resultat->fetchAll(\PDO::FETCH_ASSOC);
-//        }
 
     public function sauvegarderJeux(Jeux $jeu) {
         $donnees = array(
@@ -70,7 +60,6 @@ class ModeleJeux extends BaseDAO {
             $jeu->getEvaluationGlobale(),
             $jeu->getJeuxId()
         );
-        // var_dump($jeu->getJeuxId() && $this->lire($jeu->getJeuxId())->fetch());
         if ($jeu->getJeuxId() && $this->lire($jeu->getJeuxId())->fetch()) {
             $sql = "UPDATE " . $this->lireNomTable() . " SET plateforme_id=?, membre_id=?, titre=?, prix=?, date_ajout=?, concepteur=?, location=?, jeux_valide=?, jeux_actif=?, jeux_banni=?, description=?, evaluation_globale=? WHERE jeux_id=?";
         } else {
@@ -105,6 +94,5 @@ class ModeleJeux extends BaseDAO {
         return $this->modifierChamp($id, "jeux_banni", 0);
     }
 }
-
 
 ?>

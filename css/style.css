@@ -190,7 +190,7 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 }
 
 /** asd*/
-.img-thumbnail img{
+.img-thumbnail {
     width: 64px;
 }
 
@@ -200,13 +200,9 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
     box-sizing: border-box;
 }
 
-
-
 .container-shopping-cart {
-    position: relative;
     margin: auto;
     width: 100%;
- 
 }
 
 .shopping-cart-items{
@@ -227,16 +223,14 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 }
 
 .shopping-cart {
-    position: absolute;
-    /* margin: 20px 600px; */
+    position: fixed;
     top: 75px;
     right: 0;
     float: right;
     background: white;
     width: auto;
-    position: fixed;
     border-radius: 3px;
-    padding: 20px;
+    padding: 5px;
     z-index: 2;
     border: solid transparent;
     border-color: #6c757d;

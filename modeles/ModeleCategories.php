@@ -23,11 +23,8 @@
         }
 
         public function lireToutesCategories() {
-            // $resultat = $this->lireTous();
-            // return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Categories');
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY categorie ASC";
-            $resultat = $this->requete($sql);
-            return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Categories");
+            $resultat = $this->lireTous("ASC", "categorie");
+            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Categories');
         }
 
         public function lireToutesCategoriesActives() {

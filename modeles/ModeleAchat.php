@@ -24,7 +24,7 @@ class ModeleAchat extends BaseDAO
 
 
     public function lireTousLesAchats() {
-        $resultat = $this->lireTous();
+        $resultat = $this->lireTous("DESC");
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Achat");
     }
 

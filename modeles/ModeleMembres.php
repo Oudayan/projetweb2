@@ -59,11 +59,8 @@ class ModeleMembres extends BaseDAO
 
     public function obtenirTous()
     {
-        $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY membre_id DESC";
-        $resultat = $this->requete($sql);
+        $resultat = $this->lireTous("DESC");
         return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Membres");
-        // $resultat = $this->lireTous();
-        // return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Membres");
     }
 
     /**

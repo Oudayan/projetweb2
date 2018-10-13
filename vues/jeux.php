@@ -191,7 +191,7 @@
                         <a href="index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees["jeu"]->getJeuxId() ?>" class="btn btn-primary btn-lg btn-block text-uppercase text-white">Modifier ce jeu</a>
                         <?php } 
                         if(isset($_SESSION['id']) && $_SESSION['id'] != $donnees["jeu"]->getMembreId()){ ?>
-                            <a class="btn btn-success btn-lg btn-block text-uppercase text-white" onclick="AjouterAuPanier('<?= $donnees['jeu']->getJeuxId() ?>')"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
+                            <a id="ajouterPannier" class="btn btn-success btn-lg btn-block text-uppercase text-white" onclick="AjouterAuPanier('<?= $donnees['jeu']->getJeuxId() ?>')"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
                         <?php } 
                     } else { ?>
                             <button class="btn btn-success btn-lg btn-block text-uppercase text-white" disabled><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
@@ -238,6 +238,11 @@
 </div>
 
 <script>
+
+    $('#ajouterPannier').click(function(){
+        $('#cart').trigger('click.bs.dropdown');
+    });
+        
 
     $('#datesLocation').daterangepicker({
         "minYear": new Date().getFullYear(),

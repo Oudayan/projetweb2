@@ -61,58 +61,10 @@
                                 <?php } ?>
                             </li>
                             <!-- Cart -->
-                            <li class="nav-item mx-1">
-                                <button id="cart" class="btn btn-info btn-block dropdown-toggle text-uppercase text-white m-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-shopping-cart"> <span class="badge" id="cartQuantity"><?= isset($_SESSION["cart"]) ? sizeof($_SESSION["cart"]) : "0" ?></span></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right container container-shopping-cart" id="shopping-cart">
-                                    <div class="shopping-cart">
-                                        <table class="table table-striped table-panier">
-                                        <?php if (isset($_SESSION["cart"]) && sizeof($_SESSION["cart"]) > 0) {
-                                            $i = 0;
-                                            $total = 0;
-                                            foreach ($_SESSION["cart"] as $jeux) { ?>
-                                                <tr id="jeuxAchete<?= $jeux->getJeuxId() ?>" class="dropdown-item">
-                                                    <td class="text-center">
-                                                        <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $jeux->getJeuxId() ?>"  class="img-thumbnail" >
-                                                            <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i]->getCheminPhoto() ?>" alt="Card image cap">
-                                                        </a>
-                                                    </td>
-                                                    <td class="text-center"><?= $jeux->getTitre() ?></td>
-                                                    <td class="text-center"><?= number_format($jeux->getPrix(), 2) ?> $CAD</td>
-                                                    <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
-                                                    <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> $CAD</td>
-                                                    <td class="text-center">
-                                                        <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <?php
-                                                $i++;
-                                            } ?>
-                                            <tr class="dropdown-item">
-                                                <td class="totalPanier" colspan="3">Total</td>
-                                                <td><?= number_format($_SESSION["prixTotal"], 2) ?> $CAD</td>
-                                                <td></td>
-                                            </tr>
-                                        <?php } else { ?>
-                                            <tr class="dropdown-item">
-                                                <td colspan="5"><strong>le panier est vide</strong></td>
-                                            </tr>
-                                        <?php } ?>
-                                    </table>
-                                    <div class="dropdown-item">
-                                        <a href="index.php?Achat&action=afficherPanier" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Check-out</a>
-                                    </div>
-                                </div>
+                            <li id="cart-menu-container" class="nav-item mx-1">
+                                <?php include("panier.php"); ?>
                             </li>
                             <!--end shopping-cart -->
-                            <li class="toggle-item">
-                                <div class="btn-toggle">
-                                    <div class="bar"></div>
-                                    <div class="bar-center"></div>
-                                    <div class="bar"></div>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -170,7 +122,7 @@
             });
             function supprimerJeuxCart(id) {
                 bootoast.toast({
-                    message: 'Jeux supprimee correctement!',
+                    message: 'Jeu supprimé correctement!',
                     type: 'success',
                     position: 'top-center'
                 });
@@ -182,13 +134,16 @@
                     }
                 });
                 request.done(function (response) {
-                    location.reload();
+                    //location.reload();
+                    $('#cart-menu-container').html("");
+                    $('#cart-menu-container').html(response);
+                    $('#cart').trigger('click.bs.dropdown');
                 });
             }
             function AjouterAuPanier(id) {
                 if ($("#membre_id").val() != "") {
                     bootoast.toast({
-                        message: 'Jeux Ajoutee correctement!',
+                        message: 'Jeu ajouté correctement!',
                         type: 'success',
                         position: 'top-center'
                     });
@@ -198,10 +153,14 @@
                         data: {
                             jeux_id: id,
                             dates: $("#datesLocation").val() ? $("#datesLocation").val() : 1
-                        }
+                        },
+                        dataType: 'html',
                     });
                     request.done(function (response) {
-                        location.reload();
+                        //location.reload();
+                        $('#cart-menu-container').html("");
+                        $('#cart-menu-container').html(response);
+                        $('#cart').trigger('click.bs.dropdown');
                     });
                 } else {
                     bootoast.toast({

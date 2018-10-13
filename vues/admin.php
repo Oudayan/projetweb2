@@ -173,14 +173,14 @@
                         <h5 class="text-center p-4">Achats</h5>
                         <table class="table table-hover ">
                             <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Titre jeux</th>
-                                <th scope="col">Propriétaire</th>
-                                <th scope="col">Acheteur</th>
-                                <th scope="col">Paiement</th>
-                                <th scope="col">Date d'achat</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Titre jeux</th>
+                                    <th scope="col">Propriétaire</th>
+                                    <th scope="col">Acheteur</th>
+                                    <th scope="col">Paiement</th>
+                                    <th scope="col">Date d'achat</th>
+                                </tr>
                             </thead>
                             <tbody>
                             <?php for ($i = 0; $i < count($donnees['achats']); $i++)  : ?>

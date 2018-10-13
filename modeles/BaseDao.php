@@ -41,11 +41,11 @@ abstract class BaseDAO {
      * @param      [string]   $clePrimaire  Nom de la clé primaire OU de la colonne spécifée
      * @return     [object]                 Tous les champs d'une entrée de la table
      */
-    protected function lire($valeur, $clePrimaire = NULL) {
-        if (!isset($clePrimaire)) {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE " . $this->lireClePrimaire() . "=?";
+    protected function lire($valeur, $champ = NULL) {
+        if (isset($champ)) {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE " . $champ . "=?";
         } else {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE " . $clePrimaire . "=?";
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE " . $this->lireClePrimaire() . "=?";
         }
         $donnees = array($valeur);
         return $this->requete($sql, $donnees);
@@ -55,8 +55,12 @@ abstract class BaseDAO {
      * @brief      Lire le contenu de toutes les rangées de la table
      * @return     [object]  Tous les champs de toutes les entrées la table
      */
-    protected function lireTous() {
-        $sql = "SELECT * FROM " . $this->lireNomTable();
+    protected function lireTous($ordre = "ASC", $ordreId = NULL) {
+        if (isset($ordreId)) {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY " . $ordreId . " " . $ordre;
+        } else {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY " . $this->lireClePrimaire() . " " . $ordre;
+        }
         return $this->requete($sql);
     }
 

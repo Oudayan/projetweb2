@@ -15,33 +15,31 @@
                 foreach ($_SESSION["cart"] as $jeux) { ?>
                     <tr id="jeuxAchete<?= $jeux->getJeuxId() ?>">
                         <td class="text-center">
-                            <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $jeux->getJeuxId() ?>"  class="img-thumbnail" >
-                                <img class="card-img-top" src="<?= $_SESSION["cartImages"][$i]->getCheminPhoto() ?>" alt="Card image cap">
+                            <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $jeux->getJeuxId() ?>">
+                                <img class="card-img-top img-thumbnail" src="<?= $_SESSION["cartImages"][$i]->getCheminPhoto() ?>" alt="Card image cap">
                             </a>
                         </td>
                         <td class="text-center"><?= $jeux->getTitre() ?></td>
                         <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
                         <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
                         <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> $CAD</td>
-                        <td class="text-center">
-                            <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
-                        </td>
+                        <td class="text-center"><a href="index.php?Achat&action=supprimerAchat&jeux_id=<?= $jeux->getJeuxId() ?>" class="btn btn-danger"><i class="fa fa-eraser"></a></td>
                     </tr>
                     <?php $i++;
                 } ?>
                 <tr>
-                    <td class="totalPanier" colspan="3">Total</td>
+                    <td class="totalPanier" colspan="4">Total</td>
                     <td><?= number_format($_SESSION["prixTotal"], 2) ?> $CAD</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td colspan="5"> <a href="index.php?Achat&action=payerPanier" class="btn btn-primary">Payer comptant</a></td>
+                    <td colspan="6"> <a href="index.php?Achat&action=payerPanier&transaction_id=Comptant" class="btn btn-primary">Payer comptant</a></td>
                 </tr>
                 <tr>
-                    <td colspan="5"> <a href="index.php?Achat&action=payerPanier" class="btn btn-primary">Payer par chèque</a></td>
+                    <td colspan="6"> <a href="index.php?Achat&action=payerPanier&transaction_id=Cheque" class="btn btn-primary">Payer par chèque</a></td>
                 </tr>
                 <tr>
-                    <td colspan="5">
+                    <td colspan="6">
                         <div id="paypal-button-container"></div>
                         <script src="https://www.paypalobjects.com/api/checkout.js"></script>
                         <script>

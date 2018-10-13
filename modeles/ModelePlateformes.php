@@ -23,11 +23,8 @@
         }
 
         public function lireToutesPlateformes() {
-            // $resultat = $this->lireTous();
-            // return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Plateformes');
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY plateforme ASC";
-            $resultat = $this->requete($sql);
-            return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Plateformes");
+            $resultat = $this->lireTous("ASC", "plateforme");
+            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Plateformes');
         }
 
         public function lireToutesPlateformesActives() {
