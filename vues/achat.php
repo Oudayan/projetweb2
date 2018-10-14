@@ -1,6 +1,6 @@
 <div class="container">
     <div id="panierDiv">
-        <h1>Panier</h1>
+        <h1 class="text-center my-3">Panier d'achats</h1>
         <table class="table table-striped table-panier">
             <tr>
                 <th colspan="2">Jeux</th>
@@ -118,10 +118,10 @@
                 </tr>
                 <?php } else { ?>
                 <tr>
-                    <td colspan="5"><strong>Le panier est vide</strong></td>
+                    <td colspan="6" class="my-5 py-5"><h3>Le panier est vide</h3></td>
                 </tr>
                 <tr>
-                    <td colspan="5"><a href="index.php?Jeux&action=rechercherJeux" class="btn btn-info m-5"><i class="fas fa-search"></i> Continuer à magasiner</a>
+                    <td colspan="6" class="my-5" py-5><a href="index.php?Jeux&action=rechercherJeux" class="btn btn-info m-5"><i class="fas fa-search"></i> Continuer à magasiner</a>
                 </tr>
             <?php } ?>
         </table>

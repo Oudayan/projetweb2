@@ -77,21 +77,21 @@ class ModeleMembres extends BaseDAO
      * @return  [array]
      */
 
-    public function sauvegarde(Membres $unMembre)
+    public function sauvegarde(Membres $membre)
     {
         $donnees = array(
-            $unMembre->getTypeUtilisateur(),
-            $unMembre->getNom(),
-            $unMembre->getPrenom(),
-            $unMembre->getMotDePasse(),
-            $unMembre->getAdresse(),
-            $unMembre->getTelephone(), 
-            $unMembre->getCourriel(),
-            $unMembre->getMembreValide(),
-            $unMembre->getMembreActif(),
-            $unMembre->getMembreId()
+            $membre->getTypeUtilisateur(),
+            $membre->getNom(),
+            $membre->getPrenom(),
+            $membre->getMotDePasse(),
+            $membre->getAdresse(),
+            $membre->getTelephone(), 
+            $membre->getCourriel(),
+            $membre->getMembreValide(),
+            $membre->getMembreActif(),
+            $membre->getMembreId()
         );
-        if($unMembre->getMembreId() && $this->lire($unMembre->getMembreId())->fetch())
+        if($membre->getMembreId() && $this->lire($membre->getMembreId())->fetch())
         {
             $sql = "UPDATE " . $this->lireNomTable() . " SET type_utilisateur_id=?, nom=?, prenom=?, mot_de_passe=?, adresse=?, telephone=?, courriel=?, membre_valide=?, membre_actif=? WHERE membre_id=?"; 
         }
@@ -101,7 +101,7 @@ class ModeleMembres extends BaseDAO
             $sql = "INSERT INTO " . $this->lireNomTable() . " (type_utilisateur_id, nom, prenom, mot_de_passe, adresse, telephone, courriel, membre_valide, membre_actif) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
         $this->requete($sql, $donnees);
-        return $unMembre->getMembreId() > 0 ? $unMembre->getMembreId() : $this->bd->lastInsertId();
+        return $membre->getMembreId() > 0 ? $membre->getMembreId() : $this->bd->lastInsertId();
     }
 
     /**

@@ -24,7 +24,5 @@
 
     // Redirection au bon controleur
     Routeur::route();
-    
-   
 
 ?>

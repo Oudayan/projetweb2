@@ -15,7 +15,7 @@ class ControleurImages extends BaseControleur
      * @brief   Méthode qui sera appelée par les controleurs
      * @details Méthode pour évaluer les "cases" du contrôleurs
      * @param   [array] $params La chaîne de requête URL ("query string") captée par le fichier Routeur.php
-     * @return  L'acces aux vues, aux donnes
+     * @return  L'acces aux vues, aux donnees
      */
 
     public function index(array $params)
@@ -77,8 +77,9 @@ class ControleurImages extends BaseControleur
                     $fichier = $params['files'][0];
                     $solo = RACINE . strstr($fichier,"images/");
                     // var_dump($solo);
-                    unlink($solo);
-                
+                    if ($solo != RACINE . "images/image_defaut.png") {
+                        unlink($solo);
+                    }
                     /* var_dump($_FILES["files"]["name"]);
                     var_dump($_FILES["files"]["type"]);
                     var_dump($_FILES["files"]["tmp_name"]);

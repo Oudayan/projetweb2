@@ -33,4 +33,24 @@
             return $resultat->fetch();
         }
 
+        public function sauvegarde(CommentaireJeux $commentaire) {
+        $donnees = array(
+            $commentaire->getJeuxId(),
+            $commentaire->getMembreId(),
+            $commentaire->getJeton(),
+            $commentaire->getCommentaire(),
+            $commentaire->getEvaluation(), 
+            $commentaire->getDateCommentaire(),
+            $commentaire->getCommentaireJeuxId(),
+        );
+        if ($commentaire->getCommentaireJeuxId() && $this->lire($commentaire->getCommentaireJeuxId())->fetch()) {
+            $sql = "UPDATE " . $this->lireNomTable() . " SET jeux_id=?, membre_id=?, jeton=?, commentaire=?, evaluation=?, date_commentaire=? WHERE membre_id=?"; 
+        } else {
+            $id = array_pop($donnees);
+            $sql = "INSERT INTO " . $this->lireNomTable() . " (jeux_id, membre_id, jeton, commentaire, evaluation, date_commentaire) VALUES (?, ?, ?, ?, ?, ?)";
+        }
+        $this->requete($sql, $donnees);
+        return $commentaire->getCommentaireJeuxId() > 0 ? $commentaire->getCommentaireJeuxId() : $this->bd->lastInsertId();
+    }
+
     }

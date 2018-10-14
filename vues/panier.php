@@ -7,8 +7,8 @@
                     <thead class="thead">
                         <tr>
                             <th scope="col" colspan="2">Jeu</th>
-                            <th scope="col">Quantité</th>
                             <th scope="col">Prix</th>
+                            <th scope="col">Quantité</th>
                             <th scope="col">Sous-total</th>
                             <th scope="col"></th>
                         </tr>

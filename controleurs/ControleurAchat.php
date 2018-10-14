@@ -21,6 +21,7 @@ class ControleurAchat extends BaseControleur {
         $modeleImages = $this->lireDAO("Images");
         $modeleAchat = $this->lireDAO("Achat");
         $modeleLocation = $this->lireDAO("Location");
+        $modeleCommentaire = $this->lireDAO("CommentaireJeux");
 
         $donnees["erreur"] = "";
         $_SESSION["msg"] = "";
@@ -40,8 +41,9 @@ class ControleurAchat extends BaseControleur {
                             if (isset($params['transaction_id'])) {
                                 $transId = $params['transaction_id'];
                             } else {
-                                $transId = "Comptant";
+                                $transId = "Paypal";
                             }
+                            $valide = false; 
                             foreach ($_SESSION["cart"] as $jeux) {
                                 if ($jeux->getLocation()) {
                                     // Sauvegarde d'une location
@@ -50,6 +52,7 @@ class ControleurAchat extends BaseControleur {
                                         // ($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_debut = "", $date_retour = "", $transaction_id = "")
                                         $location = new Location(0, '3', $_SESSION["id"], $jeux->getJeuxId(), $dates[0], $dates[1], $transId);
                                         $modeleLocation->sauvegarde($location);
+                                        $valide = true;
                                     }
                                 } else {
                                     // Sauvegarde d'un achat
@@ -59,6 +62,14 @@ class ControleurAchat extends BaseControleur {
                                     $modeleAchat->sauvegarde($achat);
                                     // Bannir le jeu pour qu'il n'apparaisse plus dans les jeux disponibles
                                     $modeleJeux->bannirJeu($jeux->getJeuxId());
+                                    $valide = true;
+                                }
+                                if ($valide) {
+                                    // Création d'un jeton pour commentaire et évaluation unique
+                                    $jeton = $this->creerJeton(25);
+                                    // ($commentaire_jeux_id = 0, $jeux_id = 0, $membre_id = 0, $jeton = "", $commentaire= "", $evaluation = -1, $date_commentaire = "")
+                                    $commentaire = new CommentaireJeux(0, $jeux->getJeuxId(), $jeux->getMembreId(), $jeton, NULL, -1, NULL);
+                                    $modeleCommentaire->sauvegarde($commentaire);
                                 }
                                 $i++;
                             }
@@ -110,18 +121,18 @@ class ControleurAchat extends BaseControleur {
                                             // Vérifier les dates en session contre les dates de disponibilités pour empêcher qu'un jeu soit mis plusieurs fois dans le panier
                                             if (isset($_SESSION["datesLocation"]) && $params['jeux_id'] == $location->getJeuxId()) {
                                                 foreach($_SESSION["datesLocation"] as $locationPanier) {
-                                                    $datesPanier[] = explode(" au ", $params['dates']);
-                                                    if ((strtotime($datesPanier[0]) >= strtotime($location->getDateDebut()) && strtotime($datesPanier[0]) <= strtotime($location->getDateRetour())) || (strtotime($datesPanier[1]) >= strtotime($location->getDateDebut()) && strtotime($datesPanier[1]) <= strtotime($location->getDateRetour()))) {
+                                                    $datesPanier = explode(" au ", $locationPanier);
+                                                    if ((strtotime($datesPanier[0]) >= strtotime($dates[0]) && strtotime($datesPanier[0]) <= strtotime($dates[1])) || (strtotime($datesPanier[1]) >= strtotime($dates[0]) && strtotime($datesPanier[1]) <= strtotime($dates[1]))) {
                                                         $disponible = false;
                                                     }
                                                 }
                                             }
-                                            
                                         }
                                         if ($disponible) {
-                                            $quantite = floor((strtotime($dates[1]) - strtotime($dates[0])) / (60 * 60 * 24)) + 1;
                                             // Mettre les dates de locations en Session
                                             $_SESSION["datesLocation"][] = $params['dates'];
+                                            // Calculer la quantité (nombre de jours de location)
+                                            $quantite = floor((strtotime($dates[1]) - strtotime($dates[0])) / (60 * 60 * 24)) + 1;
                                             // Ajout du jeu loué au panier d'achats
                                             $this->addToCart($jeu, $quantite);
                                         }
@@ -137,6 +148,8 @@ class ControleurAchat extends BaseControleur {
                             } else {
                                 // Réserver le jeu en le mettant inactif pour empêcher qu'il mis plusieurs fois dans le panier d'achat
                                 $modeleJeux->desactiverJeu($params['jeux_id']);
+                                // Garder en session aujourd'hui comme dates de location
+                                $_SESSION["datesLocation"][] = date("Y-m-d") . " au " . date("Y-m-d");
                                 // Ajout du jeu acheté au panier d'achats
                                 $this->addToCart($jeu, 1);
                             }
@@ -182,9 +195,7 @@ class ControleurAchat extends BaseControleur {
                                 array_splice($_SESSION["quantite"], $i, 1);
                                 $_SESSION["prixTotal"] -= $_SESSION["prix"][$i];
                                 array_splice($_SESSION["prix"], $i, 1);
-                                if (isset($_SESSION["datesLocation"])) {
-                                    array_splice($_SESSION["datesLocation"], $i, 1);
-                                }
+                                array_splice($_SESSION["datesLocation"], $i, 1);
                                 break;
                             }
                             $i++;
@@ -218,6 +229,20 @@ class ControleurAchat extends BaseControleur {
         $_SESSION["quantite"][] = $quantite;
         $_SESSION["prix"][] = $prix;
         $_SESSION["prixTotal"] += $prix;
+    }
+
+    /**
+     * Fonction pour créer un jeton pour s'assurer qu'une location ait seulement une évaluation
+     * Source : https://stackoverflow.com/questions/1846202/php-how-to-generate-a-random-unique-alphanumeric-string/13733588#13733588
+     */
+    public function creerJeton($longueur){
+        $jeton = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz123456789";
+        $max = strlen($codeAlphabet);
+        for ($i=0; $i < $longueur; $i++) {
+            $jeton .= $codeAlphabet[random_int(0, $max-1)];
+        }
+        return $jeton;
     }
 
 }

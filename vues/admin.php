@@ -156,7 +156,7 @@
                                 <tr>
                                     <td><?= $donnees['locations'][$i]->getLocationId() ?></td>
                                     <td>
-                                        <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeuLocation'][$i]->getJeuxId() ?>'><?= $donnees['jeuLocation'][$i]->getTitre() ?></a>
+                                        <a href='index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeuLocation'][$i]->getJeuxId() ?>'><?= $donnees['jeuLocation'][$i]->getTitre() ?></a>
                                     </td>
                                     <td><?= $donnees['proprietaireJeuLocation'][$i]->getPrenom() . ' ' . $donnees['proprietaireJeuLocation'][$i]->getNom() ?></td>
                                     <td><?= $donnees['membreLocation'][$i]->getPrenom() . ' ' . $donnees['membreLocation'][$i]->getNom() ?></td>
@@ -351,7 +351,7 @@
     </div>
 
 <?php } else { ?>
-    <h3 class='text-center my-5'>Vous n'avez pas droit d'acceder à cette page!!!</h3>
+    <h3 class='text-center my-5'>Vous n'avez pas les permissions pour acceder à cette page!!!</h3>
 <?php } ?>
 
 <script>
