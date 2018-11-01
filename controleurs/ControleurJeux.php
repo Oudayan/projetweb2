@@ -1,7 +1,7 @@
 <?php
 /**
  * @file      ControleurJeux.php
- * @author    Guilherme Tosin, Marcelo Guzmán
+ * @author    Guilherme Tosin, Marcelo Guzmán, Oudayan Dutta
  * @version   1.0.0
  * @date      Septembre 2018
  * @brief     Définit la classe pour le controleur jeux
@@ -19,44 +19,40 @@ class ControleurJeux extends BaseControleur
     public function index(array $params)
     {
         $modeleJeux = $this->lireDAO("Jeux");
-        $modeleImages = $this->lireDAO("Images");
         $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
-        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
-        $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
+        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
+        $modeleEvaluation = $this->lireDAO("Evaluation");
         $modeleLocation = $this->lireDAO("Location");
+
         $donnees["erreur"] = "";
-        if (isset($params["action"]))
-        {
-            switch($params["action"])
-            {
+
+        if (isset($params["action"])) {
+
+            switch($params["action"]) {
+
                 case "afficherJeu" :
-                    if (isset($params["JeuxId"]))
-                    {
+                    if (isset($params["JeuxId"])) {
                         $donnees['jeu'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
                         $donnees = $this->chercherImages($donnees, 'jeu');
                         $donnees['membre'] = $modeleMembres->obtenirParId($donnees['jeu']->getMembreId());
                         $donnees['plateforme'] = $modelePlateformes->lirePlateformeParId($donnees['jeu']->getPlateformeId());
                         $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
-                        $donnees['commentaires'] = $modeleCommentaireJeux->toutObtenirParIdJeuxId($params["JeuxId"]);
-                        $donnees['nbCommentaires'] = $modeleCommentaireJeux->nbEvaluationsParJeu($params["JeuxId"]);
-                        foreach ($donnees['commentaires'] as $commentaire)
-                        {
-                            $donnees['commentaires']['membres'][] = $modeleMembres->obtenirParId($commentaire->getMembreId());
+                        $donnees['evaluations'] = $modeleEvaluation->lireEvaluationsParJeu($params["JeuxId"]);
+                        $donnees['nbEvaluations'] = $modeleEvaluation->lireNbEvaluationsParJeu($params["JeuxId"]);
+                        foreach ($donnees['evaluations'] as $commentaire) {
+                            $donnees['evaluations']['membres'][] = $modeleMembres->obtenirParId($commentaire->getMembreId());
                         }
                         $locations = $modeleLocation->lireLocationsParJeuxId($params["JeuxId"]);
                         
                         $donnees['nonDispos'] = "['";
                         $cnt = 0;
-                        foreach ($locations as $location)
-                        {
+                        foreach ($locations as $location) {
                             $start = new DateTime($location->getDateDebut());
                             $end = new DateTime($location->getDateRetour());
-                            while($start <= $end)
-                            {
-                                if($cnt == 0)
-                                {
+                            while ($start <= $end) {
+                                if ($cnt == 0) {
                                     $donnees['nonDispos'] .=  $start->format('Y-m-d');
                                 }
                                 else {
@@ -68,8 +64,7 @@ class ControleurJeux extends BaseControleur
                         }
                         $donnees['nonDispos'] .= "']";
                     }
-                    else
-                    {
+                    else {
                         $donnees["erreur"] = "Ce jeu n'existe pas.";
                     }
                     $this->afficherVues("jeux", $donnees);
@@ -90,98 +85,12 @@ class ControleurJeux extends BaseControleur
                     break;
 
                 case "formModifierJeux":
-                    if (isset($params["JeuxId"]))
-                    {
-                        $donnees['plateforme'] = $modelePlateformes->lireToutesPlateformesActives();
-                        $donnees['categories'] = $modeleCategories->lireToutesCategoriesActives();
-                        $donnees['categoriesJeu'] = $modeleCategoriesJeux->lireCategoriesParJeuxId($params["JeuxId"]);
-                        $donnees['jeu'] = $modeleJeux->lireJeuParId($params["JeuxId"]);
-                        $donnees = $this->chercherImages($donnees, "jeu");
-                    }
-                    else
-                    {
-                        $donnees["erreur"] = "Ce jeu n'existe pas.";
-                    }
+                    $donnees = $this->formModifierJeu($params);
                     $this->afficherVues("ajoutJeux", $donnees);
                     break;
 
                 case "enregistrerJeux":
-                    if (isset($params['jeux_id']) && isset($params['titre']) && isset($params['prix']) && isset($params['concepteur']) && isset($params['location']) && isset($params['plateforme_id']) && isset($params['categorie']))
-                    {
-                        if (isset($params['jeux_id']) && $params['jeux_id'] > 0) {
-                            $jeuUpdadte = $modeleJeux->lireJeuParId($params['jeux_id']);
-                            $membre = $jeuUpdadte->getMembreId();
-                            $date = $jeuUpdadte->getDateAjout();
-                            $valide = $jeuUpdadte->getJeuxValide();
-                            $actif = $jeuUpdadte->getJeuxActif();
-                            $banni = $jeuUpdadte->getJeuxBanni();
-                        }
-                        else
-                        {
-                            $membre = $_SESSION["id"];
-                            (string)$date = date("Y-m-d H:i"); 
-                            $valide = 0;
-                            $actif = 1;
-                            $banni = 0;
-                        }
-
-                        //$jeux_id = 0, $plateforme_id = 1, $membre_id = "", $titre = "", $prix = "", $date_ajout = "", $concepteur = "", $location = "", $jeux_valide = 0, $jeux_actif = 1, $jeux_banni = 0, $description = "", $evaluation_globale= "")    
-                        $jeu = new Jeux($params['jeux_id'], $params["plateforme_id"], $membre, $params["titre"], $params["prix"], $date, $params["concepteur"], $params["location"], $valide, $actif, $banni, $params["description"], -1);
-                        $jeux_id = $modeleJeux->sauvegarderJeux($jeu);
-                        if(isset($params['cheminsImages']))
-                        {
-                            $tmpDir = 'images/Jeux/tmp' . $_SESSION['id'];
-                            $newDir = 'images/Jeux/' . $jeux_id;
-                            if(is_dir($tmpDir))
-                            {
-                                if(is_dir($newDir))
-                                {
-                                    $files = scandir($tmpDir);
-                                    $tmpDir .= "/";
-                                    $newDir .= "/";
-                                    foreach ($files as $file) {
-                                        if (in_array($file, array(".",".."))) continue;
-                                        // If we copied this successfully, mark it for deletion
-                                        if (copy($tmpDir.$file, $newDir.$file)) {
-                                            $delete[] = $tmpDir.$file;
-                                        }
-                                    }
-                                    // Delete all successfully-copied files
-                                    foreach ($delete as $file) {
-                                        unlink($file);
-                                    }
-                                    rmdir($tmpDir);
-                                }
-                                else {
-                                    rename($tmpDir, $newDir);
-                                }
-                            }
-                            $modeleImages->effacerImagesParJeuxId($jeux_id);
-                            foreach($params['cheminsImages'] as $cheminImage)
-                            {
-                                if ($cheminImage != "") {
-                                    $image = new Images(0, $jeux_id, str_replace('/tmp' . $_SESSION['id'] . '/', '/' . $jeux_id . '/', $cheminImage));
-                                    // echo "<pre>";
-                                    // var_dump($image);
-                                    // echo "</pre>";
-                                    $modeleImages->sauvegarderImage($image);
-                                }
-                            }
-                        }
-                        //Sauvegarder les categories de jeu
-                        $modeleCategoriesJeux->effacerCategoriesParJeuxId($jeux_id);
-                        for($i=0; $i < count($params['categorie']); $i++)
-                        {
-                            // $jeux_id = 0,$categorie_id = 0, $categorie = ""
-                            $cat = new CategoriesJeux($jeux_id, $params['categorie'][$i], "test", 1);
-                            //var_dump($modeleCategoriesJeux->sauvegarderCategoriesJeu($cat));
-                            $modeleCategoriesJeux->sauvegarderCategoriesJeu($cat);
-                        }
-                    }
-                    else
-                    {
-                        $_SESSION['msg'] ="Remplissez tous les champs...";
-                    }
+                    $this->sauvegarderJeu($params);
                     $this->filtrerJeux($params);
                     break;
 
@@ -199,14 +108,14 @@ class ControleurJeux extends BaseControleur
                     break; 
 
                 case "desactiverJeu":
-                    if(isset($params['jeux_id'])){
+                    if (isset($params['jeux_id'])) {
                         $modeleJeux->desactiverJeu($params['jeux_id']);
                     }
                     $this->afficherJeuxMembres();    
                     break;
 
                 case "activerJeu":
-                    if(isset($params['jeux_id'])){
+                    if (isset($params['jeux_id'])) {
                         $modeleJeux->activerJeu($params['jeux_id']);
                     }
                     $this->afficherJeuxMembres();    
@@ -217,22 +126,17 @@ class ControleurJeux extends BaseControleur
                     break;
             }
         }
-        else
-        {
+        else {
             $this->afficherAccueil();
         }
 
     }
 
 
-    private function filtrerJeux(array $params)
-    {
+    private function filtrerJeux(array $params) {
         $modeleJeux = $this->lireDAO("Jeux");
         $modeleLocation = $this->lireDAO("Location");
-        $modeleMembres = $this->lireDAO("Membres");
         $modelePlateformes = $this->lireDAO("Plateformes");
-        $modeleCategoriesJeux = $this->lireDAO("CategoriesJeux");
-        $modeleCommentaireJeux = $this->lireDAO("CommentaireJeux");
         $modeleCategories = $this->lireDAO("Categories");
 
         //  Construction de la requête SQL
@@ -332,68 +236,28 @@ class ControleurJeux extends BaseControleur
     }
 
 
-    private function afficherAccueil()
-    {
+    private function afficherAccueil() {
         $modeleJeux = $this->lireDAO("Jeux");
-        $modeleImages = $this->lireDAO("Images");
         $modelePlateformes = $this->lireDAO("Plateformes");
         $donnees['plateformes'] = $modelePlateformes->lireToutesPlateformesActives();
-        $donnees['trois'] = $modeleJeux->lireDerniersJeux(3);
+        $donnees['trois'] = $modeleJeux->lireDerniersJeux(6);
         $donnees = $this->chercherImages($donnees, "trois", "Trois");
-        $donnees['derniers'] = $modeleJeux->lireDerniersJeux();
+        $donnees['derniers'] = $modeleJeux->lireDerniersJeux(12);
         $donnees = $this->chercherImages($donnees, "derniers");
         $this->afficherVues("accueil", $donnees);
     }
 
 
-    private function afficherJeuxMembres()
-    {
-        if(isset($_SESSION["id"]))
-        {
+    private function afficherJeuxMembres() {
+        if (isset($_SESSION["id"])) {
             $modeleJeux = $this->lireDAO("Jeux");
             $donnees['jeux'] = $modeleJeux->lireJeuxParMembre($_SESSION["id"]);
             $donnees = $this->chercherImages($donnees);
         }
-        else
-        {
+        else {
             $donnees['erreur'] = "Vous devez vous connecter pour acceder à cette page";
         }
         $this->afficherVues("membre", $donnees);
-    }
-
-
-    private function chercherImages(Array $donnees, String $jeux = "jeux", String $images = "")
-    {
-        $modeleImages = $this->lireDAO("Images");
-        if (gettype($donnees[$jeux]) == "array") {
-            foreach($donnees[$jeux] as $_jeu)
-            {
-                if ($modeleImages->lireImageParJeuxId($_jeu->getJeuxId()))
-                {
-                    $donnees['images' . $images][] = $modeleImages->lireImageParJeuxId($_jeu->getJeuxId());
-                }
-                else
-                {
-                    $donnees['images' . $images][] = new Images(0, $_jeu->getJeuxId(), 'images/image_defaut.png');
-                }
-            }
-        }
-        else if (gettype($donnees[$jeux]) == "object")
-        {
-            if ($modeleImages->lireImageParJeuxId($donnees[$jeux]->getJeuxId()))
-            {
-                $donnees['images' . $images][] = $modeleImages->lireImageParJeuxId($donnees[$jeux]->getJeuxId());
-            }
-            else
-            {
-                $donnees['images' . $images][] = new Images(0, $donnees[$jeux]->getJeuxId(), 'images/image_defaut.png');
-            }
-        }
-        else
-        {
-            $donnees['images' . $images][] = new Images(0, $donnees[$jeux]->getJeuxId(), 'images/image_defaut.png');
-        }
-        return $donnees;
     }
 
 }

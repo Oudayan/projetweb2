@@ -27,6 +27,7 @@
                     </button>
                     <a href="index.php?Jeux&action=derniers"><img src="images/logo.png" height="60" class="logo" title="GameXchange" alt="GameXchange Logo"></a>
                     <div class="collapse navbar-collapse" id="navbar12">
+                        <div class="d-flex flex-wrap">
                         <?php if(isset($_SESSION["id"])){ ?>
                             <ul class="navbar-nav mx-auto">
                                 <a href="index.php?Jeux&action=gererMesJeux" class="btn text-white m-1">
@@ -47,16 +48,17 @@
                                 </ul>
                             <?php } ?>
                         <?php } ?>
-                        <ul class="navbar-nav mx-auto">
-                            <a href="index.php?Jeux&action=rechercherJeux" class="btn text-white m-1"><i class="fas fa-search"></i> Rechercher Jeux</a>
-                        </ul>
-                        <ul class="navbar-nav">
+                            <ul class="navbar-nav mx-auto">
+                                <a href="index.php?Jeux&action=rechercherJeux" class="btn text-white m-1"><i class="fas fa-search"></i> Rechercher Jeux</a>
+                            </ul>
+                        </div>
+                        <ul class="navbar-nav ml-auto">
                             <li class="nav-item mx-1">
                                 <?php if (isset($_SESSION["id"])) { ?>
                                     <a href="index.php?Membres&action=logout" id="btn-logout" class="btn btn-block navbar-btn text-white btn-primary m-1">
                                         <i class="far fa-user-circle"></i> Se déconnecter</a>
                                 <?php } else { ?>
-                                    <a id="btn-login" class="btn btn-block navbar-btn text-white btn-secondary m-1">
+                                    <a id="btn-login" class="btn btn-block btn-success navbar-btn text-white btn-secondary m-1">
                                         <i class="far fa-user-circle"></i> Se connecter</a>
                                 <?php } ?>
                             </li>
@@ -81,13 +83,13 @@
                         <div class="modal-body" style="padding:40px 50px;">
                             <form action="index.php?Membres&action=verifierLogin" method="post">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel" required value="david.hod@gmail.com">
+                                    <input type="text" class="form-control" id="usrname" placeholder="Courriel" name="courriel" required value="oudayan@gmail.com">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required value="pacman_2018">
+                                    <input type="password" class="form-control" id="psw" placeholder="Mot de passe" name="mot_de_passe" required value="ODutta123">
                                 </div>
                                 <div class="checkbox">
-                                    <label><input type="checkbox" value="" checked>  Se souvenir de moi</label>
+                                    <label><input type="checkbox" value="" checked> Se souvenir de moi</label>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
                                 <div class="pt-2">
@@ -114,6 +116,7 @@
             // echo "</pre>";
         ?>
         <main> <!-- fini dans footer.php -->
+
         <script>
             $("#cart").on("click", function () {
                 if ($("#quantitePanier").val() > 0) {

@@ -19,7 +19,7 @@
                                 <img class="card-img-top img-thumbnail" src="<?= $_SESSION["cartImages"][$i]->getCheminPhoto() ?>" alt="Card image cap">
                             </a>
                         </td>
-                        <td class="text-center"><?= $jeux->getTitre() ?></td>
+                        <td class="text-center"><strong><?= $jeux->getTitre() ?></strong><?= isset($_SESSION["datesLocation"][$i]) && $jeux->getLocation() ? '<p class="pt-2"><small>Du ' . $_SESSION["datesLocation"][$i] . '</small></p>' : '' ?></td>
                         <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
                         <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
                         <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> $CAD</td>
@@ -28,12 +28,12 @@
                     <?php $i++;
                 } ?>
                 <tr>
-                    <td class="totalPanier" colspan="4">Total</td>
+                    <td class="totalPanier" colspan="4"><strong>Total</strong></td>
                     <td><?= number_format($_SESSION["prixTotal"], 2) ?> $CAD</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td colspan="6"> <a href="index.php?Achat&action=payerPanier&transaction_id=Comptant" class="btn btn-primary">Payer comptant</a></td>
+                    <td colspan="6"> <a href="index.php?Achat&action=payerPanier&transaction_id=Comptant" class="btn btn-success">Payer comptant</a></td>
                 </tr>
                 <tr>
                     <td colspan="6"> <a href="index.php?Achat&action=payerPanier&transaction_id=Cheque" class="btn btn-primary">Payer par chèque</a></td>
@@ -118,7 +118,7 @@
                 </tr>
                 <?php } else { ?>
                 <tr>
-                    <td colspan="6" class="my-5 py-5"><h3>Le panier est vide</h3></td>
+                    <td colspan="6" class="my-5 py-5"><h3><?= isset($_SESSION['msg']) && $_SESSION['msg'] != '' ? $_SESSION['msg'] : 'Le panier est vide!' ?></h3></td>
                 </tr>
                 <tr>
                     <td colspan="6" class="my-5" py-5><a href="index.php?Jeux&action=rechercherJeux" class="btn btn-info m-5"><i class="fas fa-search"></i> Continuer à magasiner</a>

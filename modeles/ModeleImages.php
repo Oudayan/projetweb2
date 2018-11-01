@@ -13,7 +13,7 @@
 
         // Déclaration du nom de la table (fonction abstraite)
 		public function lireNomTable() {
-			return "photo_jeux";
+			return "`photo_jeux`";
         }
 
         public function toutesImages() {

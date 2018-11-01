@@ -1,103 +1,111 @@
 p, span, th, td, a, li, input, button {
-    font-family: 'Roboto', sans-serif;
+font-family: 'Roboto', sans-serif;
 }
 h1, h3, h3, h4 {
-    font-family: 'Montserrat', sans-serif;
+font-family: 'Montserrat', sans-serif;
+}
+
+main {
+min-height: 75vh;
 }
 
 .cardjeux
 {
-    border-bottom: 5px solid #536dca;
+border-bottom: 5px solid #536dca;
 }
 
 .contact-form
 {
-    box-sizing: border-box;
-    background: rgba(0,0,0,.9);
+box-sizing: border-box;
+background: rgba(0, 0, 0, 0.67);
 }
 
 .contact-form input
 {
-    width: 100%;
-    margin-bottom: 20px;
+width: 100%;
+margin-bottom: 20px;
 }
 
 .contact-form input[type="email"],
 .contact-form input[type="password"]
 {
-    border: none;
-    border-bottom: 1px solid #fff;
-    background: transparent;
-    outline: none;
-    height: 45px;
-    color: #fff;
-    font-size: 16px;
+border: none;
+border-bottom: 1px solid #fff;
+background: transparent;
+outline: none;
+height: 45px;
+color: #fff;
+font-size: 16px;
 }
 
 .contact-form input[type="submit"]
 {
-    height: 30px;
-    color: #fff;
-    font-size: 15px;
-    background: #536dca;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    margin-top: 5%;
+height: 30px;
+color: #fff;
+font-size: 15px;
+background: #536dca;
+cursor: pointer;
+border: none;
+outline: none;
+margin-top: 5%;
 }
 
-.modal-header, h4, .close
+.modal-header, .modal-header h4, .close
 {
-    background-color: #536dca;
-    color:white !important;
-    text-align: center;
-    font-size: 30px;
+background-color: #536dca;
+color:white !important;
+text-align: center;
+font-size: 25px;
 }
 
 .modal-footer
 {
-    background-color: #536dca;
+background-color: #536dca;
 }
 
 .parallax
 {
-    background-image: url("../images/background.jpg");
-    min-height: 500px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+background-image: url("../images/background.jpg");
+min-height: 500px;
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 }
 
 .jeu-titre
 {
-    color: #c01508;
-    text-align: center;
-    font-weight: bold;
-    font-size: 200%;
-    margin-bottom: 0;
+color: #c01508;
+text-align: center;
+font-weight: bold;
+font-size: 200%;
+margin-bottom: 0;
+}
+
+.daterangepicker .disabled {
+color: #c01508 !important;
 }
 
 .contacter-annoceur
 {
-    font-size: 19px;
-    padding: 5px;
-    margin-top: 15px;
-    background: #6c757d;
-    border: 1px solid #6c757d;
-    /* color: lightslategrey; */
-    text-align: left;
+font-size: 19px;
+padding: 5px;
+margin-top: 15px;
+background: #6c757d;
+border: 1px solid #6c757d;
+/* color: lightslategrey; */
+text-align: left;
 
 }
 
 .avis-etoiles .fa-star
 {
-    color: gold;
+color: gold;
 }
 
 #navheader{
-    background-color: black;
-    background-color: rgba(0,0,0,0.9);
+background-color: black;
+background-color: rgba(0,0,0,0.9);
 
 }
 
@@ -141,33 +149,32 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 */
 
 .score {
-    box-sizing: border-box;
-    display: inline-block;
-    font-family: Wingdings;
-    font-size: 20px;
-    color: #ccc;
-    position: relative;
-    word-wrap: normal;
+box-sizing: border-box;
+display: inline-block;
+font-family: Wingdings;
+font-size: 20px;
+color: #ccc;
+position: relative;
+word-wrap: normal;
 }
 
 .score::before,
 .score span::before{
-    content: "\2605\2605\2605\2605\2605";
-    display: block;
+content: "\2605\2605\2605\2605\2605";
+display: block;
 }
 
 .score span {
-    color: gold;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
+color: gold;
+position: absolute;
+top: 0;
+left: 0;
+overflow: hidden;
 }
 
 .hidden{
     display: none;
 }
-
 
 .list-message{
     list-style: none;
@@ -185,13 +192,14 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 .list-message li a{
     background-color: gray;
 }
+
 .modal-body{
     font-size: 20px;
 }
 
 /** asd*/
 .img-thumbnail {
-    width: 64px;
+    width: 75px;
 }
 
 /*asd*/
@@ -239,6 +247,7 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 .table-panier th{
     text-align: center;
 }
+
 .table-panier td{
     text-align: center;
 }
@@ -247,12 +256,11 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
     text-align: right;
 }
 
-
-
 .shopping-cart-header {
     border-bottom: 1px solid #E8E8E8;
     padding-bottom: 15px;
 }
+
 .shopping-cart-total {
     float: right;
 }
@@ -260,6 +268,7 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 .shopping-cart-items {
     padding-top: 20px;
 }
+
 .shopping-cart-items li {
     margin-bottom: 18px;
 }
@@ -283,10 +292,10 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 .shopping-cart-items .item-quantity {
     color: #ABB0BE;
 }
+
 .shopping-cart-items .totalCart{
     float: right;
 }
-
 
 .shopping-cart:after {
     bottom: 100%;
@@ -321,18 +330,19 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
 
 .haute-de-page {
     font-size: 26px;
-    
 }
 
 .haute-de-page:hover {
     background: rgba(0,0,0,0);
-	color: #3a7999;
-	box-shadow: inset 0 0 0 3px #3a7999;
+    color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .miniature {
-    width: 50px;
-    height: 50px;
+    min-width: 50px;
+    max-width: 200px;
+    min-height: 50px;
+    max-height: 200px;
 }
 
 .form-control::-webkit-input-placeholder {
@@ -349,4 +359,113 @@ Source : https://stackoverflow.com/questions/30765441/use-font-awesome-star-rati
     background-size: cover;
     background-attachment: fixed;
 }
+
+.img-responsive {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    padding: 2px;
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 5px;
+}
+
+.upload {
+    border: 1px solid rgb(10, 10, 10);
+    border-radius: 5px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+@media (min-width: 525px) {
+    #plateformes-tab table, #categories-tab table {
+        margin-left: 15%;
+    }
+}
+
+@media (min-width: 700px) {
+    #plateformes-tab table, #categories-tab table {
+        margin-left: 20%;
+    }
+}
+
+@media (min-width: 800px) {
+    #plateformes-tab table, #categories-tab table {
+        margin-left: 25%;
+    }
+}
+
+@media (min-width: 900px) {
+    #plateformes-tab table, #categories-tab table {
+        margin-left: 30%;
+    }
+}
+
+@media (min-width: 1200px) {
+    #plateformes-tab table, #categories-tab table {
+        margin-left: 25%;
+    }
+}
+
+@media (min-width: 1400px) {
+    #plateformes-tab table, #categories-tab table {
+        margin-left: 33%;
+    }
+}
+
+.bg-evaluation{
+    background-image: url("../images/bg-evaluation.png");
+    background-position: left;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Dynamic Star Rating
+Source : https://codepen.io/jamesbarnett/pen/vlpkh
+*/
+
+.rating { 
+    border: none;
+    float: left;
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > label:before { 
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 2em;
+    content: "\f005";
+    margin: 5px;
+}
+
+.rating > .half:before { 
+    content: "\f089";
+    position: absolute;
+}
+
+.rating > label { 
+    color: #ddd; 
+    float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { 
+    color: #FFD700;  
+} /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label {
+    color: #FFED85;
+} 
+
 

@@ -1,352 +1,55 @@
 <?php if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 2)) { ?>
     <h1 class="text-center my-3">Adminstration</h1>
-    <div class="d-flex container">
-
-        <div class="nav flex-column nav-pills m-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 1 ? "active" : "" ?>" id="membres-tab" data-toggle="pill" href="#membres" role="tab" aria-controls="v-pills-home" aria-selected="true">Gérer les membres</a>
-            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 2 ? "active" : "" ?>" id="jeux-tab" data-toggle="pill" href="#jeux" role="tab" aria-controls="v-pills-profile" aria-selected="false">Gérer les jeux</a>
-            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 3 ? "active" : "" ?>" id="transactions-tab" data-toggle="pill" href="#transactions" role="tab" aria-controls="v-pills-messages" aria-selected="false">Gérer les transactions</a>
-            <a class="nav-link <?= isset($donnees['tab']) && $donnees['tab'] == 4 ? "active" : "" ?>" id="menus-tab" data-toggle="pill" href="#menus" role="tab" aria-controls="v-pills-settings" aria-selected="false">Gérer les menus</a>
-        </div>
-
-        <div class="tab-content" id="v-pills-tabContent m-1">
-            <!--Tableau gérer les membres-->
-            <div class="tab-pane fade <?= $donnees['tab'] == 1 ? "show active" : "" ?> table-responsive" id="membres" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                <table class="table table-hover ">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Courriel</th>
-                        <th scope="col">Type</th>
-                        <th class="text-center" colspan="3" scope="col">Opération</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php for ($i = 0; $i < count($donnees['membres']); $i++) {
-                        if ($donnees['membres'][$i]->getTypeUtilisateur() != 3 || ($donnees['membres'][$i]->getTypeUtilisateur() == 3 && $_SESSION["type"] == 3)) { ?>
-                            <tr class="<?= $donnees['membres'][$i]->getMembreActif() ? "" : "text-danger" ?> <?= $donnees['membres'][$i]->getTypeUtilisateur() == 1 ? "" : "text-success" ?>">
-                                <td><?= $donnees['membres'][$i]->getMembreId(); ?></td>
-                                <td><?= ($_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $donnees['membres'][$i]->getTypeUtilisateur() == 1) || $_SESSION["id"] == $donnees['membres'][$i]->getMembreId() ? '<a href="index.php?Membres&action=formModifierMembre&membreId=' . $donnees['membres'][$i]->getMembreId() . '">' . $donnees['membres'][$i]->getPrenom() . ' ' . $donnees['membres'][$i]->getNom() . '</a>' : $donnees['membres'][$i]->getPrenom() . ' ' . $donnees['membres'][$i]->getNom()) ?></td>
-                                <td><?= $donnees['membres'][$i]->getCourriel() ?></td>
-                                <td><?= $donnees['typeMembre'][$i]; ?></td>
-                                <?php if ($donnees['membres'][$i]->getMembreValide() == 0) { ?>
-                                    <td>
-                                        <a href="index.php?Admin&action=validerMembre&membre_id=<?= $donnees['membres'][$i]->getMembreId(); ?>" class="btn btn-success m-1">Valider</a>
-                                    </td>
-                                <?php } else {
-                                    if ($donnees['membres'][$i]->getMembreValide() && $donnees['membres'][$i]->getTypeUtilisateur() != 3 && $donnees['membres'][$i]->getMembreActif() && ($_SESSION["type"] == 3 || ($_SESSION["type"] == 2 && $donnees['membres'][$i]->getTypeUtilisateur() == 1))) { ?>
-                                        <td>
-                                            <a href="index.php?Admin&action=bannirMembre&membre_id=<?= $donnees['membres'][$i]->getMembreId(); ?>" class="btn btn-outline-danger m-1">Bannir</a>
-                                        </td>
-                                    <?php }
-                                    if (!$donnees['membres'][$i]->getMembreActif()) { ?>
-                                        <td>
-                                            <a href="index.php?Admin&action=reactiverMembre&membre_id=<?= $donnees['membres'][$i]->getMembreId(); ?>" class="btn btn-outline-warning m-1">Dé-bannir</a>
-                                        </td>
-                                    <?php }
-                                    if ($donnees['membres'][$i]->getTypeUtilisateur() == 1 && $_SESSION["type"] == 3 && $donnees['membres'][$i]->getMembreActif() && $donnees['membres'][$i]->getMembreValide()) { ?>
-                                        <td>
-                                            <a href="index.php?Admin&action=promouvoirMembre&membre_id=<?= $donnees['membres'][$i]->getMembreId(); ?>" class="btn btn-outline-primary m-1">Promouvoir</a>
-                                        </td>
-                                    <?php }
-                                    if ($_SESSION["type"] == 3 && $donnees['membres'][$i]->getTypeUtilisateur() == 2) { ?>
-                                        <td>
-                                            <a href="index.php?Admin&action=demouvoirMembre&membre_id=<?= $donnees['membres'][$i]->getMembreId(); ?>" class="btn btn-outline-info m-1">Rétrograder</a>
-                                        </td>
-                                    <?php }
-                                } ?>
-                            </tr>
-                        <?php }
-                    } ?>
-                    </tbody>
-                </table>
+    <div class="container-fluid">
+        <div class="row mt-2 mb-3 my-2">
+            <div class="d-flex flex-column nav nav-pills col-xl-3 border rounded text-center mx-3 my-1 p-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <h3 class="mt-1 mb-3">Navigation</h3>
+                <a class="nav-link mb-1 active" id="membres-tab" data-toggle="pill" href="#membres" role="tab" aria-controls="v-pills-membres" aria-selected="true">Gérer les membres</a>
+                <a class="nav-link my-1" id="jeux-tab" data-toggle="pill" href="#jeux" role="tab" aria-controls="v-pills-jeux" aria-selected="false">Gérer les jeux</a>
+                <a class="nav-link my-1" id="transactions-tab" data-toggle="pill" href="#transactions" role="tab" aria-controls="v-pills-transactions" aria-selected="false">Gérer les transactions</a>
+                <a class="nav-link my-1" id="menus-tab" data-toggle="pill" href="#menus" role="tab" aria-controls="v-pills-menus" aria-selected="false">Gérer les menus</a>
             </div>
-
-            <!--Tableau gérer les jeux-->
-            <div class="tab-pane fade <?= $donnees['tab'] == 2 ? "show active" : "" ?> table-responsive" id="jeux" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                <table class="table table-hover ">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Titre</th>
-                        <th scope="col">Propriétaire</th>
-                        <th scope="col">Transaction</th>
-                        <th class="text-center" colspan="3" scope="col">Opération</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
-                        <tr class="<?= $donnees['jeux'][$i]->getJeuxValide() == 0 ? "text-success" : ($donnees['jeux'][$i]->getJeuxBanni() == 1 ? "text-danger" : ($donnees['jeux'][$i]->getJeuxActif() == 0 ? "text-muted" : "")) ?>">
-                            <td><?= $donnees['jeux'][$i]->getJeuxId() ?></td>
-                            <td>
-                                <a href='index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>'>
-                                <img src="<?= $donnees['images'][$i]->getCheminPhoto(); ?>" class="img-thumbnail miniature"></a>
-                            </td>
-                            <td>
-                                <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>'><?= $donnees['jeux'][$i]->getTitre() ?></a>
-                            </td>
-                            <td><?= $donnees['membreJeu'][$i]->getPrenom() . ' ' . $donnees['membreJeu'][$i]->getNom() ?></td>
-                            <td><?= $donnees['jeux'][$i]->getLocation() == 1 ? "Location" : "Vente" ?></td>
-                            <?php if ($donnees['jeux'][$i]->getJeuxValide() == 0) { ?>
-                                <td>
-                                    <a href="index.php?Admin&action=validerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-success m-1">Valider</a>
-                                </td>
-                            <?php } else {
-                                if ($donnees['jeux'][$i]->getJeuxActif() == 0) { ?>
-                                    <td>
-                                        <a href="index.php?Admin&action=activerJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-success m-1">Activer</a>
-                                    </td>
-                                <?php } else { ?>
-                                    <td>
-                                        <a href="index.php?Admin&action=desactiverJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-info m-1">Désactiver</a>
-                                    </td>
-                                <?php }
-                                if ($donnees['jeux'][$i]->getlocation() == 1) {
-                                    if ($donnees['jeux'][$i]->getJeuxBanni() == 0) { ?>
-                                        <td>
-                                            <a href="index.php?Admin&action=bannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-danger m-1">Bannir</a>
-                                        </td>
-                                    <?php } else { ?>
-                                        <td>
-                                            <a href="index.php?Admin&action=debannirJeu&jeux_id=<?= $donnees['jeux'][$i]->getJeuxId(); ?>" class="btn btn-outline-warning m-1">Dé-bannir</a>
-                                        </td>
-                                    <?php }
-                                } else { 
-                                    if ($donnees['jeux'][$i]->getJeuxBanni() == 1) { ?>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-success" disabled>Vendu</button>
-                                    </td>
-                                    <?php }
-                                }
-                            } ?>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <!--Tableau gérer les transactions-->
-            <div class="tab-pane fade <?= $donnees['tab'] == 3 ? "show active" : "" ?> table-responsive" id="transactions" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                <nav>
-                    <div id="nav-tab" class="nav nav-tabs row mx-0" role="tablist">
-                        <a class="nav-item nav-link col-6 active" id="nav-locations-tab" data-toggle="tab" href="#locations-tab" role="tab" aria-controls="nav-fiches" aria-selected="true"><h2>Locations</h2></a>
-                        <a class="nav-item nav-link col-6" id="nav-achats-tab" data-toggle="tab" href="#achats-tab" role="tab" aria-controls="nav-carte" aria-selected="false"><h2>Achats</h2></a>
-                    </div>
-                </nav>
-                <div id="nav-tabContent" class="tab-content border-left border-right border-bottom">
-                    <!--Tableau de location-->
-                    <section id="locations-tab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-locations-tab">
-                        <h5 class="text-center p-4">Locations</h5>
-                        <table class="table table-hover ">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Titre jeux</th>
-                                <th scope="col">Propriétaire</th>
-                                <th scope="col">Locataire</th>
-                                <th scope="col">Paiement</th>
-                                <th scope="col">Date début</th>
-                                <th scope="col">Date retour</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php for ($i = 0; $i < count($donnees['locations']); $i++) { ?>
-                                <tr>
-                                    <td><?= $donnees['locations'][$i]->getLocationId() ?></td>
-                                    <td>
-                                        <a href='index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeuLocation'][$i]->getJeuxId() ?>'><?= $donnees['jeuLocation'][$i]->getTitre() ?></a>
-                                    </td>
-                                    <td><?= $donnees['proprietaireJeuLocation'][$i]->getPrenom() . ' ' . $donnees['proprietaireJeuLocation'][$i]->getNom() ?></td>
-                                    <td><?= $donnees['membreLocation'][$i]->getPrenom() . ' ' . $donnees['membreLocation'][$i]->getNom() ?></td>
-                                    <td><?= $donnees['typePaiementLocation'][$i]->getTypePaiement() ?> </td>
-                                    <td><?= $donnees['locations'][$i]->getDateDebut(); ?> </td>
-                                    <td><?= $donnees['locations'][$i]->getDateRetour(); ?> </td>
-                                </tr>
-                            <?php } ?>
-                            </tbody>
-                        </table>
-                    </section>
-                    <!--Tableau d`achat-->
-                    <section id="achats-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-achats-tab">
-                        <h5 class="text-center p-4">Achats</h5>
-                        <table class="table table-hover ">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Titre jeux</th>
-                                    <th scope="col">Propriétaire</th>
-                                    <th scope="col">Acheteur</th>
-                                    <th scope="col">Paiement</th>
-                                    <th scope="col">Date d'achat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php for ($i = 0; $i < count($donnees['achats']); $i++)  : ?>
-                                <tr>
-                                    <td><?= $donnees['achats'][$i]->getAchatId() ?></td>
-                                    <td>
-                                        <a href='index.php?Jeux&action=formModifierJeux&JeuxId=<?= $donnees['jeuAchat'][$i]->getJeuxId() ?>'><?= $donnees['jeuAchat'][$i]->getTitre() ?></a>
-                                    </td>
-                                    <td><?= $donnees['proprietaireJeuAchat'][$i]->getPrenom() . ' ' . $donnees['proprietaireJeuAchat'][$i]->getNom() ?></td>
-                                    <td><?= $donnees['membreAchat'][$i]->getPrenom() . ' ' . $donnees['membreAchat'][$i]->getNom() ?></td>
-                                    <td><?= $donnees['typePaiementAchat'][$i]->getTypePaiement() ?> </td>
-                                    <td><?= $donnees['achats'][$i]->getDateAchat() ?> </td>
-                                </tr>
-                            <?php endfor; ?>
-                            </tbody>
-                        </table>
-                    </section>
+            <div class="col tab-content my-1" id="tabContent">
+                <!--Tableau gérer les membres-->
+                <div class="tab-pane fade show active table-responsive border rounded p-2" id="membres" role="tabpanel" aria-labelledby="v-pills-membres-tab">
                 </div>
-            </div>
-
-            <!--Tableau gérer les menus-->
-            <div class="tab-pane fade <?= $donnees['tab'] == 4 ? "show active" : "" ?> table-responsive" id="menus" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                <div class="container mt-5">
-                    <div class="row">
-                    <!-- Catégories -->
-                        <div class="col-lg-6">
-                            <h2 class="text-center">Catégories
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success ml-3" data-toggle="modal"
-                                        data-target="#categorie">
-                                    Ajouter
-                                </button>
-                            </h2>
-                            <!-- Modal categorie -->
-                            <div class="modal fade" id="categorie" tabindex="-1" role="dialog" aria-labelledby="categorieLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Ajouter une catégorie</h5>
-                                            <button type="button" class="close " data-dismiss="modal"
-                                                    aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="index.php?Admin&action=sauvegarderCategorie" method="POST">
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label for="modification">Nouvelle catégorie</label>
-                                                    <input type="text" id="categorie" name="categorie" value="">
-                                                    <input type="number" id="categorie_id" name="categorie_id" hidden value="0">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Fermer
-                                                </button>
-                                                <input type="submit" class="btn btn-primary" value="Enregistrer">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <table class="table table-hover ">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Catégorie</th>
-                                    <th class="text-center" colspan="2" scope="col">Opération</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php for ($i = 0;
-                                    $i < count($donnees['categories']);
-                                    $i++): ?>
-                                    <tr>
-                                        <td class="col-lg-5"><?= $donnees['categories'][$i]->getCategorieId() ?></td>
-                                        <td class="col-lg-5"><?= $donnees['categories'][$i]->getCategorie() ?></td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-outline-primary ml-3" data-toggle="modal" data-target="#categorie" onclick="modifierCategorie(<?= $donnees['categories'][$i]->getCategorieId() ?>, '<?= $donnees['categories'][$i]->getCategorie() ?>')">
-                                                Modifier
-                                            </button>
-                                        </td>
-                                        <td>
-                                        <?php if ($donnees['categories'][$i]->getCategorieActive() == 0) { ?>
-                                            <a href="index.php?Admin&action=activerCategorie&categorie_id=<?= $donnees['categories'][$i]->getCategorieId(); ?>" class="btn btn-sm btn-outline-success m-1">Activer</a>
-                                        <?php } else { ?>
-                                            <a href="index.php?Admin&action=desactiverCategorie&categorie_id=<?= $donnees['categories'][$i]->getCategorieId(); ?>" class="btn btn-sm btn-outline-danger m-1">Désactiver</a>
-                                        <?php } ?>
-                                        </td>
-                                    <tr>
-                                <?php endfor; ?>
-                                </tbody>
-                            </table>
+                <!--Tableau gérer les jeux-->
+                <div class="tab-pane fade table-responsive border rounded p-2" id="jeux" role="tabpanel" aria-labelledby="v-pills-jeux-tab">
+                </div>
+                <!--Tableau gérer les transactions-->
+                <div class="tab-pane fade" id="transactions" role="tabpanel" aria-labelledby="v-pills-transactions-tab">
+                    <nav>
+                        <div id="nav-transactions-tab" class="nav nav-tabs row mx-0" role="tablist">
+                            <a class="nav-item nav-link col-6 active" id="nav-locations-tab" data-toggle="tab" href="#locations-tab" role="tab" aria-controls="nav-locations-tab" aria-selected="true"><h3>Locations</h3></a>
+                            <a class="nav-item nav-link col-6" id="nav-achats-tab" data-toggle="tab" href="#achats-tab" role="tab" aria-controls="nav-achats-tab" aria-selected="false"><h3>Achats</h3></a>
                         </div>
+                    </nav>
+                    <div id="nav-transactions-tabContent" class="tab-content border border-top-0 rounded-bottom p-2">
+                        <!--Tableau de location-->
+                        <section id="locations-tab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-locations-tab">
+                        </section>
+                        <!--Tableau d`achat-->
+                        <section id="achats-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-achats-tab">
+                        </section>
+                    </div>
+                </div>
+                <!--Tableau gérer les menus-->
+                <div class="tab-pane fade" id="menus" role="tabpanel" aria-labelledby="v-pills-menus-tab">
+                    <nav>
+                        <div id="nav-menus-tab" class="nav nav-tabs row mx-0" role="tablist">
+                            <a class="nav-item nav-link col-6 active" id="nav-categories-tab" data-toggle="tab" href="#categories-tab" role="tab" aria-controls="categories-tab" aria-selected="true"><h3>Catégories</h3></a>
+                            <a class="nav-item nav-link col-6" id="nav-plateformes-tab" data-toggle="tab" href="#plateformes-tab" role="tab" aria-controls="plateformes-tab" aria-selected="false"><h3>Plateformes</h3></a>
+                        </div>
+                    </nav>
+                    <div id="nav-menus-tabContent" class="tab-content border border-top-0 rounded-bottom p-2">
+                        <!-- Catégories -->
+                        <section id="categories-tab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-categories-tab">
+                        </section>
                         <!-- Plateformes -->
-                        <div class="col-lg-6">
-                            <h2 class="text-center">Plateforme
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success ml-3" data-toggle="modal"
-                                        data-target="#plateforme">
-                                    Ajouter
-                                </button>
-                            </h2>
-                            <!-- Modal plateforme -->
-                            <div class="modal fade" id="plateforme" tabindex="-1" role="dialog" aria-labelledby="plateformeLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Ajouter une plateforme</h5>
-                                            <button type="button" class="close " data-dismiss="modal"
-                                                    aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="index.php?Admin&action=sauvegarderPlateforme" method="POST">
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label for="plateforme">Nouvelle plateforme</label>
-                                                    <input type="text" id="plateforme" name="plateforme" value="">
-                                                    <input type="number" id="plateforme_id" name="plateforme_id" hidden value="0">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Fermer
-                                                </button>
-                                                <input type="submit" class="btn btn-primary" value="Enregistrer">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <table class="table table-hover ">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Plateforme</th>
-                                    <th class="text-center" colspan="2" scope="col">Opération</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php for ($i = 0; $i < count($donnees['plateformes']); $i++): ?>
-                                    <tr>
-                                        <td><?= $donnees['plateformes'][$i]->getPlateformeId() ?></td>
-                                        <td><?= $donnees['plateformes'][$i]->getPlateforme() ?></td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-outline-primary ml-3" data-toggle="modal" data-target="#plateforme" onclick="modifierPlateforme(<?= $donnees['plateformes'][$i]->getPlateformeId() ?>, '<?= $donnees['plateformes'][$i]->getPlateforme() ?>')">
-                                                Modifier
-                                            </button>
-                                        </td>
-                                        <td>
-                                        <?php if ($donnees['plateformes'][$i]->getPlateformeActive() == 0) { ?>
-                                            <a href="index.php?Admin&action=activerPlateforme&plateforme_id=<?= $donnees['plateformes'][$i]->getPlateformeId(); ?>" class="btn btn-sm btn-outline-success m-1">Activer</a>
-                                        <?php } else { ?>
-                                            <a href="index.php?Admin&action=desactiverPlateforme&plateforme_id=<?= $donnees['plateformes'][$i]->getPlateformeId(); ?>" class="btn btn-sm btn-outline-danger m-1">Désactiver</a>
-                                        <?php } ?>
-                                        </td>
-                                    </tr>
-                                <?php endfor; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                        <section id="plateformes-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-plateformes-tab">
+                        </section>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 
@@ -354,16 +57,473 @@
     <h3 class='text-center my-5'>Vous n'avez pas les permissions pour acceder à cette page!!!</h3>
 <?php } ?>
 
-<script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        afficherAdminMembres();
+    });
+
+    $("#membres-tab").click(function() {
+        afficherAdminMembres();
+    });
+
+    $("#jeux-tab").click(function() {
+        afficherAdminJeux();
+    });
+
+    $("#transactions-tab").click(function() {
+        afficherAdminLocations();
+    });
+
+    $("#nav-locations-tab").click(function() {
+        afficherAdminLocations();
+    });
+
+    $("#nav-achats-tab").click(function() {
+        afficherAdminAchats();
+    });
+
+    $("#menus-tab").click(function() {
+        afficherAdminMenuCategories();
+    });
+
+    $("#nav-categories-tab").click(function() {
+        afficherAdminMenuCategories();
+    });
+
+    $("#nav-plateformes-tab").click(function() {
+        afficherAdminMenuPlateformes();
+    });
+
+    var page = <?= isset($donnees["page"]) ? $donnees["page"] . ";" : "1;" ?>
+
+
+    // Fonctions Ajax pour admin des membres
+
+    function afficherAdminMembres() {
+        $.ajax({
+            url: 'index.php?Admin', 
+            type: "POST",
+            data: { 
+                action: "afficherMembres",
+                page: 1,
+                itemsParPage: $("#membres .itemsParPage").val(),
+                tri: $("#membres .tri").val(),
+                ordre: $("#membres .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#membres").empty();
+                $("#membres").html(donnees);
+            }
+        });
+    }
+
+    function updateMembre(id, action) {
+        $.ajax({
+            url: 'index.php?Admin', 
+            type: "POST",
+            data: { 
+                action: action,
+                membre_id: id,
+                page: page,
+                itemsParPage: $("#membres .itemsParPage").val(),
+                tri: $("#membres .tri").val(),
+                ordre: $("#membres .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#membres").empty();
+                $("#membres").html(donnees);
+            }
+        });
+    }
+
+    function modifierMembre(id) {
+        $.ajax({
+            url: 'index.php?Admin',
+            type: "POST",
+            data: { 
+                action: 'formAdminModifierMembre',
+                membre_id: id,
+                page: page,
+                itemsParPage: $("#membres .itemsParPage").val(),
+                tri: $("#membres .tri").val(),
+                ordre: $("#membres .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#membres").empty();
+                $("#membres").html(donnees);
+            }
+        });
+    }
+
+    function sauvegarderMembre() {
+        $.ajax({
+            url: "index.php?Admin",
+            method: "POST",
+            data: { 
+                action: "adminEnregistrerMembre",
+                membre_id: $("#membreId").val(),
+                courriel: $("#email").val(),
+                mot_de_passe: $("#pwd").val(),
+                confirm_mdp: $("#confimerMotDePasse").val(),
+                nom: $("#nom").val(),
+                prenom: $("#prenom").val(),
+                adresse: $("#adresse").val(),
+                telephone: $("#telephone").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#membres").empty();
+                $("#membres").html(donnees);
+            }
+        });
+    }
+
+    // Fonctions Ajax pour admin des jeux
+
+    function afficherAdminJeux() {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: "afficherJeux",
+                page: 1,
+                itemsParPage: $("#jeux .itemsParPage").val(),
+                tri: $("#jeux .tri").val(),
+                ordre: $("#jeux .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#jeux").empty();
+                $("#jeux").html(donnees);
+            }
+        });
+    }
+
+    function updateJeu(id, action) {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: action,
+                jeux_id: id,
+                page: page,
+                itemsParPage: $("#jeux .itemsParPage").val(),
+                tri: $("#jeux .tri").val(),
+                ordre: $("#jeux .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#jeux").empty();
+                $("#jeux").html(donnees);
+            }
+        });
+    }
+
+    function modifierJeu(id) {
+        $.ajax({
+            url: 'index.php?Admin',
+            type: "POST",
+            data: { 
+                action: 'formAdminModifierJeu',
+                JeuxId: id,
+                page: page,
+                itemsParPage: $("#jeux .itemsParPage").val(),
+                tri: $("#jeux .tri").val(),
+                ordre: $("#jeux .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#jeux").empty();
+                $("#jeux").html(donnees);
+            }
+        });
+    }
+
+    function sauvegarderJeu() {
+        var inputCategories = $("#categories input");
+        var categories = [];
+        var cnt = 0
+        for (var i = 0; i < inputCategories.length; i++) {
+            if (inputCategories[i].checked) {
+                categories[cnt] = inputCategories[i].value;
+                cnt++;
+            }
+        }
+        var cheminsImages = [];
+        var inputImages = $("[id^=inputImage]");
+        var cnt = 0
+        for (var i = 0; i < inputImages.length; i++) {
+            if (inputImages[i].value != "") {
+                cheminsImages[cnt] = inputImages[i].value;
+                cnt++;
+            }
+        }
+        console.log(categories, cheminsImages);
+        $.ajax({
+            url: "index.php?Admin",
+            method: "POST",
+            data: { 
+                action: "adminEnregistrerJeu",
+                jeux_id: $("#jeux_id").val(),
+                titre: $("#titre").val(),
+                prix: $("#prix").val(),
+                concepteur: $("#concepteur").val(),
+                location: $("#louer").val() || $("#vendre").val(),
+                plateforme_id: $("#plateforme_id").val(),
+                categorie: categories,
+                description: $("#description").val(),
+                cheminsImages: cheminsImages,
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#jeux").empty();
+                $("#jeux").html(donnees);
+            }
+        });
+    }
+
+    // Fonctions Ajax pour admin des locations
+
+    function afficherAdminLocations() {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: "afficherLocations",
+                page: 1,
+                itemsParPage: $("#locations-tab .itemsParPage").val(),
+                tri: $("#locations-tab .tri").val(),
+                ordre: $("#locations-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#locations-tab").empty();
+                $("#locations-tab").html(donnees);
+            }
+        });
+    }
+
+    function updateLocation(id, action) {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: action,
+                location_id: id,
+                page: page,
+                itemsParPage: $("#locations-tab .itemsParPage").val(),
+                tri: $("#locations-tab .tri").val(),
+                ordre: $("#locations-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#locations-tab").empty();
+                $("#locations-tab").html(donnees);
+            }
+        });
+    }
+
+    // Fonctions Ajax pour admin des achats
+
+    function afficherAdminAchats() {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: "afficherAchats",
+                page: 1,
+                itemsParPage: $("#achats-tab .itemsParPage").val(),
+                tri: $("#achats-tab .tri").val(),
+                ordre: $("#achats-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#achats-tab").empty();
+                $("#achats-tab").html(donnees);
+            }
+        });
+    }
+
+    function updateAchat(id, action) {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: action,
+                achat_id: id,
+                page: page,
+                itemsParPage: $("#achats-tab .itemsParPage").val(),
+                tri: $("#achats-tab .tri").val(),
+                ordre: $("#achats-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#achats-tab").empty();
+                $("#achats-tab").html(donnees);
+            }
+        });
+    }
+
+    // Fonctions Ajax pour admin du menu Catégories
+
+    function afficherAdminMenuCategories() {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: "afficherMenuCategories",
+                page: 1,
+                itemsParPage: $("#categories-tab .itemsParPage").val(),
+                tri: $("#categories-tab .tri").val(),
+                ordre: $("#categories-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#categories-tab").empty();
+                $("#categories-tab").html(donnees);
+            }
+        });
+    }
+
+    function updateCategorie(id, action) {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: action,
+                categorie_id: id,
+                page: page,
+                itemsParPage: $("#categories-tab .itemsParPage").val(),
+                tri: $("#categories-tab .tri").val(),
+                ordre: $("#categories-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#categories-tab").empty();
+                $("#categories-tab").html(donnees);
+            }
+        });
+    }
 
     function modifierCategorie(id, categorie) {
-        $("#categorie input[type='number']").val(id);
-        $("#categorie input:text").val(categorie);
+        $("#categories-tab h5 span").html("Modifier une plateforme");
+        $("#categories-tab label").html("Modifier plateforme");
+        $("#categories-tab input[type='number']").val(id);
+        $("#categories-tab input:text").val(categorie);
+    }
+
+    function nouvelleCategorie() {
+        $("#categories-tab h5 span").html("Ajouter une plateforme");
+        $("#categories-tab label").html("Nouvelle plateforme");
+        $("#categories-tab input[type='number']").val(0);
+        $("#categories-tab input:text").val("");
+    }
+
+    function sauvegarderCategorie() {
+        $('#categoriesModal').modal('hide');
+        $(document.body).removeClass("modal-open");
+        $(".modal-backdrop").remove();
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: "sauvegarderCategorie",
+                categorie_id: $("#categories-tab input[type='number']").val(),
+                categorie: $("#categories-tab input:text").val(),
+                page: page,
+                itemsParPage: $("#categories-tab .itemsParPage").val(),
+                tri: $("#categories-tab .tri").val(),
+                ordre: $("#categories-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#categories-tab").empty();
+                $("#categories-tab").html(donnees);
+            }
+        });
+    }
+
+    // Fonctions Ajax pour admin du menu Plateformes
+
+    function afficherAdminMenuPlateformes() {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: "afficherMenuPlateformes",
+                page: 1,
+                itemsParPage: $("#plateformes-tab .itemsParPage").val(),
+                tri: $("#plateformes-tab .tri").val(),
+                ordre: $("#plateformes-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#plateformes-tab").empty();
+                $("#plateformes-tab").html(donnees);
+            }
+        });
+    }
+
+    function updatePlateforme(id, action) {
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: action,
+                plateforme_id: id,
+                page: page,
+                itemsParPage: $("#plateformes-tab .itemsParPage").val(),
+                tri: $("#plateformes-tab .tri").val(),
+                ordre: $("#plateformes-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#plateformes-tab").empty();
+                $("#plateformes-tab").html(donnees);
+            }
+        });
     }
 
     function modifierPlateforme(id, plateforme) {
-        $("#plateforme input[type='number']").val(id);
-        $("#plateforme input:text").val(plateforme);
+        $("#plateformes-tab h5 span").html("Modifier une plateforme");
+        $("#plateformes-tab label").html("Modifier plateforme");
+        $("#plateformes-tab input[type='number']").val(id);
+        $("#plateformes-tab input:text").val(plateforme);
+    }
+
+    function nouvellePlateforme() {
+        $("#plateformes-tab h5 span").html("Ajouter une plateforme");
+        $("#plateformes-tab label").html("Nouvelle plateforme");
+        $("#plateformes-tab input[type='number']").val(0);
+        $("#plateformes-tab input:text").val("");
+    }
+
+    function sauvegarderPlateforme() {
+        $("#plateformesModal").modal("hide")
+        $(document.body).removeClass("modal-open");
+        $(".modal-backdrop").remove();
+        $.ajax({
+            url: "index.php?Admin", 
+            type: "POST",
+            data: { 
+                action: "sauvegarderPlateforme",
+                plateforme_id: $("#plateformes-tab input[type='number']").val(),
+                plateforme: $("#plateformes-tab input:text").val(),
+                page: page,
+                itemsParPage: $("#plateformes-tab .itemsParPage").val(),
+                tri: $("#plateformes-tab .tri").val(),
+                ordre: $("#plateformes-tab .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#plateformes-tab").empty();
+                $("#plateformes-tab").html(donnees);
+            }
+        });
     }
 
 </script>

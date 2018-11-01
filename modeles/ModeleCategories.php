@@ -13,7 +13,7 @@
 
         // Déclaration du nom de la table (fonction abstraite)
 		public function lireNomTable() {
-			return "categorie";
+			return "`categorie`";
         }
 
         public function lireCategoriesParId($id) {
@@ -22,9 +22,14 @@
             return $resultat->fetch();
         }
 
-        public function lireToutesCategories() {
-            $resultat = $this->lireTous("ASC", "categorie");
-            return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Categories');
+        public function lireToutesCategories($ordre = 1, $champ = NULL, $limit = "0, 9999999999999999") {
+            if (isset($champ)) {
+                $resultat = $this->lireTous($this->lireClePrimaire() . " > 0", ($ordre == 1 ? "ASC" : "DESC"), $champ, $limit);
+            }
+            else {
+                $resultat = $this->lireTous($this->lireClePrimaire() . " > 0", ($ordre == 1 ? "ASC" : "DESC"), $this->lireClePrimaire(), $limit);
+            }
+            return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Categories");
         }
 
         public function lireToutesCategoriesActives() {
@@ -33,20 +38,23 @@
             return $resultat->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Categories");
         }
 
-        public function sauvegarder(Categories $categorie)
-        {
+        public function obtenirNbCategories($filtre = "categorie_id > 0") {
+            $sql = "SELECT COUNT(categorie_id) AS nb_categories FROM " . $this->lireNomTable() . " WHERE " . $filtre;
+            $resultat = $this->requete($sql);
+            return $resultat->fetch();
+        }		
+
+        public function sauvegarder(Categories $categorie) {
             $donnees = array(
                 $categorie->getCategorie(),
                 $categorie->getCategorieActive(),
                 $categorie->getCategorieId()
             );
 
-            if($categorie->getCategorieId() && $this->lire($categorie->getCategorieId())->fetch())
-            {
+            if ($categorie->getCategorieId() && $this->lire($categorie->getCategorieId())->fetch()) {
                 $sql = "UPDATE " . $this->lireNomTable() . " SET categorie=?, categorie_active=? WHERE categorie_id=?";
             }
-            else
-            {
+            else {
                 $id = array_pop($donnees);
                 $sql = "INSERT INTO " . $this->lireNomTable() . " (categorie, categorie_active) VALUES (?, ?)";
             }

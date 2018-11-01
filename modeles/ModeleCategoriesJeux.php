@@ -13,7 +13,7 @@
 
         // Déclaration du nom de la table (fonction abstraite)
 		public function lireNomTable() {
-			return "categorie_jeux";
+			return "`categorie_jeux`";
         }
 
         public function lireCategoriesParJeuxId($id) {

@@ -13,9 +13,9 @@
 
         // Déclaration du nom de la table (fonction abstraite)
 		public function lireNomTable() {
-			return "type_paiement";
+			return "`type_paiement`";
         }
-               
+
         public function lireTypePaiementParId($type_paiement_id) {
             $resultat = $this->lire($type_paiement_id);
             $resultat->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'TypePaiement');
@@ -27,6 +27,4 @@
             return $resultat->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'TypePaiement');
         }
 
-
-        
     }

@@ -15,64 +15,65 @@
                         foreach ($donnees["messagesRecu"] as $message) {
                             ?>
                             <li>
-                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-recu<?= $message->getMsg_Id(); ?>"> 
-                                    <b><?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom() ?><br><?= $message->getMsg_Date(); ?><br><?= $message->getSujet(); ?></b><br>
-                                    <p><?= $message->getMessage(); ?></p>
+                                <a href="" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#modal-recu<?= $message->getMsgId(); ?>"> 
+                                    <b><?= $message->getSujet() . " - " . date("Y-m-d", strtotime($message->getMsgDate())) ?></b>
+                                    <br>De: <?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom() ?>
                                 </a>
                             </li>
-                            <div class="modal fade" id="modal-recu<?= $message->getMsg_Id(); ?>" tabindex="-1" role="dialog" aria-labelledby="modal-recu<?= $message->getMsg_Id(); ?>Label" aria-hidden="true">
-                                <input type="hidden" id="destinataire_id<?= $message->getMsg_Id(); ?>" value="<?= $message->getMembre_Id(); ?>"/>
+                            <div class="modal fade" id="modal-recu<?= $message->getMsgId(); ?>" tabindex="-1" role="dialog" aria-labelledby="modal-recu<?= $message->getMsgId(); ?>Label" aria-hidden="true">
+                                <input type="hidden" id="destinataire_id<?= $message->getMsgId(); ?>" value="<?= $message->getMembreId(); ?>"/>
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="modal-recu<?= $message->getMsg_Id(); ?>Label"><?= $message->getSujet(); ?></h5>
+                                            <h5 class="modal-title" id="modal-recu<?= $message->getMsgId(); ?>Label">Sujet: <?= $message->getSujet(); ?></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p><?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom() ?></p>
-                                            <p><?= $message->getMsg_Date(); ?></p>
+                                            <span class="text-left">De: <?= $donnees['expediteurs'][$i]->getPrenom() . " " . $donnees['expediteurs'][$i]->getNom() ?></p></span>
+                                            <span class="text-right">Reçu le: <?= date("Y-m-d", strtotime($message->getMsgDate())) ?></p></span>
+                                            <p>Message:</p>
                                             <p><?= $message->getMessage(); ?></p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" id="close1<?= $message->getMsg_Id(); ?>" class="btn btn-secondary hidden" data-dismiss="modal">Close</button>
-                                            <button type="button" id="close2<?= $message->getMsg_Id(); ?>" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" id="buttonRepondre<?= $message->getMsg_Id(); ?>">Répondre</button>
+                                            <button type="button" id="close1<?= $message->getMsgId(); ?>" class="btn btn-secondary hidden" data-dismiss="modal">Close</button>
+                                            <button type="button" id="close2<?= $message->getMsgId(); ?>" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" id="buttonRepondre<?= $message->getMsgId(); ?>">Répondre</button>
                                         </div>
-                                        <div id="fcontacto<?= $message->getMsg_Id(); ?>" class="contacter-annoceur mx-auto hidden">
+                                        <div id="fcontacto<?= $message->getMsgId(); ?>" class="contacter-annoceur mx-auto hidden">
                                             <div class="contacter-annoceur mx-auto">
                                                 <div class="hidden">
                                                     <p>
-                                                        <input name="sujet" id="sujet<?= $message->getMsg_Id(); ?>" type="text" size="22" value="Re: <?= $message->getSujet(); ?>" tabindex="1" />
+                                                        <input name="sujet" id="sujet<?= $message->getMsgId(); ?>" type="text" size="22" value="Re: <?= $message->getSujet(); ?>" tabindex="1" />
                                                     </p>
                                                 </div>
                                                 <div>
                                                     <p>
-                                                        <textarea name="message" id="message<?= $message->getMsg_Id(); ?>" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea>
+                                                        <textarea name="message" id="message<?= $message->getMsgId(); ?>" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea>
                                                     </p>
                                                 </div>
                                                 <p>
                                                 <div class="alert alert-danger hidden" role="alert">
                                                     (*) Champs requis
                                                 </div>
-                                                <button id="envoyer-contacter<?= $message->getMsg_Id(); ?>">Envoyer Message <i class="fa fa-paper-plane"></i></button>
+                                                <button id="envoyer-contacter<?= $message->getMsgId(); ?>">Envoyer Message <i class="fa fa-paper-plane"></i></button>
                                                 </p>
                                             </div>
                                         </div>
                                         <br />
                                         <script>
-                                            $("#buttonRepondre<?= $message->getMsg_Id(); ?>").click(function () {
-                                                $("#fcontacto<?= $message->getMsg_Id(); ?>").show();
+                                            $("#buttonRepondre<?= $message->getMsgId(); ?>").click(function () {
+                                                $("#fcontacto<?= $message->getMsgId(); ?>").show();
                                             });
-                                            $("#close1<?= $message->getMsg_Id(); ?>").click(function () {
+                                            $("#close1<?= $message->getMsgId(); ?>").click(function () {
                                                 location.reload();
                                             });
                                             $(".close").click(function () {
                                                 location.reload();
                                             });
-                                            $("#envoyer-contacter<?= $message->getMsg_Id(); ?>").click(function () {
-                                                if ($("#sujet<?= $message->getMsg_Id(); ?>").val() == "" || $("#message<?= $message->getMsg_Id(); ?>").val() == "") {
+                                            $("#envoyer-contacter<?= $message->getMsgId(); ?>").click(function () {
+                                                if ($("#sujet<?= $message->getMsgId(); ?>").val() == "" || $("#message<?= $message->getMsgId(); ?>").val() == "") {
                                                     $(".alert").show();
                                                     $(".alert").alert();
                                                 } else {
@@ -82,9 +83,9 @@
                                                         type: "post",
                                                         data: {
                                                             membre_id: $("#membre_id").val(),
-                                                            destinataire_id: $("#destinataire_id<?= $message->getMsg_Id(); ?>").val(),
-                                                            sujet: $("#sujet<?= $message->getMsg_Id(); ?>").val(),
-                                                            message: $("#message<?= $message->getMsg_Id(); ?>").val()
+                                                            destinataire_id: $("#destinataire_id<?= $message->getMsgId(); ?>").val(),
+                                                            sujet: $("#sujet<?= $message->getMsgId(); ?>").val(),
+                                                            message: $("#message<?= $message->getMsgId(); ?>").val()
                                                         }
                                                     });
                                                     request.done(function (response, textStatus, jqXHR) {
@@ -93,10 +94,9 @@
                                                             type: 'success',
                                                             position: 'top-center'
                                                         });
-                                                        $("#close1<?= $message->getMsg_Id(); ?>").show();
-                                                        $("#close2<?= $message->getMsg_Id(); ?>").hide();
-                                                        
-                                                        $("#fcontacto<?= $message->getMsg_Id(); ?>").hide();
+                                                        $("#close1<?= $message->getMsgId(); ?>").show();
+                                                        $("#close2<?= $message->getMsgId(); ?>").hide();
+                                                        $("#fcontacto<?= $message->getMsgId(); ?>").hide();
                                                     });
                                                 }
                                             });
@@ -115,23 +115,23 @@
                         foreach ($donnees["messagesEnvoyes"] as $message) {
                             ?>
                             <li>
-                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-envoye<?= $message->getMsg_Id(); ?>"> 
-                                    <b><?= $_SESSION['nomComplet']; ?><br><?= $message->getMsg_Date(); ?><br><?= $message->getSujet(); ?></b><br>
+                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-envoye<?= $message->getMsgId(); ?>"> 
+                                    <b><?= $_SESSION['nomComplet']; ?><br><?= $message->getMsgDate(); ?><br><?= $message->getSujet(); ?></b><br>
                                     <p><?= $message->getMessage(); ?></p>
                                 </a>
                             </li>
-                            <div class="modal fade" id="modal-envoye<?= $message->getMsg_Id(); ?>" tabindex="-1" role="dialog" aria-labelledby="modal-envoye<?= $message->getMsg_Id(); ?>Label" aria-hidden="true">
+                            <div class="modal fade" id="modal-envoye<?= $message->getMsgId(); ?>" tabindex="-1" role="dialog" aria-labelledby="modal-envoye<?= $message->getMsgId(); ?>Label" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="modal-envoye<?= $message->getMsg_Id(); ?>Label"><?= $message->getSujet(); ?></h5>
+                                            <h5 class="modal-title" id="modal-envoye<?= $message->getMsgId(); ?>Label"><?= $message->getSujet(); ?></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
                                             <p><?= $_SESSION['nomComplet']; ?></p>
-                                            <p><?= $message->getMsg_Date(); ?></p>
+                                            <p><?= $message->getMsgDate(); ?></p>
                                             <p> <?= $message->getMessage(); ?></p>
                                         </div>
                                         <div class="modal-footer">

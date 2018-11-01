@@ -1,6 +1,6 @@
 <!--/**-->
 <!-- * @file      jeux.php-->
-<!-- * @author    Guilherme Tosin, Marcelo Guzmán-->
+<!-- * @author    Guilherme Tosin, Marcelo Guzmán, Oudayan Dutta -->
 <!-- * @version   1.0.0-->
 <!-- * @date      Septembre 2018-->
 <!-- * @brief     Fichier de vue pour les jeux.-->
@@ -11,43 +11,39 @@
         <div class="col-12 col-lg-6">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <div id="carouselImagesJeu" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <?php for($i = 0; $i < count($donnees['images']); $i++)
-                            {
-                                if($i == 0)
-                                {
-                                    echo "<li data-target='#carouselImagesJeu' data-slide-to='" . $i . "' class='active'></li>";
-                                }
-                                else
-                                {
-                                    echo "<li data-target='#carouselImagesJeu' data-slide-to='" . $i . "'></li>";
-                                }
+                    <div id="carouselImagesJeu" class="carousel slide" data-ride="carousel" data-interval="3000">
+                        <?php if (count($donnees['images']) > 1) { ?>
+                            <ol class="carousel-indicators">
+                            <?php for ($i = 0; $i < count($donnees['images']); $i++) {
+                                if ($i == 0) { ?>
+                                    <li data-target='#carouselImagesJeu' data-slide-to='<?= $i ?>' class='active'></li>
+                                <?php } else { ?>
+                                    <li data-target='#carouselImagesJeu' data-slide-to='<?= $i ?>'></li>
+                                <?php }
                             } ?>
-                        </ol>
+                            </ol>
+                        <?php } ?>
                         <div class="carousel-inner">
-                            <?php for($i = 0; $i < count($donnees['images']); $i++)
-                            {
-                                if($i == 0)
-                                {
-                                    echo '<div class="carousel-item active">';
-                                }
-                                else
-                                {
-                                    echo '<div class="carousel-item">';
-                                }
-                                echo '<img class="d-block w-100" src="' . $donnees['images'][$i]->getCheminPhoto() . '" alt="' . $donnees["jeu"]->getTitre() . '">';
-                                echo '</div>';
-                            } ?>
+                        <?php for ($i = 0; $i < count($donnees['images']); $i++) {
+                            if ($i == 0) { ?>
+                                <div class="carousel-item active">
+                            <?php } else { ?>
+                                <div class="carousel-item">
+                            <?php } ?>
+                                <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeu']->getJeuxId() ?>"><img class="d-block w-100" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="<?= $donnees['jeu']->getTitre() ?>"></a>
+                            </div>
+                        <?php } ?>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselImagesJeu" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselImagesJeu" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                        <?php if (count($donnees['images']) > 1) { ?>
+                            <a class="carousel-control-prev" href="#carouselImagesJeu" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselImagesJeu" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -58,12 +54,15 @@
                 <div class="card-body">
                     <p class="jeu-titre"><?=($donnees["jeu"]->getTitre())?></p>
                     <hr>
-                    <?php if($donnees["jeu"]->getLocation() == 0){ ?>
+                    <?php if ($donnees["jeu"]->getLocation() == 0) { ?>
                         <h5 class="my-3">Jeu à vendre</h5>
                     <?php } else { ?>
                         <p class="date-form">
-                            <h5 class="my-2">Dates de location:</h5>
-                            <input style="width: 100%" type="text" id="datesLocation" name="datesLocation" class="form-control my-2" value="<?= isset($_SESSION["rechercher"]['datesLocation']) ? $_SESSION["rechercher"]['datesLocation'] : '' ?>">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="my-2">Dates de location&nbsp;:</h5>
+                                <small class="my-2">Format&nbsp;: AAAA-MM-JJ au AAAA-MM-JJ</small>
+                            </div>
+                            <input style="width: 100%" type="text" id="datesLocation" name="datesLocation" class="form-control my-2" value="<?= isset($_SESSION["rechercher"]["datesLocation"]) ? $_SESSION["rechercher"]["datesLocation"] : (string)$date = date("Y-m-d") . " au " . (string)$date = date("Y-m-d") ?>">
                         </p>
                     <?php } ?>
                     <p>Plateforme :
@@ -99,17 +98,13 @@
                     <p>Annonceur : <?=($donnees["membre"]->getPrenom()) . " " . ($donnees["membre"]->getNom())?></p>
                     <input type="hidden" id="destinataire_id" value="<?=($donnees["membre"]->getMembreId())?>" />
                     <p>Catégorie<?= count($donnees['categoriesJeu']) > 1 ? "s" : "" ?> :
-                    <?php
-                        for($i = 0; $i < count($donnees['categoriesJeu']); $i++)
-                        {
-                            if (count($donnees['categoriesJeu']) > 1 ) {
-                                echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .' <span class="cat-symbol"><i class="fas fa-angle-right"></i></span> </a>';
-                            }
-                            else {
-                                echo '<a>' . $donnees['categoriesJeu'][$i]->getCategorie() .'</a>';
-                            }
-                        }
-                    ?>
+                    <?php for ($i = 0; $i < count($donnees['categoriesJeu']); $i++) {
+                        if (count($donnees['categoriesJeu']) > 1 ) { ?>
+                            <a><?= $donnees['categoriesJeu'][$i]->getCategorie() ?> <span class="cat-symbol"><i class="fas fa-angle-right"></i></span> </a>
+                        <?php } else { ?>
+                            <a><?= $donnees['categoriesJeu'][$i]->getCategorie() ?></a>
+                        <?php }
+                    } ?>
                     </p>
                     <p class="lead">Prix : <?=($donnees["jeu"]->getPrix())?> $CAD</p>
                     <!-- Mensagerie -->
@@ -123,9 +118,9 @@
                                 <p><textarea name="message" id="message" cols="40" rows="4" tabindex="5" placeholder="votre message... (*)"></textarea></p>
                             </div>
                             <p>
-                            <div class="alert alert-danger hidden" role="alert">
-                                (*) Champs requis
-                            </div>
+                                <div class="alert alert-danger hidden" role="alert">
+                                    (*) Champs requis
+                                </div>
                                 <button id="envoyer-contacter">Envoyer Message <i class="fa fa-paper-plane"></i></button>
                             </p>
                         </div>
@@ -177,7 +172,7 @@
                     </div> -->
                 <!-- fin de formulario -->
                     <div class="avis-etoiles p-3 mb-2 ">
-                        <?= $donnees['nbCommentaires'][0] ?>&nbsp;avis&nbsp;
+                        <?= $donnees['nbEvaluations'][0] ?>&nbsp;avis&nbsp;
                         <?php if($donnees["jeu"]->getEvaluationGlobale() >= 0){ ?>
                             <span class="score"><span style="width: <?= ($donnees["jeu"]->getEvaluationGlobale() / 5) * 100 ?>%"></span></span>
                             (<?= round($donnees["jeu"]->getEvaluationGlobale(), 2) ?>&nbsp;/&nbsp;5)
@@ -194,7 +189,7 @@
                             <a id="ajouterPannier" class="btn btn-success btn-lg btn-block text-uppercase text-white" onclick="AjouterAuPanier('<?= $donnees['jeu']->getJeuxId() ?>')"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
                         <?php } 
                     } else { ?>
-                            <button class="btn btn-success btn-lg btn-block text-uppercase text-white" disabled><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
+                        <button class="btn btn-success btn-lg btn-block text-uppercase text-white" disabled><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
                         <p class="text-success text-center">Seuls les membres inscrits peuvent ajouter un jeu au panier!</p>
                     <?php } ?>
                 </div>
@@ -219,14 +214,13 @@
                 <div class="card-header bg-secondary text-white text-uppercase"><i class="fa fa-comment"></i> Avis</div>
                 <div class="card-body">
                     <div class="review">
-                        <?php for($i = 0; $i < count($donnees['commentaires'])-1; $i++){
-                                echo "<p>" ."<i class='fas fa-calendar-alt'></i>  ". $donnees['commentaires'][$i]->getDateCommentaire() . "</p>";  
-                                echo "<p>" ."Par : " .$donnees['commentaires']['membres'][$i]->getPrenom() ." " .$donnees['commentaires']['membres'][$i]->getNom() . "</p>"; 
-                                echo "<p>" . $donnees['commentaires'][$i]->getCommentaire() . "</p>";
-                            ?>
+                        <?php for ($i = 0; $i < count($donnees['evaluations'])-1; $i++) { ?>
+                            <p><i class='fas fa-calendar-alt'></i>  <?= $donnees['evaluations'][$i]->getDateEvaluation() ?></p>
+                            <p>Par : <?= $donnees['evaluations']['membres'][$i]->getPrenom() . " " . $donnees['evaluations']['membres'][$i]->getNom() ?></p>
+                            <p><?= $donnees['evaluations'][$i]->getCommentaireJeu() ?></p>
                             <div class="col-6 text-center text-right my-3">
-                                Évaluation&nbsp;:&nbsp;<?= round($donnees["commentaires"][$i]->getEvaluation(), 2); ?>&nbsp;/&nbsp;5
-                                <br><span class="score"><span style="width: <?= ($donnees["commentaires"][$i]->getEvaluation() / 5) * 100 ?>%"></span></span>
+                                Évaluation&nbsp;:&nbsp;<?= round($donnees["evaluations"][$i]->getEvaluationJeu(), 2); ?>&nbsp;/&nbsp;5
+                                <br><span class="score"><span style="width: <?= ($donnees["evaluations"][$i]->getEvaluationJeu() / 5) * 100 ?>%"></span></span>
                             </div>
                             <hr>
                         <?php } ?>                    

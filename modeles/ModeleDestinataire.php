@@ -12,7 +12,7 @@ class ModeleDestinataire extends BaseDAO {
 
     // Déclaration du nom de la table (fonction abstraite)
     public function lireNomTable() {
-        return "destinataire";
+        return "`destinataire`";
     }
 
     public function lireDestinataireParId($id) {

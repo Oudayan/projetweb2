@@ -55,14 +55,32 @@ abstract class BaseDAO {
      * @brief      Lire le contenu de toutes les rangées de la table
      * @return     [object]  Tous les champs de toutes les entrées la table
      */
-    protected function lireTous($ordre = "ASC", $ordreId = NULL) {
-        if (isset($ordreId)) {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY " . $ordreId . " " . $ordre;
-        } else {
-            $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY " . $this->lireClePrimaire() . " " . $ordre;
+    // protected function lireTous($ordre = "ASC", $ordreId = NULL, $limit = 9999999999999999) {
+    //     if (isset($ordreId)) {
+    //         $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY " . $ordreId . " " . $ordre . " LIMIT " . $limit;
+    //     } else {
+    //         $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY " . $this->lireClePrimaire() . " LIMIT " . $limit;
+    //     }
+    //     return $this->requete($sql);
+    // }
+
+    /**
+     * @brief      Lire le contenu de toutes les rangées de la table
+     * @return     [object]  Tous les champs de toutes les entrées la table
+     */
+    protected function lireTous($filtre = NULL, $ordre = "ASC", $ordreId = NULL, $limit = 9999999999999999) {
+        if (isset($filtre) && isset($ordreId)) {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE " . $filtre . " ORDER BY " . $ordreId . " " . $ordre . " LIMIT " . $limit;
+        }
+        else if (isset($filtre) && !isset($ordreId)) {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " WHERE " . $filtre . " ORDER BY " . $this->lireClePrimaire() . " " . $ordre . " LIMIT " . $limit;
+        }
+        else {
+            $sql = "SELECT * FROM " . $this->lireNomTable() . " ORDER BY " . $this->lireClePrimaire() . " " . $ordre . " LIMIT " . $limit;
         }
         return $this->requete($sql);
     }
+
 
     /**
      * @brief      Modifie la valeur d'un champ dans une table
