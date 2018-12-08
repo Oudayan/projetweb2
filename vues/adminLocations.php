@@ -7,6 +7,7 @@
                                 <th scope="col">Propriétaire</th>
                                 <th scope="col">Locataire</th>
                                 <th scope="col">Paiement</th>
+                                <th scope="col">Prix</th>
                                 <th scope="col">Date location</th>
                                 <th scope="col">Date début</th>
                                 <th scope="col">Date retour</th>
@@ -21,9 +22,10 @@
                                     <td><?= $donnees['proprietaireJeuLocation'][$i]->getPrenom() . ' ' . $donnees['proprietaireJeuLocation'][$i]->getNom() ?></td>
                                     <td><?= $donnees['membreLocation'][$i]->getPrenom() . ' ' . $donnees['membreLocation'][$i]->getNom() ?></td>
                                     <td><?= $donnees['typePaiementLocation'][$i]->getTypePaiement() ?> </td>
+                                    <td><?= $donnees['locations'][$i]->getPrixLocation() ?> <small>$CAD</small></td>
                                     <td><?= $donnees['locations'][$i]->getDateLocation() ?></td>
-                                    <td><?= date('Y-m-d', strtotime($donnees['locations'][$i]->getDateDebut())) ?> </td>
-                                    <td><?= date('Y-m-d', strtotime($donnees['locations'][$i]->getDateRetour())) ?> </td>
+                                    <td><?= date('Y-m-d', strtotime($donnees['locations'][$i]->getDateDebut())) ?></td>
+                                    <td><?= date('Y-m-d', strtotime($donnees['locations'][$i]->getDateRetour())) ?></td>
                                     <?php if ($donnees['locations'][$i]->getLocationActive() == 0) { ?>
                                         <td><button type="button" class="btn btn-sm btn-outline-success m-1" onclick="updateLocation(<?= $donnees['locations'][$i]->getLocationId() ?>, 'activerLocation')">Réactiver</button></td>
                                     <?php } else { ?>

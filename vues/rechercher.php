@@ -17,12 +17,12 @@
                 <div class="col-sm">
                     <select name="prix" id="prix" class="form-control mb-2" style="width: 100%">
                         <option value="">Prix - Jusqu'à ...</option>
-                        <option value="10" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '10' ?  'selected' : "" ?>>CDN$ 10</option>
-                        <option value="25" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '25' ?  'selected' : "" ?>>CDN$ 25</option>
-                        <option value="35" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '35' ?  'selected' : "" ?>>CDN$ 35</option>
-                        <option value="50" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '50' ?  'selected' : "" ?>>CDN$ 50</option>
-                        <option value="70" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '70' ?  'selected' : "" ?>>CDN$ 70</option>
-                        <option value="90" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '90' ?  'selected' : "" ?>>CDN$ 80</option>
+                        <option value="10" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '10' ?  'selected' : "" ?>>10 <small>$CAD</small></option>
+                        <option value="25" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '25' ?  'selected' : "" ?>>25 <small>$CAD</small></option>
+                        <option value="35" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '35' ?  'selected' : "" ?>>35 <small>$CAD</small></option>
+                        <option value="50" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '50' ?  'selected' : "" ?>>50 <small>$CAD</small></option>
+                        <option value="70" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '70' ?  'selected' : "" ?>>70 <small>$CAD</small></option>
+                        <option value="90" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '90' ?  'selected' : "" ?>>80 <small>$CAD</small></option>
                         <option value="1000000" <?= isset($_SESSION["rechercher"]["prix"]) && $_SESSION["rechercher"]["prix"] == '1000000' ?  'selected' : "" ?>>Tous les prix</option>
                     </select>
                 </div>
@@ -88,42 +88,15 @@
                 <div class="card mb-4 box-shadow cardjeux">
                     <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>"><img class="card-img-top" src="<?= $donnees['images'][$i]->getCheminPhoto() ?>" alt="Card image cap"></a>
                     <div class="card-body">
-                        <h6 class="card-text"><?= $donnees['jeux'][$i]->getTitre() ?></h6>
-                        <div class="pt-2">
-                            <?php
-                            if ($donnees["jeux"][$i]->getPlateformeId() == 1 ) {
-                                echo '<p title="Playstation 4" class="fab fa-playstation"></p> Playstation 4';
-                            }
-                            else if ($donnees["jeux"][$i]->getPlateformeId() == 2 ) {
-                                echo '<p title="Xbox One" class="fab fa-xbox"></p> Xbox One';
-                            }
-                            else if ($donnees["jeux"][$i]->getPlateformeId() == 3 ) {
-                                echo '<p title="Nintendo Wii U" class="fab fa-nintendo-switch"></p> Nintendo Wii U';
-                            }
-                            else if ($donnees["jeux"][$i]->getPlateformeId() == 4 ) {
-                                echo '<p title="Windows" class="fab fa-windows"></p> Windows';
-                            }
-                            else if ($donnees["jeux"][$i]->getPlateformeId() == 5 ) {
-                                echo '<p title="Playstation 3" class="fab fa-playstation"></p> Playstation 3';
-                            }
-                            else if ($donnees["jeux"][$i]->getPlateformeId() == 6 ) {
-                                echo '<p title="Xbox 360" class="fab fa-xbox"></p> Xbox 360';
-                            }
-                            else if ($donnees["jeux"][$i]->getPlateformeId() == 7 ) {
-                                echo '<p title="Nintendo Switch" class="fab fa-nintendo-switch"></p> Nintendo Switch';
-                            }
-                            else if ($donnees["jeux"][$i]->getPlateformeId() == 8 ) {
-                                echo '<p title="Playstation Vita" class="fab fa-playstation"></p> Playstation Vita';
-                            }
-                            ?>
-                        </div>
+                        <h5 class="card-text text-center"><?= $donnees['jeux'][$i]->getTitre() ?></h5>
+                        <p class="pt-2"><?= $donnees["plateformeJeu"][$i]->getPlateformeIcone() . " " . $donnees["plateformeJeu"][$i]->getPlateforme() ?></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <h6><?= $donnees["jeux"][$i]->getLocation() == 1 ? "À louer" : "À vendre" ?></h6>
                                 <!-- <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['jeux'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a>
                                 <a href="#" class="btn btn-sm btn-outline-secondary"><?= $donnees["jeux"][$i]->getLocation() == 1 ? "Louer" : "Acheter" ?></a> -->
                             </div>
-                            <small class="text-muted">Prix : <?= round($donnees['jeux'][$i]->getPrix(), 2) ?> $CAD</small>
+                            <span class="text-muted">Prix : <?= round($donnees['jeux'][$i]->getPrix(), 2) ?> <small>$CAD</small> <?= $donnees["jeux"][$i]->getLocation() ? "par jour" : "" ?></span></span>
                         </div>
                     </div>
                 </div>

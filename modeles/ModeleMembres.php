@@ -154,8 +154,8 @@
          * @param   [string] $courriel
          * @return  [array]
          */
-        public function promouvoirMembre($id) {
-            return $this->modifierChamp($id, 'type_utilisateur_id', 2);
+        public function promouvoirMembre($id, $type) {
+            return $this->modifierChamp($id, 'type_utilisateur_id', $type);
         }
 
         /**
@@ -164,8 +164,8 @@
          * @param   [string] $courriel
          * @return  [array]
          */
-        public function retrograderMembre($id) {
-            return $this->modifierChamp($id, 'type_utilisateur_id', 1);
+        public function retrograderMembre($id, $type) {
+            return $this->modifierChamp($id, 'type_utilisateur_id', $type);
         }
 
         /**
@@ -178,8 +178,10 @@
                 case '1':
                     return 'Membre';
                 case '2':
-                    return 'Administrateur';
+                    return 'Membre Plus';
                 case '3':
+                    return 'Administrateur';
+                case '4':
                     return 'Super administrateur';
                 default:
                     return false;

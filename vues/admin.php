@@ -1,22 +1,23 @@
-<?php if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 2)) { ?>
+<?php if (isset($_SESSION["type"]) && ($_SESSION["type"] == 3 || $_SESSION["type"] == 4)) { ?>
     <h1 class="text-center my-3">Adminstration</h1>
     <div class="container-fluid">
         <div class="row mt-2 mb-3 my-2">
-            <div class="d-flex flex-column nav nav-pills col-xl-3 border rounded text-center mx-3 my-1 p-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <div class="d-flex flex-column nav nav-pills col-xl-3 border rounded text-center my-1 p-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <h3 class="mt-1 mb-3">Navigation</h3>
                 <a class="nav-link mb-1 active" id="membres-tab" data-toggle="pill" href="#membres" role="tab" aria-controls="v-pills-membres" aria-selected="true">Gérer les membres</a>
                 <a class="nav-link my-1" id="jeux-tab" data-toggle="pill" href="#jeux" role="tab" aria-controls="v-pills-jeux" aria-selected="false">Gérer les jeux</a>
                 <a class="nav-link my-1" id="transactions-tab" data-toggle="pill" href="#transactions" role="tab" aria-controls="v-pills-transactions" aria-selected="false">Gérer les transactions</a>
+                <a class="nav-link my-1" id="evaluations-tab" data-toggle="pill" href="#evaluations" role="tab" aria-controls="v-pills-evaluations" aria-selected="false">Gérer les évaluations et commentaires</a>
                 <a class="nav-link my-1" id="menus-tab" data-toggle="pill" href="#menus" role="tab" aria-controls="v-pills-menus" aria-selected="false">Gérer les menus</a>
             </div>
-            <div class="col tab-content my-1" id="tabContent">
-                <!--Tableau gérer les membres-->
+            <div class="col-xl-9 tab-content my-1" id="tabContent">
+                <!-- Onglet pour gérer les membres-->
                 <div class="tab-pane fade show active table-responsive border rounded p-2" id="membres" role="tabpanel" aria-labelledby="v-pills-membres-tab">
                 </div>
-                <!--Tableau gérer les jeux-->
+                <!-- Onglet pour gérer les jeux-->
                 <div class="tab-pane fade table-responsive border rounded p-2" id="jeux" role="tabpanel" aria-labelledby="v-pills-jeux-tab">
                 </div>
-                <!--Tableau gérer les transactions-->
+                <!-- Onglets pour gérer les transactions-->
                 <div class="tab-pane fade" id="transactions" role="tabpanel" aria-labelledby="v-pills-transactions-tab">
                     <nav>
                         <div id="nav-transactions-tab" class="nav nav-tabs row mx-0" role="tablist">
@@ -33,7 +34,10 @@
                         </section>
                     </div>
                 </div>
-                <!--Tableau gérer les menus-->
+                <!-- Onglet pour gérer les évaluations -->
+                <div class="tab-pane fade table-responsive border rounded p-2" id="evaluations" role="tabpanel" aria-labelledby="v-pills-evaluations-tab">
+                </div>
+                <!-- Onglets pour gérer les menus -->
                 <div class="tab-pane fade" id="menus" role="tabpanel" aria-labelledby="v-pills-menus-tab">
                     <nav>
                         <div id="nav-menus-tab" class="nav nav-tabs row mx-0" role="tablist">
@@ -50,6 +54,7 @@
                         </section>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 
@@ -95,8 +100,12 @@
         afficherAdminMenuPlateformes();
     });
 
-    var page = <?= isset($donnees["page"]) ? $donnees["page"] . ";" : "1;" ?>
+    $("#evaluations-tab").click(function() {
+        afficherAdminEvaluations();
+    });
 
+
+    var page = <?= isset($donnees["page"]) ? $donnees["page"] . ";" : "1;" ?>
 
     // Fonctions Ajax pour admin des membres
 
@@ -119,13 +128,14 @@
         });
     }
 
-    function updateMembre(id, action) {
+    function updateMembre(id, action, type) {
         $.ajax({
             url: 'index.php?Admin', 
             type: "POST",
             data: { 
                 action: action,
                 membre_id: id,
+                type: type,
                 page: page,
                 itemsParPage: $("#membres .itemsParPage").val(),
                 tri: $("#membres .tri").val(),
@@ -262,7 +272,6 @@
                 cnt++;
             }
         }
-        console.log(categories, cheminsImages);
         $.ajax({
             url: "index.php?Admin",
             method: "POST",
@@ -272,7 +281,7 @@
                 titre: $("#titre").val(),
                 prix: $("#prix").val(),
                 concepteur: $("#concepteur").val(),
-                location: $("#louer").val() || $("#vendre").val(),
+                location: $("input:radio[name='location']:checked").val(),
                 plateforme_id: $("#plateforme_id").val(),
                 categorie: categories,
                 description: $("#description").val(),
@@ -488,18 +497,18 @@
         });
     }
 
-    function modifierPlateforme(id, plateforme) {
+    function modifierPlateforme(id, plateforme, icone) {
         $("#plateformes-tab h5 span").html("Modifier une plateforme");
-        $("#plateformes-tab label").html("Modifier plateforme");
         $("#plateformes-tab input[type='number']").val(id);
-        $("#plateformes-tab input:text").val(plateforme);
+        $("#plateformes-tab input[name='plateforme']").val(plateforme);
+        $("#plateformes-tab input[name='plateforme_icone']").val(icone);
     }
 
     function nouvellePlateforme() {
         $("#plateformes-tab h5 span").html("Ajouter une plateforme");
-        $("#plateformes-tab label").html("Nouvelle plateforme");
         $("#plateformes-tab input[type='number']").val(0);
-        $("#plateformes-tab input:text").val("");
+        $("#plateformes-tab input[name='plateforme']").val("");
+        $("#plateformes-tab input[name='plateforme_icone']").val("");
     }
 
     function sauvegarderPlateforme() {
@@ -512,7 +521,8 @@
             data: { 
                 action: "sauvegarderPlateforme",
                 plateforme_id: $("#plateformes-tab input[type='number']").val(),
-                plateforme: $("#plateformes-tab input:text").val(),
+                plateforme: $("#plateformes-tab input[name='plateforme']").val(),
+                plateforme_icone: $("#plateformes-tab input[name='plateforme_icone']").val(),
                 page: page,
                 itemsParPage: $("#plateformes-tab .itemsParPage").val(),
                 tri: $("#plateformes-tab .tri").val(),
@@ -522,6 +532,88 @@
             success: function(donnees) {
                 $("#plateformes-tab").empty();
                 $("#plateformes-tab").html(donnees);
+            }
+        });
+    }
+
+    // Fonctions Ajax pour admin des évaluations
+
+    function afficherAdminEvaluations() {
+        $.ajax({
+            url: 'index.php?Admin', 
+            type: "POST",
+            data: { 
+                action: "afficherEvaluations",
+                page: 1,
+                itemsParPage: $("#evaluations .itemsParPage").val(),
+                tri: $("#evaluations .tri").val(),
+                ordre: $("#evaluations .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#evaluations").empty();
+                $("#evaluations").html(donnees);
+            }
+        });
+    }
+
+    function updateEvaluation(id, action, type) {
+        $.ajax({
+            url: 'index.php?Admin', 
+            type: "POST",
+            data: { 
+                action: action,
+                evaluation_id: id,
+                type: type,
+                page: page,
+                itemsParPage: $("#evaluations .itemsParPage").val(),
+                tri: $("#evaluations .tri").val(),
+                ordre: $("#evaluations .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#evaluations").empty();
+                $("#evaluations").html(donnees);
+            }
+        });
+    }
+
+    function modifierEvaluation(jeton) {
+        $.ajax({
+            url: 'index.php?Admin',
+            type: "POST",
+            data: { 
+                action: 'formAdminModifierEvaluation',
+                jeton: jeton,
+                page: page,
+                itemsParPage: $("#evaluations .itemsParPage").val(),
+                tri: $("#evaluations .tri").val(),
+                ordre: $("#evaluations .ordre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#evaluations").empty();
+                $("#evaluations").html(donnees);
+            }
+        });
+    }
+
+    function sauvegarderEvaluation() {
+        $.ajax({
+            url: "index.php?Admin",
+            method: "POST",
+            data: { 
+                action: "adminEnregistrerEvaluation",
+                jeton: $("#jeton").val(),
+                evaluationJeu: $("input:radio[name='evaluationJeu']:checked").val(),
+                commentaireJeu: $("#commentaireJeu").val(),
+                evaluationMembre: $("input:radio[name='evaluationMembre']:checked").val(),
+                commentaireMembre: $("#commentaireMembre").val(),
+            },
+            dataType: "html",
+            success: function(donnees) {
+                $("#evaluations").empty();
+                $("#evaluations").html(donnees);
             }
         });
     }

@@ -4,13 +4,13 @@
  * @author    Oudayan Dutta
  * @version   1.0.0
  * @date      Octobre 2018
- * @brief     Fichier de vue pour l'ajout d'un commenntaire et évaluation 
+ * @brief     Fichier de vue pour l'ajout d'un commenntaire et évaluations
  * @details   Cette vue permet l'insertion des évaluations de chaque jeux dans la BD
  */
 ?>
             <div class="bg-evaluation text-white">
                 <?php if (isset($donnees['admin'])) { ?>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end pt-3 pr-4">
                     <button type="button" class="btn close" onclick="getPage(<?= $_SESSION['params']['page'] . ', ' . $_SESSION['params']['itemsParPage'] . ', \'' . $_SESSION['params']['tri'] . '\', ' . $_SESSION['params']['ordre']?>)"><h2>&times;</h2></button>
                 </div>
                 <?php } ?>
@@ -18,11 +18,11 @@
                     <div class="d-flex justify-content-around pt-5">
                         <h1> Commentaires et Évaluations</h1>
                     </div>
-                    <div class="d-flex justify-content-around my-3">
-                        <?php $dateLimite = $donnees["dateLimite"]->format('Y-m-d'); ?>
-                        <h3>Cette évaluation sera fermée et compilée le <span class="text-danger"><?= $dateLimite ?></span> à minuit</h3>
-                    </div>
                     <?php if ($donnees["erreur"] == "") { ?>
+                        <div class="d-flex justify-content-around my-3">
+                            <?php $dateLimite = $donnees["dateLimite"]->format('Y-m-d'); ?>
+                            <h3>Cette évaluation sera fermée et compilée le <span class="text-danger"><?= $dateLimite ?></span> à minuit</h3>
+                        </div>
                         <div class="d-flex justify-content-around my-3">
                             <h4><?php echo $donnees["membre"]->getPrenom() . " " . $donnees["membre"]->getNom() . ", veuillez évaluer votre ";
                             if ($donnees["jeu"]->getLocation()) { 
@@ -43,8 +43,8 @@
                             <section class="col-lg-6 align-self-center p-4">
                                 <form method="POST" action="index.php?Evaluation">
                                     <input type="hidden" name="action" value="sauvegarderEvaluation">
-                                    <input type="hidden" name="jeton" value="<?= $donnees["evaluation"]->getJeton() ?>">
-                                    <h5>Évaluation du jeu <?= $donnees["jeu"]->getTitre(); ?></h5>
+                                    <input type="hidden" id="jeton"  name="jeton" value="<?= $donnees["evaluation"]->getJeton() ?>">
+                                    <h5>Évaluation du jeu XXX <?= $donnees["jeu"]->getTitre(); ?></h5>
                                     <div class="form-group">
                                         <div class="row">
                                             <label for="evaluationJeu" class="col-5 mt-3">Évaluation sur 5 étoiles&nbsp;:</label>
@@ -60,6 +60,7 @@
                                                 <input type="radio" id="jeu-star1" name="evaluationJeu" value="1" <?= ($donnees["evaluation"]->getEvaluationJeu() == 1 ? 'checked' : ''); ?>/><label class ="full" for="jeu-star1" title="1 étoile"></label>
                                                 <input type="radio" id="jeu-starhalf" name="evaluationJeu" value="0.5" <?= ($donnees["evaluation"]->getEvaluationJeu() == 0.5 ? 'checked' : ''); ?>/><label class="half" for="jeu-starhalf" title="0.5 étoiles"></label>
                                                 <input type="radio" id="jeu-star0" name="evaluationJeu" value="0" <?= ($donnees["evaluation"]->getEvaluationJeu() == 0 ? 'checked' : ''); ?>/>
+                                                <input type="radio" name="evaluationJeu" value="-1" <?= ($donnees["evaluation"]->getEvaluationJeu() == -1 ? 'checked' : ''); ?>/>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -94,7 +95,7 @@
                                     <?php if (!isset($donnees["admin"])) { ?>
                                     <div class="d-flex justify-content-around m-3">
                                         <a href="index.php?Messagerie&action=afficherMessagerie" class="btn btn-secondary">Annuler</a>
-                                        <button type="submit" class="btn btn-success">Soumettre</button>
+                                        <button type="submit" class="btn btn-success">Sauvegarder</button>
                                     </div>
                                     <?php } ?>
                                 </form>
@@ -102,7 +103,7 @@
                                     if (isset($_SESSION['params'])) { ?>
                                     <button class="btn btn-secondary btn-lg mt-4" onclick="getPage(<?= $_SESSION['params']['page'] . ', ' . $_SESSION['params']['itemsParPage'] . ', \'' . $_SESSION['params']['tri'] . '\', ' . $_SESSION['params']['ordre']?>)">Annuler</button>
                                     <?php } ?>
-                                    <button class="btn btn-success btn-lg mt-4" id="btnValidation" onclick="sauvegarderMembre()" disabled>Modifier</button>
+                                    <button class="btn btn-success btn-lg mt-4" id="btnValidation" onclick="sauvegarderEvaluation()">Sauvegarder</button>
                                 <?php } ?>
                                 <hr>
                             </section>

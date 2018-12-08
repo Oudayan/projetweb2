@@ -41,7 +41,7 @@
                                 <a href="index.php?Messagerie&action=afficherMessagerie" class="btn text-white m-1">
                                     <i class="fas fa-envelope-open"></i> Messagerie</a>
                             </ul>
-                            <?php if($_SESSION["type"] == 2 || $_SESSION["type"] == 3){ ?>
+                            <?php if($_SESSION["type"] == 3 || $_SESSION["type"] == 4){ ?>
                                 <ul class="navbar-nav mx-auto">
                                     <a href="index.php?Admin&action=afficherAdmin" class="btn text-white m-1">
                                         <i class="fas fa-cogs"></i> Admin</a>

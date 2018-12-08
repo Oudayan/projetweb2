@@ -47,16 +47,16 @@
         public function sauvegarder(Plateformes $plateforme) {
             $donnees = array(
                 $plateforme->getPlateforme(),
+                $plateforme->getPlateformeIcone(),
                 $plateforme->getPlateformeActive(),
                 $plateforme->getPlateformeId()
             );
-
             if ($plateforme->getPlateformeId() && $this->lire($plateforme->getPlateformeId())->fetch()) {
-                $sql = "UPDATE " . $this->lireNomTable() . " SET plateforme=?, plateforme_active=? WHERE plateforme_id=?";
+                $sql = "UPDATE " . $this->lireNomTable() . " SET plateforme=?, plateforme_icone=?, plateforme_active=? WHERE plateforme_id=?";
             }
             else {
                 $id = array_pop($donnees);
-                $sql = "INSERT INTO " . $this->lireNomTable() . " (plateforme, plateforme_active) VALUES (?, ?)";
+                $sql = "INSERT INTO " . $this->lireNomTable() . " (plateforme, plateforme_icone, plateforme_active) VALUES (?, ?, ?)";
             }
             $this->requete($sql, $donnees);
         }

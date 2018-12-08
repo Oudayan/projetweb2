@@ -468,4 +468,23 @@ Source : https://codepen.io/jamesbarnett/pen/vlpkh
     color: #FFED85;
 } 
 
+.info-card {
+    overflow: scroll;
+}
 
+.info-card-third {
+    height: 100px;
+    overflow: scroll;
+}
+
+.modal-xl {
+    width: 100%;
+    max-width: 991px;
+}
+
+@media (min-width: 992px) {
+    .modal-xl {
+        width: 80%;
+        max-width: 1200px;
+    }
+}

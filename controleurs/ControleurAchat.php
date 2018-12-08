@@ -39,9 +39,10 @@ class ControleurAchat extends BaseControleur {
                 case "payerPanier" :
                     if (isset($_SESSION["id"])) {
                         if (isset($_SESSION["cart"])) {
-                            if (isset($params['transaction_id'])) {
-                                $transId = $params['transaction_id'];
-                            } else {
+                            if (isset($params["transaction_id"])) {
+                                $transId = $params["transaction_id"];
+                            }
+                            else {
                                 $transId = "Paypal";
                             }
                             $i = 0;
@@ -54,16 +55,17 @@ class ControleurAchat extends BaseControleur {
                                     // Sauvegarde d'une location
                                     if (isset($_SESSION["datesLocation"][$i])) {
                                         $dates = explode(" au ", $_SESSION["datesLocation"][$i]);
-                                        // ($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_location = "", $date_debut = "", $date_retour = "", $transaction_id = "", $location_active = 1)
-                                        $location = new Location(0, 1, $_SESSION["id"], $jeux->getJeuxId(), $date, $dates[0], $dates[1], $transId, 1);
+                                        // Constructeur : $location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_location = "", $date_debut = "", $date_retour = "", $prix_location = 0, $transaction_id = "", $location_active = 1
+                                        $location = new Location(0, 1, $_SESSION["id"], $jeux->getJeuxId(), $date, $dates[0], $dates[1], $_SESSION["prix"][$i], $transId, 1);
                                         $location_id = $modeleLocation->sauvegarde($location);
                                         $achat_id = NULL;
                                         $transaction = true;
                                     }
-                                } else {
+                                }
+                                else {
                                     // Sauvegarde d'un achat
-                                    // ($achat_id = 0, $type_paiement_id= 0, $membre_id = 0, $jeux_id = 0, $date_achat = "", $transaction_id = "", $achat_actif = 1)
-                                    $achat = new Achat(0, 1, $_SESSION["id"], $jeux->getJeuxId(), $date, $transId, 1);
+                                    // Constructeur : $achat_id = 0, $type_paiement_id= 0, $membre_id = 0, $jeux_id = 0, $date_achat = "", $prix_achat = 0, $transaction_id = "", $achat_actif = 1)
+                                    $achat = new Achat(0, 1, $_SESSION["id"], $jeux->getJeuxId(), $date, $_SESSION["prix"][$i], $transId, 1);
                                     $achat_id = $modeleAchat->sauvegarde($achat);
                                     // Activer la vente du jeu pour qu'il n'apparaisse plus dans les jeux disponibles
                                     $modeleJeux->activerVente($jeux->getJeuxId());
@@ -72,12 +74,13 @@ class ControleurAchat extends BaseControleur {
                                 }
                                 $i++;
                                 if ($transaction) {
-                                    // ($evaluation_id = 0, $jeton = "", $jeux_id = 0, $membre_id = 0, $achat_id = 0, $location_id = 0, $commentaire_jeu = "", $commentaire_membre = "", $evaluation_jeu = -1, $evaluation_membre = -1, $date_evaluation = "", $evaluation_jeu_active = 1, $evaluation_membre_active = 1)
+                                    // Constructeur : ($evaluation_id = 0, $jeton = "", $jeux_id = 0, $membre_id = 0, $achat_id = 0, $location_id = 0, $commentaire_jeu = "", $commentaire_membre = "", $evaluation_jeu = -1, $evaluation_membre = -1, $date_evaluation = "", $evaluation_jeu_active = 1, $evaluation_membre_active = 1)
                                     $evaluation = new Evaluation(0, $jeton, $jeux->getJeuxId(), $_SESSION["id"], $achat_id, $location_id, NULL, NULL, -1, -1, $date, 1, 1);
                                     $modeleEvaluation->sauvegarde($evaluation);
-                                    // ($msg_id = "", $membre_id = "", $sujet = "", $message = "", $attachement = "", $msg_date = "", $msg_envoye = 0, $msg_lu = 0, $msg_actif = 1)
+                                    // Constructeur : ($msg_id = "", $membre_id = "", $sujet = "", $message = "", $attachement = "", $msg_date = "", $msg_envoye = 0, $msg_lu = 0, $msg_actif = 1)
                                     $message = new Messagerie(0, $jeux->getMembreId(), "Évaluation de " . ($jeux->getLocation() == 1 ? "la location" : "l'achat") . " du jeu " . $jeux->getTitre(), "<a href='index.php?Evaluation&action=afficherEvaluation&jeton=" . $jeton . "'>Cliquez ici pour évaluer le jeu</a>", "", $date, 1, 0, 1);
                                     $msg_id = $modeleMessagerie->sauvegarde($message);
+                                    // Constructeur : ($membre_id = 0, $msg_id = "")
                                     $destinataire = new Destinataire($_SESSION["id"], $msg_id);
                                     $modeleDestinataire->sauvegarde($destinataire);
                                 }
@@ -89,15 +92,15 @@ class ControleurAchat extends BaseControleur {
                             unset($_SESSION["prix"]);
                             unset($_SESSION["datesLocation"]);
                             $_SESSION["prixTotal"] = 0;
-                            $_SESSION['msg'] = "La transaction a été complétée avec succès!";
+                            $_SESSION["msg"] = "La transaction a été complétée avec succès!";
                             $this->afficherVues("achat");
                         }
                         else {
-                            $_SESSION['msg'] = "Il n'y a aucun item dans le panier d'achat.";
+                            $_SESSION["msg"] = "Il n'y a aucun item dans le panier d'achat.";
                         }
                     }
                     else {
-                        $_SESSION['msg'] = "Vous devez vous connecter pour effectuer une transaction.";
+                        $_SESSION["msg"] = "Vous devez vous connecter pour effectuer une transaction.";
                     }
                     break;
 
@@ -121,7 +124,7 @@ class ControleurAchat extends BaseControleur {
                                                     // Vérifier que la date de début de location n'est pas passée la date de fin de location
                                                     if (strtotime($dates[0]) >= strtotime(date("Y-m-d"))) {
                                                         // Vérifier si le jeu est disponible dans la table location
-                                                        $locations = $modeleLocation->lireLocationsParJeuxId($params["jeux_id"]);
+                                                        $locations = $modeleLocation->lireLocationsActivesParJeuxId($params["jeux_id"]);
                                                         $disponible = true;
                                                         foreach ($locations as $location) {
                                                             // Vérifer que la date de début et retour ne soient pas dans une plage de location non-disponible
@@ -156,31 +159,31 @@ class ControleurAchat extends BaseControleur {
                                                             $this->addToCart($jeu, $quantite);
                                                         }
                                                         else {
-                                                            $_SESSION['msg'] = "Ce jeu n'est pas disponible entre ces dates.";
+                                                            $_SESSION["msg"] = "Ce jeu n'est pas disponible entre ces dates.";
                                                         }
                                                     }
                                                     else {
-                                                        $_SESSION['msg'] = "La date de début de location ne peut pas être avant aujourd'hui.";
+                                                        $_SESSION["msg"] = "La date de début de location ne peut pas être avant aujourd'hui.";
                                                     }
                                                 }
                                                 else {
-                                                    $_SESSION['msg'] = "La date de retour ne peut pas être avant la date de début de location.";
+                                                    $_SESSION["msg"] = "La date de retour ne peut pas être avant la date de début de location.";
                                                 }
                                             }
                                             else {
-                                                $_SESSION['msg'] = "Veuillez entrer une date de fin de location valide.";
+                                                $_SESSION["msg"] = "Veuillez entrer une date de fin de location valide.";
                                             }
                                         }
                                         else {
-                                            $_SESSION['msg'] = "Veuillez entrer une date de début de location valide.";
+                                            $_SESSION["msg"] = "Veuillez entrer une date de début de location valide.";
                                         }
                                     }
                                     else {
-                                        $_SESSION['msg'] = "Veuillez respecter le format de dates suivant : \"AAAA-MM-JJ au AAAA-MM-JJ\"";
+                                        $_SESSION["msg"] = "Veuillez respecter le format de dates suivant : \"AAAA-MM-JJ au AAAA-MM-JJ\"";
                                     }
                                 }
                                 else {
-                                    $_SESSION['msg'] = "Veuillez sélectionner un jeu et des dates de location.";
+                                    $_SESSION["msg"] = "Veuillez sélectionner un jeu et des dates de location.";
                                 }
                             }
                             // Achat du jeu
@@ -194,11 +197,11 @@ class ControleurAchat extends BaseControleur {
                             }
                         }
                         else {
-                            $_SESSION['msg'] = "Ce jeu n'est pas disponible en ce moment.";
+                            $_SESSION["msg"] = "Ce jeu n'est pas disponible en ce moment.";
                         }
                     }
                     else {
-                        $_SESSION['msg'] = "Veuillez sélectionner un jeu.";
+                        $_SESSION["msg"] = "Veuillez sélectionner un jeu.";
                     }
                     $this->afficherVues("panier", $donnees, false);
                     break;
@@ -214,7 +217,7 @@ class ControleurAchat extends BaseControleur {
                                 $_SESSION["prixTotal"] -= $_SESSION["prix"][$i];
                                 array_splice($_SESSION["prix"], $i, 1);
                                 array_splice($_SESSION["datesLocation"], $i, 1);
-                                $_SESSION['msg'] = $jeux->getTitre() . " a été enlevé du panier!";
+                                $_SESSION["msg"] = $jeux->getTitre() . " a été enlevé du panier!";
                                 break;
                             }
                             $i++;
@@ -222,7 +225,7 @@ class ControleurAchat extends BaseControleur {
                         // Rendre le jeu disponible
                         $modeleJeux->activerJeu($params['jeux_id']);
                     } else {
-                        $_SESSION['msg'] = "Aucun jeu à enlever.";
+                        $_SESSION["msg"] = "Aucun jeu à enlever.";
                     }
                     $this->afficherVues("panier", $donnees, false);
                     break;
@@ -238,13 +241,13 @@ class ControleurAchat extends BaseControleur {
                                 $_SESSION["prixTotal"] -= $_SESSION["prix"][$i];
                                 array_splice($_SESSION["prix"], $i, 1);
                                 array_splice($_SESSION["datesLocation"], $i, 1);
-                                $_SESSION['msg'] = $jeux->getTitre() . " a été enlevé du panier!";
+                                $_SESSION["msg"] = $jeux->getTitre() . " a été enlevé du panier!";
                                 break;
                             }
                             $i++;
                         }
                     } else {
-                        $_SESSION['msg'] = "Aucun jeu à enlever.";
+                        $_SESSION["msg"] = "Aucun jeu à enlever.";
                     }
                     $this->afficherVues("achat");
                     break;
@@ -264,17 +267,17 @@ class ControleurAchat extends BaseControleur {
         // $donnees = $this->chercherImages($donnees, "cart", "cartImages");
         $modeleImages = $this->lireDAO("Images");
         if ($modeleImages->lireImageParJeuxId($jeu->getJeuxId())) {
-            $_SESSION['cartImages'][] = $modeleImages->lireImageParJeuxId($jeu->getJeuxId());
+            $_SESSION["cartImages"][] = $modeleImages->lireImageParJeuxId($jeu->getJeuxId());
         }
         else {
-            $_SESSION['cartImages'][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
+            $_SESSION["cartImages"][] = new Images(0, $jeu->getJeuxId(), 'images/image_defaut.png');
         }
         // Ajouter la quantité et prix et le prix total au panier
         $prix = $jeu->getPrix() * $quantite;
         $_SESSION["quantite"][] = $quantite;
         $_SESSION["prix"][] = $prix;
         $_SESSION["prixTotal"] += $prix;
-        $_SESSION['msg'] = $jeu->getTitre() . " a été rajouté au panier!";
+        $_SESSION["msg"] = $jeu->getTitre() . " a été rajouté au panier!";
         }
 
     /**

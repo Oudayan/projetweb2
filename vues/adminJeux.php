@@ -13,7 +13,7 @@
                     </thead>
                     <tbody>
                     <?php for ($i = 0; $i < count($donnees['jeux']); $i++) { ?>
-                        <tr class="<?= $donnees['jeux'][$i]->getJeuxValide() == 0 ? "text-success" : ($donnees['jeux'][$i]->getJeuxBanni() == 1 ? "text-danger" : ($donnees['jeux'][$i]->getJeuxActif() == 0 ? "text-muted" : "")) ?>">
+                        <tr class="<?= $donnees['jeux'][$i]->getJeuxValide() == 0 ? "text-success" :($donnees['jeux'][$i]->getVendu() == 1 ? "text-muted" :  ($donnees['jeux'][$i]->getJeuxBanni() == 1 ? "text-danger" : ($donnees['jeux'][$i]->getJeuxActif() == 0 ? "text-danger" : ""))) ?>">
                             <td>
                                 <?= $donnees['jeux'][$i]->getJeuxId() ?>
                             </td>
@@ -25,7 +25,7 @@
                             <td>
                             <?php if($donnees["jeux"][$i]->getEvaluationGlobale() >= 0){ ?>
                                 <span class="score"><span style="width: <?= ($donnees["jeux"][$i]->getEvaluationGlobale() / 5) * 100 ?>%"></span></span>
-                                (<?= round($donnees["jeux"][$i]->getEvaluationGlobale(), 2) ?>&nbsp;/&nbsp;5)
+                                <br><small>(<?= round($donnees["jeux"][$i]->getEvaluationGlobale(), 2) ?>/5) <?= $donnees['nbEvaluationsJeux'][$i][0] . " " . ($donnees['nbEvaluationsJeux'][$i][0] > 1 ? "évaluations" : "évaluation") ?></small>
                             <?php } else { ?>
                                 <span>Jeu&nbsp;non évalué</span>
                             <?php } ?>
@@ -40,24 +40,22 @@
                             <?php } else {
                                 if ($donnees['jeux'][$i]->getJeuxActif() == 0) { ?>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-outline-success m-1" onclick="updateJeu(<?= $donnees['jeux'][$i]->getJeuxId() ?>, 'activerJeu')">Réactiver</button>
+                                        <button type="button" class="btn btn-sm btn-outline-success m-1" onclick="updateJeu(<?= $donnees['jeux'][$i]->getJeuxId() ?>, 'activerJeu')" <?= $donnees['membreJeu'][$i]->getMembreActif() == 0 ? "disabled" : "" ?>>Réactiver</button>
                                     </td>
                                 <?php } else { ?>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-outline-info m-1" onclick="updateJeu(<?= $donnees['jeux'][$i]->getJeuxId() ?>, 'desactiverJeu')">Désactiver</button>
                                     </td>
                                 <?php }
-                                if ($donnees['jeux'][$i]->getlocation() == 1) {
-                                    if ($donnees['jeux'][$i]->getJeuxBanni() == 0) { ?>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-outline-danger m-1" onclick="updateJeu(<?= $donnees['jeux'][$i]->getJeuxId() ?>, 'bannirJeu')">Bannir</button>
-                                        </td>
-                                    <?php } else { ?>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-outline-warning m-1" onclick="updateJeu(<?= $donnees['jeux'][$i]->getJeuxId(); ?>, 'debannirJeu')">Dé-bannir</button>
-                                        </td>
-                                    <?php }
-                                }
+                                if ($donnees['jeux'][$i]->getJeuxBanni() == 0) { ?>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-danger m-1" onclick="updateJeu(<?= $donnees['jeux'][$i]->getJeuxId() ?>, 'bannirJeu')">Bannir</button>
+                                    </td>
+                                <?php } else { ?>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-warning m-1" onclick="updateJeu(<?= $donnees['jeux'][$i]->getJeuxId(); ?>, 'debannirJeu')">Dé-bannir</button>
+                                    </td>
+                                <?php }
                             } ?>
                         </tr>
                     <?php } ?>

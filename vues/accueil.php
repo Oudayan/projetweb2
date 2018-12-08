@@ -15,7 +15,7 @@
                                         <h4><?= $_SESSION["msg"] ?></h4>
                                     <?php } ?>
                                 </div>
-                                <h5 class="text-center pt-5 pb-5">La plus grande plateforme d'achat, vendre et d'échange de jeux vidéos du Canada !</h5>
+                                <h5 class="text-center pt-5 pb-5">La plus grande plateforme d'achat, de vente et d'échange de jeux vidéos du Canada !</h5>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div id="carouselTrois" class="carousel slide" data-ride="carousel" data-interval="3000">
@@ -67,40 +67,13 @@
                                     <div class="card-body">
                                         <h6 class="card-text"><?= $donnees['derniers'][$i]->getTitre() ?></h6>
                                         <div class="pt-2">
-                                            <?php
-                                            if ($donnees["derniers"][$i]->getPlateformeId() == 1 ) {
-                                                echo '<p title="Playstation 4" class="fab fa-playstation"></p> Playstation 4';
-                                            }
-                                            else if ($donnees["derniers"][$i]->getPlateformeId() == 2 ) {
-                                                echo '<p title="Xbox One" class="fab fa-xbox"></p> Xbox One';
-                                            }
-                                            else if ($donnees["derniers"][$i]->getPlateformeId() == 3 ) {
-                                                echo '<p title="Nintendo Wii U" class="fab fa-nintendo-switch"></p> Nintendo Wii U';
-                                            }
-                                            else if ($donnees["derniers"][$i]->getPlateformeId() == 4 ) {
-                                                echo '<p title="Windows" class="fab fa-windows"></p> Windows';
-                                            }
-                                            else if ($donnees["derniers"][$i]->getPlateformeId() == 5 ) {
-                                                echo '<p title="Playstation 3" class="fab fa-playstation"></p> Playstation 3';
-                                            }
-                                            else if ($donnees["derniers"][$i]->getPlateformeId() == 6 ) {
-                                                echo '<p title="Xbox 360" class="fab fa-xbox"></p> Xbox 360';
-                                            }
-                                            else if ($donnees["derniers"][$i]->getPlateformeId() == 7 ) {
-                                                echo '<p title="Nintendo Switch" class="fab fa-nintendo-switch"></p> Nintendo Switch';
-                                            }
-                                            else if ($donnees["derniers"][$i]->getPlateformeId() == 8 ) {
-                                                echo '<p title="Playstation Vita" class="fab fa-playstation"></p> Playstation Vita';
-                                            }
-                                            ?>
+                                        <p><?= $donnees["plateformeDerniers"][$i]->getPlateformeIcone() . " " . $donnees["plateformeDerniers"][$i]->getPlateforme() ?></p>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
                                                 <h6><?= ($donnees["derniers"][$i]->getLocation() == 1 ? "À Louer" : "À vendre") ?></h6>
-                                                <!-- <a href="index.php?Jeux&action=afficherJeu&JeuxId=<?= $donnees['derniers'][$i]->getJeuxId() ?>" class="btn btn-sm btn-outline-secondary">Détails</a> -->
-                                                <!-- <button type="button" class="btn btn-sm btn-outline-secondary" onclick="AcheterJeux('<?= $donnees['derniers'][$i]->getJeuxId() ?>')"><?= ($donnees["derniers"][$i]->getLocation() == 1 ? "Louer" : "Acheter") ?></button> -->
                                             </div>
-                                            <small class="text-muted">Prix : <?= $donnees['derniers'][$i]->getPrix() ?> $CAD</small>
+                                            <small class="text-muted">Prix : <?= $donnees['derniers'][$i]->getPrix() ?> $CAD <?= $donnees["derniers"][$i]->getLocation() ? "par jour" : "" ?></small>
                                         </div>
                                     </div>
                                 </div>

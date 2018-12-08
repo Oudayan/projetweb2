@@ -20,24 +20,26 @@
                             </a>
                         </td>
                         <td class="text-center"><strong><?= $jeux->getTitre() ?></strong><?= isset($_SESSION["datesLocation"][$i]) && $jeux->getLocation() ? '<p class="pt-2"><small>Du ' . $_SESSION["datesLocation"][$i] . '</small></p>' : '' ?></td>
-                        <td class="text-center"><?= $jeux->getPrix() ?> $CAD</td>
+                        <td class="text-center"><?= $jeux->getPrix() ?> <small>$CAD</small></td>
                         <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
-                        <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> $CAD</td>
+                        <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> <small>$CAD</small></td>
                         <td class="text-center"><a href="index.php?Achat&action=supprimerAchat&jeux_id=<?= $jeux->getJeuxId() ?>" class="btn btn-danger"><i class="fa fa-eraser"></a></td>
                     </tr>
                     <?php $i++;
                 } ?>
                 <tr>
                     <td class="totalPanier" colspan="4"><strong>Total</strong></td>
-                    <td><?= number_format($_SESSION["prixTotal"], 2) ?> $CAD</td>
+                    <td><?= number_format($_SESSION["prixTotal"], 2) ?> <small>$CAD</small></td>
                     <td></td>
                 </tr>
+                <?php if ($_SESSION["type"] > 1) { ?>
                 <tr>
                     <td colspan="6"> <a href="index.php?Achat&action=payerPanier&transaction_id=Comptant" class="btn btn-success">Payer comptant</a></td>
                 </tr>
                 <tr>
                     <td colspan="6"> <a href="index.php?Achat&action=payerPanier&transaction_id=Cheque" class="btn btn-primary">Payer par chèque</a></td>
                 </tr>
+                <?php } ?>
                 <tr>
                     <td colspan="6">
                         <div id="paypal-button-container"></div>

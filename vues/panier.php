@@ -26,9 +26,9 @@
                                     </a>
                                 </td>
                                 <td class="text-center"><strong><?= $jeux->getTitre() ?></strong><?= isset($_SESSION["datesLocation"][$i]) && $jeux->getLocation() ? '<p class="pt-2"><small>Du ' . $_SESSION["datesLocation"][$i] . '</small></p>' : '' ?></td>
-                                <td class="text-center"><?= number_format($jeux->getPrix(), 2) ?> $</td>
+                                <td class="text-center"><?= number_format($jeux->getPrix(), 2) ?> <small>$CAD</small></td>
                                 <td class="text-center"> x <?= isset($_SESSION["quantite"][$i]) ? $_SESSION["quantite"][$i] : "1" ?></td>
-                                <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> $</td>
+                                <td class="text-center"><?= isset($_SESSION["prix"][$i]) ? number_format($_SESSION["prix"][$i], 2) : $jeux->getPrix() ?> <small>$CAD</small></td>
                                 <td class="text-center">
                                     <button id="supprimerJeuxCart<?= $jeux->getJeuxId() ?>" onclick="supprimerJeuxCart('<?= $jeux->getJeuxId() ?>')" class="btn btn-danger"><i class="fa fa-eraser"></i></button>
                                 </td>

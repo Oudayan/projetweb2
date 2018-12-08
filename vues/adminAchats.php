@@ -7,6 +7,7 @@
                                     <th scope="col">Propriétaire</th>
                                     <th scope="col">Acheteur</th>
                                     <th scope="col">Paiement</th>
+                                    <th scope="col">Prix</th>
                                     <th scope="col">Date d'achat</th>
                                     <th scope="col">Opération</th>
                                 </tr>
@@ -19,7 +20,8 @@
                                     <td><?= $donnees['proprietaireJeuAchat'][$i]->getPrenom() . ' ' . $donnees['proprietaireJeuAchat'][$i]->getNom() ?></td>
                                     <td><?= $donnees['membreAchat'][$i]->getPrenom() . ' ' . $donnees['membreAchat'][$i]->getNom() ?></td>
                                     <td><?= $donnees['typePaiementAchat'][$i]->getTypePaiement() ?> </td>
-                                    <td><?= $donnees['achats'][$i]->getDateAchat() ?> </td>
+                                    <td><?= $donnees['achats'][$i]->getPrixAchat() ?> <small>$CAD</small></td>
+                                    <td><?= $donnees['achats'][$i]->getDateAchat() ?></td>
                                     <?php if ($donnees['achats'][$i]->getAchatActif() == 0) { ?>
                                         <td><button type="button" class="btn btn-sm btn-outline-success m-1" onclick="updateAchat(<?= $donnees['achats'][$i]->getAchatId() ?>, 'activerAchat')">Réactiver</button></td>
                                     <?php } else { ?>

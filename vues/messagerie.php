@@ -2,12 +2,12 @@
     <div class="container">
         <h1 class="text-center my-3">Messagerie</h1>
         <input type="hidden" id="membre_id" value="<?= isset($_SESSION["id"]) ? $_SESSION["id"] : ""?>"/>
-        <div class="h3 mt-5 mb-5" style="display:flex;">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <div class="row d-flex h3 mt-5 mb-5">
+            <div class="col-md-3 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Messages</a>
                 <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Envoyés</a>
             </div>
-            <div class="tab-content ml-3" id="v-pills-tabContent">
+            <div class="col-md-9 tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <ul class="list-message">
                     <?php if (isset($donnees["messagesRecu"])) {

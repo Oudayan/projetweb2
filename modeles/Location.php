@@ -19,11 +19,12 @@
         private $date_location;
         private $date_debut;
         private $date_retour;
+        private $prix_location;
         private $transaction_id;
         private $location_active;
 
         // Constructeur
-        public function __construct($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_location = "", $date_debut = "", $date_retour = "", $transaction_id = "", $location_active = 1) {
+        public function __construct($location_id = 0, $type_paiement_id = 0, $membre_id = 0, $jeux_id = 0, $date_location = "", $date_debut = "", $date_retour = "", $prix_location = 0, $transaction_id = "", $location_active = 1) {
             $this->setLocationId($location_id);
             $this->setTypePaiementId($type_paiement_id);
             $this->setMembreId($membre_id);
@@ -31,6 +32,7 @@
             $this->setDateLocation($date_location);
             $this->setDateDebut($date_debut);
             $this->setDateRetour($date_retour);
+            $this->setPrixLocation($prix_location);
             $this->setTransactionId($transaction_id);
             $this->setLocationActive($location_active);
         }
@@ -111,6 +113,17 @@
         public function setDateRetour($date_retour) {
             if (is_string($date_retour) && trim($date_retour) != "") {
                 $this->date_retour = $date_retour;
+            }
+        }
+
+        /**
+         * @brief      Permet de définir en ecriture l'attribut de la classe Location
+         * @param      [numeric]  $prix_location, Setter pour le prix de location du jeu
+         * @return     [object]
+         */
+        public function setPrixLocation($prix_location) {
+            if (is_numeric($prix_location) && trim($prix_location) != "") {
+                $this->prix_location = $prix_location;
             }
         }
 
@@ -201,6 +214,15 @@
          */
         public function getDateRetour() {
             return $this->date_retour;
+        }
+
+        /**
+         * @brief      Permet de définir en lecture l'attribut de la classe Location
+         * @param      [string]  $prix_location, Getter pour le prix de location du jeu
+         * @return     [object]
+         */
+        public function getPrixLocation() {
+            return $this->prix_location;
         }
 
         /**
